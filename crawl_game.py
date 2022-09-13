@@ -14,7 +14,9 @@ def main():
     year = []
     score_bl = []
     score_user = []
-
+    gametype = []
+    gametheme = []
+    mechanisms = []
     image = []
 
     index = True
@@ -35,7 +37,6 @@ def main():
                 index = False
 
         table_title = soup.find_all('div', class_="storage-title")
-        table_titleEn = soup.find_all('div', class_="storage-sub-title")
         table_year = soup.find_all('div', class_="storage-year")
         table_score_bl = soup.find_all('div', class_="storage-avg")
         table_score_user = soup.find_all('div', class_="storage-point")
@@ -44,10 +45,39 @@ def main():
             image.append(i['src'])
         for i in range(0, len(table_title)):
             title_kor.append(table_title[i].text)
-            title_eng.append(table_titleEn[i].text)
             year.append(re.sub(r'[^0-9]', '',table_year[i].text))
             score_bl.append(table_score_bl[i].text)
             score_user.append(table_score_user[i].text)
+            driver.find_element("xpath", '/html/body/div[5]/div[1]/div[2]/div[2]/a[' + str(i+1) + ']').click()
+            soup = bs(driver.page_source, 'html.parser')
+            strlist = soup.find('ul', id="game-type")
+            print(strlist)
+            st = ''
+            for j in strlist:
+                st = st + j.text + ','
+            gametype.append(st)
+            print(st)
+            strlist = soup.find('ul', id='game-category')
+            st = ''
+            for j in strlist:
+                st = st + j.text + ','
+            gametheme.append(st)
+            print(st)
+            strlist = soup.find('ul', id='game-mechanisms')
+            st = ''
+            for j in strlist:
+                st = st + j.text + ','
+            mechanisms.append(st)
+            print(st)
+            driver.find_element("xpath", '//*[@id="game-overview-box"]/div[2]/div[1]/div[6]/a').click()
+            print(driver.window_handles)
+            driver.switch_to.window(driver.window_handles[-1])
+            soup = bs(driver.page_source, 'html.parser')
+            title_eng.append(soup.select_one('h1 > a').text)
+            print(soup.select_one('h1 > a').text)
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])
+            driver.back()
         if index :
             if int(index_now) + 1 < int(index_next):
                 next_index = int(index_now) + 2
@@ -58,7 +88,7 @@ def main():
 
     # '''csv 저장'''
     info = pd.DataFrame(
-        {"이름": title_kor, "이름(eng)": title_eng, "년도": year, "img": image, "점수(bl)": score_bl, "점수(user)": score_user})
+        {"이름": title_kor, "이름(eng)": title_eng, "년도": year, "img": image, "점수(bl)": score_bl, "점수(user)": score_user, "분류" : gametype, "테마" : gametheme, "진행방식" : mechanisms})
     info.to_csv('보드게임목록.csv', header=False, index=False, encoding='utf-8-sig')
     return info
 
