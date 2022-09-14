@@ -16,15 +16,15 @@ mec = 'https://www.divedice.net/board/wiki?ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%
 cate_urls = []
 mec_urls = []
 
-urls = [cate, mec]
+cate_detail_file = open("cate_detail.csv", "w", newline='')
+cate_detail = csv.writer(cate_detail_file)
+urls = [mec] #[cate, mec]
 for url in urls:
     driver.get(url)
     tbody = driver.find_element(By.TAG_NAME, 'tbody')
     rows = tbody.find_elements(By.TAG_NAME, 'tr')
 
 
-    cate_detail_file = open("cate_detail.csv", "w", newline='')
-    cate_detail = csv.writer(cate_detail_file)
     cate_detail.writerow(['이름', '링크', '상세정보'])
     for tr in tqdm(rows):
         tds = tr.find_elements(By.TAG_NAME, 'td')
@@ -39,8 +39,8 @@ for url in urls:
             # print(href)
             cate_elem.append(href)
 
-            options = webdriver.ChromeOptions()
-            options.add_experimental_option("excludeSwitches", ["enable-logging"])
+            # options = webdriver.ChromeOptions()
+            # options.add_experimental_option("excludeSwitches", ["enable-logging"])
             ndriver = webdriver.Chrome(options=options)
             ndriver.get(str(href))
             add = ndriver.find_element(By.CLASS_NAME, 'memoWrap').text
