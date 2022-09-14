@@ -16,7 +16,7 @@ mec = 'https://www.divedice.net/board/wiki?ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%
 cate_urls = []
 mec_urls = []
 
-cate_detail_file = open("cate_detail.csv", "w", newline='')
+cate_detail_file = open("cate_detail.csv", "w", newline='', encoding='utf-8')
 cate_detail = csv.writer(cate_detail_file)
 urls = [mec] #[cate, mec]
 for url in urls:
