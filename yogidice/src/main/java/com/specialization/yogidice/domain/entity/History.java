@@ -8,6 +8,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,8 +23,10 @@ public class History {
     @Column(name="history_id")
     private Integer id;
 
+    @NotNull
     private Integer rating;
 
+    @Column(length = 1000)
     private String review;
 
     @Generated(GenerationTime.INSERT)
@@ -39,7 +42,6 @@ public class History {
 
     @Builder
     public History( Integer rating, String review, LocalDateTime create_at, User user, BoardGame boardGame) {
-
         this.rating = rating;
         this.review = review;
         this.create_at = create_at;
