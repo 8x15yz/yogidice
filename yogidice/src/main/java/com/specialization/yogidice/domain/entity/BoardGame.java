@@ -81,4 +81,5 @@ public class BoardGame {
         this.contents = contents;
         this.contentsImgURL = contentsImgURL;
     }
+
 }
