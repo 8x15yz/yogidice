@@ -1,68 +1,163 @@
 이름,링크,상세정보
-1차 세계 대전 (World War I),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=866,"1차 세계 대전 게임은 1914년부터 1918년까지 있었던 군사 작전을 다룹니다. 
-대부분의 1차 세계 대전 게임은 전쟁 게임으로 분류됩니다. 
+1인용 게임 (Solo / Solitaire Game),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1018,"혼자 게임을 하도록 설계된 게임이거나, 그러한 게임 모드를 포함한 게임을 말합니다. 
+원래 2인 이상 게임이나, 플레이어가 실력을 향상시키기 위해 두개 이상의 진영을 플레이할 수 있는 게임은 이에 포함되지 않습니다(보통 전쟁 게임 플레이어나 체스 플레이어들 중에 이러한 경우가 많습니다). "
+1회용 능력 (Once-Per-Game Abilities),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=972,"플레이어들은 게임에서 한 번 사용할 수 있는 특수 능력을 가집니다. 
+이는 Warmachine의 'feats'처럼 플레이어들의 고유 능력이거나, Finca에서의 특별 전표처럼 모든 플레이어들이 공통적으로 쓸 수 있는 능력입니다. 
+종종 플레이어들은 게임 중 이 능력을 사용하지 않았다면 추가 승점을 받을 수도 있습니다. "
+3차원 이동 (Three Dimensional Movement),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1032,"게임말의 위치 및 이동이 3차원 공간에서 이루어집니다. 다층 게임 공간이나 평면(2차원) 게임 공간의 위 또는 아래에 높이를 표시하는 표시말이나 토큰 등으로 표현됩니다. 
+예시 게임으로는 Chopper Strike가 있습니다. 이 게임은 물리적으로 헬리콥터나 탱크가 이동하는 2층 구조를 가집니다. 다른 예인 Attack Vector: Tactical은 게임판 표면에 높이를 보여주는 타일을 가지고 있습니다. "
+가변적 단계 순서 (Variable Phase Order),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1042,"가변적 단계 순서는 차례가 이전 또는 이후와 같은 방법으로 진행되지 않을 수 있다는 것을 의미합니다. 
+푸에르토 리코에서 대표적으로 이 방법을 사용합니다. 매 차례는 서로 다릅니다. 누가 어떤 역할을 선택하기 시작하는지, 어떤 역할을 맡는지에 따라, 여러분은 ""건설"" 행동을 원하는 것보다 더 빨리 수행해야 할 수도 있습니다. 어떤 게임에서는, 특정 행동을 수행하는 것이 거부될 수도 있습니다. 
+행동이 제한되고 게임의 차례 순서가 정해져있지 않은 대부분의 게임은 이 메커니즘에 해당합니다만, 단순히 차례 순서가 변한다고 이 메커니즘 게임인 것은 아닙니다.  "
+가변적 준비 (Variable Set-up),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1044,"게임 시작 상황이 매 게임마다 바뀝니다. 지도같은 공용 게임 구성물을 바꾸거나, 자원이나 목표같은 플레이어들의 시작 구성 등이 바뀔 수 있습니다."
+가변적 플레이어 능력 (Variable Player Powers),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1043,"각 플레이어들은 각자 자신만 사용할 수 있거나, 기본 행동을 개선할 수 있는 특별한 행동을 가집니다.  "
+가위바위보 (Rock-Paper-Scissors),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1002,"3가지 선택지가 있습니다. 3가지는 순환적으로 상성 우위를 가집니다(A가 B를 이기고, B가 C를 이기고, C는 A를 이깁니다). 
+이 이름은 아이들이 자주 즐기는 놀이에서 따 왔습니다. 이 게임에서 
+가위는 보자기를 자르고
+보자기는 바위를 감싸고
+바위는 가위를 망가뜨립니다. 
+하지만 순환하는 메커니즘이 있는 모든 게임을 가리킬 수 있습니다. "
+가장 높은 최솟값 점수 (Highest-Lowest Scoring),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=933," 플레이어의 점수는 여러 카테고리에서 가장 낮은 값이 됩니다. 누구든 가장 높은 최솟값을 가진 플레이어가 게임에서 승리합니다. 
+이 시스템은 보통 크니치아(Knizia) 작가의 점수 방식으로 알려져 있습니다. 이 메커니즘을 일찍이 활용한 예로는 티그리스 & 유프라테스가 있습니다. 이 게임에서 플레이어는 서로 다른 4가지 색깔(빨간색, 초록색, 파란색, 노란색)의 큐브를 모으고 가장 큐브의 수가 적은 색깔이 점수가 됩니다. 한 플레이어가 빨간색 12개, 초록색 10개, 파란색 6개, 노란색 2개를 가지고 있다면 이 플레이어의 최종 점수는 2점입니다. 이 메커니즘은 플레이어가 특정 큐브만 집중적으로 모으지 않도록 만듭니다. 가장 높은 최솟값 점수는 완성한 세트만 점수로 계산되는 ""세트 모으기(Set Collection)"" 중 특별한 경우입니다.
+  참조 : 세트모으기(Set Collection)"
+감싸기 (Enclosure),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=918,"영역 감싸기 게임에서 플레이어들은 일정 영역을 둘러싸기 위해 자신이 가진 구성물을 놓거나 이동시킵니다. 영역 감싸기로 가장 오래되고 유명한 게임이라면 단연코 바둑이겠으나, 굳이 거기까지 가지 않더라도 이에 해당하는 게임은 많습니다.
+영역 감싸기는 ""지역 우선권 / 영향력(Area Majority / Influence)""과는 다릅니다. 영역 감싸기에서는 플레이어들이 게임을 하는 동안 구획이 나누어진 게임판에서 실제로 특정 영역을 만들어내는 반면, ""지역 우선권 / 영향력(Area Majority / Influence)"" 게임에서는 각 지역이 이미 만들어져 있고 플레이어들은 그 지역에 대한 통제권을 놓고 경쟁합니다."
+강제 입찰 (Constrained Bidding),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=903,"""강제 입찰""은 다른 경매 유형에 적용될 수 있는 메타-메커니즘입니다. 이 방식에서는 플레이어가 원하는 금액으로 자유롭게 입찰을 할 수 없습니다. 이러한 유형에는 플레이어가 더 높은 금액을 불러야만 하거나, 특정 조합으로 주어진 자원으로만 입찰해야 하는 등이 있습니다.
+예를 들어 태앙신 라에서는 플레이어들이 각자 주어진 3개의 입찰 타일 중 하나를 골라서 입찰을 해야 하며, 하이 소사이어티에서는 각자 손에 든 돈 카드를 추가로 내서 입찰 금액을 올려야만 하고 원하는 대로 입찰 금액을 바꾸는 것은 금지됩니다."
+거래 (Trading),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=980,이런 게임에서 플레이어들은 시장 등을 통하는 게 아니라 직접적으로 자산을 거래합니다. 
+게임 종료 보너스 (End Game Bonuses),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=919,게임 종료 보너스 게임은 게임이 종료될 때 플레이어들이 추가 점수를 얻는(또는 잃기도 하는!) 게임입니다.
+게임말 동시 이동 (Moving Multiple Units),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=966,"하나 이상의 게임말을 움직이는 행동입니다.
+이 메커니즘은 라는 게임에서 처음 선보였습니다. 이 게임에서 플레이어는 우승할 것으로 예상되는 자동차를 골라 돈을 걸어 우승시키게 됩니다. 하지만, 게임에서 자동차를 움직이기 위해 사용해야 하는 카드는 여러 개의 자동차를 동시에 움직이게 합니다. 이에 따라 플레이어는 자신이 우승을 예측한 자동차에게 최대한 유리하면서 다른 자동차는 최대한 덜 움직이게끔 카드를 사용하게 됩니다."
+겹쳐 놓기 (Layering),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=945,"겹쳐 놓기 메커니즘은 구성물 위에 다른 구성물을 포개어 올려 놓는 방식을 의미합니다. 구성물은 다양한 방식으로 겹쳐 놓을 수 있습니다. 구성물이 서로 겹쳐져 있다면, 가장 위에 있어 아무 것에도 가려지지 않은 아이콘이나 영역만 활성화된 것입니다.
+겹쳐 놓기 메커니즘은 Patchistory나 Smartphone Inc. 같은 게임에서 찾아볼 수 있습니다."
+경로와 네트워크 건설 (Network and Route Building),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=971,"이 메커니즘 게임은 목적지 사이의 경로로 표현되는 연결된 경로와 교차점의 개발을 담고 있습니다. 이 메커니즘은 단순히 점수를 매기는 것 이상으로, 특별한 행동을 유발하거나 유지비를 요구하는 등의 게임 내 효과를 제공한다는 점에서 ""연결(Connections)"" 메커니즘과는 다릅니다. 
+이 시스템은 다양하게 구현되었는데, 가장 많은 형태는 기차 테마 게임입니다. 1830: Railways & Robber Barons은 인쇄된 트랙이 있는 타일을 사용합니다. Empire Builder는 지도에 크레용이나 화이트보드용 마커로 지도에 선을 그립니다. '파워 그리드'에서는 네트워크를 건설함으로써 경제적 효과를 얻습니다. Hansa Teutonica는 거래 네트워크의 연결을 완성하면 보너스 효과를 발생시킵니다. "
+경매 / 입찰 (Auction / Bidding),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=877,"이 메커니즘 게임에서 플레이어들은 게임 내에서 자신의 위치를 강화하기 위해, 상품 경매에서 나온 물품에 대해 보통 (게임) 화폐를 통해 입찰합니다. 이러한 상품들은 플레이어들이 미래에 할 행동이나 현재 위치를 강화하는데 사용됩니다. 경매는 주어진 항목에 대해 한 명의 승자가 등장할 때까지 입찰을 차례대로 주고 받은 다음 승자에게 해당 물품의 조종권을 주는 것으로 구성됩니다. 보통, 이런 게임에는 어떤 플레이어도 현재 가격에 관심을 갖지 않는 물품이 있을 경우 그 물품의 가격을 떨어뜨리는 규칙이 있습니다. 대부분의 게임에서 한 물품에 대한 승자가 탄생했고, 입찰할 물품이 추가로 있는 경우, 다른 아이템들에 대한 추가적인 경매가 시행됩니다. 이 과정을 경매 단계 내에서 어떤 종료 조건이 발동되거나, 모든 물품이 고갈될 때까지 반복합니다. 이는 일꾼 놓기 게임과 유사합니다. 그러나 이 메커니즘에서는 일꾼이 더 높은 입찰에 의해 쫓겨날 수 있습니다. 
+예를 들어 파워 그리드에서 플레이어들은 발전소 없이 게임을 시작하고 전기를 생산하기 위해 반드시 입찰을 이겨야만 합니다. 주어진 발전소에 대한 입찰을 승리하는 것은 해당 플레이어가 그 발전소를 자신의 발전소 칸에 놓고 주어진 차례에 더 많은 전기를 생산할 수 있도록 합니다.  Vegas Showdown에서 플레이어들은 더 크고 고급스러우며 가치있는 호텔을 짓기 위해 슬롯 머신이나 레스토랑 같은 공간에 대해 입찰합니다. 승리한 플레이어는 경매에 의해 매겨진 금액을 지불하고 해당 공간을 자신의 호텔에 놓습니다. 이 두 예시에서 모두, 입찰은 차례 단위로 이루어지며, 플레이어는 자신의 차례에 입찰을 포기할 수도 있습니다. "
+경매 : 고정 위치 (Auction : Fixed Placement),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=882,"고정 위치 경매는 플레이어들이 어떤 물품에 입찰할 수 있는지에 대한 규칙을 만들고 판 또는 카드로 이를 표현함으로써 다중 입찰 경매를 변형한 상위 메커니즘입니다. 이 방식은 또한 한정 금액 경매와 종종 결합됩니다. 고정 위치 경매는 모든 플레이어가 패스하거나, 어떤 플레이어도 더 이상 입찰할 수 있는 권한이 없을 때 끝납니다. 가장 높게 입찰한 사람이 물품을 얻습니다. 
+이 메커니즘의 좋은 예로 아문레와 Vegas Showdown이 있습니다. 이 게임들에는 경매 물품을 위한 트랙이 있습니다. 각 플레이어들은 관심있는 물품의, 원하는 가격에 마커를 둡니다. 다른 플레이어가 그 물품에 입찰하고 싶다면, 그 플레이어는 자신의 마커를 해당 물품 트랙의 현재 가격보다 더 높은 가격 칸에 놓아야 합니다. 이렇게 밀려난 플레이어는 자신의 마커를 회수하고, 다음 자신의 차례에 해당 칸의 더 높은 가격 칸에 놓거나, 아니면 다른 칸에 마커를 놓을 수 있습니다. 
+모든 플레이어가 자신의 마커를 놓았다면, 입찰이 해결됩니다. "
+경매 : 네덜란드식 (Auction : Dutch),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=879,"동시다발적인 단일 입찰제로, 시작 가격은 매우 높은 가격으로 시작해서 경매 참가자나 다른 조정 메커니즘에 의해 점점 가격이 줄어들다가, 누군가가 현재 가격에 합의를 선언할 때까지 진행하고, 경매가 종료됩니다. 현재 가격을 받아들인 최초 입찰자가 경매의 승자가 됩니다. 동점자는 없습니다. 네덜란드식 경매는 1회 입찰 경매로도 불립니다. 첫 입찰이 해당 경매의 유일한 입찰이 되기 때문입니다. 
+이 메커니즘을 가장 순수하게 구현한 게임은 Merchants of Amsterdam입니다. 이 게임은 점진적으로 누군가가 때려서 경매를 승리할 때까지 가격을 줄이는 용수철 장전 메커니즘을 채용했습니다. 
+이 카테고리는 물품이 트랙에서 점점 미끄러져 내려가며, 그에 따라 가격 역시 줄어드는 메커니즘도 포함하고 있습니다. Through the Ages: A Story of Civilization와 같은 게임에서의 카드 드래프팅이 이 메커니즘의 일반적인 모습입니다. 조금 다르지만 논리적으로 동일한 과정으로는 선택 받지 못한 자원의 가치 상승 (Increase Value of Unchosen Resources)가 있습니다. "
+경매 : 네덜란드식 우선권 (Auction : Dutch Priority),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=880,"네덜란드식 우선권 경매는 다중 입찰 경매로, 경매에 올라간 품목의 수에 따라 품목의 가격이 결정되는 경매입니다. 경매에서 승리한 입찰자는 선 플레이어로, 현재 그곳에 놓인 입찰 토큰의 숫자와 동일한 현재 가격을 지불할 것인지 결정할 수 있는 우선권을 가집니다. 우선권은 다양한 요인에 따라 결정되는데, 일반적인 차례 순서에 따라 결정되거나, 각 품목별 별도 차례순서에 따라 결정될 수 있습니다. 플레이어들은 자신이 우선 입찰자일때, 보통 입찰 토큰의 수를 줄이기 위해 차례를 넘길 수도 있습니다. 이는 한 품목에 대한 가격을 낮추는 효과가 있습니다.
+The Speicherstadt는 이 메커니즘을 대표하는 게임입니다. 이 게임에서 플레이어들은 차례 순서에 따라 경매에 올라온 다양한 품목 앞에 미플을 놓습니다. 모든 미플을 놓은 후 각 물품의 가격이 매겨집니다. 해당 항목에 가장 먼저 미플을 놓은 플레이어가 먼저 구매할 수 있지만, 그 칸에 놓인 미플 수만큼의 금액을 내야합니다. 그 플레이어가 구매할 수 없거나 구매하지 않는다면, 그 플레이어는 미플을 되돌리고 다음 입찰자가 구매할 수 있는데, $1 싸게 구매할 수 있습니다. 
+이는 간단한 시스템이지만, 플레이어들에게 벼랑끝전술과 카운터 플레이의 기회를 열어줍니다. "
+경매 : 비밀 입찰 (Auction : Sealed Bid),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=884,"플레이어들은 비밀리에 경매에 입찰합니다. 모든 입찰금액은 동시에 공개됩니다. 가장 높은 금액을 입찰한 사람이 승리합니다. 
+이 경매 방식에서는 보통 최고 입찰자가 여럿일 때 이를 결정하는 규칙이 필요합니다. 일반적인 방법들로는 시작 플레이어에 가까운 사람으로 정하거나, 동점인 사람들끼리 재경매를 하는 방법이 있습니다. 
+이 방식의 변형으로 무효화 비밀 경매라 불리는 방식이 있습니다. 이 경우에는 둘 이상의 플레이어가 같은 금액으로 가장 높은 금액을 입찰했을 경우, 두 플레이어 모두의 입찰이 무효화되고 경매에서 제외됩니다. 같은 금액을 입찰하지 않은 사람들 중에서 가장 높은 금액을 입찰한 사람이 승자가 됩니다. 이 방식은 제한적 입찰과 함께 사용하여 동점 가능성을 높이는 것이 가장 좋은데, 독수리 눈치싸움이라는 게임에서 처음 사용되었습니다(독일어 게임명이 Hol's Der Geier라서, ""Hol's Der Geier 메커니즘""이라고 부릅니다)."
+경매 : 손재주 (Auction : Dexterity),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=878,"손재주 경매 게임에서 유효한 입찰을 제시하려면 특정한 손재주 행위를 수행해야 합니다. 보통 어떤 유효한 입찰 지역에 입찰 마커 자체를 배치하지만, 이를 구현하기 위한 다른 방법이 사용될 수도 있습니다. 
+예를 들어,  Going, Going, GONE! 에서 플레이어들은 자신의 입찰을 표현하기 위해 실시간으로 자신의 토큰을 컵에 넣어야 합니다. "
+경매 : 영국식 (Auction : English),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=881,"경매인은 일정 양의 입찰 금액을 요구하고 참가자들은 패들이나 손을 들어 해당 금액을 입찰함으로써 자신의 의지를 표현합니다. 플레이어들은 금액을 올려 입찰할 수 있고, 보통 자신의 실제 입찰 금액을 크게 소리높여 부름으로써 이를 표현합니다. 이 과정은 순서 없이 진행되고, 보통 경매인이 요구한 금액보다 소액을 높이거나, 훨씬 큰 금액을 부름으로써 진행됩니다. 어느 정도 금액에 도달해 일정 시간동안 인상이 없거나, 누구도 더 부를 사람이 없는 것이 명확한 경우, 경매인이 가장 높은 금액을 부른 플레이어를 승자로 선언하면서 경매가 끝납니다. "
+경매 : 입찰 포기 전까지 차례 순서대로 입찰 (Auction : Turn Order Until Pass),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=885,"한 플레이어부터 시작해 차례 순서대로, 플레이어들은 돌아가며 현재 입찰가보다 더 높은 금액을 부르거나 입찰을 포기합니다. 한 플레이어를 제외한 모두가 입찰에 포기하면, 마지막으로 남은 그 한 사람이 이번 경매의 승자가 됩니다.
+본 메커니즘에서 기본적으로 한 번 경매를 포기한 플레이어는 그 경매에 다시 참여할 수 없습니다. 하지만 재참가를 허용하게 하는 규칙을 채용한 게임도 그리 드물지는 않습니다."
+경매 : 한 바퀴 (Auction : Once Around),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=883,"플레이어들은 한 번의 입찰 기회가 있습니다. 이 때 패스하거나, 이전 입찰보다 더 높은 가격을 부릅니다. 입찰 순서는 차례 순서 구조에 따라서 결정됩니다. 마지막 플레이어까지 입찰 기회를 가진 후, 가장 높은 금액을 부른 사람이 승리합니다. 
+이 방식은 경매를 매우 짧게 해주지만(경매를 게임에 포함하는 것은 보통 게임 시간을 길게 만들기 때문에 위험합니다), 경매에서 승리하려면 얼마가 필요한지 알 수 있기 때문에 마지막 플레이어가 입찰에 매우 유리합니다. 따라서 디자이너는 필연적으로 밸런스에 신경을 많이 써야합니다. 
+Modern Art와 Medici에 이 방식 경매의 예시가 포함되어 있습니다. "
+경주 (Race),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=995,"먼저 핵심 목표를 달성한 첫 플레이어가 승리합니다. 보통 트랙의 끝에 다다른 첫 플레이어를 승자로 삼는 것으로 표현되는데, 고정된 목표을 가진 게임이라면 어떤 종류든지 경주 메커니즘 게임으로서 자격이 있습니다. 예를 들어, 어떤 플레이어가 10점에 도달하기 위해 경주하는 카탄도 경주 메커니즘 게임의 예시입니다. "
+계약 (Contracts),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=904,"플레이어들은 보상을 얻기 위해 계약을 완수해야 합니다. 이러한 계약은 대개 단순히 무엇을 제일 먼저 하는 것으로 끝나기보다는 치밀한 계획과 조정을 요구하는 특별한 목표라는 형태를 취합니다. 계약은 모든 플레이어가 달성을 경쟁하는 공공 목표일 수도, 또는 각자에게 주어지며 해당 플레이어만 달성 가능한 개인 목표일 수도 있습니다.
+계약은 많은 경우 Set Collection 메커니즘의 변종 형태를 띱니다. 예컨대 마르코 폴로에서는 계약이 특정 종류의 자원 묶음을 임의로 지정하고, 이를 지불하면 계약에 지정된 특정 보상을 얻을 수 있습니다. Pick-up and Deliver 메커니즘은 주로 철도 게임에서 흔히 등장하는 계약의 한 특별한 형태로, 이런 게임의 대표작으로는 Empire Builder를 꼽을 수 있습니다."
+공개 드래프트 (Card Drafting),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=892,"공개 드래프트란, 플레이어들이 즉각적/장기적 관점에서 이득을 보거나, 게임 내 목적 달성을 위한 특정 조합을 모으기 위해 공용 공급처에서 카드/타일/자원/주사위 등을 집어오는 게임에서 사용되는 메커니즘입니다.
+상트 페테르부르크는 오픈 드래프트 방식을 사용하는 게임의 좋은 예입니다.
+아줄은 조금 더 복잡한 오픈 드래프트 방식을 사용합니다. 아줄에서는 여러 개씩 묶인 타일 더미 중에서 한 더미를 고른 후, 그 더미에서 다시 타일 하나만 선택하고 나머지 타일들은 공용 공급처로 되돌립니다.
+단순히 카드 더미에서 카드를 뽑는 게임은 드래프트 게임이 아닙니다. 드래프트 메커니즘은 플레이어들에게 선택의 여지를 주어야 하며, 다른 플레이어들이 탐낼 만한 카드를 먼저 집어감으로 인해, 그 카드를 원했을 누군가가 그 카드를 얻지 못하게 방해하는 기능을 제공해야 합니다.
+예시: 티켓 투 라이드에서 플레이어들은 공개된 공급처에서 카드를 뽑을 수 있습니다. 물론, 게임 내에서 카드들은 대부분 카드 더미에서 무작위로 뽑히는 경우가 대부분이지만, 그렇다 하더라도 이 게임은 여전히 드래프트 게임으로 여겨집니다.
+본 메커니즘은 ""Drafting"" 항목에서 정의하는 비공개 드래프트와는 구별됩니다."
+구획 덮기 (Grid Coverage),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=926,"구획 덮기 게임은 Components: Polyominoes와 같이 다양한 형태의 구성물로 특정한 칸이나 구획을 덮는 일련의 메커니즘을 아우릅니다.
+간혹 ""테트리스 매커니즘""이라고 불리는 이 방식에서는 플레이어들이 구성물의 모양을 효율적으로 사용하기 경쟁을 벌입니다. 우봉고처럼 게임의 주요 메커니즘일 때도 있고 피렌체의 제후처럼 플레이어들이 선택을 계획하게 하거나 플레이어의 선택에 있어 제약의 기능을 하는 보조 메커니즘일 수도 있습니다.
+활용 가능한 영역을 한 가지 구성물 유형으로 갖추거나 감싸는 게임에서는(특히 공용 공간을 두고 경쟁하는 경우는) ""감싸기(Enclosure)"" 방식을 활용합니다."
+구획 이동 (Grid Movement),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=927,"구획 이동은 말이 다양한 방향의 구획으로 이동할 때 일어납니다. 구획은 (체스처럼) 정사각형 모양이 될 수도 있고 (아발론 클래식처럼) 육각형 모양이 될 수도 있습니다.
+한 게임에 (체스나 체커처럼) 많은 말이 쓰일 수도 있고 (Fresco의 bishop처럼) 단 하나의 말만 쓰일 수도 있습니다."
+굴림 / 돌림 이동 (Roll / Spin and Move),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1005,"굴림/돌림 이동 게임에서 플레이어들은 주사위를 굴리거나 돌림판을 돌려서 결정된 숫자에 따라 말을 이동합니다. 
+이 용어는 게임을 하며 생각할 필요가 없는 게임이라는 것을 은연중에 언급하는 비판적인 용도로 사용됩니다. 그러나 백개먼 같은 굴림 이동 게임은 전략적 요소를 포함하고 있습니다. "
+귀납 추론 (Induction),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=939,"플레이어들이 게임을 통제하고 있는 특정한 규칙을 알아내려 시도하는 게임을 귀납 추론 게임이라고 합니다. 흔히 귀납 추론 게임에서는 게임 마스터가 비밀 규칙을 만든 다음, 플레이어들이 특정한 패턴을 만듭니다. 그 뒤, 게임 마스터에게 그 패턴이 규칙에 부합하는지 아닌지를 검증 받습니다. 이러한 검증 과정을 거쳐, 플레이어들은 비밀 규칙이 무엇인지 알아낼 수 있습니다.
+귀납 추론 메커니즘을 사용한 게임으로는 Eleusis와 Zendo가 있습니다."
+기술 트리 / 기술 트랙 (Tech Tree / Tech Tracks),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1031,"게임 과정에서, 새로운 행동이 특별한 플레이어들에게 가능하거나, 존재하는 행동이 향상됩니다. 이러한 것은 보통 기술이라고 칭해지는데, 꼭 그 용어일 필요는 없습니다.  
+때로 이러한 메커니즘은 나무 형태로 표현되는데, 하나의 기술을 얻으면, 여러 개의 다른 기술을 해금할 수 있는 모양으로 구현됩니다. 또는, 이 메커니즘은 트랙 모양일 수도 있습니다. 이 경우 트랙을 전진하면서 향상된 기술이나 새로운 기술을 해금하게 됩니다. "
+기억 (Memory),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=960,기억할 수 있는 숨겨진 정보를 제공하여 이를 기억하는 플레이어에게 이점을 줍니다
+"내가 나누고 다른 사람이 선택 (I Cut, You Choose)",https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=935,"한 플레이어가 한 자원 세트를 여러 그룹으로 나눕니다. 다른 플레이어들이 그중 어떤 그룹을 선택할지 먼저 선택합니다.
+<San Marco>와 <New York Slice>는 이 메커니즘을 활용하였습니다.
+이 메커니즘은 차례 순서와 같은 더 추상적인 것을 나누는 데에도 사용될 수도 있습니다. 많은 게임에서 첫 번째 플레이어가 갖는 이점을 최소화하기 위해 소위 ‘파이 규칙’ 또는 <Hex>와 같이 ‘교환 규칙’을 사용합니다. 이 게임에서는 첫 번째 플레이어가 첫 번째 행동을 하고 나서 두 번째 플레이어가 다음 두 가지 중 하나를 선택하여 수행합니다. 첫 번째 플레이어의 색깔과 첫 번째 행동을 두 번째 플레이어가 그대로 넘겨 받습니다, 또는 첫 번째 플레이어의 색깔과 첫 번째 플레이어의 첫 번째 행동을 그대로 두고 그에 대응하여 두 번째 플레이어가 첫 번째 행동을 합니다. 그 후에는 일반적인 규칙에 따라 이어서 차례를 진행합니다."
+노래 (Singing),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1015,노래 메커니즘을 사용한 게임에서 플레이어들은 게임의 요구사항을 달성하기 위해 친숙한 노래를 부르거나 흥얼거려야 합니다.
+뇌물 (Bribery),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=890,"플레이어들은 다른 플레이어들로 하여금 특별한 행동을 수행하게 만들기 위해 뇌물을 제안합니다.
+일반적으로, 플레이어들은 특정 행동에 대해서 뇌물을 제안합니다. 다른 플레이어가 그 제안을 수락하면 뇌물을 받습니다. 수락하지 않을 경우, 뇌물은 제안자에게 돌아갑니다. Santiago 및 Tonga Bonga가 이러한 방식을 채용했습니다.
+뇌물은 Negotiation 메커니즘의 일부로도 사용되는데, 이때 플레이어들이 제안하는 뇌물은 상대의 행동을 구속할 수도, 그렇지 않을 수도 있습니다. Intrigue는 후자의 대표적인 예입니다."
+"다양한 타입의 일꾼 놓기 (Worker Placement, Different Worker Types)",https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1049,"각 일꾼들이 여러 능력을 가지고, 향상되거나 격하되기도 하며, 종류에 따라 서로 다른 구역이나 건물에 놓일 수 있습니다. 
+이 메커니즘을 사용하는 게임에는 Age of Empires III: The Age of Discovery와 The Manhattan Project가 있습니다."
+다중 입찰 경매 (Multiple-Lot Auction),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=968,"플레이어들이 연속으로 한 번에 하나의 물품에 입찰하는 대신, 병렬적으로 여러 물품에 동시에 입찰하는 경매를 말합니다. 경매의 실제 형태는 각 경매 메커니즘에 따릅니다. 
+예를들어, Revolution!에서 플레이어들은 동시에 12개의 행동에 비밀 입찰 경매를 시행합니다. "
+다중 지도 (Multiple Maps),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=967,"특정 지점에서 연결된 여러 개의 지도를 사용하는 게임입니다.
+몇 가지 쉬운 예시를 들자면, 판타지 철도 게임인 <Iron Dragon>은 지상과 지하 지도를 사용하며, 두 지도는 연결되어 있습니다.
+<Khronos>는 게임판 3개를 사용하는데, 각 게임판은 같은 장소의 다른 시간대를 나타냅니다. 이전 시대의 게임판에 있는 구조물은 미래 시간대의 게임판에 영향을 줍니다.
+<Fische Fluppen Frikadellen>은 15명의 플레이어가 세 게임판을 가로질러 다른 지역과 상품을 교역할 수 있게 해줍니다. 플레이어는 정해진 시간에 다른 게임판으로 물리적으로 이동할 수 있으며, 이때 돈과 상품도 같이 가져갑니다."
+다회 점수 합산 게임 (Score-and-Reset Game),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1008,"종료 조건에 도달할 때까지 게임을 플레이하고 점수를 기록한 다음, 게임을 다시 처음으로 돌려 한번 이상의 추가 라운드를 진행합니다. 몇 번의 라운드가 끝난 후 게임이 종료되고, 각 라운드의 점수를 합산하여 승자를결정합니다. "
+단독 패배 게임 (Single Loser Game),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1016,한 플레이어가 패배할 때 게임이 종료되는 게임입니다. 
+단판 승부 게임 (Sudden Death Ending),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1027,"동점인 경우, 단판 승부 규칙이 발동되어 플레이어가 특정 조건을 성취하여 게임이 종료될 때까지 게임을 계속하는 방식을 말합니다. "
+닫힌 경제 방식 경매 (Closed Economy Auction),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=897,"""닫힌 경제""는 어떤 경매 유형에도 적용될 수 있는 메타-메커니즘입니다. 닫힌 경제 방식 경매에서는 경매에서 지불된 모든 금액이 경매 참가자들에게 환원됩니다.
+예를 들어 Dream Factory에서는, 낙찰자가 지불한 금액이 낙찰자를 제외한 모든 플레이어에게 균등하게 분배되며, 이렇게 경매에서 져서 돈을 획득하는 것이 이 게임에서 돈을 얻는 유일한 방법입니다."
+대단원 (Finale Ending),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=921,"대단원 게임은 게임 종료 시점이 되었을 때 승자를 정하기 위해 특별한 미니 게임을 진행하는 게임입니다.
+이 메커니즘이 사용된 게임으로는 Monsters Menace America가 있습니다. "
+대출 (Loans),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=949,"플레이어들이 돈을 더 얻기 위해 은행으로부터 대출을 받을 수 있습니다.
+플레이어가 자산을 담보로 대출을 받는 <Monopoly(1933)>, 대출이 중요한 전략적 선택인 <증기의 시대> 등이 대출 메커니즘을 사용한 게임입니다."
+덱 구성 (Deck Construction),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=909,"가장 먼저, 또는 게임 진행 전에, 플레이어들은 사용할 덱을 만들어야 합니다. 
+예시로는 매직 더 개더링과 Smash Up이 있습니다."
+덱 파고들기 (Move Through Deck),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=963,"플레이어들은 덱을 파고듭니다. 덱을 끝까지 파고드는 것이 게임 목표인<원 덱 던전>, 덱에서 보스를 찾아 물리치는 것이 목표인 <Chainsaw Warrior>, 덱을 파고들다 보면 게임이 종료되는 <Diamant>가 대표적인 게임입니다."
+"덱, 백, 풀 빌딩 (Deck, Bag, and Pool Building)",https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=910,"플레이어들은 개별 덱에서 뽑은 카드를 사용하고, 새로운 카드를 얻어 자신의 덱에 카드를 넣고 반복적으로 사용하며, 카드를 얻어 덱을 개선시킵니다. 
+이 카테고리는 백 빌딩, 풀 빌딩 및 기타 관련 메커니즘을 포함합니다. 
+도미니언이 이 메커니즘의 선구자입니다. "
+동맹 (Alliances),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=873,"플레이어들은 게임 진행 중 바꿀수 있는 공식적인 관계를 가집니다. 
+이 관계는 협상 게임의 그것과는 다르고, 특별한 게임 규칙에 의해서 통제됩니다. 예를들어, Dune에서 플레이어들은 각 넥서스 단계에 다음 넥서스 단계까지 지속되는 동맹을 맺을 수 있습니다. 이 시간동안 그 플레이어들은 함께 승리하고 서로를 공격할 수 없으며, 동맹이 특별한 힘을 발휘할 수 있도록 해 줍니다. 제국의 투쟁에서 플레이어들은 그 라운드 동안 동맹을 선택할 수 있는 권리를 경매하는데, 이 동맹은 특별한 규칙에 의해 통제됩니다. 
+플레이어들이 전체 게임동안 파트너로서 동맹을 맺고, 함께 이기거나 함께 패배하는 게임은 팀전 게임 으로 분류됩니다. "
+동시 행동 선택 (Simultaneous Action Selection),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1014,"플레이어들은 동시에, 그리고 비밀리에 자신의 차례를 계획합니다. 그러고 나서 동시에 자신의 계획을 공개합니다.  "
+드래프트 (Drafting),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=916,"드래프트 게임에서는 플레이어들에게 카드(및 기타 게임 구성물)를 나눠주는 방식을 사용합니다. 순차적이면서 제한적인 선택이 이루어지며 ""고르고 넘기기""가 일반적입니다. 
+그 일반적인 경우에서는 각 플레이어에게 같은 장수의 카드를 나누어 줍니다. 그런 다음 플레이어들은 카드를 1장(이상) 골라 취하고 나머지를 왼쪽으로 넘깁니다. 모든 카드가 누군가에게 선택되거나 버려져서 남은 카드가 없어질 때까지 이것을 반복합니다. 이런 드래프트를 하는 기본 게임으로 7 원더스가 있습니다.
+변형꼴로는 플레이어 단 한 명만 카드를 받은 뒤 모든 플레이어들이 카드를 받을 때까지 돌아가며 카드를 1장 받고 나머지 넘기기를 하는 것입니다. 이것은 선플레이어에게 크게 유리한 방식이므로, 이에 대해서 테마적으로 납득을 시키거나 플레이어별 유불리의 균형을 잘 맞춰줄 필요가 있습니다.
+공개적으로 펼쳐진 것들 가운데 선택이 이루어지는 ""공개 드래프트(Card Drafting)""와는 차이가 있습니다."
+뜨거운 감자 (Hot Potato),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=934,플레이어가 가지고 있으면 나쁜 효과를 주는 아이템 하나가 있습니다. 플레이어들은 게임이 끝날 때 또는 별도로 정한 시간에 그것을 갖고 있지 않기 위해 그것을 피하거나 다른 플레이어에게 넘겨주려 고군분투합니다. 
+레거시 게임 (Legacy Game),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=946,"레거시 게임이란, 이전 게임에서 거둔 결과가 그 뒤에 이어서 할 게임 상황에 영향을 주는 게임을 의미합니다. 이번 게임의 결과가 다음 게임에 영구적이고 돌이킬 수 없는 변화를 가져온다는 점이 레거시 게임의 특징입니다."
+론델 (Rondel),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1006,"게임에서 사용 가능한 행동이 원 안에 쐐기 모양 파이 형태로 표시되어 있습니다. 각 플레이어는 하나 이상의 토큰을 ""론델 쐐기""에 놓습니다. 자신의 차례에, 플레이어는 자신의 토큰을 론델 원 안에서 이동시켜 멈춘 쐐기에 표시된 행동을 합니다. 일반적으로, 론델 안에서 추가 이동을 하기 위해서는 비용이 필요합니다. "
+롤플레잉 (Role Playing),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1003,어떤 게임들은 롤플레잉 요소를 포함합니다. 플레이어들이 시간이 지날수록 성장하는 캐릭터들을 조종하는 것은 그러한 요소 중 하나입니다. 스토리텔링을 중심으로 진행하는 게임도 롤플레잉 게임이 될 수 있습니다. 롤플레잉 메커니즘은 가변적 플레이어 능력 메커니즘에서 확장된 것이라고 볼 수 있습니다.
+만칼라 (Mancala),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=951,"만칼라 메커니즘을 활용한 전형적인 게임에서, 플레이어들은 한 장소의 토큰들을 집어 든 다음, 특정 방향으로 돌아가면서 하나씩 내려놓습니다. 마지막으로 토큰을 내려놓는 위치가 중요한 역할을 합니다.
+이 메커니즘의 이름이 유래한 <Kalah(700)>를 비롯, <Finca(2009)> <Theseus: The Dark Orbit(2013)> 같은 게임에서 이 메커니즘을 찾을 수 있습니다."
+맞춰서 내기 (Matching),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=957,"플레이어는 반드시 이전 차례를 진행하며 나온 속성에 맞춰 자신의 차례를 진행해야 합니다. <우노(1971)>, <Crazy Eights>처럼 숫자 또는 색이나 무늬가 일치하도록 카드를 내는 게임이 해당됩니다.
+다음에 내는 것의 수가 이전에 나온 수에 따라서 특정 범위에 들어야 하는 식으로 구현하는 경우도 있습니다. 예를 들어, <라마>에서는 이전에 나온 카드와 같거나 수가 하나 더 큰 카드만 낼 수 있습니다. 또, <Spit>에서는 하나 높거나 낮은 카드만 낼 수 있습니다.
+참고: 이 메커니즘은 무늬를 따라야 하는 ""트릭테이킹(Trick-taking)"", 또는 ""클라이밍(Ladder Climbing)""과 유사하지만, 구분해서 더 적절한 것을 사용해 주세요."
+명령 카드 (Command Cards),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=898,플레이어는 손에 든 명령 카드들을 써서 자신의 유닛 중 일부를 활성화하고 행동을 수행하게끔 할 수 있습니다.
+명령 카운터 (Order Counters),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=973,"플레이어들은 지역에 자신의 명령 토큰을 놓습니다. 명령 토큰은 그들이 게임판의 특정 지역에서 어떤 행동을 할 것임을 표시합니다. 모든 토큰이 놓인 후, 플레이어들은 이를 순서에 따라 시행합니다. 
+스타크래프트: 보드게임이 이 메커니즘의 대표적인 예입니다. "
+모듈형 게임판 (Modular Board),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=962,"타일이나 카드를 조합하여 게임판을 만드는 메커니즘입니다.
+많은 게임에서 게임판 놓기는 무작위로 진행되며, 이로 인해 게임의 양상이 달라지게 되곤 합니다.
+이 메커니즘을 사용하는 보드게임 중에는 게임판을 이루는 모든 타일이 동시에 사용되지 않는 경우도 있습니다. 이 경우 사용하지 않는 게임판은 그것을 사용하게 되기 전까진 게임에서 제외됩니다."
+목표 단서 (Targeted Clues),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1029,"한 플레이어는 전체 플레이어가 아닌 그가 원하는 플레이어 답을 추론할 수 있는 단서를 줍니다.
+이 메커니즘은 흔히 딕싯이나 Barbarossa같은 파티 게임에서 많이 등장합니다. "
+몸짓 (Acting),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=781,"연기 메커니즘을 채용한 게임에서 플레이어들은 다른 플레이어와 소통하기 위해 마임을 하거나 흉내를 내야합니다. 
+Charades는 이 메커니즘을 대표하는 게임입니다. 이 게임에서 팀 구성원 중 한 명은 다른 팀 구성원이 해답을 추리할 수 있도록 힌트를 주는데, 언어를 사용하지 않고 주어야 합니다."
+무작위 생산 (Random Production),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=996,자원들이 무작위 과정으로 생산되어 자격을 갖춘 플레이어들에게 분배됩니다. 카탄과 Crude: The Oil Game이 초기 형태의 이 메커니즘에 기반한 게임입니다. 
+물리적 제거 (Physical Removal),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=985,"기물들을 구조물에서 제거해 나갑니다. 게임 진행은 이렇게 떨어지는 물건들(Ker Plunk)이나, 구조물의 완벽한 붕괴(Zenga)에 의해 영향을 받습니다."
+미니맵 해결 (Minimap Resolution),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=961,"갈등이 발생하면, 게임말이 별도의 게임판으로 옮겨져 이를 해결합니다.
+<Titan>이 이 방식의 고전적인 예시입니다."
+밀기 (Slide / Push),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1017,"플레이어들은 토큰을 밀거나 미끄러뜨립니다. 그 앞에 놓였던 다른 토큰들은 이를 통해 다시 밀릴 수 있습니다. 
+예시: 아발론, 르네상스의 거장들, 블랙 엔젤"
+방해 (Interrupts),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=940,"방해는 ""차례 순서(Turn Order)""에 대한 메타 메커니즘입니다. 플레이어들은 일반적인 차례 순서를 방해하는 행동 하나를 해도 됩니다. "
+배신자 게임 (Traitor Game),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=981,"배신자 게임은 팀 게임들이나, 배신 메커니즘을 갖춘 협력게임 등에서 찾아볼 수 있습니다. 배신자는 보통 플레이어들의 실패 조건을 발동시킴으로서 승리합니다. 배신자 게임은 게임 시작 시 비밀 정체를 가지고 시작하나, 게임 중 밝혀지는 배신자가 있는 것이 특징입니다. "
+베팅과 블러핑 (Betting and Bluffing),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=887,"[카드를 더 우수한 조합으로 나누어 받거나, 주사위를 굴려 더 높은 숫자가 나오는 등]의 무작위적인 결과에 기반한 게임에서, 다른 모든 사람이 건 판돈을 딸 기회(참여권)를 얻기 위해, 플레이어들은 자금이나 자원을 자신의 판돈으로 겁니다. 플레이어들은 통상적으로 전체 게임 상태에 대한 부분적인 정보만을 가지고 있으며, ""블러프""라고 불리는 행위를 할 수 있습니다. ""블러프""란, 실제 자신이 가진 지위/도구를 부풀려서 마치 더 높은 지위/도구를 가진 것처럼 (게임 내 행동을 통해) 다른 사람에게 보여주는 행위입니다. 그 외에도, 플레이어들은 그 시합에서 ""폴드""하거나, 빠질 수 있습니다. 이렇게 할 경우, 그는 지금껏 자신이 걸어둔 판돈까지만 잃는 것으로 손실을 제한할 수 있습니다."
+병력 운용 (Force Commitment),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=925,"병력 운용 게임은 플레이어들이 서로 다른 범주의 전장에 자신의 병력을 얼마나 보낼 것인지를 선택하는 게임입니다. 이 경우 (비공개로) 동시에 또는 순차적으로 선택한 뒤에 이를 해결합니다. 약정한 병력을 모두 잃어야 한다는 점에서는 ""경매 / 입찰(Acution / Bidding)"" 방식과 동일하지만, 차이점은 이 메커니즘이 복수의 경쟁 및 동시다발적인 경쟁이 이루어지는 전쟁 게임이나 ""지역 우선권 / 영향력(Area Majority / Influence)"" 게임에 적용된다는 점이 차이입니다. 
+이러한 메커니즘의 초기 형태로는 Dune이 있습니다."
+비대칭 역할 정보 (Role with Asymmetric Information),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1004,"한 명 이상의 플레이어가 게임 시작 시 자신의 역할과 그에 따른 서로 다른 승리조건을 배정받습니다. 그리고 게임 상태에 대해서도 서로 다른 시작 정보를 받습니다. 
+이 메커니즘은 보통 역할 숨김 게임의 일종으로 취급되나, 모든 플레이어가 불완전한 정보를 가지고 있다는 것이 다릅니다. Werewolf에서 모든 늑대인간들은 완전한 정보를 가지고 있습니다. 반대로, Spyfall에서 대부분의 플레이어는 공간에 대한 정보를 가지고 있으나, 스파이가 누구인지는 모릅니다. 스파이는 반대로 자신이 스파이라는 것을 알고 있고, 공간에 대한 정보를 모릅니다. 
+이 메커니즘 게임의 예로는 Spyfall과 Insider가 있습니다."
+비밀 유닛 배치 (Secret Unit Deployment),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1009,"비밀 유닛 배치 게임은 숨겨진 정보를 포함하는 게임입니다. 게임 말을 조종하는 플레이어만 말에 대해 본질과 소재에 이르기까지의 완벽한 정보를 가지고 있습니다. 이 메커니즘은 전쟁 게임에서 ""전장의 안개(fog of war)""를 구현하기 위해 사용됩니다. "
+비율 / 전투 결과표 (Ratio / Combat Results Table),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=997,"유닛간의 전투를 해결하는 많은 전쟁 보드게임에서, 공격자와 방어자는 그 전투에 관여한 모든 유닛의 전투력을 모두 더합니다. 이는 공격자와 방어자 사이의 비율로 표시되고, ""전투 결과표(CRT)""에 연동되어 사용됩니다. 그러고 나서 주사위를 굴려 최종 전투 결과를 결정합니다. "
+빙고 (Bingo),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=889,"물품들이 무작위로 선정되며, 각 플레이어들은 자기 고유 게임판에 사용하기 위해 그 물품들을 필요로 합니다.
+Bingo 외에도, Take it Easy!, Rise of Augustus, Super-Skill Pinball: 4-Cade 등이 본 메커니즘을 사용하는 게임의 주요 예시입니다. 본 메커니즘은 메커니즘: Roll-and-Write와 메커니즘: Flip-and-Write을 사용하는 장르의 토대가 되었습니다."
+빨리 맞추기 (Speed Matching),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1019,"보통 카드를 뒤집어서 패턴을 공개합니다. 그러면 플레이어들은 테이블에 있는 다른 게임 구성물들과 연결되는 것을 먼저 찾거나, 그러한 연결이 존재하는지를 찾아야 합니다. 
+예시 게임으로는 Scan이나 정글 스피드가 있습니다."
+사각 격자 (Square Grid),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1020,"게임 말이 사각형으로 이루어진 바둑판무늬의 게임판에 놓이고, 이 게임판은 인접함을 판정하거나 또는 이동을 위해 사용됩니다. "
+상대적 이동 (Relative Movement),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=1000,"유닛들의 이전 움직임은 추적되지 않습니다. 오직 그들의 상대적 위치만이 중요합니다. 
+이 메커니즘은 경주 게임에서 분화된 메커니즘입니다. Formula Motor나 Racing RoadKill이 대표적인 게임이고, 다른 테마로는 상어에게 도망치는 Get Bit! 같은 게임이 있습니다. "
+상품 투기 (Commodity Speculation),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98&sel_search=&txt_search=&orderby=&page=1&idx=899,"투자 메커니즘의 하위 분류로서, 플레이어가 다양한 종류의 상품을 다양한 수량으로 사고 팔 수 있으며 그 가치가 게임 도중 변화하는 것을 가리킵니다.
+상품 투기는 플레이어가 상품 가치에 간접적으로 영향을 끼칠 수 있으나 다른 사람에게 손해를 끼치려면 자신도 손해를 감수해야 하는 유형의 게임과, 플레이어들이 직접적으로 상품 가치를 조작할 수 있으며 그 향방을 정하기 위해 서로 합종연횡해야 하는 유형의 게임 모두를 포함합니다."
+한 게임을 말합니다. 확장 게임만으로는 게임을 할 수 없습니다. 확장 게임은 기본판 게임과 연결하여 사용해야 합니다.
 
-보드게임 긱의 역사 카테고리
-- 고대
-- 중세
-- 르네상스
-- 창과 총
-- 이성의 시대
-- 나폴레옹 시대
-- 나폴레옹 시대 이후
-- 1차 세계 대전
-- 2차 세계 대전
-- 한국 전쟁
-- 베트남 전쟁
-- 현대전
-  북 아메리카
-- 미국 독립 전쟁
-- 미국 남북 전쟁
-- 미국 인디언 전쟁
-- 미국 서부"
-2차 세계 대전 (World War II),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=867,"2차 세계 대전 게임은 1939년부터 1945년까지 유럽, 아시아, 아프리카에서 있었던 다양한 군사 작전을 기반으로 한 줄거리를 가지고 있습니다. 
-대부분의 2차 세계 대전 게임은 전쟁 게임으로 분류됩니다. 
-  보드게임 긱의 역사 카테고리
-- 고대
-- 중세
-- 르네상스
-- 창과 총
-- 이성의 시대
-- 나폴레옹 시대
-- 나폴레옹 시대 이후
-- 1차 세계 대전
-- 2차 세계 대전
-- 한국 전쟁
-- 베트남 전쟁
-- 현대전
-  북 아메리카
-- 미국 독립 전쟁
-- 미국 남북 전쟁
-- 미국 인디언 전쟁
-- 미국 서부"
-SF (Science Fiction),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=853,"SF 게임은 지금보다 더 진보된 과학기술에 대한 상상에 뿌리를 둔 게임입니다. 진보된 과학기술이라고 해서 반드시 미래가 배경인 것은 아니며, 일부는 과거를 배경으로 일종의 대체역사를 다루기도 합니다. (쥘 베른의 일부 작품이나, 스타 워즈 시리즈가 이런 종류에 속합니다.) 인기있는 SF 게임은 우주 공간을 배경으로 삼은 경우가 다수이며, 개중에는 외계 종족이 등장하는 경우도 종종 있습니다."
-게임 시스템 (Game System),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=818,"게임 시스템은 그 자체가 게임은 아니지만, 게임을 하는데 사용되는 항목입니다. Piecepack, Decktet, Shibumi, GEMJI, Chestego and Rainbow Deck같은 것이 그 예입니다. 
-단독 게임 또는 시나리오 세트를 가진 게임은 보통 게임 시스템으로 취급하지 않습니다. "
-경제 (Economic),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=808,"경제 게임에서 플레이어들은 상품의 생산, 분배, 거래, 소비 시스템을 관리합니다. 경제 게임들은 어떤 방법으로 시장 경제를 구현합니다. 이 용어는 자원 관리 게임과 상호 호환하여 쓰입니다. "
-고대 (Ancient),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=793,"고대 게임들은 기원전 3000년(이집트 왕조의 시작)부터 서기 476년(서로마 제국의 멸망) 사이의 고대 시대를 배경으로 한 줄거리를 가지고 있습니다. 이 종류 게임에서 등장하는 일부 테마와 이미지들은 고대 이집트, 그리스, 로마 문명을 다루고 있습니다. 
-  보드게임 긱의 역사 카테고리
-- 고대
-- 중세
-- 르네상스
-- 창과 총
-- 이성의 시대
-- 나폴레옹 시대
-- 나폴레옹 시대 이후
-- 1차 세계 대전
-- 2차 세계 대전
-- 한국 전쟁
-- 베트남 전쟁
-- 현대전
-  북 아메리카
-- 미국 독립 전쟁
-- 미국 남북 전쟁
-- 미국 인디언 전쟁
-- 미국 서부"
-공포 (Horror),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=819,공포 게임은 소름끼치고 초자연적인 요소들을 묘사하는 테마나 이미지에 기반한 게임을 말합니다.
-교육 (Educational),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=809,"교육 게임들은 보통 특정 주제에 대해 가르치거나, 어떤 개념을 확대하거나,  발달 과정을 강화하거나, 역사적 사건 또는 문화를 이해하게 하거나, 어떠한 기술을 익히는 것을 돕기 위한 목적으로 설계됩니다. "
-기억력 (Memory),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=829,기억력 게임에서 플레이어들은 게임의 목적으로서 게임 내 이전 차례에서 일어났던 사건이나 정보를 유지하고 되돌이켜야 합니다.
+기본판 게임과 연결되는 확장 게임들은 보드게임긱(boardgamegeek.com)의 게임 목록을 통해서 찾아보실 수 있습니다. ""Information"" 부분의 "" ""Expanded by""에서 찾아보실 수 있습니다. 또한 ""Linked Item"" 부분에서도 찾아보실 수 있습니다. "
+환경 (Environmental),https://www.divedice.net/kor/board/wiki?viewMode=view&ca=%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC&sel_search=&txt_search=&orderby=&page=1&idx=811,환경 게임은 환경보호와 관리를 줄거리와 테마에 포함한 게임을 말합니다.
