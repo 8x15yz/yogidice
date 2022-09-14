@@ -31,9 +31,9 @@ public class SsafyUserDetails implements UserDetails {
         return this.user.getId() != null;
     }
 
-    public String getNnm() {
-        return this.user.getNnm();
-    }
+//    public String getNnm() {
+//        return this.user.getNnm();
+//    }
 
     public User getUser() {
         return this.user;
@@ -41,8 +41,10 @@ public class SsafyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.user.getPwd();
+//        return this.user.getPwd();
+        return null;
     }
+
 
     @Override
     public String getUsername() {

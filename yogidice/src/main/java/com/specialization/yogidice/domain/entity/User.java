@@ -2,6 +2,8 @@ package com.specialization.yogidice.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.specialization.yogidice.common.util.ReviewedType;
+import com.specialization.yogidice.common.util.RoleType;
 import lombok.*;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -14,49 +16,45 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "user")
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String em;
+    @Column(name = "user_id")
+    private Integer id;
+    private String kakao_id;
 
-    @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    String pwd;
+    private String nickname;
 
-    String nnm;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 
-    int level;
-
-    boolean em_auth;
-
-    @Generated(GenerationTime.INSERT)
-    LocalDateTime join_dt;
-    LocalDateTime modify_dt;
-
-    LocalDateTime leave_dt;
-
-    String refresh_tk;
-
-
-
+    @Enumerated(EnumType.STRING)
+    private ReviewedType reviewed;
     @Builder
-    public User(Long id, String em, String pwd, String nnm, int level, boolean em_auth, LocalDateTime join_dt, LocalDateTime modify_dt, LocalDateTime leave_dt, String refresh_tk) {
-        this.id = id;
-        this.em = em;
-        this.pwd = pwd;
-        this.nnm = nnm;
-        this.level = level;
-        this.em_auth = em_auth;
-        this.join_dt = join_dt;
-        this.modify_dt = modify_dt;
-        this.leave_dt = leave_dt;
-        this.refresh_tk = refresh_tk;
+    public User(String kakao_id, String nickname, RoleType role, ReviewedType reviewed) {
+        this.kakao_id = kakao_id;
+        this.nickname = nickname;
+        this.role = role;
+        this.reviewed = reviewed;
+    }
+
+    public static User create(String kakao_id, String nickname, RoleType role, ReviewedType reviewed ){
+        User user = new User();
+        user.kakao_id = kakao_id;
+        user.nickname = nickname;
+        user.role = role;
+        user.reviewed = reviewed;
+        return user;
+    }
+
+    public void update(String kakao_id, String nickname, RoleType role, ReviewedType reviewed ){
+        this.kakao_id = kakao_id;
+        this.nickname = nickname;
+        this.role = role;
+        this.reviewed = reviewed;
     }
 
 }
