@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Boardgame {
+public class BoardGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_id")
@@ -52,20 +52,20 @@ public class Boardgame {
     @Column(length = 200)
     private String contentsImgURL;
 
-    public static Boardgame create(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, int players, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
-        Boardgame boardgame = new Boardgame();
-        boardgame.titleKr = titleKr;
-        boardgame.titleEng = titleEng;
-        boardgame.publishYear = publishYear;
-        boardgame.thumbURL = thumbURL;
-        boardgame.rating = rating;
-        boardgame.players = players;
-        boardgame.playingTime = playingTime;
-        boardgame.difficulty = difficulty;
-        boardgame.youtubeURL = youtubeURL;
-        boardgame.contents = contents;
-        boardgame.contentsImgURL = contentsImgURL;
-        return boardgame;
+    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, int players, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+        BoardGame boardGame = new BoardGame();
+        boardGame.titleKr = titleKr;
+        boardGame.titleEng = titleEng;
+        boardGame.publishYear = publishYear;
+        boardGame.thumbURL = thumbURL;
+        boardGame.rating = rating;
+        boardGame.players = players;
+        boardGame.playingTime = playingTime;
+        boardGame.difficulty = difficulty;
+        boardGame.youtubeURL = youtubeURL;
+        boardGame.contents = contents;
+        boardGame.contentsImgURL = contentsImgURL;
+        return boardGame;
     }
 
     public void update(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, int players, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
