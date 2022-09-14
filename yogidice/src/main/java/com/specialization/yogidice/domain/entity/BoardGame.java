@@ -1,14 +1,20 @@
 package com.specialization.yogidice.domain.entity;
 
+import com.specialization.yogidice.domain.entity.category.Category;
+import com.specialization.yogidice.domain.entity.category.Mechanism;
+import com.specialization.yogidice.domain.entity.category.Type;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 public class BoardGame {
@@ -51,6 +57,15 @@ public class BoardGame {
 
     @Column(length = 200)
     private String contentsImgURL;
+
+    @OneToMany(mappedBy = "boardgame")
+    private List<Category> categories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "boardgame")
+    private List<Type> types = new ArrayList<>();
+
+    @OneToMany(mappedBy = "boardgame")
+    private List<Mechanism> mechanisms = new ArrayList<>();
 
     public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, int players, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
         BoardGame boardGame = new BoardGame();

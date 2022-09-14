@@ -26,29 +26,21 @@ public class BoardGameService {
     public Long createBoardGame(BoardGameRequest request) {
         if (boardGameRepository.findByTitleKr(request.getTitleKr()).isPresent()) {
             throw new DuplicateException(String.format("%s는 이미 등록된 보드게임입니다.", request.getTitleKr()));
-        } else {
-            BoardGame saveBoardGame = BoardGame.create(
-                    request.getTitleKr(),
-                    request.getTitleEng(),
-                    request.getPublishYear(),
-                    request.getThumbURL(),
-                    request.getRating(),
-                    request.getPlayers(),
-                    request.getPlayingTime(),
-                    request.getDifficulty(),
-                    request.getYoutubeURL(),
-                    request.getContents(),
-                    request.getContentsImgURL()
-            );
-            return boardGameRepository.save(saveBoardGame).getId();
         }
-    }
-
-    @Transactional
-    public BoardGameResponse readBoardGame(Long boardGameId) {
-        BoardGame boardGame = boardGameRepository.findById(boardGameId)
-                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        return BoardGameResponse.response(boardGame);
+        BoardGame saveBoardGame = BoardGame.create(
+                request.getTitleKr(),
+                request.getTitleEng(),
+                request.getPublishYear(),
+                request.getThumbURL(),
+                request.getRating(),
+                request.getPlayers(),
+                request.getPlayingTime(),
+                request.getDifficulty(),
+                request.getYoutubeURL(),
+                request.getContents(),
+                request.getContentsImgURL()
+        );
+        return boardGameRepository.save(saveBoardGame).getId();
     }
 
     @Transactional
@@ -62,6 +54,13 @@ public class BoardGameService {
             responses.add(BoardGameResponse.response(boardGame));
         }
         return responses;
+    }
+
+    @Transactional
+    public BoardGameResponse readBoardGame(Long boardGameId) {
+        BoardGame boardGame = boardGameRepository.findById(boardGameId)
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
+        return BoardGameResponse.response(boardGame);
     }
 
     @Transactional
