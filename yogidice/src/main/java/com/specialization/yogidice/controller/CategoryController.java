@@ -26,9 +26,9 @@ public class CategoryController {
     private final TypeService typeService;
     private final MechanismService mechanismService;
 
-    // 카테고리(테마) 등록
+    // 카테고리(테마) 추가
     @PostMapping("/theme")
-    @ApiOperation(value = "카테고리(테마) 등록", notes = "카테고리(테마)에 필요한 정보를 입력하고 등록합니다.")
+    @ApiOperation(value = "카테고리(테마) 추가", notes = "카테고리(테마)에 필요한 정보를 입력하고 추가합니다.")
     public ResponseEntity<?> createCategory(
             @Valid @RequestBody CategoryRequest request
     ) {
@@ -75,9 +75,9 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    // 타입 등록
+    // 타입 추가
     @PostMapping("/type")
-    @ApiOperation(value = "타입 등록", notes = "타입에 필요한 정보를 입력하고 등록합니다.")
+    @ApiOperation(value = "타입 추가", notes = "타입에 필요한 정보를 입력하고 추가합니다.")
     public ResponseEntity<?> createType(
             @Valid @RequestBody TypeRequest request
     ) {
@@ -124,10 +124,10 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    // 진행방식 등록
+    // 진행방식 추가
     @PostMapping("/mechanism")
-    @ApiOperation(value = "진행방식 등록", notes = "진행방식에 필요한 정보를 입력하고 등록합니다.")
-    public ResponseEntity<?> createType(
+    @ApiOperation(value = "진행방식 추가", notes = "진행방식에 필요한 정보를 입력하고 추가합니다.")
+    public ResponseEntity<?> createMechanism(
             @Valid @RequestBody MechanismRequest request
     ) {
         Long mechanismId = mechanismService.createMechanism(request);

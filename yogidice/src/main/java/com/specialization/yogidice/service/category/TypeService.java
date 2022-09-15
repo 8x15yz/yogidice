@@ -25,7 +25,7 @@ public class TypeService {
     @Transactional
     public Long createType(TypeRequest request) {
         if (typeRepository.findByName(request.getName()).isPresent()) {
-            throw new DuplicateException(String.format("%s는 이미 등록된 보드게임 타입입니다.", request.getName()));
+            throw new DuplicateException(String.format("%s 은/는 이미 등록된 보드게임 타입입니다.", request.getName()));
         }
         Type saveType = Type.create(
                 request.getName()
@@ -36,14 +36,14 @@ public class TypeService {
     @Transactional
     public List<TypeResponse> readTypeList() {
         List<Type> types = typeRepository.findAll();
-        if (types.isEmpty() || types == null) {
+        if (types.isEmpty()) {
             throw new NotFoundException(TYPE_LIST_NOT_FOUND);
         }
-        List<TypeResponse> typeResponses = new ArrayList<>();
+        List<TypeResponse> responses = new ArrayList<>();
         for (Type type : types) {
-            typeResponses.add(TypeResponse.response(type));
+            responses.add(TypeResponse.response(type));
         }
-        return typeResponses;
+        return responses;
     }
 
     @Transactional

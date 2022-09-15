@@ -25,7 +25,7 @@ public class CategoryService {
     @Transactional
     public Long createCategory(CategoryRequest request) {
         if (categoryRepository.findByName(request.getName()).isPresent()) {
-            throw new DuplicateException(String.format("%s는 이미 등록된 보드게임 테마입니다.", request.getName()));
+            throw new DuplicateException(String.format("%s 은/는 이미 등록된 보드게임 테마입니다.", request.getName()));
         }
         Category saveCategory = Category.create(
                 request.getName()
@@ -36,14 +36,14 @@ public class CategoryService {
     @Transactional
     public List<CategoryResponse> readCategoryList() {
         List<Category> categories = categoryRepository.findAll();
-        if (categories.isEmpty() || categories == null) {
+        if (categories.isEmpty()) {
             throw new NotFoundException(CATEGORY_LIST_NOT_FOUND);
         }
-        List<CategoryResponse> categoryResponses = new ArrayList<>();
+        List<CategoryResponse> responses = new ArrayList<>();
         for (Category category : categories) {
-            categoryResponses.add(CategoryResponse.response(category));
+            responses.add(CategoryResponse.response(category));
         }
-        return categoryResponses;
+        return responses;
     }
 
     @Transactional

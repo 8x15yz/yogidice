@@ -25,7 +25,7 @@ public class MechanismService {
     @Transactional
     public Long createMechanism(MechanismRequest request) {
         if (mechanismRepository.findByName(request.getName()).isPresent()) {
-            throw new DuplicateException(String.format("%s는 이미 등록된 보드게임 진행방식입니다.", request.getName()));
+            throw new DuplicateException(String.format("%s 은/는 이미 등록된 보드게임 진행방식입니다.", request.getName()));
         }
         Mechanism saveMechanism = Mechanism.create(
                 request.getName(),
@@ -37,14 +37,14 @@ public class MechanismService {
     @Transactional
     public List<MechanismResponse> readMechanismList() {
         List<Mechanism> mechanisms = mechanismRepository.findAll();
-        if (mechanisms.isEmpty() || mechanisms == null) {
+        if (mechanisms.isEmpty()) {
             throw new NotFoundException(MECHANISM_LIST_NOT_FOUND);
         }
-        List<MechanismResponse> mechanismResponses = new ArrayList<>();
+        List<MechanismResponse> responses = new ArrayList<>();
         for (Mechanism mechanism : mechanisms) {
-            mechanismResponses.add(MechanismResponse.response(mechanism));
+            responses.add(MechanismResponse.response(mechanism));
         }
-        return mechanismResponses;
+        return responses;
     }
 
     @Transactional

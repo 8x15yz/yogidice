@@ -20,9 +20,9 @@ import java.util.Map;
 public class BoardGameController {
     private final BoardGameService boardGameService;
 
-    // 보드게임 등록
+    // 보드게임 추가
     @PostMapping
-    @ApiOperation(value = "보드게임 등록", notes = "보드게임에 필요한 정보를 입력하고 등록합니다.")
+    @ApiOperation(value = "보드게임 추가", notes = "보드게임에 필요한 정보를 입력하고 추가합니다.")
     public ResponseEntity<?> createBoardGame(
             @Valid @RequestBody BoardGameRequest request
     ) {

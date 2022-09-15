@@ -28,7 +28,7 @@ public class Mechanism {
     @NotNull
     private int parentsMec;
 
-    @OneToMany(mappedBy = "mechanism")
+    @OneToMany(mappedBy = "mechanism", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BoardGame> boardGames = new ArrayList<>();
 
     public static Mechanism create(String name, int parentsMec) {

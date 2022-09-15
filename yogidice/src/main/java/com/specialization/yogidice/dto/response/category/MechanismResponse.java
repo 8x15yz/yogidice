@@ -17,6 +17,10 @@ public class MechanismResponse {
     private int parentsMec;
 
     public static MechanismResponse response(Mechanism mechanism) {
-        return new MechanismResponse(mechanism.getId(), mechanism.getName(), mechanism.getParentsMec());
+        return new MechanismResponse(
+                mechanism.getId(),
+                mechanism.getName(),
+                mechanism.getParentsMec()
+        );
     }
 }

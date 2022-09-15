@@ -25,8 +25,8 @@ public class Category {
     @Column(length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    private List<BoardGame> boardGames = new ArrayList<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CategoryList> categoryLists = new ArrayList<>();
 
     public static Category create(String name) {
         Category category = new Category();
