@@ -8,7 +8,9 @@ import lxml
 import re
 
 def main():
-    driver = wb.Chrome("./chromedriver")
+    options = wb.ChromeOptions()
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    driver = wb.Chrome("./chromedriver", options=options)
     driver.get("https://boardlife.co.kr/rank.php")
 
     title_kor = []
@@ -61,24 +63,18 @@ def main():
             eng_title = eng_title.strip()
             title_eng.append(eng_title)
             print('title : '+eng_title)
-            # temptype = soup.select_one('ul > li > div.feature-description > span.ng-scope > a').text
-            # gametype.append(temptype)
-           
-            # print('type : '+temptype)
             driver.find_element("xpath", '//*[@id="mainbody"]/div[2]/div/div[1]/div[2]/ng-include/div/div/ui-view/ui-view/div/overview-module/description-module/div/div[2]/div/div[1]/classifications-module/div/div[2]/ul/li[1]/div[2]/button').click()
             sleep(0.5)
-            driver.switch_to.window(driver.window_handles[-1])
             soup = bs(driver.page_source, 'html.parser')
             typetable = soup.select('tbody > tr')
             temptype = ''
-            for l in typetable:
-                soup = bs(str(l), 'lxml')
+            for l in range(0,8):
+                soup = bs(str(typetable[l]), 'lxml')
                 per = soup.select_one('td > span')
-                if per['class'] == 'ng-binding is-winner':
-                    temptype = soup.select_one('th > a').text
+                if 'ng-binding is-winner' in str(per):
+                    temptype = soup.select_one('th > span > a').text
                     gametype.append(temptype)
             print('type : ' + temptype)
-            driver.switch_to.window(driver.window_handles[1])
             driver.find_element("xpath", '/html/body/div[1]/div/div/div[2]/button[2]').click()
             sleep(0.5)
             driver.find_element("xpath", '//*[@id="primary_tabs"]/ul/li[12]/button').click()
