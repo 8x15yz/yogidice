@@ -1,15 +1,10 @@
 package com.specialization.yogidice.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.specialization.yogidice.common.util.ReviewedType;
-import com.specialization.yogidice.common.util.RoleType;
+import com.specialization.yogidice.domain.entity.type.ReviewedType;
+import com.specialization.yogidice.domain.entity.type.RoleType;
 import lombok.*;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * 유저 모델 정의.

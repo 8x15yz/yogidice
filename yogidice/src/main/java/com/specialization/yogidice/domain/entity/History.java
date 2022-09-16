@@ -1,7 +1,5 @@
 package com.specialization.yogidice.domain.entity;
 
-import com.specialization.yogidice.common.util.ReviewedType;
-import com.specialization.yogidice.common.util.RoleType;
 import lombok.*;
 
 import org.hibernate.annotations.Generated;
