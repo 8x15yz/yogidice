@@ -11,8 +11,5 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class BookmarkRequest {
     @NotNull
-    private Long userId;
-
-    @NotNull
     private Long gameId;
 }

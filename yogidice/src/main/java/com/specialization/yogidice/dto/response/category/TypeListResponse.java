@@ -11,14 +11,20 @@ import lombok.NoArgsConstructor;
 public class TypeListResponse {
     private long id;
 
+    private Long gameId;
+
     private String gameTitle;
+
+    private Long typeId;
 
     private String typeName;
 
     public static TypeListResponse response(TypeList typeList) {
         return new TypeListResponse(
                 typeList.getId(),
+                typeList.getBoardGame().getId(),
                 typeList.getBoardGame().getTitleKr(),
+                typeList.getType().getId(),
                 typeList.getType().getName()
         );
     }
