@@ -31,6 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    ## 초기 설정
+    'rest_framework',    # pip install djangorestframework
+    'django_extensions', # initial setting 
+    'yogidice', # app
+    ## 초기 설정
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,12 +79,25 @@ WSGI_APPLICATION = 'analyze.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
+    ## 초기 설정
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'DJANGOTEST',
+        'USER': 'root',
+        'PASSWORD': 'ssafy',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
+    ## 초기 설정
 }
+# {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
