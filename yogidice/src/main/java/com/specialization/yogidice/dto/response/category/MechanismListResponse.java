@@ -12,14 +12,20 @@ import lombok.NoArgsConstructor;
 public class MechanismListResponse {
     private long id;
 
+    private Long gameId;
+
     private String gameTitle;
+
+    private Long mechanismId;
 
     private String mechanismName;
 
     public static MechanismListResponse response(MechanismList mechanismList) {
         return new MechanismListResponse(
                 mechanismList.getId(),
+                mechanismList.getBoardGame().getId(),
                 mechanismList.getBoardGame().getTitleKr(),
+                mechanismList.getMechanism().getId(),
                 mechanismList.getMechanism().getName()
         );
     }

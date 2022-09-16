@@ -12,14 +12,20 @@ import lombok.NoArgsConstructor;
 public class CategoryListResponse {
     private long id;
 
+    private Long gameId;
+
     private String gameTitle;
+
+    private Long cateId;
 
     private String categoryName;
 
     public static CategoryListResponse response(CategoryList categoryList) {
         return new CategoryListResponse(
                 categoryList.getId(),
+                categoryList.getBoardGame().getId(),
                 categoryList.getBoardGame().getTitleKr(),
+                categoryList.getCategory().getId(),
                 categoryList.getCategory().getName()
         );
     }
