@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -15,9 +14,6 @@ public class HistoryCreateRequest {
     private Integer rating;
 
     private String review;
-
-    @NotNull
-    private Long userId;
 
     @NotNull
     private Long gameId;

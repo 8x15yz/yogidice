@@ -19,7 +19,11 @@ public class HistoryResponse {
 
     private LocalDateTime createAt;
 
+    private Long userId;
+
     private String nickName;
+
+    private Long gameId;
 
     private String gameTitle;
 
@@ -29,7 +33,9 @@ public class HistoryResponse {
                 history.getRating(),
                 history.getReview(),
                 history.getCreateAt(),
+                history.getUser().getId(),
                 history.getUser().getNickName(),
+                history.getBoardGame().getId(),
                 history.getBoardGame().getTitleKr()
         );
     }
