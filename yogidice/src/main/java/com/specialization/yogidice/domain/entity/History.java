@@ -1,7 +1,5 @@
 package com.specialization.yogidice.domain.entity;
 
-import com.specialization.yogidice.common.util.ReviewedType;
-import com.specialization.yogidice.common.util.RoleType;
 import lombok.*;
 
 import org.hibernate.annotations.Generated;
@@ -13,15 +11,14 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "history")
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Getter
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="history_id")
-    private Integer id;
+    private Long id;
 
     @NotNull
     private Integer rating;
@@ -30,26 +27,25 @@ public class History {
     private String review;
 
     @Generated(GenerationTime.INSERT)
-    private LocalDateTime create_at;
+    private LocalDateTime createAt;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "user_id")
     private User user;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "game_id")
     private BoardGame boardGame;
 
     @Builder
-    public History( Integer rating, String review, LocalDateTime create_at, User user, BoardGame boardGame) {
+    public History( Integer rating, String review, User user, BoardGame boardGame) {
         this.rating = rating;
         this.review = review;
-        this.create_at = create_at;
         this.user = user;
         this.boardGame = boardGame;
     }
 
-    public static History create(Integer rating, String review, LocalDateTime create_at, User user, BoardGame boardGame) {
+    public static History create(Integer rating, String review, User user, BoardGame boardGame) {
         History history = new History();
         history.rating = rating;
         history.review = review;
@@ -58,10 +54,8 @@ public class History {
         return history;
     }
 
-    public void update(Integer rating, String review, LocalDateTime create_at, User user, BoardGame boardGame) {
+    public void update(Integer rating, String review) {
         this.rating = rating;
         this.review = review;
-        this.user = user;
-        this.boardGame = boardGame;
     }
 }

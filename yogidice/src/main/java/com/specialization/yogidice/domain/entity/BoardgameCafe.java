@@ -7,15 +7,14 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Boardgame_cafe")
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Getter
 public class BoardgameCafe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="cafe_id")
-    private Integer id;
+    private Long id;
 
     @Column(length = 100)
     @NotNull

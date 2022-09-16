@@ -1,4 +1,4 @@
-package com.specialization.yogidice.common.config;
+package com.specialization.yogidice.common.config.data.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
