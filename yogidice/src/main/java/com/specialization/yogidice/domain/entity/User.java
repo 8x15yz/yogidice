@@ -9,6 +9,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -24,13 +25,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer id;
+
+    @NotNull
     private String kakao_id;
 
+    @NotNull
     private String nickname;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private ReviewedType reviewed;
     @Builder
