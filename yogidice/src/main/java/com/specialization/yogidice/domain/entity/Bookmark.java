@@ -18,11 +18,11 @@ public class Bookmark {
     @Column(name = "bookmark_id")
     private Integer id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "user_id")
     private User user;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "game_id")
     private BoardGame boardGame;
 

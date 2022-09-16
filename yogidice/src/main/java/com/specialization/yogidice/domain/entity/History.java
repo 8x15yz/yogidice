@@ -32,11 +32,11 @@ public class History {
     @Generated(GenerationTime.INSERT)
     private LocalDateTime create_at;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "user_id")
     private User user;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "game_id")
     private BoardGame boardGame;
 

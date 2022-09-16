@@ -17,11 +17,11 @@ public class CafeGamelist {
     @Column(name="gamelist_id")
     private Integer id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "cafe_id")
     private BoardgameCafe boardgameCafe;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "game_id")
     private BoardGame boardGame;
 

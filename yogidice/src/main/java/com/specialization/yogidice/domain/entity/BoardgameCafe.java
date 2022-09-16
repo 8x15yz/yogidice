@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Boardgame_cafe")
@@ -25,6 +27,8 @@ public class BoardgameCafe {
     @NotNull
     private String address;
 
+    @OneToMany(mappedBy = "boardgamecafe" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CafeGamelist> cafeGamelists = new ArrayList<CafeGamelist>();
     @Builder
     public BoardgameCafe( String name, String address) {
         this.name = name;

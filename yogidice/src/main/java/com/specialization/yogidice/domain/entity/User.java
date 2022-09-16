@@ -11,6 +11,8 @@ import org.hibernate.annotations.GenerationTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 유저 모델 정의.
@@ -39,6 +41,14 @@ public class User {
     @NotNull
     @Enumerated(EnumType.STRING)
     private ReviewedType reviewed;
+
+    //연관관계의 주인은 History.user 즉 여기서 history 업데이트 불가 읽기만 가능
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<History> histories = new ArrayList<History>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+
     @Builder
     public User(String kakao_id, String nickname, RoleType role, ReviewedType reviewed) {
         this.kakao_id = kakao_id;
