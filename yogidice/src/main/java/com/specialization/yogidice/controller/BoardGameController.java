@@ -20,9 +20,9 @@ import java.util.Map;
 public class BoardGameController {
     private final BoardGameService boardGameService;
 
-    // 보드게임 등록
+    // 보드게임 추가
     @PostMapping
-    @ApiOperation(value = "보드게임 등록", notes = "보드게임에 필요한 정보를 입력하고 등록합니다.")
+    @ApiOperation(value = "보드게임 추가", notes = "보드게임에 필요한 정보를 입력하고 추가합니다.")
     public ResponseEntity<?> createBoardGame(
             @Valid @RequestBody BoardGameRequest request
     ) {
@@ -32,6 +32,13 @@ public class BoardGameController {
         return ResponseEntity.ok(response);
     }
 
+    // 보드게임 목록 조회
+    @GetMapping
+    @ApiOperation(value = "보드게임 목록 조회", notes = "보드게임 목록을 조회합니다.")
+    public ResponseEntity<?> readBoardGameList() {
+        return ResponseEntity.ok(boardGameService.readBoardGameList());
+    }
+
     // 보드게임 상세 조회
     @GetMapping("/{gameId}")
     @ApiOperation(value = "보드게임 상세 조회", notes = "보드게임을 상세 조회합니다.")
@@ -39,13 +46,6 @@ public class BoardGameController {
             @PathVariable Long gameId
     ){
         return ResponseEntity.ok(boardGameService.readBoardGame(gameId));
-    }
-
-    // 보드게임 목록 조회
-    @GetMapping
-    @ApiOperation(value = "보드게임 목록 조회", notes = "보드게임 목록을 조회합니다.")
-    public ResponseEntity<?> readBoardGameList() {
-        return ResponseEntity.ok(boardGameService.readBoardGameList());
     }
 
     // 보드게임 정보 수정
@@ -62,7 +62,7 @@ public class BoardGameController {
     // 보드게임 삭제
     @DeleteMapping("/{gameId}")
     @ApiOperation(value = "보드게임 삭제", notes = "보드게임을 삭제합니다.")
-    public ResponseEntity<Map<String, Long>> deleteUser(
+    public ResponseEntity<Map<String, Long>> deleteBoardGame(
             @PathVariable Long gameId
     ) {
         boardGameService.deleteBoardGame(gameId);
