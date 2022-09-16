@@ -13,6 +13,6 @@ public class LoginUserDetails extends User {
     private com.specialization.yogidice.domain.entity.User user;
 
     public LoginUserDetails(String nickName, Collection<? extends GrantedAuthority> authorities) {
-        super(nickName, authorities);
+        super(nickName, "", authorities);
     }
 }

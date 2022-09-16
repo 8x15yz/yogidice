@@ -1,8 +1,7 @@
 package com.specialization.yogidice.common.config.web;
 
-import com.common.reniors.common.exception.NotMatchException;
-import com.common.reniors.domain.entity.Company;
-import com.common.reniors.domain.entity.user.User;
+import com.specialization.yogidice.common.exception.NotMatchException;
+import com.specialization.yogidice.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
@@ -20,7 +19,7 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean isLoginUserAnnotation = parameter.getParameterAnnotation(LoginUser.class) != null || parameter.getParameterAnnotation(LoginCompany.class) != null;
-        boolean isLongClass = User.class.equals(parameter.getParameterType()) || Company.class.equals(parameter.getParameterType());
+        boolean isLongClass = User.class.equals(parameter.getParameterType());
         return isLoginUserAnnotation && isLongClass;
     }
 
@@ -28,12 +27,9 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     public Object resolveArgument(MethodParameter parameter,
                                   ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest,
-                                  WebDataBinderFactory binderFactory) throws Exception {
+                                  WebDataBinderFactory binderFactory) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if(Company.class.equals(parameter.getParameterType())){
-                return (Company) authentication.getPrincipal();
-            }
             return (User) authentication.getPrincipal();
         } catch (ClassCastException e) {
             throw new NotMatchException("토큰 정보가 잘못되었습니다.");

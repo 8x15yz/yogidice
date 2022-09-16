@@ -1,10 +1,13 @@
 package com.specialization.yogidice.domain.entity;
 
-import com.specialization.yogidice.domain.entity.type.ReviewedType;
-import com.specialization.yogidice.domain.entity.type.RoleType;
+import com.specialization.yogidice.domain.entity.type.Reviewed;
+import com.specialization.yogidice.domain.entity.type.Role;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 유저 모델 정의.
@@ -12,44 +15,56 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer id;
-    private String kakao_id;
+    private Long id;
 
-    private String nickname;
+    @NotNull
+    private String kakaoId;
 
+    @NotNull
+    private String nickName;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private RoleType role;
+    private Role role;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private ReviewedType reviewed;
+    private Reviewed reviewed;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<History> histories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
     @Builder
-    public User(String kakao_id, String nickname, RoleType role, ReviewedType reviewed) {
-        this.kakao_id = kakao_id;
-        this.nickname = nickname;
-        this.role = role;
-        this.reviewed = reviewed;
+    public User(String kakaoId, String nickName) {
+        this.kakaoId = kakaoId;
+        this.nickName = nickName;
+        this.role = Role.ROLE_USER;
+        this.reviewed = Reviewed.F;
     }
 
-    public static User create(String kakao_id, String nickname, RoleType role, ReviewedType reviewed ){
+    public static User create(String kakaoId, String nickName){
         User user = new User();
-        user.kakao_id = kakao_id;
-        user.nickname = nickname;
-        user.role = role;
-        user.reviewed = reviewed;
+        user.kakaoId = kakaoId;
+        user.nickName = nickName;
+        user.role = Role.ROLE_USER;
+        user.reviewed = Reviewed.F;
         return user;
     }
 
-    public void update(String kakao_id, String nickname, RoleType role, ReviewedType reviewed ){
-        this.kakao_id = kakao_id;
-        this.nickname = nickname;
-        this.role = role;
-        this.reviewed = reviewed;
+    public void update(String nickName){
+        this.nickName = nickName;
     }
 
+    public void completeReview() {
+        this.reviewed = Reviewed.T;
+    }
 }
