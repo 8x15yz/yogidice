@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.specialization.yogidice.common.auth.SsafyUserDetails;
 import com.specialization.yogidice.dto.response.BaseResponseBody;
 import io.swagger.annotations.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,17 +24,25 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
+@Api(tags = {"유저 API"})
 public class UserController {
+    private final UserService userService;
 
+    // 카카오 계정 정보 가져오기
+    @GetMapping("/kakao/callback")
+    @ApiOperation(value = "카카오 계정 정보 가져오기", notes = "카카오 계정 정보를 가져옵니다.")
+    public ResponseEntity<?> getKakaoUserInfo(
+            @RequestParam String code
+    ) throws JsonProcessingException {
+        String accessToken = userService.getAccessToken(code);
+        KakaoUserInfo kakaoUserInfo = userService.getKakaoUserInfo(accessToken);
+        Map<String, KakaoUserInfo> response = new HashMap<>();
+        response.put("kakaoUserInfo", kakaoUserInfo);
+        return ResponseEntity.ok(response);
+    }
 
-    /*@Autowired
-    UserService userService;
-    @Autowired
-    PasswordEncoder passwordEncoder;
-    @Autowired
-    ObjectMapper mapper;*/
-
-    @PostMapping("/login/kakao")
+    @PostMapping("/login")
     @ApiOperation(value = "카카오 회원 가입 로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -101,7 +111,4 @@ public class UserController {
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
-
-
 }
-

@@ -6,16 +6,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Cafe_gamelist")
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Getter
 public class CafeGamelist {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="gamelist_id")
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "cafe_id")
@@ -32,4 +30,7 @@ public class CafeGamelist {
         return cafeGamelist;
     }
 
+    public void update(BoardGame boardGame) {
+        this.boardGame = boardGame;
+    }
 }
