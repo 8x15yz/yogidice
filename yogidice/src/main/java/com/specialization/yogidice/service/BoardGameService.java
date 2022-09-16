@@ -35,7 +35,7 @@ public class BoardGameService {
     @Transactional
     public Long createBoardGame(BoardGameRequest request) {
         if (boardGameRepository.findByTitleKr(request.getTitleKr()).isPresent()) {
-            throw new DuplicateException(String.format("%s는 이미 등록된 보드게임입니다.", request.getTitleKr()));
+            throw new DuplicateException(String.format("%s 은/는 이미 등록된 보드게임입니다.", request.getTitleKr()));
         }
         BoardGame saveBoardGame = BoardGame.create(
                 request.getTitleKr(),
