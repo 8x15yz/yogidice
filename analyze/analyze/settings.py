@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',    # pip install djangorestframework
     'django_extensions', # initial setting 
     'yogidice', # app
+    "corsheaders",       # python -m pip install django-cors-headers
     ## 초기 설정
 
     'django.contrib.admin',
@@ -46,6 +47,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    ## CORS 추가함
+    "corsheaders.middleware.CorsMiddleware",
+    "corsheaders.middleware.CorsPostCsrfMiddleware",
+    ## CORS 추가함
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -142,3 +148,19 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+## CORS 추가함
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080", # 프론트엔드 주소 작성
+]
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+## CORS 추가함
