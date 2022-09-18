@@ -27,7 +27,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Api(tags = {"유저 API"})
 public class UserController {
-    private final UserService userService;
+    /*private final UserService userService;
 
     // 카카오 계정 정보 가져오기
     @GetMapping("/kakao/callback")
@@ -40,7 +40,7 @@ public class UserController {
         Map<String, KakaoUserInfo> response = new HashMap<>();
         response.put("kakaoUserInfo", kakaoUserInfo);
         return ResponseEntity.ok(response);
-    }
+    }*/
 
     @PostMapping("/login")
     @ApiOperation(value = "카카오 회원 가입 로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.")
