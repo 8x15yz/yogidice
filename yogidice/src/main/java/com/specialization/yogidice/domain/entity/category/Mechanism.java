@@ -18,7 +18,7 @@ import java.util.List;
 public class Mechanism {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "type_id")
+    @Column(name = "mechanism_id")
     private long id;
 
     @NotNull
@@ -29,7 +29,7 @@ public class Mechanism {
     private int parentsMec;
 
     @OneToMany(mappedBy = "mechanism", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BoardGame> boardGames = new ArrayList<>();
+    private List<MechanismList> mechanismLists = new ArrayList<>();
 
     public static Mechanism create(String name, int parentsMec) {
         Mechanism mechanism = new Mechanism();
