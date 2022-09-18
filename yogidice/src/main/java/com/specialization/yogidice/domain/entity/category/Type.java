@@ -26,7 +26,7 @@ public class Type {
     private String name;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BoardGame> boardGames = new ArrayList<>();
+    private List<TypeList>typeLists= new ArrayList<>();
 
     public static Type create(String name) {
         Type type = new Type();

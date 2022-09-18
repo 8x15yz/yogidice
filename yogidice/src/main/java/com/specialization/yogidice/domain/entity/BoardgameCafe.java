@@ -26,7 +26,7 @@ public class BoardgameCafe {
     @NotNull
     private String address;
 
-    @OneToMany(mappedBy = "boardgamecafe" , cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "boardgameCafe" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CafeGamelist> cafeGamelists = new ArrayList<CafeGamelist>();
     @Builder
     public BoardgameCafe( String name, String address) {
