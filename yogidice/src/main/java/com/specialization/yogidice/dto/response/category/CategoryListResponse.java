@@ -1,7 +1,8 @@
 package com.specialization.yogidice.dto.response.category;
 
-import com.specialization.yogidice.domain.entity.category.Category;
 import com.specialization.yogidice.domain.entity.category.CategoryList;
+import com.specialization.yogidice.dto.response.BaseResponseBody;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryListResponse {
+@ApiModel("CategoryListResponse")
+public class CategoryListResponse extends BaseResponseBody {
     private long id;
 
     private Long gameId;
@@ -28,5 +30,13 @@ public class CategoryListResponse {
                 categoryList.getCategory().getId(),
                 categoryList.getCategory().getName()
         );
+    }
+
+    public static CategoryListResponse of(Integer statusCode, String message, Long categoryListId) {
+        CategoryListResponse response = new CategoryListResponse();
+        response.setStatusCode(statusCode);
+        response.setMessage(message);
+        response.setId(categoryListId);
+        return response;
     }
 }

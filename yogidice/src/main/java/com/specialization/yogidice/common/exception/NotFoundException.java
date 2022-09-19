@@ -2,6 +2,7 @@ package com.specialization.yogidice.common.exception;
 
 public class NotFoundException extends RuntimeException {
     public static final String USER_NOT_FOUND = "등록되지 않은 사용자입니다.";
+    public static final String USER_LIST_NOT_FOUND = "등록된 사용자가 없습니다.";
     public static final String BOARDGAME_NOT_FOUND = "등록되지 않은 보드게임입니다.";
     public static final String BOARDGAME_LIST_NOT_FOUND = "등록된 보드게임이 없습니다.";
     public static final String CATEGORY_NOT_FOUND = "등록되지 않은 카테고리(테마)입니다.";

@@ -5,6 +5,7 @@ import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.History;
 import com.specialization.yogidice.domain.entity.User;
+import com.specialization.yogidice.domain.entity.type.Reviewed;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
 import com.specialization.yogidice.domain.repository.HistoryRepository;
 import com.specialization.yogidice.domain.repository.UserRepository;
@@ -29,7 +30,9 @@ public class HistoryService {
     private final HistoryRepository historyRepository;
 
     @Transactional
-    public Long createHistory(User user, HistoryCreateRequest request) {
+    public Long createHistory(Long userId, HistoryCreateRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         BoardGame boardGame = boardGameRepository.findById(request.getGameId())
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         if (historyRepository.findByUserAndBoardGame(user, boardGame).isPresent()) {
@@ -75,7 +78,10 @@ public class HistoryService {
     }
 
     @Transactional
-    public void updateHistory(Long historyId, HistoryUpdateRequest request) {
+    public void updateHistory(User user, Long historyId, HistoryUpdateRequest request) {
+        if (user.getReviewed().equals(Reviewed.F)) {
+            user.completeReview();
+        }
         History history = historyRepository.findById(historyId)
                 .orElseThrow(() -> new NotFoundException(HISTORY_NOT_FOUND));
         history.update(

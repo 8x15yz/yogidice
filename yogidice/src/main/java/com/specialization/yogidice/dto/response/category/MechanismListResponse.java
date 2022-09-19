@@ -1,7 +1,8 @@
 package com.specialization.yogidice.dto.response.category;
 
 import com.specialization.yogidice.domain.entity.category.MechanismList;
-import com.specialization.yogidice.domain.entity.category.TypeList;
+import com.specialization.yogidice.dto.response.BaseResponseBody;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MechanismListResponse {
+@ApiModel("MechanismListResponse")
+public class MechanismListResponse extends BaseResponseBody {
     private long id;
 
     private Long gameId;
@@ -28,5 +30,13 @@ public class MechanismListResponse {
                 mechanismList.getMechanism().getId(),
                 mechanismList.getMechanism().getName()
         );
+    }
+
+    public static MechanismListResponse of(Integer statusCode, String message, Long mechanismListId) {
+        MechanismListResponse response = new MechanismListResponse();
+        response.setStatusCode(statusCode);
+        response.setMessage(message);
+        response.setId(mechanismListId);
+        return response;
     }
 }
