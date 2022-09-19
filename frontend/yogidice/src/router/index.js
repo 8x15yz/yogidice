@@ -4,6 +4,7 @@ import {createRouter, createWebHistory } from "vue-router";
 
 import HelloWorld from '../components/HelloWorld.vue';
 import QwerTy from '../components/QwerTy.vue';
+import BerChart from '../components/BerChart.vue';
 
 // Vue.use(VueRouter);
 
@@ -17,6 +18,11 @@ const routes = [
         path: '/qwerty',
         name: 'QwerTy',
         component: QwerTy,
+    },
+    {
+        path: '/BerChart',
+        name: 'BerChart',
+        component: BerChart,
     },
 ];
 

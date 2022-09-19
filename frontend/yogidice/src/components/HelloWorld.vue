@@ -5,6 +5,7 @@
     </div>
 </template>
 
+
 <script>
 export default {
   name: 'HelloWorld',
@@ -21,6 +22,8 @@ export default {
     .catch(err => {
       console.log(err)
     })
+
+    
   }
 }
 </script>
