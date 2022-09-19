@@ -18,3 +18,7 @@
 
 ## 09.16
 + crawl_game bgg api 활용
+
+## 09.19
++ crawl_game 예외 상황 처리, 분기별 저장
++ crawl_rating 스타팅 포인트 분할
