@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryListCreateRequest {
+public class CategoryGroupCreateRequest {
     @NotNull
     private Long gameId;
 

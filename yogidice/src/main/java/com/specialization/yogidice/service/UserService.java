@@ -39,7 +39,6 @@ import static com.specialization.yogidice.common.exception.NotFoundException.USE
 @Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
-    private final BoardGameRepository boardGameRepository;
     private final BookmarkRepository bookmarkRepository;
     private final HistoryRepository historyRepository;
     private final JwtUtil jwtUtil;
@@ -57,7 +56,7 @@ public class UserService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", kakaoRestApiKey);
-        body.add("redirect_uri", "http://localhost:8080/login");
+        body.add("redirect_uri", "https://j7b206.p.ssafy.io/login");
         body.add("code", code);
 
         // HTTP 요청 보내기

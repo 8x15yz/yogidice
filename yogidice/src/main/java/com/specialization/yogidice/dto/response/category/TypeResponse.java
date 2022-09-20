@@ -30,4 +30,13 @@ public class TypeResponse extends BaseResponseBody {
         response.setId(typeId);
         return response;
     }
+
+    public static TypeResponse of(Integer statusCode, String message, TypeResponse typeResponse) {
+        TypeResponse response = new TypeResponse();
+        response.setStatusCode(statusCode);
+        response.setMessage(message);
+        response.setId(typeResponse.getId());
+        response.setName(typeResponse.getName());
+        return response;
+    }
 }

@@ -2,7 +2,6 @@ package com.specialization.yogidice.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.specialization.yogidice.common.auth.SsafyUserDetails;
 import com.specialization.yogidice.common.config.web.LoginUser;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.dto.request.*;
@@ -18,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 

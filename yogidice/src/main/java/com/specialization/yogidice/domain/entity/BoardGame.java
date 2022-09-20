@@ -39,11 +39,9 @@ public class BoardGame {
     @NotNull
     private double rating;
 
-    // mysql data type => tinyint
-    private int minPlayers;
+    private byte minPlayers;
 
-    // mysql data type => tinyint
-    private int maxPlayers;
+    private byte maxPlayers;
 
     @Column(length = 50)
     private String playingTime;
@@ -60,15 +58,15 @@ public class BoardGame {
     private String contentsImgURL;
 
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CategoryList> categoryLists = new ArrayList<>();
+    private List<CategoryGroup> categoryGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TypeList> typeLists = new ArrayList<>();
+    private List<TypeGroup> typeGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MechanismList> mechanismLists = new ArrayList<>();
+    private List<MechanismGroup> mechanismGroups = new ArrayList<>();
 
-    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, int minPlayers, int maxPlayers, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, byte minPlayers, byte maxPlayers, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
         BoardGame boardGame = new BoardGame();
         boardGame.titleKr = titleKr;
         boardGame.titleEng = titleEng;
@@ -85,7 +83,7 @@ public class BoardGame {
         return boardGame;
     }
 
-    public void update(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, int minPlayers, int maxPlayers, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+    public void update(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, byte minPlayers, byte maxPlayers, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
         this.titleKr = titleKr;
         this.titleEng = titleEng;
         this.publishYear = publishYear;

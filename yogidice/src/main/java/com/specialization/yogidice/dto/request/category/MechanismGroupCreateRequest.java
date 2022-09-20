@@ -9,10 +9,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TypeListCreateRequest {
+public class MechanismGroupCreateRequest {
     @NotNull
     private Long gameId;
 
     @NotNull
-    private Long typeId;
+    private Long mechanismId;
 }

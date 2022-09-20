@@ -9,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "BGGData")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
@@ -20,8 +19,9 @@ public class BGGData {
     private Long id;
 
     @NotNull
+    @Column(length = 100)
     private String name;
 
     @NotNull
-    private Integer rating;
+    private byte rating;
 }

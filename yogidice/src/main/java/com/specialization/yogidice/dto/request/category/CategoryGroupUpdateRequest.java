@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TypeListUpdateRequest {
+public class CategoryGroupUpdateRequest {
     @NotNull
-    private Long typeId;
+    private Long categoryId;
 }

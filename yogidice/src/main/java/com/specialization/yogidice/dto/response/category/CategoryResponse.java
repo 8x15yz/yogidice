@@ -30,4 +30,13 @@ public class CategoryResponse extends BaseResponseBody {
         response.setId(categoryId);
         return response;
     }
+
+    public static CategoryResponse of(Integer statusCode, String message, CategoryResponse categoryResponse) {
+        CategoryResponse response = new CategoryResponse();
+        response.setStatusCode(statusCode);
+        response.setMessage(message);
+        response.setId(categoryResponse.getId());
+        response.setName(categoryResponse.getName());
+        return response;
+    }
 }

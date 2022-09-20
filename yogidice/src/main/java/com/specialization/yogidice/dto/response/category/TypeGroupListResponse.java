@@ -11,15 +11,15 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("MechanismListResponse")
-public class MechanismListResponse extends BaseResponseBody {
-    private List<MechanismResponse> responses;
+@ApiModel("TypeGroupListResponse")
+public class TypeGroupListResponse extends BaseResponseBody {
+    private List<TypeGroupResponse> responses;
 
-    public static MechanismListResponse of(Integer statusCode, String message, List<MechanismResponse> mechanismResponses) {
-        MechanismListResponse response = new MechanismListResponse();
+    public static TypeGroupListResponse of(Integer statusCode, String message, List<TypeGroupResponse> typeGroupResponses) {
+        TypeGroupListResponse response = new TypeGroupListResponse();
         response.setStatusCode(statusCode);
         response.setMessage(message);
-        response.setResponses(mechanismResponses);
+        response.setResponses(typeGroupResponses);
         return response;
     }
 }

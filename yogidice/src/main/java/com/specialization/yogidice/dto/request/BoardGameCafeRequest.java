@@ -9,12 +9,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoryCreateRequest {
+public class BoardGameCafeRequest {
     @NotNull
-    private byte rating;
-
-    private String review;
+    private String name;
 
     @NotNull
-    private Long gameId;
+    private String address;
 }

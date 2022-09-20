@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class HistoryResponse extends BaseResponseBody {
     private Long Id;
 
-    private Integer rating;
+    private byte rating;
 
     private String review;
 

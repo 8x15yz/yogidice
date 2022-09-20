@@ -5,28 +5,27 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Cafe_gamelist")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class CafeGamelist {
+public class CafeGameList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="gamelist_id")
+    @Column(name="game_List_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "cafe_id")
-    private BoardgameCafe boardgameCafe;
+    private BoardGameCafe boardGameCafe;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "game_id")
     private BoardGame boardGame;
 
-    public static CafeGamelist create(BoardgameCafe boardgameCafe, BoardGame boardgame) {
-        CafeGamelist cafeGamelist = new CafeGamelist();
-        cafeGamelist.boardgameCafe = boardgameCafe;
-        cafeGamelist.boardGame = boardgame;
+    public static CafeGameList create(BoardGameCafe boardGameCafe, BoardGame boardGame) {
+        CafeGameList cafeGamelist = new CafeGameList();
+        cafeGamelist.boardGameCafe = boardGameCafe;
+        cafeGamelist.boardGame = boardGame;
         return cafeGamelist;
     }
 

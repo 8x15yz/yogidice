@@ -1,6 +1,5 @@
 package com.specialization.yogidice.domain.entity.category;
 
-import com.specialization.yogidice.domain.entity.BoardGame;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +18,7 @@ public class Mechanism {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mechanism_id")
-    private long id;
+    private byte id;
 
     @NotNull
     @Column(length = 50)
@@ -29,7 +28,7 @@ public class Mechanism {
     private int parentsMec;
 
     @OneToMany(mappedBy = "mechanism", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MechanismList> mechanismLists = new ArrayList<>();
+    private List<MechanismGroup> mechanismGroups = new ArrayList<>();
 
     public static Mechanism create(String name, int parentsMec) {
         Mechanism mechanism = new Mechanism();

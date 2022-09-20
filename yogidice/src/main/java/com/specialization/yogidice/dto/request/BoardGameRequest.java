@@ -25,9 +25,9 @@ public class BoardGameRequest {
     @NotNull
     private double rating;
 
-    private int minPlayers;
+    private byte minPlayers;
 
-    private int maxPlayers;
+    private byte maxPlayers;
 
     private String playingTime;
 
