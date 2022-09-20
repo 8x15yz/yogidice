@@ -22,3 +22,7 @@
 ## 09.19
 + crawl_game 예외 상황 처리, 분기별 저장
 + crawl_rating 스타팅 포인트 분할
+
+## 09.20
++ crawl_game 최종본 작성 완료
++ crawl_rating 역할분담

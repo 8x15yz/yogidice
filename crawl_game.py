@@ -73,38 +73,46 @@ def main(no):
             startpoint = (no-1) % 100
         else : startpoint = 0
         
-        for i in tqdm(range(startpoint, len(table_title))):
+        for i in range(startpoint, len(table_title)):
             image = (table_image[i]['src'])
             current_time = time.time()
             cnt = cnt + 1
             print('no : '+ str(cnt))
             title_kor = (table_title[i].text)
-            print('game : ' + table_title[i].text + ' | ' + re.sub(r'[^0-9]', '',table_year[i].text))
+            # print('game : ' + table_title[i].text + ' | ' + re.sub(r'[^0-9]', '',table_year[i].text))
             year = (re.sub(r'[^0-9]', '',table_year[i].text))
             score_bl = (table_score_bl[i].text)
             score_user = (table_score_user[i].text)
             driver.find_element("xpath", '/html/body/div[5]/div[1]/div[2]/div[2]/a[' + str(i+1) + ']').click()
             soup = bs(driver.page_source, 'html.parser')
             code = ''
+            isfind = False
             try:
                 code = soup.select_one('div.game-intro-div-title > a')
                 code = code['href']
                 if 'boardgamegeek' in code:
+                    if not '/boardgame/' in code:
+                       raise Exception
                     code = str(code).split('/')[4]
                     bggcode = (code)
-                    print('code : ' + code)
+                    # print('code : ' + code)
+                    isfind = True
                 else : raise Exception
-                driver.find_element("xpath", '//*[@id="game-overview-box"]/div[2]/div[1]/div[6]/a').click()
+                # driver.find_element("xpath", '//*[@id="game-overview-box"]/div[2]/div[1]/div[6]/a').click()
+                tempurl = 'https://boardgamegeek.com/boardgame/' + code
+                script = f"window.open('{tempurl}');"
+                driver.execute_script(script)
             except Exception as e:
                 findtitle = soup.select_one('h2').text
                 findyear = re.sub(r'[^0-9]', '',table_year[i].text)
-                print(findtitle + ' ' + findyear)
+                # print(findtitle + ' ' + findyear)
             
                 response = requests.get('https://boardgamegeek.com/xmlapi/search?search=' + findtitle)
                 content = response.text
                 xml_obj = bs(content,'lxml-xml')
                 rows = xml_obj.select('boardgame')
                 code = ''
+                
                 if len(rows) == 0:
                     findtitle = findtitle.split()[0]  
                     response = requests.get('https://boardgamegeek.com/xmlapi/search?search=' + findtitle)
@@ -115,20 +123,39 @@ def main(no):
                     if len(rows) == 1:
                         code = rows[i]['objectid']
                         code = str(code)
-                        print(code)
+                        # print(code)
+                        isfind = True
                         break
                     elif (rows[i].find('name').text).lower() == findtitle.lower() :
                         code = rows[i]['objectid']
                         code = str(code)
-                        print(code)
+                        # print(code)
+                        isfind = True
                         break
-        
-                    
+                if not isfind:
+                    try :
+                        code = rows[0]['objectid']
+                        code = str(code)
+                        # print(code)
+                        isfind = True
+                    except Exception as e:
+                        isfind = False
+                        driver.back()
+                        continue
                 bggcode = code
                 tempurl = 'https://boardgamegeek.com/boardgame/' + code
                 script = f"window.open('{tempurl}');"
                 driver.execute_script(script)
+            if not isfind:
+                driver.close()
+                driver.switch_to.window(driver.window_handles[0])
+                driver.back()
+                continue   
             driver.switch_to.window(driver.window_handles[-1])
+            urlcode = driver.current_url.split('/')[4]
+            if not urlcode == code:
+                bggcode = urlcode
+                code = urlcode
             response = requests.get('https://boardgamegeek.com/xmlapi/game/' + code + '?stats=1')
             content = response.text
             sleep(1)
@@ -145,10 +172,10 @@ def main(no):
             age = (xml_obj.select_one('age').text)
             averageweight = (xml_obj.select_one('averageweight').text)
             
-            print('minplayers : ' + xml_obj.select_one('minplayers').text + ' | maxplayers : ' +xml_obj.select_one('maxplayers').text)
-            print('playingtime : ' +xml_obj.select_one('playingtime').text + ' | minplaytime : ' +xml_obj.select_one('minplaytime').text + ' | maxplaytime : ' +xml_obj.select_one('maxplaytime').text)
-            print('age : ' +xml_obj.select_one('age').text)
-            print('averageweight : ' +xml_obj.select_one('averageweight').text)
+            # print('minplayers : ' + xml_obj.select_one('minplayers').text + ' | maxplayers : ' +xml_obj.select_one('maxplayers').text)
+            # print('playingtime : ' +xml_obj.select_one('playingtime').text + ' | minplaytime : ' +xml_obj.select_one('minplaytime').text + ' | maxplaytime : ' +xml_obj.select_one('maxplaytime').text)
+            # print('age : ' +xml_obj.select_one('age').text)
+            # print('averageweight : ' +xml_obj.select_one('averageweight').text)
 
             soup = bs(driver.page_source, 'html.parser')
             try : 
@@ -159,7 +186,7 @@ def main(no):
                 eng_title = soup.select_one('h1 > a').text
             eng_title = eng_title.strip()
             title_eng = (eng_title)
-            print('title : '+eng_title)
+            # print('title : '+eng_title)
             driver.find_element("xpath", '//*[@id="mainbody"]/div[2]/div/div[1]/div[2]/ng-include/div/div/ui-view/ui-view/div/overview-module/description-module/div/div[2]/div/div[1]/classifications-module/div/div[2]/ul/li[1]/div[2]/button').click()
             sleep(1)
             soup = bs(driver.page_source, 'html.parser')
@@ -172,7 +199,7 @@ def main(no):
                 if 'ng-binding is-winner' in str(per):
                     temptype = soup.select_one('th > span > a').text
                     gametype = (temptype)
-            print('type : ' + temptype)
+            # print('type : ' + temptype)
             driver.find_element("xpath", '/html/body/div[1]/div/div/div[2]/button[2]').click()
             sleep(1)
             driver.find_element("xpath", '//*[@id="primary_tabs"]/ul/li[12]/button').click()
@@ -198,7 +225,7 @@ def main(no):
             tempstr = tempstr[1:]
             tempstr = tempstr[:-1]
             gametheme = (tempstr)
-            print('theme : '+ tempstr)
+            # print('theme : '+ tempstr)
             strmecha = str(tempcate[14])
             tempstr = ''
             soup = bs(strmecha, 'lxml')
@@ -208,10 +235,11 @@ def main(no):
             tempstr = tempstr[1:]
             tempstr = tempstr[:-1]
             mechanisms = (tempstr)
-            print('mechanisms : ' + tempstr)
+            # print('mechanisms : ' + tempstr)
             ctime = int(time.time() - current_time)
-            print('실행시간 : ' + str(ctime) + '초')
-            print('================================================================================')
+            # print('실행시간 : ' + str(ctime) + '초')
+            # print('================================================================================')
+           
             driver.close()
             driver.switch_to.window(driver.window_handles[0])
             driver.back()
@@ -225,6 +253,7 @@ def main(no):
                 info.to_csv('보드게임목록.csv',  mode='w', header=True, index=False, encoding='utf-8-sig', sep='|')  
             else:
                 info.to_csv('보드게임목록.csv',  mode='a', header=False, index=False, encoding='utf-8-sig', sep='|')
+            print(' success')
         isre = True
         # 페이지넘기기 / 종료
         if index :
