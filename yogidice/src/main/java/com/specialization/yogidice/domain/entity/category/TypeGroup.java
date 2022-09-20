@@ -12,10 +12,10 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class TypeList {
+public class TypeGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "type_list_id")
+    @Column(name = "type_group_id")
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,11 +26,11 @@ public class TypeList {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    public static TypeList create(BoardGame boardGame, Type type) {
-        TypeList categoryList = new TypeList();
-        categoryList.boardGame = boardGame;
-        categoryList.type = type;
-        return categoryList;
+    public static TypeGroup create(BoardGame boardGame, Type type) {
+        TypeGroup typeGroup = new TypeGroup();
+        typeGroup.boardGame = boardGame;
+        typeGroup.type = type;
+        return typeGroup;
     }
 
     public void update(Type type) {

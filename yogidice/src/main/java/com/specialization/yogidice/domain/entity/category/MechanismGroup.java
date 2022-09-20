@@ -12,10 +12,10 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class CategoryList {
+public class MechanismGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cate_list_id")
+    @Column(name = "mechanism_group_id")
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,17 +23,17 @@ public class CategoryList {
     private BoardGame boardGame;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cate_id")
-    private Category category;
+    @JoinColumn(name = "mechanism_id")
+    private Mechanism mechanism;
 
-    public static CategoryList create(BoardGame boardGame, Category category) {
-        CategoryList categoryList = new CategoryList();
-        categoryList.boardGame = boardGame;
-        categoryList.category = category;
-        return categoryList;
+    public static MechanismGroup create(BoardGame boardGame, Mechanism mechanism) {
+        MechanismGroup mechanismGroup = new MechanismGroup();
+        mechanismGroup.boardGame = boardGame;
+        mechanismGroup.mechanism = mechanism;
+        return mechanismGroup;
     }
 
-    public void update(Category category) {
-        this.category = category;
+    public void update(Mechanism mechanism) {
+        this.mechanism = mechanism;
     }
 }

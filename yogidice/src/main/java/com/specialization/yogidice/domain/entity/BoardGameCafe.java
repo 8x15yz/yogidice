@@ -8,14 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Boardgame_cafe")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class BoardgameCafe {
+public class BoardGameCafe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="cafe_id")
+    @Column(name = "cafe_id")
     private Long id;
 
     @Column(length = 100)
@@ -26,22 +25,23 @@ public class BoardgameCafe {
     @NotNull
     private String address;
 
-    @OneToMany(mappedBy = "boardgameCafe" , cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CafeGamelist> cafeGamelists = new ArrayList<CafeGamelist>();
+    @OneToMany(mappedBy = "boardGameCafe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CafeGameList> cafeGameLists = new ArrayList<>();
+
     @Builder
-    public BoardgameCafe( String name, String address) {
+    public BoardGameCafe(String name, String address) {
         this.name = name;
         this.address = address;
     }
 
-    public static BoardgameCafe create(String name, String address) {
-        BoardgameCafe boardgameCafe = new BoardgameCafe();
+    public static BoardGameCafe create(String name, String address) {
+        BoardGameCafe boardgameCafe = new BoardGameCafe();
         boardgameCafe.name = name;
         boardgameCafe.address = address;
         return boardgameCafe;
     }
 
-    public void update(String name, String address){
+    public void update(String name, String address) {
         this.name = name;
         this.address = address;
     }

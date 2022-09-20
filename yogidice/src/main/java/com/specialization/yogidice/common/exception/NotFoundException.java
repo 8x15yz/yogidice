@@ -14,6 +14,10 @@ public class NotFoundException extends RuntimeException {
     public static final String HISTORY_LIST_NOT_FOUND = "게임 기록이 없습니다.";
     public static final String BOOKMARK_NOT_FOUND = "등록되지 않은 북마크 입니다.";
     public static final String BOOKMARK_LIST_NOT_FOUND = "북마크한 게임이 없습니다.";
+    public static final String BOARDGAMECAFE_NOT_FOUND = "등록되지 않은 보드게임 카페입니다.";
+    public static final String BOARDGAMECAFE_LIST_NOT_FOUND = "등록된 보드게임 카페가 없습니다.";
+    public static final String CAFEGAME_NOT_FOUND = "해당 카페에 등록되지 않은 보드게임입니다.";
+    public static final String CAFEGAME_LIST_NOT_FOUND = "해당 카페에 등록된 보드게임 목록이 없습니다.";
 
     public NotFoundException(String message) {
         super(message);

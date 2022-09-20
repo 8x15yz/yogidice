@@ -1,6 +1,5 @@
 package com.specialization.yogidice.domain.entity.category;
 
-import com.specialization.yogidice.domain.entity.BoardGame;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +25,7 @@ public class Type {
     private String name;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TypeList>typeLists= new ArrayList<>();
+    private List<TypeGroup> typeGroups = new ArrayList<>();
 
     public static Type create(String name) {
         Type type = new Type();

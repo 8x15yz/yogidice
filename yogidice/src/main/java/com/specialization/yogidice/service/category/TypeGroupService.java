@@ -4,13 +4,13 @@ import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.category.Type;
-import com.specialization.yogidice.domain.entity.category.TypeList;
+import com.specialization.yogidice.domain.entity.category.TypeGroup;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
-import com.specialization.yogidice.domain.repository.category.TypeListRepository;
+import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
 import com.specialization.yogidice.domain.repository.category.TypeRepository;
-import com.specialization.yogidice.dto.request.category.TypeListCreateRequest;
-import com.specialization.yogidice.dto.request.category.TypeListUpdateRequest;
-import com.specialization.yogidice.dto.response.category.TypeListResponse;
+import com.specialization.yogidice.dto.request.category.TypeGroupCreateRequest;
+import com.specialization.yogidice.dto.request.category.TypeGroupUpdateRequest;
+import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,67 +23,67 @@ import static com.specialization.yogidice.common.exception.NotFoundException.*;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class TypeListService {
+public class TypeGroupService {
     private final BoardGameRepository boardGameRepository;
     private final TypeRepository typeRepository;
-    private final TypeListRepository typeListRepository;
+    private final TypeGroupRepository typeGroupRepository;
 
     @Transactional
-    public Long createTypeList(TypeListCreateRequest request) {
+    public Long createTypeGroup(TypeGroupCreateRequest request) {
         BoardGame boardGame = boardGameRepository.findById(request.getGameId())
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         Type type = typeRepository.findById(request.getTypeId())
                 .orElseThrow(() -> new NotFoundException(TYPE_NOT_FOUND));
-        if (typeListRepository.findByBoardGameAndType(boardGame, type).isPresent())
+        if (typeGroupRepository.findByBoardGameAndType(boardGame, type).isPresent())
             throw new DuplicateException(String.format("%s 은/는 이미 %s에 등록된 유형입니다.", type.getName(), boardGame.getTitleKr()));
-        TypeList saveTypeList = TypeList.create(boardGame, type);
-        return typeListRepository.save(saveTypeList).getId();
+        TypeGroup saveTypeGroup = TypeGroup.create(boardGame, type);
+        return typeGroupRepository.save(saveTypeGroup).getId();
     }
 
     @Transactional
-    public List<TypeListResponse> readTypeListOfBoardGame(Long gameId) {
+    public List<TypeGroupResponse> readTypeGroupListOfBoardGame(Long gameId) {
         BoardGame boardGame = boardGameRepository.findById(gameId)
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        List<TypeList> typeLists = typeListRepository.findByBoardGame(boardGame);
-        if (typeLists.isEmpty()) {
+        List<TypeGroup> typeGroups = typeGroupRepository.findByBoardGame(boardGame);
+        if (typeGroups.isEmpty()) {
             throw new NotFoundException(TYPE_LIST_NOT_FOUND);
         }
-        List<TypeListResponse> responses = new ArrayList<>();
-        for (TypeList typeList : typeLists) {
-            responses.add(TypeListResponse.response(typeList));
+        List<TypeGroupResponse> responses = new ArrayList<>();
+        for (TypeGroup typeGroup : typeGroups) {
+            responses.add(TypeGroupResponse.response(typeGroup));
         }
         return responses;
     }
 
     @Transactional
-    public List<TypeListResponse> readTypeListOfType(Long typeId) {
+    public List<TypeGroupResponse> readTypeGroupListOfType(Long typeId) {
         Type type = typeRepository.findById(typeId)
                 .orElseThrow(() -> new NotFoundException(TYPE_NOT_FOUND));
-        List<TypeList> typeLists = typeListRepository.findByType(type);
-        if (typeLists.isEmpty()) {
+        List<TypeGroup> typeGroups = typeGroupRepository.findByType(type);
+        if (typeGroups.isEmpty()) {
             throw new NotFoundException(TYPE_LIST_NOT_FOUND);
         }
-        List<TypeListResponse> responses = new ArrayList<>();
-        for (TypeList typeList : typeLists) {
-            responses.add(TypeListResponse.response(typeList));
+        List<TypeGroupResponse> responses = new ArrayList<>();
+        for (TypeGroup typeGroup : typeGroups) {
+            responses.add(TypeGroupResponse.response(typeGroup));
         }
         return responses;
     }
 
     @Transactional
-    public void updateTypeList(Long typeListId, TypeListUpdateRequest request) {
-        TypeList typeList = typeListRepository.findById(typeListId)
+    public void updateTypeGroup(Long typeGroupId, TypeGroupUpdateRequest request) {
+        TypeGroup typeGroup = typeGroupRepository.findById(typeGroupId)
                 .orElseThrow(() -> new NotFoundException(TYPE_LIST_NOT_FOUND));
         Type type = typeRepository.findById(request.getTypeId())
                 .orElseThrow(() -> new NotFoundException(TYPE_NOT_FOUND));
-        typeList.update(type);
-        typeListRepository.save(typeList);
+        typeGroup.update(type);
+        typeGroupRepository.save(typeGroup);
     }
 
     @Transactional
-    public void deleteTypeList(Long typeListId) {
-        TypeList typeList = typeListRepository.findById(typeListId)
+    public void deleteTypeGroup(Long typeGroupId) {
+        TypeGroup typeGroup = typeGroupRepository.findById(typeGroupId)
                 .orElseThrow(() -> new NotFoundException(TYPE_LIST_NOT_FOUND));
-        typeListRepository.delete(typeList);
+        typeGroupRepository.delete(typeGroup);
     }
 }

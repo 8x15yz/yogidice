@@ -21,7 +21,8 @@ spring:
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-      ddl-auto: create
+#      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
@@ -37,7 +38,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       username: yogidice
-      password: 9x9sns99
+      password: 9x9sms99
 
   # swagger 설정
   mvc:
