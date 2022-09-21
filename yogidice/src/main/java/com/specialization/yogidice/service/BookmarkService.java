@@ -56,21 +56,6 @@ public class BookmarkService {
     }
 
     @Transactional
-    public List<BookmarkResponse> readBookmarkListOfBoardGame(Long gameId) {
-        BoardGame boardGame = boardGameRepository.findById(gameId)
-                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        List<Bookmark> bookmarks = bookmarkRepository.findByBoardGame(boardGame);
-        if (bookmarks.isEmpty()) {
-            throw new NotFoundException((BOOKMARK_LIST_NOT_FOUND));
-        }
-        List<BookmarkResponse> responses = new ArrayList<>();
-        for (Bookmark bookmark : bookmarks) {
-            responses.add(BookmarkResponse.response(bookmark));
-        }
-        return responses;
-    }
-
-    @Transactional
     public void deleteBookmark(Long bookmarkId) {
         Bookmark bookmark = bookmarkRepository.findById(bookmarkId)
                 .orElseThrow(() -> new NotFoundException(BOOKMARK_NOT_FOUND));

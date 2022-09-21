@@ -22,14 +22,25 @@ public class BoardGameRequest {
     @NotNull
     private String thumbURL;
 
+    private double ratingBl;
+
     @NotNull
-    private double rating;
+    private double ratingUser;
+
+    @NotNull
+    private Long bbgCode;
 
     private byte minPlayers;
 
     private byte maxPlayers;
 
     private String playingTime;
+
+    private String minTime;
+
+    private String maxTime;
+
+    private int age;
 
     private double difficulty;
 

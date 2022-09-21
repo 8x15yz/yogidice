@@ -42,10 +42,15 @@ public class BoardGameService {
                 request.getTitleEng(),
                 request.getPublishYear(),
                 request.getThumbURL(),
-                request.getRating(),
+                request.getRatingBl(),
+                request.getRatingUser(),
+                request.getBbgCode(),
                 request.getMinPlayers(),
                 request.getMaxPlayers(),
                 request.getPlayingTime(),
+                request.getMinTime(),
+                request.getMaxTime(),
+                request.getAge(),
                 request.getDifficulty(),
                 request.getYoutubeURL(),
                 request.getContents(),
@@ -62,16 +67,16 @@ public class BoardGameService {
         }
         List<BoardGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : boardGames) {
-            List<CategoryGroupResponse> categoryGroupRespons = categoryGroupRepository.findByBoardGame(boardGame).stream()
+            List<CategoryGroupResponse> categoryGroupResponses = categoryGroupRepository.findByBoardGame(boardGame).stream()
                     .map(CategoryGroupResponse::response)
                     .collect(Collectors.toList());
-            List<TypeGroupResponse> typeGroupRespons = typeGroupRepository.findByBoardGame(boardGame).stream()
+            List<TypeGroupResponse> typeGroupResponses = typeGroupRepository.findByBoardGame(boardGame).stream()
                     .map(TypeGroupResponse::response)
                     .collect(Collectors.toList());
-            List<MechanismGroupResponse> mechanismGroupRespons = mechanismGroupRepository.findByBoardGame(boardGame).stream()
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(boardGame).stream()
                     .map(MechanismGroupResponse::response)
                     .collect(Collectors.toList());
-            responses.add(BoardGameResponse.response(boardGame, categoryGroupRespons, typeGroupRespons, mechanismGroupRespons));
+            responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
         }
         return responses;
     }
@@ -101,10 +106,15 @@ public class BoardGameService {
                 request.getTitleEng(),
                 request.getPublishYear(),
                 request.getThumbURL(),
-                request.getRating(),
+                request.getRatingBl(),
+                request.getRatingUser(),
+                request.getBbgCode(),
                 request.getMinPlayers(),
                 request.getMaxPlayers(),
                 request.getPlayingTime(),
+                request.getMinTime(),
+                request.getMaxTime(),
+                request.getAge(),
                 request.getDifficulty(),
                 request.getYoutubeURL(),
                 request.getContents(),
