@@ -7,7 +7,6 @@ from selenium.webdriver import ActionChains
 import csv
 from tqdm import tqdm
 
-
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
@@ -20,18 +19,52 @@ elem.send_keys("\n")
 
 time.sleep(2)
 
-# lists = driver.find_element(By.ID, 'info.search.place.list')
-lists = driver.find_element(By.CSS_SELECTOR, 'ul')
-print(lists.text)
+lists = driver.find_element(By.ID, 'info.search.place.list')
+more = driver.find_element(By.ID, 'info.search.place.more')
 
 li = lists.find_elements(By.CSS_SELECTOR, 'li')
-for i in li:
-    head_item = i.find_element(By.CLASS_NAME, 'head_item')
-    # print(head_item)
+divs = li[0].find_elements(By.CSS_SELECTOR, 'div')
 
-# boardCafe = li.find_element(By.CLASS_NAME, 'head_item').find_element(By.CSS_SELECTOR, 'span')
+ActionChains(driver).move_to_element(divs[6].find_element(By.CSS_SELECTOR, 'span')).click().perform()
+ActionChains(driver).move_to_element(divs[6].find_element(By.CSS_SELECTOR, 'span')).click().perform()
+time.sleep(2)
 
-# ActionChains(driver).move_to_element(boardCafe).click()
+print(more.text)
+def crawl():
+    time.sleep(1)
+    context = driver.find_element(By.ID, 'info.search.place.list')
+    for li in context.find_elements(By.CSS_SELECTOR, 'li'):
+        div = li.find_elements(By.CSS_SELECTOR, 'div')
+        arr = []
+        for div in li.find_elements(By.CSS_SELECTOR, 'div'):
+            arr.append(div.text)
+        print(arr)
+        cafe_list.writerow(arr)
+
+
+cafe_list_file = open("cafe_list.csv", "w", newline='', encoding='utf-8')
+cafe_list = csv.writer(cafe_list_file)
+
+crawl()
+
+ActionChains(driver).move_to_element(more).click().perform()
+
+### 여기까지 보드카페 눌렀음
+
+agg = ['no3', 'no4', 'no5', 'next', 'no2']
+
+for i in range(7):
+    print('=======', i, '단계야 =======')
+    for ag in agg:
+        if (i == 7) and (ag == 'no5'):
+            break 
+        # time.sleep(1)
+        crawl()
+
+        pg3 = driver.find_element(By.ID, 'info.search.page.'+ag)
+        print(pg3.text)
+        ActionChains(driver).move_to_element(pg3).click().perform()
+
 
 
 
