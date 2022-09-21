@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/cafegamelist")
+@RequestMapping("/cafegamelists")
 @RequiredArgsConstructor
 @Api(tags = {"보드게임 카페 보유 보드게임 목록 API"})
 public class CafeGameListController {
