@@ -35,7 +35,6 @@ export default {
       body
     }
   }
-
 }
 </script>
 

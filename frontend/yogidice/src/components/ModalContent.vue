@@ -21,7 +21,6 @@ export default {
 <style>
 .modal-wrap {
   width: 100%;
-
 }
 .modal-header {
   display: flex;
@@ -31,7 +30,6 @@ export default {
   padding: 0px 16px 0px 16px;
   /* Inside auto layout */
 }
-
 
 .modal-body {
   display: flex;
