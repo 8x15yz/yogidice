@@ -58,7 +58,7 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
 	//S3
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 	//apache io
 	implementation 'commons-io:commons-io:2.6'
