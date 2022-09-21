@@ -29,17 +29,20 @@ ActionChains(driver).move_to_element(divs[6].find_element(By.CSS_SELECTOR, 'span
 ActionChains(driver).move_to_element(divs[6].find_element(By.CSS_SELECTOR, 'span')).click().perform()
 time.sleep(2)
 
-print(more.text)
+# print(more.text)
 def crawl():
     time.sleep(1)
     context = driver.find_element(By.ID, 'info.search.place.list')
     for li in context.find_elements(By.CSS_SELECTOR, 'li'):
         div = li.find_elements(By.CSS_SELECTOR, 'div')
-        arr = []
-        for div in li.find_elements(By.CSS_SELECTOR, 'div'):
-            arr.append(div.text)
-        print(arr)
-        cafe_list.writerow(arr)
+        print(len(div))
+        if len(div) == 2:
+            print('add')
+        else:
+            print([div[6].text, div[8].text.replace('\n', ''), div[10].text.replace('\n', '')])
+            cafe_list.writerow([div[6].text, div[8].text.replace('\n', ''), div[10].text.replace('\n', '')])
+
+
 
 
 cafe_list_file = open("cafe_list.csv", "w", newline='', encoding='utf-8')
@@ -55,15 +58,11 @@ agg = ['no3', 'no4', 'no5', 'next', 'no2']
 
 for i in range(7):
     print('=======', i, '단계야 =======')
-    for ag in agg:
-        if (i == 7) and (ag == 'no5'):
-            break 
-        # time.sleep(1)
-        crawl()
+    crawl()
 
-        pg3 = driver.find_element(By.ID, 'info.search.page.'+ag)
-        print(pg3.text)
-        ActionChains(driver).move_to_element(pg3).click().perform()
+    pg3 = driver.find_element(By.ID, 'info.search.page.'+ag)
+    print(pg3.text)
+    ActionChains(driver).move_to_element(pg3).click().perform()
 
 
 
