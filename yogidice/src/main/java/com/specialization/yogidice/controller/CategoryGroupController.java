@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/categorygroup")
+@RequestMapping("/categorygroups")
 @RequiredArgsConstructor
 @Api(tags = {"카테고리 목록 API"})
 public class CategoryGroupController {
