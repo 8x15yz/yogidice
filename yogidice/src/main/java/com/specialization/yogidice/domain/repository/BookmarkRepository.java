@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     List<Bookmark> findByUser(User user);
+
     List<Bookmark> findByBoardGame(BoardGame boardGame);
+
     Optional<Bookmark> findByUserAndBoardGame(User user, BoardGame boardGame);
 }

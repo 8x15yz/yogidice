@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "history")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
@@ -21,7 +20,7 @@ public class History {
     private Long id;
 
     @NotNull
-    private Integer rating;
+    private byte rating;
 
     @Column(length = 1000)
     private String review;
@@ -38,14 +37,14 @@ public class History {
     private BoardGame boardGame;
 
     @Builder
-    public History( Integer rating, String review, User user, BoardGame boardGame) {
+    public History(byte rating, String review, User user, BoardGame boardGame) {
         this.rating = rating;
         this.review = review;
         this.user = user;
         this.boardGame = boardGame;
     }
 
-    public static History create(Integer rating, String review, User user, BoardGame boardGame) {
+    public static History create(byte rating, String review, User user, BoardGame boardGame) {
         History history = new History();
         history.rating = rating;
         history.review = review;
@@ -54,7 +53,7 @@ public class History {
         return history;
     }
 
-    public void update(Integer rating, String review) {
+    public void update(byte rating, String review) {
         this.rating = rating;
         this.review = review;
     }
