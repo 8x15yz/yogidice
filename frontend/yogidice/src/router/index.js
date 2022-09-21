@@ -2,10 +2,10 @@
 // import VueRouter from "vue-router";
 import {createRouter, createWebHistory } from "vue-router";
 
-import HomeView from '../views/HomeView.vue';
-import SignupView from '../views/SignupView.vue';
-import QwerTy from '../components/QwerTy.vue';
-import BerChart from '../components/BerChart.vue';
+import HomeView from '@/views/HomeView.vue';
+import SignupView from '@/views/SignupView.vue';
+import QwerTy from '@/components/QwerTy.vue';
+import BerChart from '@/components/BerChart.vue';
 import NewUserResearch from '@/views/NewUserResearch.vue';
 
 // Vue.use(VueRouter);
@@ -26,7 +26,6 @@ const routes = [
         name: 'NewUserResearch',
         component: NewUserResearch,
     },
-
     {
         path: '/qwerty',
         name: 'QwerTy',

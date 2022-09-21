@@ -1,39 +1,39 @@
 :root {
-  --color-yellow: "#fee500";
-  --color-white: "#ffffff";
-  --color-black: "#000000";
-  --color-white: "#ffffff";
-  --color-point: "#889eeb";
-  --color-bookmark: "#df544f";
-  --color-grey-1: "#f8f9fa";
-  --color-grey-2: "#e9ecef";
-  --color-grey-3: "#dee2e6";
-  --color-grey-4: "#ced4da";
-  --color-grey-5: "#adb5bd";
-  --color-grey-6: "#6c757d";
-  --color-grey-7: "#495057";
-  --color-grey-8: "#343a40";
-  --color-grey-9: "#212529";
-  --color-grey-opacity-1: "#f8f9fa33";
-  --color-grey-opacity-2: "#e9ecef33";
-  --color-grey-opacity-3: "#dee2e633";
-  --color-grey-opacity-4: "#ced4da33";
-  --color-grey-opacity-5: "#adb5bd33";
-  --color-grey-opacity-6: "#6c757d33";
-  --color-grey-opacity-7: "#49505733";
-  --color-grey-opacity-8: "#343a4033";
-  --color-grey-opacity-9: "#21252933";
-  --color-chip-letter-blue: "#3287eb";
-  --color-chip-letter-beige: "#d9a681";
-  --color-chip-letter-red: "#d32f43";
-  --color-chip-letter-purple: "#ae48ff";
-  --color-chip-bg-blue: "#3287eb59";
-  --color-chip-bg-beige: "#d9a68159";
-  --color-chip-bg-red: "#d32f4380";
-  --color-chip-bg-purple: "#de42d880";
-  --color-bg-base: "#f3f3f3";
-  --color-bg-modal: "#00000099";
-  --color-bg-mypage: "#ffffffb3";
+  --color-yellow: #fee500;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-point: #889eeb;
+  --color-bookmark: #df544f;
+  --color-grey-1: #f8f9fa;
+  --color-grey-2: #e9ecef;
+  --color-grey-3: #dee2e6;
+  --color-grey-4: #ced4da;
+  --color-grey-5: #adb5bd;
+  --color-grey-6: #6c757d;
+  --color-grey-7: #495057;
+  --color-grey-8: #343a40;
+  --color-grey-9: #212529;
+  --color-grey-opacity-1: #f8f9fa33;
+  --color-grey-opacity-2: #e9ecef33;
+  --color-grey-opacity-3: #dee2e633;
+  --color-grey-opacity-4: #ced4da33;
+  --color-grey-opacity-5: #adb5bd33;
+  --color-grey-opacity-6: #6c757d33;
+  --color-grey-opacity-7: #49505733;
+  --color-grey-opacity-8: #343a4033;
+  --color-grey-opacity-9: #21252933;
+  --color-chip-letter-blue: #3287eb;
+  --color-chip-letter-beige: #d9a681;
+  --color-chip-letter-red: #d32f43;
+  --color-chip-letter-purple: #ae48ff;
+  --color-chip-bg-blue: #3287eb59;
+  --color-chip-bg-beige: #d9a68159;
+  --color-chip-bg-red: #d32f4380;
+  --color-chip-bg-purple: #de42d880;
+  --color-bg-base: #f3f3f3;
+  --color-bg-modal: #00000099;
+  --color-bg-mypage: #ffffffb3;
   --shadow-dialog: 0px 24px 24px rgba(0, 0, 0, 0.5);
   --shadow-button: 0px 2px 2px rgba(0, 0, 0, 0.25);
   --shadow-card: 0px 2px 2px rgba(0, 0, 0, 0.15);
@@ -236,8 +236,8 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   border-width: 0ch;
-  
 }
+
 .button-small-dark {
   display: flex;
   flex-direction: row;
@@ -257,7 +257,6 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 4px; 
   border-width: 0ch;
-
 }
 
 .button-small-red {
@@ -271,9 +270,7 @@
   width: 78px;
   height: 24px;
 
-
   /* category/bg/red */
-
   background: rgba(211, 47, 67, 0.5);
   /* button */
 
@@ -334,4 +331,22 @@
 
   border-radius: 4px;
   border-width: 0ch;
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4vw;
+
+  position: absolute;
+  width: 80vw;
+  top: 30vh;
+  left: 6vw;
+  
+  /* white */
+  background: #FFFFFF;
+  box-shadow: 0px 24px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
 }

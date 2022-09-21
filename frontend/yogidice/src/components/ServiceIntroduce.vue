@@ -124,6 +124,7 @@ export default {
     height: 16px;
     background-color: black;
     margin: 4px;
+    border-width: 0px;
   }
 
   button.active {
