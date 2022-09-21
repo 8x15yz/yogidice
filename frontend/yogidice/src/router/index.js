@@ -7,6 +7,7 @@ import SignupView from '@/views/SignupView.vue';
 import QwerTy from '@/components/QwerTy.vue';
 import BerChart from '@/components/BerChart.vue';
 import NewUserResearch from '@/views/NewUserResearch.vue';
+import WordCloud from '../components/WordCloud.vue';
 
 // Vue.use(VueRouter);
 
@@ -35,6 +36,11 @@ const routes = [
         path: '/BerChart',
         name: 'BerChart',
         component: BerChart,
+    },
+    {
+        path: '/WordCloud',
+        name: 'WordCloud',
+        component: WordCloud,
     },
 ];
 
