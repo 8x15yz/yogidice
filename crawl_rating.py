@@ -24,7 +24,7 @@ def main(startnum, endnum):
     gamename = ''
     gamecode = ''
     
-    for i in range(startnum, len(data)):
+    for i in range(startnum, endnum + 1):
         usergame = []
         username = []
         userreview = []
