@@ -5,6 +5,7 @@ import {createRouter, createWebHistory } from "vue-router";
 import HelloWorld from '../components/HelloWorld.vue';
 import QwerTy from '../components/QwerTy.vue';
 import BerChart from '../components/BerChart.vue';
+import WordCloud from '../components/WordCloud.vue';
 
 // Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const routes = [
         path: '/BerChart',
         name: 'BerChart',
         component: BerChart,
+    },
+    {
+        path: '/WordCloud',
+        name: 'WordCloud',
+        component: WordCloud,
     },
 ];
 
