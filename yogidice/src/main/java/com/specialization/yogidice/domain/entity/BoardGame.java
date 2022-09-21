@@ -36,8 +36,13 @@ public class BoardGame {
     @Column(length = 200)
     private String thumbURL;
 
+    private double ratingBl;
+
     @NotNull
-    private double rating;
+    private double ratingUser;
+
+    @NotNull
+    private long bggCode;
 
     private byte minPlayers;
 
@@ -45,6 +50,14 @@ public class BoardGame {
 
     @Column(length = 50)
     private String playingTime;
+
+    @Column(length = 50)
+    private String minTime;
+
+    @Column(length = 50)
+    private String maxTime;
+
+    private int age;
 
     private double difficulty;
 
@@ -66,16 +79,21 @@ public class BoardGame {
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MechanismGroup> mechanismGroups = new ArrayList<>();
 
-    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, byte minPlayers, byte maxPlayers, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbURL, double ratingBl, double ratingUser, Long bggCode, byte minPlayers, byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
         BoardGame boardGame = new BoardGame();
         boardGame.titleKr = titleKr;
         boardGame.titleEng = titleEng;
         boardGame.publishYear = publishYear;
         boardGame.thumbURL = thumbURL;
-        boardGame.rating = rating;
+        boardGame.ratingBl = ratingBl;
+        boardGame.ratingUser = ratingUser;
+        boardGame.bggCode = bggCode;
         boardGame.minPlayers = minPlayers;
         boardGame.maxPlayers = maxPlayers;
         boardGame.playingTime = playingTime;
+        boardGame.minTime = minTime;
+        boardGame.maxTime = maxTime;
+        boardGame.age = age;
         boardGame.difficulty = difficulty;
         boardGame.youtubeURL = youtubeURL;
         boardGame.contents = contents;
@@ -83,15 +101,20 @@ public class BoardGame {
         return boardGame;
     }
 
-    public void update(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, byte minPlayers, byte maxPlayers, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+    public void update(String titleKr, String titleEng, int publishYear, String thumbURL, double ratingBl, double ratingUser, Long bggCode, byte minPlayers, byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
         this.titleKr = titleKr;
         this.titleEng = titleEng;
         this.publishYear = publishYear;
         this.thumbURL = thumbURL;
-        this.rating = rating;
+        this.ratingBl = ratingBl;
+        this.ratingUser = ratingUser;
+        this.bggCode = bggCode;
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
         this.playingTime = playingTime;
+        this.minTime = minTime;
+        this.maxTime = maxTime;
+        this.age = age;
         this.difficulty = difficulty;
         this.youtubeURL = youtubeURL;
         this.contents = contents;

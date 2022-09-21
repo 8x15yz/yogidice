@@ -63,21 +63,6 @@ public class HistoryService {
     }
 
     @Transactional
-    public List<HistoryResponse> readHistoryListOfBoardGame(Long gameId) {
-        BoardGame boardGame = boardGameRepository.findById(gameId)
-                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        List<History> histories = historyRepository.findByBoardGame(boardGame);
-        if (histories.isEmpty()) {
-            throw new NotFoundException((HISTORY_LIST_NOT_FOUND));
-        }
-        List<HistoryResponse> responses = new ArrayList<>();
-        for (History history : histories) {
-            responses.add(HistoryResponse.response(history));
-        }
-        return responses;
-    }
-
-    @Transactional
     public void updateHistory(User user, Long historyId, HistoryUpdateRequest request) {
         if (user.getReviewed().equals(Reviewed.F)) {
             user.completeReview();
