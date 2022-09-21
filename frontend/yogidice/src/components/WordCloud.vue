@@ -1,9 +1,11 @@
 <template>
+  <div>배경 없애야겠다</div>
   <div id="word-cloud"></div>
 </template>
 
 <script>
 export default {
+  name: 'WordCloud',
   data() {
     return {
       words: [
