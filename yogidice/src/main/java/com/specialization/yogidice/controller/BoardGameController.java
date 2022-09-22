@@ -1,6 +1,9 @@
 package com.specialization.yogidice.controller;
 
 import com.specialization.yogidice.dto.request.BoardGameRequest;
+import com.specialization.yogidice.dto.response.BaseResponseBody;
+import com.specialization.yogidice.dto.response.BoardGameListResponse;
+import com.specialization.yogidice.dto.response.BoardGameResponse;
 import com.specialization.yogidice.service.BoardGameService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,16 +30,14 @@ public class BoardGameController {
             @Valid @RequestBody BoardGameRequest request
     ) {
         Long gameId = boardGameService.createBoardGame(request);
-        Map<String, Long> response = new HashMap<>();
-        response.put("gameId", gameId);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameResponse.of(200, "Success", gameId));
     }
 
     // 보드게임 목록 조회
     @GetMapping
     @ApiOperation(value = "보드게임 목록 조회", notes = "보드게임 목록을 조회합니다.")
     public ResponseEntity<?> readBoardGameList() {
-        return ResponseEntity.ok(boardGameService.readBoardGameList());
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readBoardGameList()));
     }
 
     // 보드게임 상세 조회
@@ -44,8 +45,8 @@ public class BoardGameController {
     @ApiOperation(value = "보드게임 상세 조회", notes = "보드게임을 상세 조회합니다.")
     public ResponseEntity<?> readBoardGame(
             @PathVariable Long gameId
-    ){
-        return ResponseEntity.ok(boardGameService.readBoardGame(gameId));
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameResponse.of(200, "Success", boardGameService.readBoardGame(gameId)));
     }
 
     // 보드게임 정보 수정
@@ -56,16 +57,16 @@ public class BoardGameController {
             @Valid @RequestBody BoardGameRequest request
     ) {
         boardGameService.updateBoardGame(gameId, request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 
     // 보드게임 삭제
     @DeleteMapping("/{gameId}")
     @ApiOperation(value = "보드게임 삭제", notes = "보드게임을 삭제합니다.")
-    public ResponseEntity<Map<String, Long>> deleteBoardGame(
+    public ResponseEntity<?> deleteBoardGame(
             @PathVariable Long gameId
     ) {
         boardGameService.deleteBoardGame(gameId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 }

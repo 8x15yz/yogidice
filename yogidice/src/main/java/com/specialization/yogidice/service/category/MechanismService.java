@@ -23,7 +23,7 @@ public class MechanismService {
     private final MechanismRepository mechanismRepository;
 
     @Transactional
-    public Long createMechanism(MechanismRequest request) {
+    public byte createMechanism(MechanismRequest request) {
         if (mechanismRepository.findByName(request.getName()).isPresent()) {
             throw new DuplicateException(String.format("%s 은/는 이미 등록된 보드게임 진행방식입니다.", request.getName()));
         }

@@ -3,6 +3,8 @@ package com.specialization.yogidice.controller;
 import com.specialization.yogidice.dto.request.category.CategoryRequest;
 import com.specialization.yogidice.dto.request.category.MechanismRequest;
 import com.specialization.yogidice.dto.request.category.TypeRequest;
+import com.specialization.yogidice.dto.response.BaseResponseBody;
+import com.specialization.yogidice.dto.response.category.*;
 import com.specialization.yogidice.service.category.CategoryService;
 import com.specialization.yogidice.service.category.MechanismService;
 import com.specialization.yogidice.service.category.TypeService;
@@ -14,11 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 @RequiredArgsConstructor
 @Api(tags = {"카테고리 API"})
 public class CategoryController {
@@ -33,16 +33,14 @@ public class CategoryController {
             @Valid @RequestBody CategoryRequest request
     ) {
         Long cateId = categoryService.createCategory(request);
-        Map<String, Long> response = new HashMap<>();
-        response.put("cateId", cateId);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.OK).body(CategoryResponse.of(200, "Success", cateId));
     }
 
     // 카테고리(테마) 목록 조회
     @GetMapping("/theme")
     @ApiOperation(value = "카테고리(테마) 목록 조회", notes = "카테고리(테마) 목록을 조회합니다.")
     public ResponseEntity<?> readCategoryList() {
-        return ResponseEntity.ok(categoryService.readCategoryList());
+        return ResponseEntity.status(HttpStatus.OK).body(CategoryListResponse.of(200, "Success", categoryService.readCategoryList()));
     }
 
     // 카테고리(테마) 상세 조회
@@ -50,8 +48,8 @@ public class CategoryController {
     @ApiOperation(value = "카테고리(테마) 상세 조회", notes = "카테고리(테마)을 상세 조회합니다.")
     public ResponseEntity<?> readCategory(
             @PathVariable Long cateId
-    ){
-        return ResponseEntity.ok(categoryService.readCategory(cateId));
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(CategoryResponse.of(200, "Success", categoryService.readCategory(cateId)));
     }
 
     // 카테고리(테마) 수정
@@ -62,17 +60,17 @@ public class CategoryController {
             @Valid @RequestBody CategoryRequest request
     ) {
         categoryService.updateCategory(cateId, request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 
     // 카테고리(테마) 삭제
     @DeleteMapping("/theme/{cateId}")
     @ApiOperation(value = "카테고리(테마) 삭제", notes = "카테고리(테마)을 삭제합니다.")
-    public ResponseEntity<Map<String, Long>> deleteCategory(
+    public ResponseEntity<?> deleteCategory(
             @PathVariable Long cateId
     ) {
         categoryService.deleteCategory(cateId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 
     // 타입 추가
@@ -82,16 +80,14 @@ public class CategoryController {
             @Valid @RequestBody TypeRequest request
     ) {
         Long typeId = typeService.createType(request);
-        Map<String, Long> response = new HashMap<>();
-        response.put("typeId", typeId);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.OK).body(TypeResponse.of(200, "Success", typeId));
     }
 
     // 타입 목록 조회
     @GetMapping("/type")
     @ApiOperation(value = "타입 목록 조회", notes = "타입 목록을 조회합니다.")
     public ResponseEntity<?> readTypeList() {
-        return ResponseEntity.ok(typeService.readTypeList());
+        return ResponseEntity.status(HttpStatus.OK).body(TypeListResponse.of(200, "Success", typeService.readTypeList()));
     }
 
     // 타입 상세 조회
@@ -99,8 +95,8 @@ public class CategoryController {
     @ApiOperation(value = "타입 상세 조회", notes = "타입을 상세 조회합니다.")
     public ResponseEntity<?> readType(
             @PathVariable Long typeId
-    ){
-        return ResponseEntity.ok(typeService.readType(typeId));
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(TypeResponse.of(200, "Success", typeService.readType(typeId)));
     }
 
     // 타입 수정
@@ -111,17 +107,17 @@ public class CategoryController {
             @Valid @RequestBody TypeRequest request
     ) {
         typeService.updateType(typeId, request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 
     // 타입 삭제
     @DeleteMapping("/type/{typeId}")
     @ApiOperation(value = "타입 삭제", notes = "타입을 삭제합니다.")
-    public ResponseEntity<Map<String, Long>> deleteType(
+    public ResponseEntity<?> deleteType(
             @PathVariable Long typeId
     ) {
         typeService.deleteType(typeId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 
     // 진행방식 추가
@@ -130,17 +126,15 @@ public class CategoryController {
     public ResponseEntity<?> createMechanism(
             @Valid @RequestBody MechanismRequest request
     ) {
-        Long mechanismId = mechanismService.createMechanism(request);
-        Map<String, Long> response = new HashMap<>();
-        response.put("mechanismId", mechanismId);
-        return ResponseEntity.ok(response);
+        byte mechanismId = mechanismService.createMechanism(request);
+        return ResponseEntity.status(HttpStatus.OK).body(MechanismResponse.of(200, "Success", mechanismId));
     }
 
     // 진행방식 목록 조회
     @GetMapping("/mechanism")
     @ApiOperation(value = "진행방식 목록 조회", notes = "진행방식 목록을 조회합니다.")
     public ResponseEntity<?> readMechanismList() {
-        return ResponseEntity.ok(mechanismService.readMechanismList());
+        return ResponseEntity.status(HttpStatus.OK).body(MechanismListResponse.of(200, "Success", mechanismService.readMechanismList()));
     }
 
     // 진행방식 상세 조회
@@ -148,8 +142,8 @@ public class CategoryController {
     @ApiOperation(value = "진행방식 상세 조회", notes = "진행방식을 상세 조회합니다.")
     public ResponseEntity<?> readMechanism(
             @PathVariable Long mechanismId
-    ){
-        return ResponseEntity.ok(mechanismService.readMechanism(mechanismId));
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(MechanismResponse.of(200, "Success", mechanismService.readMechanism(mechanismId)));
     }
 
     // 진행방식 수정
@@ -160,16 +154,16 @@ public class CategoryController {
             @Valid @RequestBody MechanismRequest request
     ) {
         mechanismService.updateMechanism(mechanismId, request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 
     // 진행방식 삭제
     @DeleteMapping("/mechanism/{mechanismId}")
     @ApiOperation(value = "진행방식 삭제", notes = "진행방식을 삭제합니다.")
-    public ResponseEntity<Map<String, Long>> deleteMechanism(
+    public ResponseEntity<?> deleteMechanism(
             @PathVariable Long mechanismId
     ) {
         mechanismService.deleteMechanism(mechanismId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 }
