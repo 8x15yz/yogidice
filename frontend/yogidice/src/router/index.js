@@ -10,6 +10,7 @@ import BerChart from '@/components/BerChart.vue';
 import WordCloud from '../components/WordCloud.vue';
 import InitChoice from '@/views/InitChoice.vue';
 import SearchBar from '@/components/SearchBar.vue'
+import MypageView from '@/views/MypageView.vue';
 
 // Vue.use(VueRouter);
 
@@ -55,6 +56,11 @@ const routes = [
         name: 'WordCloud',
         component: WordCloud,
     },
+    {
+        path: '/MyPage',
+        name: 'MypageView',
+        component: MypageView,
+    }
 ];
 
 
