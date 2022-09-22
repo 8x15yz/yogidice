@@ -1,32 +1,45 @@
 <template>
   <div>
-    <service-introduce/>
-    <img @click="kakaoLogin" id="kakao-img" src="../static/kakao_login.png" alt="">
+    <div v-show="signUpPage">
+      <service-introduce/>
+      <img @click="kakaoLogin" id="kakao-img" src="../static/kakao_login.png" alt="">
+    </div>
+    <new-user-research v-show="nickNamePage"/>
   </div>
 </template>
 
 <script>
 import ServiceIntroduce from '@/components/ServiceIntroduce.vue'
-import { useRouter } from 'vue-router' 
+import NewUserResearch from '@/components/NewUserResearch.vue'
+import { useStore } from 'vuex'
+// import { useRouter } from 'vue-router'
+import { computed } from 'vue' 
 export default {
 
   components: { 
-    ServiceIntroduce
+    ServiceIntroduce,
+    NewUserResearch,
   },
 
   setup() {   
-    const router = useRouter()
+    const store = useStore()
+    let signUpPage = computed(() => store.state.page.signUpPage)
+    let nickNamePage = computed(() => store.state.page.nickNamePage)
+    // const router = useRouter()
 
     const kakaoLogin = function () {
       console.log("하이")
-      router.push({
-        name:"NewUserResearch"
-    })
+      // router.push({
+      //   name:"NewUserResearch")}
+      store.commit('changeSignUpPage')
+      store.commit('changeNickNamePage')
     }
     return {
-      kakaoLogin
+      kakaoLogin,
+      signUpPage,
+      nickNamePage,
     }
-  }  
+  } 
 }
 </script>
 

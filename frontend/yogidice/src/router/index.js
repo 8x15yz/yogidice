@@ -6,8 +6,9 @@ import HomeView from '@/views/HomeView.vue';
 import SignupView from '@/views/SignupView.vue';
 import QwerTy from '@/components/QwerTy.vue';
 import BerChart from '@/components/BerChart.vue';
-import NewUserResearch from '@/views/NewUserResearch.vue';
+import NewUserResearch from '@/components/NewUserResearch.vue';
 import WordCloud from '../components/WordCloud.vue';
+import InitChoice from '@/views/InitChoice.vue';
 
 // Vue.use(VueRouter);
 
@@ -26,6 +27,11 @@ const routes = [
         path: '/research',
         name: 'NewUserResearch',
         component: NewUserResearch,
+    },
+    {            
+        path: '/choice',
+        name: 'InitChoice',
+        component: InitChoice
     },
     {
         path: '/qwerty',
