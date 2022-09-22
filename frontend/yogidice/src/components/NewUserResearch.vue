@@ -45,11 +45,7 @@ export default {
       footer1: "",
       footer2: "",
     });
-    let nickNameValue = ref("");
-    const initNickName = () => {
-      nickNameValue.value = props.nickName;
-    };
-    initNickName();
+    let nickNameValue = ref(props.nickName);
 
     const registNickname = function () {
       contents.modalType = "onlyContent";
