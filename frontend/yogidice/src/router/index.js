@@ -2,17 +2,36 @@
 // import VueRouter from "vue-router";
 import {createRouter, createWebHistory } from "vue-router";
 
-import HelloWorld from '../components/HelloWorld.vue';
-import QwerTy from '../components/QwerTy.vue';
-import BerChart from '../components/BerChart.vue';
+import HomeView from '@/views/HomeView.vue';
+import SignupView from '@/views/SignupView.vue';
+import QwerTy from '@/components/QwerTy.vue';
+import BerChart from '@/components/BerChart.vue';
+import NewUserResearch from '@/components/NewUserResearch.vue';
+import WordCloud from '../components/WordCloud.vue';
+import InitChoice from '@/views/InitChoice.vue';
 
 // Vue.use(VueRouter);
 
 const routes = [
     {
         path: '/',
-        name: 'HelloWorld',
-        component: HelloWorld,
+        name: 'HomeView',
+        component: HomeView,
+    },
+    {
+        path: '/signup',
+        name: 'SignupView',
+        component: SignupView,
+    },
+    {
+        path: '/research',
+        name: 'NewUserResearch',
+        component: NewUserResearch,
+    },
+    {            
+        path: '/choice',
+        name: 'InitChoice',
+        component: InitChoice
     },
     {
         path: '/qwerty',
@@ -23,6 +42,11 @@ const routes = [
         path: '/BerChart',
         name: 'BerChart',
         component: BerChart,
+    },
+    {
+        path: '/WordCloud',
+        name: 'WordCloud',
+        component: WordCloud,
     },
 ];
 
