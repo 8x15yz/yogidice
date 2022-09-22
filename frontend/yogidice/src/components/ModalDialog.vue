@@ -1,7 +1,7 @@
 <template>
   <div class="modal-back">
     <div class="dialog">
-      <modal-content :typeAndTarget='typeAndTarget'>
+      <modal-content :typeAndTarget="typeAndTarget">
         <template #header>
           {{ header }}
         </template>
@@ -20,46 +20,48 @@
 </template>
 
 <script>
-import { onMounted, reactive, toRefs } from '@vue/runtime-core'
-import { useStore } from 'vuex'
-import ModalContent from './ModalContent.vue'
+import { onMounted, reactive, toRefs } from "@vue/runtime-core";
+import { useStore } from "vuex";
+import ModalContent from "./ModalContent.vue";
 
 export default {
-  components: { 
-    ModalContent 
+  components: {
+    ModalContent,
   },
   props: {
     contents: Object,
   },
   setup(props) {
-    const store = useStore()
-    const { modalType } = toRefs(props.contents)
-    const { header } = toRefs(props.contents)
-    const { body } = toRefs(props.contents)
-    const { footer1 } = toRefs(props.contents)
-    const { footer2 } = toRefs(props.contents)
-    const { nextPage } = toRefs(props.contents)
-    const typeAndTarget = reactive({ 'modalType': modalType, 'nextPage': nextPage})
+    const store = useStore();
+    const { modalType } = toRefs(props.contents);
+    const { header } = toRefs(props.contents);
+    const { body } = toRefs(props.contents);
+    const { footer1 } = toRefs(props.contents);
+    const { footer2 } = toRefs(props.contents);
+    const { nextPage } = toRefs(props.contents);
+    const typeAndTarget = reactive({
+      modalType: modalType,
+      nextPage: nextPage,
+    });
 
-    onMounted(() => { 
-      const modalBack = document.querySelector(".modal-back")
+    onMounted(() => {
+      const modalBack = document.querySelector(".modal-back");
       window.addEventListener("click", (e) => {
-      if (e.target === modalBack) {
-        store.commit('changeModal')
-      }
-      })  
-    })
+        if (e.target === modalBack) {
+          store.commit("changeModal");
+        }
+      });
+    });
 
     return {
       typeAndTarget,
       header,
       body,
       footer1,
-      footer2
-      
-    }
-  }
-}
+      footer2,
+    };
+  },
+};
 </script>
 
 <style>
@@ -69,5 +71,4 @@ export default {
   height: 100vh;
   background-color: var(--color-bg-modal);
 }
-
 </style>
