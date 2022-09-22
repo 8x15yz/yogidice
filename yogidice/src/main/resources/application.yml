@@ -38,7 +38,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       username: yogidice
-      password: 9x9sms99
+      password: 9x9sns99
 
   # swagger 설정
   mvc:
