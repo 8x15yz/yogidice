@@ -90,10 +90,10 @@ DATABASES = {
     ## 초기 설정
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DJANGOTEST',
-        'USER': 'root',
-        'PASSWORD': 'ssafy',
-        'HOST': 'localhost',
+        'NAME': 'yogidice',
+        'USER': 'yogidice',
+        'PASSWORD': '9x9sns99',
+        'HOST': 'j7b206.p.ssafy.io',
         'PORT': '3306',
     }
     ## 초기 설정
