@@ -23,7 +23,7 @@ public class MechanismService {
     private final MechanismRepository mechanismRepository;
 
     @Transactional
-    public Long createMechanism(MechanismRequest request) {
+    public byte createMechanism(MechanismRequest request) {
         if (mechanismRepository.findByName(request.getName()).isPresent()) {
             throw new DuplicateException(String.format("%s 은/는 이미 등록된 보드게임 진행방식입니다.", request.getName()));
         }
@@ -48,14 +48,14 @@ public class MechanismService {
     }
 
     @Transactional
-    public MechanismResponse readMechanism(Long mechanismId) {
+    public MechanismResponse readMechanism(Byte mechanismId) {
         Mechanism mechanism = mechanismRepository.findById(mechanismId)
                 .orElseThrow(() -> new NotFoundException(MECHANISM_NOT_FOUND));
         return MechanismResponse.response(mechanism);
     }
 
     @Transactional
-    public void updateMechanism(Long mechanismId, MechanismRequest request) {
+    public void updateMechanism(Byte mechanismId, MechanismRequest request) {
         Mechanism mechanism = mechanismRepository.findById(mechanismId)
                 .orElseThrow(() -> new NotFoundException(MECHANISM_NOT_FOUND));
         mechanism.update(
@@ -66,7 +66,7 @@ public class MechanismService {
     }
 
     @Transactional
-    public void deleteMechanism(Long mechanismId) {
+    public void deleteMechanism(Byte mechanismId) {
         Mechanism mechanism = mechanismRepository.findById(mechanismId)
                 .orElseThrow(() -> new NotFoundException(MECHANISM_NOT_FOUND));
         mechanismRepository.delete(mechanism);

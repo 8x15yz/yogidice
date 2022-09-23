@@ -16,18 +16,12 @@ public class Bookmark {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "game_id")
+    @JoinColumn(name = "game_id")
     private BoardGame boardGame;
-
-    @Builder
-    public Bookmark(User user, BoardGame boardGame) {
-        this.user = user;
-        this.boardGame = boardGame;
-    }
 
     public static Bookmark create(User user, BoardGame boardGame){
         Bookmark bookmark = new Bookmark();

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class HistoryUpdateRequest {
     @NotNull
-    private Integer rating;
+    private double rating;
 
     private String review;
 }

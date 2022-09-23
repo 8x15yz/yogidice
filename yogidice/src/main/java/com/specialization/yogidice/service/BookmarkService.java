@@ -28,7 +28,9 @@ public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
 
     @Transactional
-    public Long createBookmark(User user, BookmarkRequest request) {
+    public Long createBookmark(Long userId, BookmarkRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         BoardGame boardGame = boardGameRepository.findById(request.getGameId())
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         if (bookmarkRepository.findByUserAndBoardGame(user, boardGame).isPresent()) {
@@ -39,25 +41,10 @@ public class BookmarkService {
     }
 
     @Transactional
-    List<BookmarkResponse> readBookmarkListOfUser(Long userId) {
+    public List<BookmarkResponse> readBookmarkListOfUser(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         List<Bookmark> bookmarks = bookmarkRepository.findByUser(user);
-        if (bookmarks.isEmpty()) {
-            throw new NotFoundException((BOOKMARK_LIST_NOT_FOUND));
-        }
-        List<BookmarkResponse> responses = new ArrayList<>();
-        for (Bookmark bookmark : bookmarks) {
-            responses.add(BookmarkResponse.response(bookmark));
-        }
-        return responses;
-    }
-
-    @Transactional
-    List<BookmarkResponse> readBookmarkListOfBoardGame(Long gameId) {
-        BoardGame boardGame = boardGameRepository.findById(gameId)
-                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        List<Bookmark> bookmarks = bookmarkRepository.findByBoardGame(boardGame);
         if (bookmarks.isEmpty()) {
             throw new NotFoundException((BOOKMARK_LIST_NOT_FOUND));
         }

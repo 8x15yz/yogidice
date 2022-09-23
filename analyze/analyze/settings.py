@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q!k(g0#vq$-qc6jeqqq$i_!(j1#!&ef6#)ctaagjv*shsdmm3v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['j7b206.p.ssafy.io', '127.0.0.1']
 
 
 # Application definition
@@ -85,15 +85,22 @@ WSGI_APPLICATION = 'analyze.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DATABASE_ROUTERS = [
+    'yogidice.dbrouter.MultiDBRouter',
+]
 
 DATABASES = {
     ## 초기 설정
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'referencemysql': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DJANGOTEST',
-        'USER': 'root',
-        'PASSWORD': 'ssafy',
-        'HOST': 'localhost',
+        'NAME': 'yogidice',
+        'USER': 'yogidice',
+        'PASSWORD': '9x9sns99',
+        'HOST': 'j7b206.p.ssafy.io',
         'PORT': '3306',
     }
     ## 초기 설정
@@ -153,6 +160,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080", # 프론트엔드 주소 작성
+    "http://j7b206.p.ssafy.io",
+    # "http://j7b206.p.ssafy.io/api",
 ]
 
 CORS_ALLOW_METHODS = [

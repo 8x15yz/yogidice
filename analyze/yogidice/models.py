@@ -8,126 +8,164 @@
 from django.db import models
 
 
-class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=150)
+class BggData(models.Model):
+    bgg_data_id = models.BigAutoField(primary_key=True)
+    bgg_code = models.BigIntegerField()
+    nick_name = models.CharField(max_length=50)
+    rating_user = models.FloatField()
+    title_eng = models.CharField(max_length=100)
 
     class Meta:
         managed = False
-        db_table = 'auth_group'
+        app_label = "referencemysql"
+        db_table = 'bgg_data'
 
 
-class AuthGroupPermissions(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
-
-
-class AuthPermission(models.Model):
-    name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
-    codename = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
-
-
-class AuthUser(models.Model):
-    password = models.CharField(max_length=128)
-    last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.IntegerField()
-    username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=254)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
-    date_joined = models.DateTimeField()
+class BoardGame(models.Model):
+    game_id = models.BigAutoField(primary_key=True)
+    age = models.IntegerField()
+    bgg_code = models.BigIntegerField()
+    contents = models.CharField(max_length=500, blank=True, null=True)
+    contents_img_url = models.CharField(max_length=200, blank=True, null=True)
+    difficulty = models.FloatField()
+    max_players = models.IntegerField()
+    max_time = models.CharField(max_length=50, blank=True, null=True)
+    min_players = models.IntegerField()
+    min_time = models.CharField(max_length=50, blank=True, null=True)
+    playing_time = models.CharField(max_length=50, blank=True, null=True)
+    publish_year = models.IntegerField()
+    rating_bl = models.FloatField()
+    rating_user = models.FloatField()
+    thumb_url = models.CharField(max_length=200)
+    title_eng = models.CharField(max_length=100)
+    title_kr = models.CharField(max_length=100)
+    youtube_url = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'auth_user'
+        app_label = "referencemysql"
+        db_table = 'board_game'
 
 
-class AuthUserGroups(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
-
-
-class AuthUserUserPermissions(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
+class BoardGameCafe(models.Model):
+    cafe_id = models.BigAutoField(primary_key=True)
+    address = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
 
     class Meta:
         managed = False
-        db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
+        app_label = "referencemysql"
+        db_table = 'board_game_cafe'
 
 
-class DjangoAdminLog(models.Model):
-    action_time = models.DateTimeField()
-    object_id = models.TextField(blank=True, null=True)
-    object_repr = models.CharField(max_length=200)
-    action_flag = models.PositiveSmallIntegerField()
-    change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+class Bookmark(models.Model):
+    bookmark_id = models.BigAutoField(primary_key=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'django_admin_log'
+        app_label = "referencemysql"
+        db_table = 'bookmark'
 
 
-class DjangoContentType(models.Model):
-    app_label = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
-
-
-class DjangoMigrations(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    app = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
-    applied = models.DateTimeField()
+class CafeGameList(models.Model):
+    game_list_id = models.BigAutoField(primary_key=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    cafe = models.ForeignKey(BoardGameCafe, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'django_migrations'
+        app_label = "referencemysql"
+        db_table = 'cafe_game_list'
 
 
-class DjangoSession(models.Model):
-    session_key = models.CharField(primary_key=True, max_length=40)
-    session_data = models.TextField()
-    expire_date = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'django_session'
-
-
-class Test01(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.CharField(unique=True, max_length=255)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField(blank=True, null=True)
+class Category(models.Model):
+    cate_id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=50)
 
     class Meta:
         managed = False
-        db_table = 'test01'
+        app_label = "referencemysql"
+        db_table = 'category'
+
+
+class CategoryGroup(models.Model):
+    cate_group_id = models.BigAutoField(primary_key=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    cate = models.ForeignKey(Category, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        app_label = "referencemysql"
+        db_table = 'category_group'
+
+
+class History(models.Model):
+    history_id = models.BigAutoField(primary_key=True)
+    create_at = models.DateTimeField(blank=True, null=True)
+    rating = models.IntegerField()
+    review = models.CharField(max_length=1000, blank=True, null=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        app_label = "referencemysql"
+        db_table = 'history'
+
+
+class Mechanism(models.Model):
+    mechanism_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    parents_mec = models.CharField(max_length=50)
+
+    class Meta:
+        managed = False
+        app_label = "referencemysql"
+        db_table = 'mechanism'
+
+
+class MechanismGroup(models.Model):
+    mechanism_group_id = models.BigAutoField(primary_key=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    mechanism = models.ForeignKey(Mechanism, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        app_label = "referencemysql"
+        db_table = 'mechanism_group'
+
+
+class Type(models.Model):
+    type_id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        managed = False
+        app_label = "referencemysql"
+        db_table = 'type'
+
+
+class TypeGroup(models.Model):
+    type_group_id = models.BigAutoField(primary_key=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    type = models.ForeignKey(Type, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        app_label = "referencemysql"
+        db_table = 'type_group'
+
+
+class User(models.Model):
+    user_id = models.BigAutoField(primary_key=True)
+    kakao_id = models.CharField(max_length=100)
+    nick_name = models.CharField(max_length=50)
+    reviewed = models.CharField(max_length=255)
+    role = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        app_label = "referencemysql"
+        db_table = 'user'

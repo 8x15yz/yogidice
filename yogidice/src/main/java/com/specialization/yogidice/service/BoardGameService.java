@@ -4,14 +4,14 @@ import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
-import com.specialization.yogidice.domain.repository.category.CategoryListRepository;
-import com.specialization.yogidice.domain.repository.category.MechanismListRepository;
-import com.specialization.yogidice.domain.repository.category.TypeListRepository;
+import com.specialization.yogidice.domain.repository.category.CategoryGroupRepository;
+import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
+import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.response.BoardGameResponse;
-import com.specialization.yogidice.dto.response.category.CategoryListResponse;
-import com.specialization.yogidice.dto.response.category.MechanismListResponse;
-import com.specialization.yogidice.dto.response.category.TypeListResponse;
+import com.specialization.yogidice.dto.response.category.CategoryGroupResponse;
+import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
+import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,9 +28,9 @@ import static com.specialization.yogidice.common.exception.NotFoundException.BOA
 @Transactional(readOnly = true)
 public class BoardGameService {
     private final BoardGameRepository boardGameRepository;
-    private final CategoryListRepository categoryListRepository;
-    private final TypeListRepository typeListRepository;
-    private final MechanismListRepository mechanismListRepository;
+    private final CategoryGroupRepository categoryGroupRepository;
+    private final TypeGroupRepository typeGroupRepository;
+    private final MechanismGroupRepository mechanismGroupRepository;
 
     @Transactional
     public Long createBoardGame(BoardGameRequest request) {
@@ -41,15 +41,20 @@ public class BoardGameService {
                 request.getTitleKr(),
                 request.getTitleEng(),
                 request.getPublishYear(),
-                request.getThumbURL(),
-                request.getRating(),
+                request.getThumbUrl(),
+                request.getRatingBl(),
+                request.getRatingUser(),
+                request.getBbgCode(),
                 request.getMinPlayers(),
                 request.getMaxPlayers(),
                 request.getPlayingTime(),
+                request.getMinTime(),
+                request.getMaxTime(),
+                request.getAge(),
                 request.getDifficulty(),
-                request.getYoutubeURL(),
+                request.getYoutubeUrl(),
                 request.getContents(),
-                request.getContentsImgURL()
+                request.getContentsImgUrl()
         );
         return boardGameRepository.save(saveBoardGame).getId();
     }
@@ -62,16 +67,16 @@ public class BoardGameService {
         }
         List<BoardGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : boardGames) {
-            List<CategoryListResponse> categoryListResponses = categoryListRepository.findByBoardGame(boardGame).stream()
-                    .map(CategoryListResponse::response)
+            List<CategoryGroupResponse> categoryGroupResponses = categoryGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(CategoryGroupResponse::response)
                     .collect(Collectors.toList());
-            List<TypeListResponse> typeListResponses = typeListRepository.findByBoardGame(boardGame).stream()
-                    .map(TypeListResponse::response)
+            List<TypeGroupResponse> typeGroupResponses = typeGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(TypeGroupResponse::response)
                     .collect(Collectors.toList());
-            List<MechanismListResponse> mechanismListResponses = mechanismListRepository.findByBoardGame(boardGame).stream()
-                    .map(MechanismListResponse::response)
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(MechanismGroupResponse::response)
                     .collect(Collectors.toList());
-            responses.add(BoardGameResponse.response(boardGame, categoryListResponses, typeListResponses, mechanismListResponses));
+            responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
         }
         return responses;
     }
@@ -80,16 +85,16 @@ public class BoardGameService {
     public BoardGameResponse readBoardGame(Long boardGameId) {
         BoardGame boardGame = boardGameRepository.findById(boardGameId)
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        List<CategoryListResponse> categoryListResponses = categoryListRepository.findByBoardGame(boardGame).stream()
-                .map(CategoryListResponse::response)
+        List<CategoryGroupResponse> categoryGroupRespons = categoryGroupRepository.findByBoardGame(boardGame).stream()
+                .map(CategoryGroupResponse::response)
                 .collect(Collectors.toList());
-        List<TypeListResponse> typeListResponses = typeListRepository.findByBoardGame(boardGame).stream()
-                .map(TypeListResponse::response)
+        List<TypeGroupResponse> typeGroupRespons = typeGroupRepository.findByBoardGame(boardGame).stream()
+                .map(TypeGroupResponse::response)
                 .collect(Collectors.toList());
-        List<MechanismListResponse> mechanismListResponses = mechanismListRepository.findByBoardGame(boardGame).stream()
-                .map(MechanismListResponse::response)
+        List<MechanismGroupResponse> mechanismGroupRespons = mechanismGroupRepository.findByBoardGame(boardGame).stream()
+                .map(MechanismGroupResponse::response)
                 .collect(Collectors.toList());
-        return BoardGameResponse.response(boardGame, categoryListResponses, typeListResponses, mechanismListResponses);
+        return BoardGameResponse.response(boardGame, categoryGroupRespons, typeGroupRespons, mechanismGroupRespons);
     }
 
     @Transactional
@@ -100,15 +105,20 @@ public class BoardGameService {
                 request.getTitleKr(),
                 request.getTitleEng(),
                 request.getPublishYear(),
-                request.getThumbURL(),
-                request.getRating(),
+                request.getThumbUrl(),
+                request.getRatingBl(),
+                request.getRatingUser(),
+                request.getBbgCode(),
                 request.getMinPlayers(),
                 request.getMaxPlayers(),
                 request.getPlayingTime(),
+                request.getMinTime(),
+                request.getMaxTime(),
+                request.getAge(),
                 request.getDifficulty(),
-                request.getYoutubeURL(),
+                request.getYoutubeUrl(),
                 request.getContents(),
-                request.getContentsImgURL()
+                request.getContentsImgUrl()
         );
         boardGameRepository.save(boardGame);
     }

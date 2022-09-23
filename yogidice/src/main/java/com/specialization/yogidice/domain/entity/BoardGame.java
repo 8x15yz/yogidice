@@ -34,69 +34,90 @@ public class BoardGame {
 
     @NotNull
     @Column(length = 200)
-    private String thumbURL;
+    private String thumbUrl;
+
+    private double ratingBl;
 
     @NotNull
-    private double rating;
+    private double ratingUser;
 
-    // mysql data type => tinyint
-    private int minPlayers;
+    @NotNull
+    private long bggCode;
 
-    // mysql data type => tinyint
-    private int maxPlayers;
+    private Byte minPlayers;
+
+    private Byte maxPlayers;
 
     @Column(length = 50)
     private String playingTime;
 
+    @Column(length = 50)
+    private String minTime;
+
+    @Column(length = 50)
+    private String maxTime;
+
+    private int age;
+
     private double difficulty;
 
     @Column(length = 200)
-    private String youtubeURL;
+    private String youtubeUrl;
 
     @Column(length = 500)
     private String contents;
 
     @Column(length = 200)
-    private String contentsImgURL;
+    private String contentsImgUrl;
 
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CategoryList> categoryLists = new ArrayList<>();
+    private List<CategoryGroup> categoryGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TypeList> typeLists = new ArrayList<>();
+    private List<TypeGroup> typeGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MechanismList> mechanismLists = new ArrayList<>();
+    private List<MechanismGroup> mechanismGroups = new ArrayList<>();
 
-    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, int minPlayers, int maxPlayers, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbUrl, double ratingBl, double ratingUser, Long bggCode, Byte minPlayers, Byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeUrl, String contents, String contentsImgUrl) {
         BoardGame boardGame = new BoardGame();
         boardGame.titleKr = titleKr;
         boardGame.titleEng = titleEng;
         boardGame.publishYear = publishYear;
-        boardGame.thumbURL = thumbURL;
-        boardGame.rating = rating;
+        boardGame.thumbUrl = thumbUrl;
+        boardGame.ratingBl = ratingBl;
+        boardGame.ratingUser = ratingUser;
+        boardGame.bggCode = bggCode;
         boardGame.minPlayers = minPlayers;
         boardGame.maxPlayers = maxPlayers;
         boardGame.playingTime = playingTime;
+        boardGame.minTime = minTime;
+        boardGame.maxTime = maxTime;
+        boardGame.age = age;
         boardGame.difficulty = difficulty;
-        boardGame.youtubeURL = youtubeURL;
+        boardGame.youtubeUrl = youtubeUrl;
         boardGame.contents = contents;
-        boardGame.contentsImgURL = contentsImgURL;
+        boardGame.contentsImgUrl = contentsImgUrl;
         return boardGame;
     }
 
-    public void update(String titleKr, String titleEng, int publishYear, String thumbURL, double rating, int minPlayers, int maxPlayers, String playingTime, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+    public void update(String titleKr, String titleEng, int publishYear, String thumbUrl, double ratingBl, double ratingUser, Long bggCode, Byte minPlayers, Byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeUrl, String contents, String contentsImgUrl) {
         this.titleKr = titleKr;
         this.titleEng = titleEng;
         this.publishYear = publishYear;
-        this.thumbURL = thumbURL;
-        this.rating = rating;
+        this.thumbUrl = thumbUrl;
+        this.ratingBl = ratingBl;
+        this.ratingUser = ratingUser;
+        this.bggCode = bggCode;
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
         this.playingTime = playingTime;
+        this.minTime = minTime;
+        this.maxTime = maxTime;
+        this.age = age;
         this.difficulty = difficulty;
-        this.youtubeURL = youtubeURL;
+        this.youtubeUrl = youtubeUrl;
         this.contents = contents;
-        this.contentsImgURL = contentsImgURL;
+        this.contentsImgUrl = contentsImgUrl;
     }
 }
