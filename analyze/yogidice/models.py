@@ -26,7 +26,7 @@ class BoardGame(models.Model):
     age = models.IntegerField()
     bgg_code = models.BigIntegerField()
     contents = models.CharField(max_length=500, blank=True, null=True)
-    contents_imgurl = models.CharField(max_length=200, blank=True, null=True)
+    contents_img_url = models.CharField(max_length=200, blank=True, null=True)
     difficulty = models.FloatField()
     max_players = models.IntegerField()
     max_time = models.CharField(max_length=50, blank=True, null=True)
@@ -36,10 +36,10 @@ class BoardGame(models.Model):
     publish_year = models.IntegerField()
     rating_bl = models.FloatField()
     rating_user = models.FloatField()
-    thumburl = models.CharField(max_length=200)
+    thumb_url = models.CharField(max_length=200)
     title_eng = models.CharField(max_length=100)
     title_kr = models.CharField(max_length=100)
-    youtubeurl = models.CharField(max_length=200, blank=True, null=True)
+    youtube_url = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -60,8 +60,8 @@ class BoardGameCafe(models.Model):
 
 class Bookmark(models.Model):
     bookmark_id = models.BigAutoField(primary_key=True)
-    board_game_game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
-    user_user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -71,8 +71,8 @@ class Bookmark(models.Model):
 
 class CafeGameList(models.Model):
     game_list_id = models.BigAutoField(primary_key=True)
-    board_game_game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
-    board_game_cafe_cafe = models.ForeignKey(BoardGameCafe, models.DO_NOTHING, blank=True, null=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    cafe = models.ForeignKey(BoardGameCafe, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -106,8 +106,8 @@ class History(models.Model):
     create_at = models.DateTimeField(blank=True, null=True)
     rating = models.IntegerField()
     review = models.CharField(max_length=1000, blank=True, null=True)
-    board_game_game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
-    user_user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
+    game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -118,7 +118,7 @@ class History(models.Model):
 class Mechanism(models.Model):
     mechanism_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
-    parents_mec = models.IntegerField()
+    parents_mec = models.CharField(max_length=50)
 
     class Meta:
         managed = False
@@ -135,18 +135,6 @@ class MechanismGroup(models.Model):
         managed = False
         app_label = "referencemysql"
         db_table = 'mechanism_group'
-
-
-class Test01(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.CharField(unique=True, max_length=255)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        app_label = "referencemysql"
-        db_table = 'test01'
 
 
 class Type(models.Model):
