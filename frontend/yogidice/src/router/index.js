@@ -2,23 +2,19 @@
 // import VueRouter from "vue-router";
 import {createRouter, createWebHistory } from "vue-router";
 
-import DiceBg from '@/layouts/DiceBgLayout.vue'
+import DiceBgLayout from '@/layouts/DiceBgLayout.vue'
+import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
 import HomeView from '@/views/HomeView.vue';
 import SignupView from '@/views/SignupView.vue';
 import QwerTy from '@/components/QwerTy.vue';
 import BerChart from '@/components/BerChart.vue';
 import WordCloud from '../components/WordCloud.vue';
 import InitChoice from '@/views/InitChoice.vue';
-import SearchBar from '@/components/SearchBar.vue'
+import MainPageView from '@/views/MainPageView.vue'
 
 // Vue.use(VueRouter);
 
 const routes = [
-    { 
-        path: '/test',
-        name: 'test',
-        component: SearchBar
-    },
     {
         path: '/',
         name: 'HomeView',
@@ -26,10 +22,10 @@ const routes = [
     },
     {
         path: '/signup',
-        component: DiceBg,
+        component: DiceBgLayout,
         children: [
             {
-                path: '/',
+                path: '',
                 name: 'SignupView',
                 component: SignupView,
             },
@@ -38,6 +34,17 @@ const routes = [
                 name: 'InitChoice',
                 component: InitChoice
             },
+        ]
+    },
+    {
+        path: '/home',
+        component: GreyBgHeadBar,
+        children: [
+            {
+                path: '',
+                name: 'MainPage',
+                component: MainPageView
+            }
         ]
     },
     {

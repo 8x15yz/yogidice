@@ -6,7 +6,7 @@
         <div> 재미있게 플레이했던 게임을 선택해주세요! </div> 
       </div>
       <search-bar></search-bar> 
-      <card-list></card-list>
+      <small-card-list></small-card-list>
       <button @click='registInitGame' class="button-long-dark init-select-btn text-button">아직 플레이해본 게임이 없다면?</button>
     </div>
     <modal-dialog v-show="showModal" :contents='contents'></modal-dialog>
@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import { onMounted, ref, getCurrentInstance, computed, reactive } from 'vue'
+import { onMounted, ref, computed, reactive, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex';
 import SearchBar from '@/components/SearchBar.vue';
 import ModalDialog from "@/components/ModalDialog.vue";
-import CardList from "@/components/CardList.vue"
+import SmallCardList from "@/components/SmallCardList.vue";
 
 
 export default {
   components: {
     SearchBar,
-    CardList,
+    SmallCardList,
     ModalDialog,
   },
   setup() {
@@ -87,7 +87,8 @@ export default {
     return {
       initMessage,
       registInitGame,
-      showModal
+      showModal,
+      contents
     }
   }
 }
