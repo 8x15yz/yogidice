@@ -12,6 +12,7 @@ import NewUserResearch from "@/components/NewUserResearch.vue";
 import WordCloud from "../components/WordCloud.vue";
 import InitChoice from "@/views/InitChoice.vue";
 import MypageView from "@/views/MypageView.vue";
+import MainPageView from "@/views/MainPageView.vue";
 import DiceBgLayout from '@/layouts/DiceBgLayout.vue'
 import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
 
