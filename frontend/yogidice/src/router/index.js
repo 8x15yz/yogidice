@@ -2,6 +2,7 @@
 // import VueRouter from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
 
+
 import HomeView from "@/views/HomeView.vue";
 import SignupView from "@/views/SignupView.vue";
 import KakaoLoginView from "@/views/KakaoLoginView.vue";
@@ -11,6 +12,8 @@ import NewUserResearch from "@/components/NewUserResearch.vue";
 import WordCloud from "../components/WordCloud.vue";
 import InitChoice from "@/views/InitChoice.vue";
 import MypageView from "@/views/MypageView.vue";
+import DiceBgLayout from '@/layouts/DiceBgLayout.vue'
+import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
 
 // Vue.use(VueRouter);
 
@@ -60,8 +63,34 @@ const routes = [
     path: '/MyPage',
     name: 'MypageView',
     component: MypageView,
-}
-
+  },
+  {
+        path: '/signup',
+        component: DiceBgLayout,
+        children: [
+            {
+                path: '',
+                name: 'SignupView',
+                component: SignupView,
+            },
+            {            
+                path: 'choice',
+                name: 'InitChoice',
+                component: InitChoice
+            },
+        ]
+    },
+    {
+        path: '/home',
+        component: GreyBgHeadBar,
+        children: [
+            {
+                path: '',
+                name: 'MainPage',
+                component: MainPageView
+            }
+        ]
+    },
 ];
 
 const router = createRouter({
