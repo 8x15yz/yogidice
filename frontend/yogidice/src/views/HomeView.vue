@@ -7,23 +7,23 @@
 </template>
 
 <script>
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+// import { onMounted } from 'vue'
+// import { useRouter } from 'vue-router'
 
-export default {
+// export default {
   
-  setup() {
-    const router = useRouter()
+//   setup() {
+//     const router = useRouter()
 
-    // onMounted(() => {
-    //   setTimeout(function() {
-    //     router.push({
-    //       name: 'SignupView'
-    //     });
-    //     }, 2000);
-    // })
-  }
-}
+//     onMounted(() => {
+//       setTimeout(function() {
+//         router.push({
+//           name: 'SignupView'
+//         });
+//         }, 2000);
+//     })
+//   }
+// }
 
 </script>
 
