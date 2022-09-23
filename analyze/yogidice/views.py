@@ -42,7 +42,6 @@ def bggdata_list(request):
     if request.method == 'GET':
         name = BggData.objects.all()
         serializer = BggDataSerializer(name, many=True)
-        print(name)
         return Response(serializer.data)
 
 
@@ -51,5 +50,4 @@ def boardgame_list(request):
     if request.method == 'GET':
         name = BoardGame.objects.all()
         serializer = BoardGameSerializer(name, many=True)
-        print(name)
         return Response(serializer.data)
