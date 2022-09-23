@@ -66,9 +66,10 @@ export default {
 
 <style>
 .modal-back {
-  position: relative;
+  position: fixed;
   width: 100vw;
   height: 100vh;
+  top: 0px;
   background-color: var(--color-bg-modal);
 }
 </style>

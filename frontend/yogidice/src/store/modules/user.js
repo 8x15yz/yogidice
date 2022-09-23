@@ -34,7 +34,7 @@ export default {
     fetchCurrentUser({ commit, getters, dispatch }) {
       if (getters.isLogginedIn) {
         axios({
-          url: "http://j7b206.p.ssafy.io/api/users/",
+          url: "http://j7b206.p.ssafy.io:8081/api/users/",
           method: "get",
           headers: getters.authHeader,
         })
@@ -52,7 +52,7 @@ export default {
 
     getKakaoUserInfo({ dispatch }, code) {
       axios
-        .get("http://j7b206.p.ssafy.io/api/users/callback?code=" + code)
+        .get("http://j7b206.p.ssafy.io:8081/api/users/callback?code=" + code)
         .then((res) => {
           dispatch("checkUser", res.data);
         })
@@ -63,7 +63,7 @@ export default {
 
     checkUser({ dispatch }, userInfo) {
       axios({
-        url: "http://j7b206.p.ssafy.io/api/users/check",
+        url: "http://j7b206.p.ssafy.io:8081/api/users/check",
         method: "post",
         data: userInfo,
       })
@@ -81,7 +81,7 @@ export default {
 
     kakaoRegist({ dispatch }, formData) {
       axios({
-        url: "http://j7b206.p.ssafy.io/api/users/regist",
+        url: "http://j7b206.p.ssafy.io:8081/api/users/regist",
         method: "post",
         data: JSON.stringify(formData),
       })
@@ -98,7 +98,7 @@ export default {
 
     kakaoLogin({ dispatch }, userInfo) {
       axios({
-        url: "http://j7b206.p.ssafy.io/api/users/login",
+        url: "http://j7b206.p.ssafy.io:8081/api/users/login",
         method: "post",
         data: userInfo,
       })

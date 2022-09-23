@@ -47,8 +47,8 @@
   font-weight: 700;
   font-size: 32px;
   line-height: 38px;
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   text-align: center;
 }
 
@@ -59,8 +59,6 @@
   font-size: 24px;
   line-height: 29px;
   /* identical to box height */
-  display: flex;
-  align-items: center;
   text-align: center;
 }
 
@@ -72,8 +70,6 @@
   line-height: 24px;
   /* identical to box height */
 
-  display: flex;
-  align-items: center;
   text-align: center;
   letter-spacing: 0.15px;
 }
@@ -86,8 +82,6 @@
   line-height: 19px;
   /* identical to box height */
 
-  display: flex;
-  align-items: center;
   text-align: center;
   letter-spacing: 0.15px;
 }
@@ -100,9 +94,7 @@
   line-height: 17px;
   /* identical to box height */
 
-  display: flex;
-  align-items: center;
-  text-align: center;
+  text-align: start;
   letter-spacing: 0.1px;
 }
 
@@ -114,8 +106,6 @@
   line-height: 19px;
   /* identical to box height */
 
-  display: flex;
-  align-items: center;
   text-align: center;
   letter-spacing: 0.25px;
 }
@@ -128,8 +118,6 @@
   line-height: 17px;
   /* identical to box height */
 
-  display: flex;
-  align-items: center;
   text-align: center;
   letter-spacing: 0.25px;
 }
@@ -142,8 +130,11 @@
   line-height: 17px;
   /* identical to box height */
 
+<<<<<<< HEAD
+=======
   display: flex;
   align-items: center;
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
   text-align: center;
   letter-spacing: 1px;
   color: white;
@@ -155,8 +146,7 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
-  display: flex;
-  align-items: center;
+
   text-align: center;
   letter-spacing: 0.4px;
 }
@@ -168,9 +158,13 @@
   font-size: 10px;
   line-height: 12px;
   /* identical to box height */
+<<<<<<< HEAD
+  
+=======
 
   display: flex;
   align-items: center;
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
   text-align: center;
   letter-spacing: 1.5px;
 }
@@ -188,7 +182,11 @@
 
   /* point */
 
+<<<<<<< HEAD
+  background: rgba(0, 0, 0, 0.8);;
+=======
   background: #6c757d;
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
   /* button */
 
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
@@ -315,7 +313,11 @@
   border-radius: 4px;
   border-width: 0ch;
   background-color: var(--color-white);
+<<<<<<< HEAD
+  color: var(--color-point)
+=======
   color: var(--color-point);
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
 }
 
 .button-small-nonbg-grey {
@@ -333,7 +335,12 @@
   border-radius: 4px;
   border-width: 0ch;
   background-color: var(--color-white);
+<<<<<<< HEAD
+  color: var(--color-grey-6)
+
+=======
   color: var(--color-grey-6);
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
 }
 
 .dialog {
