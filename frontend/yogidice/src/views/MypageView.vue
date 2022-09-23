@@ -98,10 +98,13 @@
 
             <!-- 워드클라우드 / 플레이 / 리뷰 / 북마크 상세 들어갈 곳 -->
             <div class="mypage-bottom-container">
-                <word-cloud v-if="mainview"></word-cloud>
+                <!-- <word-cloud v-if="mainview"></word-cloud>
                 <mypage-play v-if="playview"></mypage-play>
                 <mypage-bookmark v-if="bookmarkview"></mypage-bookmark>
-                <mypage-review v-if="reviewview"></mypage-review>
+                <mypage-review v-if="reviewview"></mypage-review> -->
+                <div class="cardlist-my">
+                    <card-list></card-list>
+                </div>
             </div>
             <!-- 워드클라우드 / 플레이 / 리뷰 / 북마크 상세 들어갈 곳 -->
         </div>
@@ -109,27 +112,30 @@
 </template>
 
 <script>
-import WordCloud from '../components/WordCloud.vue';
-import MypageReview from '../components/MypageReview.vue';
-import MypageBookmark from '../components/MypageBookmark.vue';
-import MypagePlay from '../components/MypagePlay.vue';
+import { reactive } from 'vue'
+// import WordCloud from '../components/WordCloud.vue';
+// import MypageReview from '../components/MypageReview.vue';
+// import MypageBookmark from '../components/MypageBookmark.vue';
+// import MypagePlay from '../components/MypagePlay.vue';
+import CardList from '../components/CardList.vue';
+
 export default {
     components: {
-    WordCloud,
-    MypageReview,
-    MypageBookmark,
-    MypagePlay
+    // WordCloud,
+    // MypageReview,
+    // MypageBookmark,
+    // MypagePlay,
+    CardList
   },
-  data() {
-    return {
-        mainview: true,
-        playview: false,
-        reviewview: false,
-        bookmarkview: false
-    }
-  },
-  methods: {
-    MyPageBtn(option) {
+  setup() {
+    let contents = reactive({
+        'mainview': true,
+        'playview': false,
+        'reviewview': false,
+        'bookmarkview': false
+    })
+
+    const MyPageBtn = function(option) {
         if (option == 'play') {
             this.playview = true
             this.mainview = false
@@ -141,13 +147,45 @@ export default {
             this.mainview = false
             this.reviewview = true
             this.bookmarkview = false
-        }
+    }
+    return {
+      MyPageBtn,
+      contents
+    }
     }
   }
-}
+//   data() {
+//     return {
+//         mainview: true,
+//         playview: false,
+//         reviewview: false,
+//         bookmarkview: false
+//     }
+//   },
+//   methods: {
+//     MyPageBtn(option) {
+//         if (option == 'play') {
+//             this.playview = true
+//             this.mainview = false
+//             this.reviewview = false
+//             this.bookmarkview = false
+//         }
+//         else if (option == 'review') {
+//             this.playview = false
+//             this.mainview = false
+//             this.reviewview = true
+//             this.bookmarkview = false
+//         }
+//     }
+  }
+
 </script>
 
 <style>
+.cardlist-my {
+    background-color: yellow;
+    /* height: 70%; */
+}
 .mypage-blank {
     height:70px;
 }
@@ -243,6 +281,7 @@ export default {
     align-items: center;
     background-color: aqua;
     height: 43vh;
+    overflow: hidden;
 }
 </style>
 
