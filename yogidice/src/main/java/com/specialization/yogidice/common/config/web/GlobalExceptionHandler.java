@@ -1,8 +1,8 @@
 package com.specialization.yogidice.common.config.web;
 
-import com.common.reniors.common.dto.ExceptionResponse;
-import com.common.reniors.common.exception.DuplicateException;
-import com.common.reniors.common.exception.NotFoundException;
+import com.specialization.yogidice.common.dto.ExceptionResponse;
+import com.specialization.yogidice.common.exception.DuplicateException;
+import com.specialization.yogidice.common.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

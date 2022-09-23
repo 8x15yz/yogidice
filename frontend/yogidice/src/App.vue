@@ -1,5 +1,5 @@
 <template>
-  <router-view id="wrap1"/>
+  <router-view/>
 </template>
 
 <script>
@@ -22,11 +22,5 @@ export default {
     background-size: 100% 100%;
     position: fixed;
   }
-  #wrap1 {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255,255,255,0.8)
-  }
-
 
 </style>

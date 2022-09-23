@@ -13,7 +13,6 @@ import java.util.List;
  * 유저 모델 정의.
  */
 @Entity
-@Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
@@ -24,9 +23,11 @@ public class User {
     private Long id;
 
     @NotNull
+    @Column(length = 100)
     private String kakaoId;
 
     @NotNull
+    @Column(length = 50)
     private String nickName;
 
     @NotNull
@@ -42,14 +43,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bookmark> bookmarks = new ArrayList<>();
-
-    @Builder
-    public User(String kakaoId, String nickName) {
-        this.kakaoId = kakaoId;
-        this.nickName = nickName;
-        this.role = Role.ROLE_USER;
-        this.reviewed = Reviewed.F;
-    }
 
     public static User create(String kakaoId, String nickName){
         User user = new User();

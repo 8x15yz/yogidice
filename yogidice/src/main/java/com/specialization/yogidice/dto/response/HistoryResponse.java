@@ -1,6 +1,7 @@
 package com.specialization.yogidice.dto.response;
 
 import com.specialization.yogidice.domain.entity.History;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,14 +11,15 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoryResponse {
+@ApiModel("HistoryResponse")
+public class HistoryResponse extends BaseResponseBody {
     private Long Id;
 
-    private Integer rating;
+    private double rating;
 
     private String review;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createDate;
 
     private Long userId;
 
@@ -32,11 +34,19 @@ public class HistoryResponse {
                 history.getId(),
                 history.getRating(),
                 history.getReview(),
-                history.getCreateAt(),
+                history.getCreatedDate(),
                 history.getUser().getId(),
                 history.getUser().getNickName(),
                 history.getBoardGame().getId(),
                 history.getBoardGame().getTitleKr()
         );
+    }
+
+    public static HistoryResponse of(Integer statusCode, String message, Long historyId) {
+        HistoryResponse response = new HistoryResponse();
+        response.setStatusCode(statusCode);
+        response.setMessage(message);
+        response.setId(historyId);
+        return response;
     }
 }

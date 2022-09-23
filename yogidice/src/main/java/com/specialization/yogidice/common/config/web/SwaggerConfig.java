@@ -32,9 +32,9 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    private static final String API_NAME = "RENIORS API 문서";
+    private static final String API_NAME = "YogiDice API 문서";
     private static final String API_VERSION = "0.0.1";
-    private static final String API_DESCRIPTION = "RENIORS API 명세서";
+    private static final String API_DESCRIPTION = "YogiDice API 명세서";
     // documentationpluginsbootstrapper 에러 설정
     @Bean
     public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier, ServletEndpointsSupplier servletEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier, EndpointMediaTypes endpointMediaTypes, CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties, Environment environment) {
@@ -60,7 +60,7 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(true)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.common.reniors.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.specialization.yogidice.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .securityContexts(Arrays.asList(securityContext()))
