@@ -56,7 +56,7 @@ public class MechanismGroupService {
     }
 
     @Transactional
-    public List<MechanismGroupResponse> readMechanismGroupListOfMechanism(Long mechanismId) {
+    public List<MechanismGroupResponse> readMechanismGroupListOfMechanism(Byte mechanismId) {
         Mechanism mechanism = mechanismRepository.findById(mechanismId)
                 .orElseThrow(() -> new NotFoundException(MECHANISM_NOT_FOUND));
         List<MechanismGroup> mechanismGroups = mechanismGroupRepository.findByMechanism(mechanism);

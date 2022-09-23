@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 public class HistoryResponse extends BaseResponseBody {
     private Long Id;
 
-    private byte rating;
+    private double rating;
 
     private String review;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createDate;
 
     private Long userId;
 
@@ -34,7 +34,7 @@ public class HistoryResponse extends BaseResponseBody {
                 history.getId(),
                 history.getRating(),
                 history.getReview(),
-                history.getCreateAt(),
+                history.getCreatedDate(),
                 history.getUser().getId(),
                 history.getUser().getNickName(),
                 history.getBoardGame().getId(),

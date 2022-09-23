@@ -56,7 +56,7 @@ public class UserService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", kakaoRestApiKey);
-        body.add("redirect_uri", "https://j7b206.p.ssafy.io/login");
+        body.add("redirect_uri", "http://j7b206.p.ssafy.io/kakaologin");
         body.add("code", code);
 
         // HTTP 요청 보내기
@@ -145,6 +145,7 @@ public class UserService {
         return UserResponse.response(user, historyResponses, bookmarkResponses);
     }
 
+    // 리뷰 여부 조회
     @Transactional
     public Reviewed checkReview(Long userId) {
         User user = userRepository.findById(userId)

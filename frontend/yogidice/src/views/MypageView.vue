@@ -5,7 +5,7 @@
             <!-- 회원정보 나오는곳 -->
             <div class="profile-container-outer">
                 <div class="profile-container">
-                    <p class="profile-inner" style="font-size : 35px">아기공룡둘째</p>
+                    <p class="profile-inner" style="font-size : 35px" @click="myPageBtn('main')">아기공룡둘째</p>
                     <span>💌</span><span class="profile-email">8x15yz@gmail.com</span>
                 </div>
             </div>
@@ -17,7 +17,7 @@
             <!-- 마이페이지 세부페이지 버튼-->
             <div class="mypage-link-btn-outer">
                 <div class="mypage-link-btn-wrapper">
-                    <div class="mypage-link-btn-inner" @click="MyPageBtn('play')">
+                    <div class="mypage-link-btn-inner" @click="myPageBtn('play')">
                         <div>
                             <div>🎮</div>
                             <div class="displayFlex">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mypage-link-btn-inner" @click="MyPageBtn('review')">
+                    <div class="mypage-link-btn-inner" @click="myPageBtn('review')">
                         <div>
                             <div>✏</div>
                             <div class="displayFlex">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mypage-link-btn-inner" @click="MyPageBtn('bookmark')">
+                    <div class="mypage-link-btn-inner" @click="myPageBtn('bookmark')">
                         <div>
                             <div>📍</div>
                             <div class="displayFlex">
@@ -67,24 +67,27 @@
                     <!-- mainview : 보드게임 성향 알려주는곳 -->
 
 
-                    <!-- play & bookmark view : 플레이/ 북마크한 보드게임 알려주는곳-->
+                    <!-- play : 플레이한 보드게임 알려주는곳-->
                     <div v-if="playview">
                         <div class="mp-bg-s-inner">
-                            <div class="mp-bg-s-inner">
-                                <span>아기공룡둘째</span><span>님은</span>
-                            </div>
-                            <div class="mp-bg-s-inner">
-                                <span id="mypage-cate-result">경제</span><span id="mypage-cate-result">마니아</span><span> 입니다</span><span>❓</span>
-                            </div>
+                            <span>내가 플레이한 게임</span><span>(23)</span>
                         </div>
                     </div>
-                    <!-- play & bookmark view : 플레이/ 북마크한 보드게임 알려주는곳-->
+                    <!-- play : 플레이한 보드게임 알려주는곳-->
+
+                    <!-- play : 북마크한 보드게임 알려주는곳-->
+                    <div v-if="bookmarkview">
+                        <div class="mp-bg-s-inner">
+                            <span>내가 북마크한 게임</span><span>(12)</span>
+                        </div>
+                    </div>
+                    <!-- play : 북마크한 보드게임 알려주는곳-->
 
 
                     <!-- reviewview : 리뷰한 보드게임 보여주는곳 -->
                     <div v-if="reviewview">
                         <div class="mp-bg-s-inner">
-                            <span>내가 남긴 리뷰</span><span>(15)</span>
+                            <span>내가 남긴 리뷰</span><span>(40)</span>
                         </div>
                     </div>
                     <!-- reviewview : 리뷰한 보드게임 보여주는곳 -->
@@ -98,11 +101,15 @@
 
             <!-- 워드클라우드 / 플레이 / 리뷰 / 북마크 상세 들어갈 곳 -->
             <div class="mypage-bottom-container">
-                <!-- <word-cloud v-if="mainview"></word-cloud>
+                <word-cloud v-if="mainview"></word-cloud>
                 <mypage-play v-if="playview"></mypage-play>
-                <mypage-bookmark v-if="bookmarkview"></mypage-bookmark>
-                <mypage-review v-if="reviewview"></mypage-review> -->
-                <div class="cardlist-my">
+                <div>
+                    <mypage-bookmark v-if="bookmarkview"></mypage-bookmark>
+                </div>
+                <div>
+                    <mypage-review v-if="reviewview"></mypage-review>
+                </div>
+                <div v-if="bookmarkview" class="cardlist-my">
                     <card-list></card-list>
                 </div>
             </div>
@@ -112,78 +119,69 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
-// import WordCloud from '../components/WordCloud.vue';
-// import MypageReview from '../components/MypageReview.vue';
+import { ref } from 'vue'
+import WordCloud from '../components/WordCloud.vue';
+import MypageReview from '../components/MypageReview.vue';
 // import MypageBookmark from '../components/MypageBookmark.vue';
 // import MypagePlay from '../components/MypagePlay.vue';
 import CardList from '../components/CardList.vue';
 
+
 export default {
     components: {
-    // WordCloud,
-    // MypageReview,
+    WordCloud,
+    MypageReview,
     // MypageBookmark,
     // MypagePlay,
     CardList
   },
   setup() {
-    let contents = reactive({
-        'mainview': true,
-        'playview': false,
-        'reviewview': false,
-        'bookmarkview': false
-    })
+        const mainview = ref(true);
+        const playview = ref(false);
+        const reviewview = ref(false);
+        const bookmarkview = ref(false);
 
-    const MyPageBtn = function(option) {
-        if (option == 'play') {
-            this.playview = true
-            this.mainview = false
-            this.reviewview = false
-            this.bookmarkview = false
+        const myPageBtn = function(option) { // eslint-disable-line no-unused-vars
+            if (option == 'play') {
+                playview.value = true
+                mainview.value = false
+                reviewview.value = false
+                bookmarkview.value = false
+            }
+            else if (option == 'review') {
+                playview.value = false
+                mainview.value = false
+                reviewview.value = true
+                bookmarkview.value = false
+            }
+            else if (option == 'bookmark') {
+                playview.value = false
+                mainview.value = false
+                reviewview.value = false
+                bookmarkview.value = true
+            }
+            else if (option == 'main') {
+                playview.value = false
+                mainview.value = true
+                reviewview.value = false
+                bookmarkview.value = false
+            }
         }
-        else if (option == 'review') {
-            this.playview = false
-            this.mainview = false
-            this.reviewview = true
-            this.bookmarkview = false
+        return {
+        myPageBtn,
+        mainview, 
+        playview,
+        reviewview,
+        bookmarkview
+        }
     }
-    return {
-      MyPageBtn,
-      contents
-    }
-    }
-  }
-//   data() {
-//     return {
-//         mainview: true,
-//         playview: false,
-//         reviewview: false,
-//         bookmarkview: false
-//     }
-//   },
-//   methods: {
-//     MyPageBtn(option) {
-//         if (option == 'play') {
-//             this.playview = true
-//             this.mainview = false
-//             this.reviewview = false
-//             this.bookmarkview = false
-//         }
-//         else if (option == 'review') {
-//             this.playview = false
-//             this.mainview = false
-//             this.reviewview = true
-//             this.bookmarkview = false
-//         }
-//     }
   }
 
 </script>
 
 <style>
 .cardlist-my {
-    background-color: yellow;
+    /* background-color: yellow; */
     /* height: 70%; */
 }
 .mypage-blank {
@@ -257,7 +255,7 @@ export default {
     display: flex;
     justify-content: center;
     height: 100px;
-    background-color: pink;
+    /* background-color: pink; */
     align-items: center;
 }
 .mypage-boardgame-style > div {
@@ -279,8 +277,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aqua;
-    height: 43vh;
+    background-color: rgba(255, 255, 255, 0.493);
+    /* height: 43vh; */
     overflow: hidden;
 }
 </style>

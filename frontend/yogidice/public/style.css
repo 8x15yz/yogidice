@@ -42,7 +42,7 @@
 
 /* 글꼴 스타일 */
 .text-huge {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
   font-size: 32px;
@@ -53,7 +53,7 @@
 }
 
 .text-headline-5 {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -63,7 +63,7 @@
 }
 
 .text-headline-6 {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -75,7 +75,7 @@
 }
 
 .text-subtitle-1 {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -87,7 +87,7 @@
 }
 
 .text-subtitle-2 {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -99,7 +99,7 @@
 }
 
 .text-body-1 {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -110,8 +110,8 @@
   letter-spacing: 0.25px;
 }
 
-.text-body-2{
-  font-family: 'Pretendard';
+.text-body-2 {
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -122,21 +122,26 @@
   letter-spacing: 0.25px;
 }
 
-.text-button{
-  font-family: 'Pretendard';
+.text-button {
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   /* identical to box height */
 
+<<<<<<< HEAD
+=======
+  display: flex;
+  align-items: center;
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
   text-align: center;
   letter-spacing: 1px;
-  color: white
+  color: white;
 }
 
 .text-caption {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -146,14 +151,20 @@
   letter-spacing: 0.4px;
 }
 
-.text-overline{
-  font-family: 'Pretendard';
+.text-overline {
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
   /* identical to box height */
+<<<<<<< HEAD
   
+=======
+
+  display: flex;
+  align-items: center;
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
   text-align: center;
   letter-spacing: 1.5px;
 }
@@ -171,9 +182,13 @@
 
   /* point */
 
+<<<<<<< HEAD
   background: rgba(0, 0, 0, 0.8);;
+=======
+  background: #6c757d;
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
   /* button */
-  
+
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   border-width: 0ch;
@@ -192,12 +207,12 @@
 
   /* point */
 
-  background: #889EEB;
+  background: #889eeb;
   /* button */
 
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  border-width: 0ch;  
+  border-width: 0ch;
 }
 
 .button-small-blue {
@@ -213,7 +228,7 @@
 
   /* point */
 
-  background: #889EEB;
+  background: #889eeb;
   /* button */
 
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
@@ -234,11 +249,11 @@
 
   /* grey/600 */
 
-  background: #6C757D;
+  background: #6c757d;
   /* button */
 
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 4px; 
+  border-radius: 4px;
   border-width: 0ch;
 }
 
@@ -258,7 +273,7 @@
   /* button */
 
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 4px; 
+  border-radius: 4px;
   border-width: 0ch;
 }
 
@@ -273,10 +288,9 @@
   width: 78px;
   height: 24px;
 
-
   /* point */
 
-  background: #889EEB;
+  background: #889eeb;
   /* button */
 
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
@@ -295,11 +309,15 @@
   /* position: absolute; */
   width: 64px;
   height: 24px;
-  
+
   border-radius: 4px;
   border-width: 0ch;
   background-color: var(--color-white);
+<<<<<<< HEAD
   color: var(--color-point)
+=======
+  color: var(--color-point);
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
 }
 
 .button-small-nonbg-grey {
@@ -317,8 +335,12 @@
   border-radius: 4px;
   border-width: 0ch;
   background-color: var(--color-white);
+<<<<<<< HEAD
   color: var(--color-grey-6)
 
+=======
+  color: var(--color-grey-6);
+>>>>>>> 414af86c8131039a23ba20213aab430ff1826ef4
 }
 
 .dialog {
@@ -332,9 +354,9 @@
   width: 80vw;
   top: 30vh;
   left: 6vw;
-  
+
   /* white */
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 24px 16px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }

@@ -28,12 +28,6 @@ public class BoardGameCafe {
     @OneToMany(mappedBy = "boardGameCafe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CafeGameList> cafeGameLists = new ArrayList<>();
 
-    @Builder
-    public BoardGameCafe(String name, String address) {
-        this.name = name;
-        this.address = address;
-    }
-
     public static BoardGameCafe create(String name, String address) {
         BoardGameCafe boardgameCafe = new BoardGameCafe();
         boardgameCafe.name = name;
