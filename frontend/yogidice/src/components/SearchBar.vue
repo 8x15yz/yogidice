@@ -1,12 +1,27 @@
 <template>
   <div class='search-bar'>
     <span class="material-icons">search</span>
-    <input type="text" placeholder="보드게임을 검색해보세요!">
+    <input type="text" @keyup="inputValue" v-model="searchInput" placeholder="보드게임을 검색해보세요!">
   </div>
 </template>
 
 <script>
+import { getCurrentInstance, ref } from 'vue'
 export default {
+  setup() {
+    const internalInstance = getCurrentInstance()
+    // 전역변수로 선언해놓은 mitt 가져오기
+    const emitter = internalInstance.appContext.config.globalProperties.emitter
+    let searchInput = ref('')
+    const inputValue = function () {
+      emitter.emit('inputValue',searchInput.value)
+    }
+
+    return {
+      searchInput,
+      inputValue
+    }
+  }
 
 }
 </script>
