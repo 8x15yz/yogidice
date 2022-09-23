@@ -5,18 +5,18 @@
 </template>
 
 <script>
-import { toRefs } from '@vue/runtime-core'
-export default{
-    props: {
-        reviewdatum: Array,
-    },
-    setup(props) {
-        const { reviewdatum } = toRefs(props.reviewdatum)
-        return {
+// // import { toRefs } from '@vue/runtime-core'
+// export default{
+//     props: {
+//         reviewdatum: Array,
+//     },
+//     setup(props) {
+//         // const { reviewdatum } = toRefs(props.reviewdatum)
+//         return {
             
-        }
-    },
-}
+//         }
+//     },
+// }
 </script>
 
 <style>
