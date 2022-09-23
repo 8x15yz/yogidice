@@ -14,5 +14,5 @@ public class MechanismRequest {
     private String name;
 
     @NotNull
-    private int parentsMec;
+    private String parentsMec;
 }

@@ -15,11 +15,11 @@ public class CafeGameList {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "cafe_id")
+    @JoinColumn(name = "cafe_id")
     private BoardGameCafe boardGameCafe;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "game_id")
+    @JoinColumn(name = "game_id")
     private BoardGame boardGame;
 
     public static CafeGameList create(BoardGameCafe boardGameCafe, BoardGame boardGame) {
