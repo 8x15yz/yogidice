@@ -15,13 +15,13 @@ export default {
   setup() {
     const router = useRouter()
 
-    onMounted(() => {
-      setTimeout(function() {
-        router.push({
-          name: 'SignupView'
-        });
-        }, 2000);
-    })
+    // onMounted(() => {
+    //   setTimeout(function() {
+    //     router.push({
+    //       name: 'SignupView'
+    //     });
+    //     }, 2000);
+    // })
   }
 }
 
