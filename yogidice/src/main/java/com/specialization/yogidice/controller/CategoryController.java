@@ -141,7 +141,7 @@ public class CategoryController {
     @GetMapping("/mechanism/{mechanismId}")
     @ApiOperation(value = "진행방식 상세 조회", notes = "진행방식을 상세 조회합니다.")
     public ResponseEntity<?> readMechanism(
-            @PathVariable Long mechanismId
+            @PathVariable Byte mechanismId
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(MechanismResponse.of(200, "Success", mechanismService.readMechanism(mechanismId)));
     }
@@ -150,7 +150,7 @@ public class CategoryController {
     @PutMapping("/mechanism/{mechanismId}")
     @ApiOperation(value = "진행방식 정보 수정", notes = "진행방식의 정보를 수정합니다.")
     public ResponseEntity<?> updateMechanism(
-            @PathVariable Long mechanismId,
+            @PathVariable Byte mechanismId,
             @Valid @RequestBody MechanismRequest request
     ) {
         mechanismService.updateMechanism(mechanismId, request);
@@ -161,7 +161,7 @@ public class CategoryController {
     @DeleteMapping("/mechanism/{mechanismId}")
     @ApiOperation(value = "진행방식 삭제", notes = "진행방식을 삭제합니다.")
     public ResponseEntity<?> deleteMechanism(
-            @PathVariable Long mechanismId
+            @PathVariable Byte mechanismId
     ) {
         mechanismService.deleteMechanism(mechanismId);
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));

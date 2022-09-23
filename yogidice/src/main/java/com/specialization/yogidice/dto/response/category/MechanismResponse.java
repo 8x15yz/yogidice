@@ -16,7 +16,7 @@ public class MechanismResponse extends BaseResponseBody {
 
     private String name;
 
-    private int parentsMec;
+    private String parentsMec;
 
     public static MechanismResponse response(Mechanism mechanism) {
         return new MechanismResponse(

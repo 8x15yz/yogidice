@@ -11,5 +11,5 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class MechanismGroupUpdateRequest {
     @NotNull
-    private Long mechanismId;
+    private Byte mechanismId;
 }

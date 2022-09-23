@@ -24,7 +24,7 @@ public class BoardGameResponse extends BaseResponseBody {
 
     private int publishYear;
 
-    private String thumbURL;
+    private String thumbUrl;
 
     private double ratingBl;
 
@@ -32,9 +32,9 @@ public class BoardGameResponse extends BaseResponseBody {
 
     private Long bggCode;
 
-    private int minPlayers;
+    private Byte minPlayers;
 
-    private int maxPlayers;
+    private Byte maxPlayers;
 
     private String playingTime;
 
@@ -46,11 +46,11 @@ public class BoardGameResponse extends BaseResponseBody {
 
     private double difficulty;
 
-    private String youtubeURL;
+    private String youtubeUrl;
 
     private String contents;
 
-    private String contentsImgURL;
+    private String contentsImgUrl;
 
     private List<CategoryGroupResponse> categoryGroupResponses;
 
@@ -69,7 +69,7 @@ public class BoardGameResponse extends BaseResponseBody {
                 boardGame.getTitleKr(),
                 boardGame.getTitleEng(),
                 boardGame.getPublishYear(),
-                boardGame.getThumbURL(),
+                boardGame.getThumbUrl(),
                 boardGame.getRatingBl(),
                 boardGame.getRatingUser(),
                 boardGame.getBggCode(),
@@ -80,9 +80,9 @@ public class BoardGameResponse extends BaseResponseBody {
                 boardGame.getMaxTime(),
                 boardGame.getAge(),
                 boardGame.getDifficulty(),
-                boardGame.getYoutubeURL(),
+                boardGame.getYoutubeUrl(),
                 boardGame.getContents(),
-                boardGame.getContentsImgURL(),
+                boardGame.getContentsImgUrl(),
                 categoryLists,
                 typeLists,
                 mechanismLists
@@ -105,7 +105,7 @@ public class BoardGameResponse extends BaseResponseBody {
         response.setTitleKr(boardGameResponse.getTitleKr());
         response.setTitleEng(boardGameResponse.getTitleEng());
         response.setPublishYear(boardGameResponse.getPublishYear());
-        response.setThumbURL(boardGameResponse.getThumbURL());
+        response.setThumbUrl(boardGameResponse.getThumbUrl());
         response.setRatingBl(boardGameResponse.getRatingBl());
         response.setRatingUser(boardGameResponse.getRatingUser());
         response.setBggCode(boardGameResponse.getBggCode());
@@ -116,9 +116,9 @@ public class BoardGameResponse extends BaseResponseBody {
         response.setMaxTime(boardGameResponse.getMaxTime());
         response.setAge(boardGameResponse.getAge());
         response.setDifficulty(boardGameResponse.getDifficulty());
-        response.setYoutubeURL(boardGameResponse.getYoutubeURL());
+        response.setYoutubeUrl(boardGameResponse.getYoutubeUrl());
         response.setContents(boardGameResponse.getContents());
-        response.setContentsImgURL(boardGameResponse.getContentsImgURL());
+        response.setContentsImgUrl(boardGameResponse.getContentsImgUrl());
         response.setCategoryGroupResponses(boardGameResponse.getCategoryGroupResponses());
         response.setTypeGroupResponses(boardGameResponse.getTypeGroupResponses());
         response.setMechanismGroupResponses(boardGameResponse.getMechanismGroupResponses());
