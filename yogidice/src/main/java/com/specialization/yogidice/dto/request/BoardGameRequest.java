@@ -20,7 +20,7 @@ public class BoardGameRequest {
     private int publishYear;
 
     @NotNull
-    private String thumbURL;
+    private String thumbUrl;
 
     private double ratingBl;
 
@@ -30,9 +30,9 @@ public class BoardGameRequest {
     @NotNull
     private Long bbgCode;
 
-    private byte minPlayers;
+    private Byte minPlayers;
 
-    private byte maxPlayers;
+    private Byte maxPlayers;
 
     private String playingTime;
 
@@ -44,9 +44,9 @@ public class BoardGameRequest {
 
     private double difficulty;
 
-    private String youtubeURL;
+    private String youtubeUrl;
 
     private String contents;
 
-    private String contentsImgURL;
+    private String contentsImgUrl;
 }

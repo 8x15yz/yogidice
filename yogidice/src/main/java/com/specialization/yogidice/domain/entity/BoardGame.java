@@ -34,7 +34,7 @@ public class BoardGame {
 
     @NotNull
     @Column(length = 200)
-    private String thumbURL;
+    private String thumbUrl;
 
     private double ratingBl;
 
@@ -44,9 +44,9 @@ public class BoardGame {
     @NotNull
     private long bggCode;
 
-    private byte minPlayers;
+    private Byte minPlayers;
 
-    private byte maxPlayers;
+    private Byte maxPlayers;
 
     @Column(length = 50)
     private String playingTime;
@@ -62,13 +62,13 @@ public class BoardGame {
     private double difficulty;
 
     @Column(length = 200)
-    private String youtubeURL;
+    private String youtubeUrl;
 
     @Column(length = 500)
     private String contents;
 
     @Column(length = 200)
-    private String contentsImgURL;
+    private String contentsImgUrl;
 
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CategoryGroup> categoryGroups = new ArrayList<>();
@@ -79,12 +79,12 @@ public class BoardGame {
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MechanismGroup> mechanismGroups = new ArrayList<>();
 
-    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbURL, double ratingBl, double ratingUser, Long bggCode, byte minPlayers, byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbUrl, double ratingBl, double ratingUser, Long bggCode, Byte minPlayers, Byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeUrl, String contents, String contentsImgUrl) {
         BoardGame boardGame = new BoardGame();
         boardGame.titleKr = titleKr;
         boardGame.titleEng = titleEng;
         boardGame.publishYear = publishYear;
-        boardGame.thumbURL = thumbURL;
+        boardGame.thumbUrl = thumbUrl;
         boardGame.ratingBl = ratingBl;
         boardGame.ratingUser = ratingUser;
         boardGame.bggCode = bggCode;
@@ -95,17 +95,17 @@ public class BoardGame {
         boardGame.maxTime = maxTime;
         boardGame.age = age;
         boardGame.difficulty = difficulty;
-        boardGame.youtubeURL = youtubeURL;
+        boardGame.youtubeUrl = youtubeUrl;
         boardGame.contents = contents;
-        boardGame.contentsImgURL = contentsImgURL;
+        boardGame.contentsImgUrl = contentsImgUrl;
         return boardGame;
     }
 
-    public void update(String titleKr, String titleEng, int publishYear, String thumbURL, double ratingBl, double ratingUser, Long bggCode, byte minPlayers, byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeURL, String contents, String contentsImgURL) {
+    public void update(String titleKr, String titleEng, int publishYear, String thumbUrl, double ratingBl, double ratingUser, Long bggCode, Byte minPlayers, Byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeUrl, String contents, String contentsImgUrl) {
         this.titleKr = titleKr;
         this.titleEng = titleEng;
         this.publishYear = publishYear;
-        this.thumbURL = thumbURL;
+        this.thumbUrl = thumbUrl;
         this.ratingBl = ratingBl;
         this.ratingUser = ratingUser;
         this.bggCode = bggCode;
@@ -116,8 +116,8 @@ public class BoardGame {
         this.maxTime = maxTime;
         this.age = age;
         this.difficulty = difficulty;
-        this.youtubeURL = youtubeURL;
+        this.youtubeUrl = youtubeUrl;
         this.contents = contents;
-        this.contentsImgURL = contentsImgURL;
+        this.contentsImgUrl = contentsImgUrl;
     }
 }

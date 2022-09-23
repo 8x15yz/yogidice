@@ -33,7 +33,7 @@ public class CafeGameListController {
     }
 
     // 보드게임 카페를 통한 보드게임 카페 보유 보드게임 목록 조회
-    @GetMapping("/{cafeId}")
+    @GetMapping("/cafe/{cafeId}")
     @ApiOperation(value = "보드게임 카페를 통한 보드게임 카페 보유 보드게임 목록 조회", notes = "보드게임 카페를 통해 보드게임 카페 보유 보드게임 목록 조회을 조회합니다.")
     public ResponseEntity<?> readCafeGameListOfBoardGameCafe(
             @PathVariable Long cafeId
@@ -42,7 +42,7 @@ public class CafeGameListController {
     }
 
     // 보드게임을 통한 보드게임 카페 보유 보드게임 목록 조회
-    @GetMapping("/{gameId}")
+    @GetMapping("/game/{gameId}")
     @ApiOperation(value = "보드게임을 통한 보드게임 카페 보유 보드게임 목록 조회", notes = "보드게임을 통해 보드게임 카페 보유 보드게임 목록 조회을 조회합니다.")
     public ResponseEntity<?> readCafeGameListOfBoardGame(
             @PathVariable Long gameId

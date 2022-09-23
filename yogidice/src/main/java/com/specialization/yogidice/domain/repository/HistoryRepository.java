@@ -11,7 +11,5 @@ import java.util.Optional;
 public interface HistoryRepository extends JpaRepository<History, Long> {
     List<History> findByUser(User user);
 
-    List<History> findByBoardGame(BoardGame boardGame);
-
     Optional<History> findByUserAndBoardGame(User user, BoardGame boardGame);
 }

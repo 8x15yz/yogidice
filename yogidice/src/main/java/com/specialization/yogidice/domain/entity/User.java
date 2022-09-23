@@ -44,14 +44,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bookmark> bookmarks = new ArrayList<>();
 
-    @Builder
-    public User(String kakaoId, String nickName) {
-        this.kakaoId = kakaoId;
-        this.nickName = nickName;
-        this.role = Role.ROLE_USER;
-        this.reviewed = Reviewed.F;
-    }
-
     public static User create(String kakaoId, String nickName){
         User user = new User();
         user.kakaoId = kakaoId;
