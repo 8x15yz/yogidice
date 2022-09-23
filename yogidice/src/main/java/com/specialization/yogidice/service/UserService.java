@@ -145,6 +145,7 @@ public class UserService {
         return UserResponse.response(user, historyResponses, bookmarkResponses);
     }
 
+    // 리뷰 여부 조회
     @Transactional
     public Reviewed checkReview(Long userId) {
         User user = userRepository.findById(userId)

@@ -35,7 +35,7 @@ public class CategoryGroupController {
     }
 
     // 보드게임을 통한 카테고리(테마) 목록 조회
-    @GetMapping("/theme/{gameId}")
+    @GetMapping("/theme/game/{gameId}")
     @ApiOperation(value = "보드게임을 통한 카테고리(테마) 목록 조회", notes = "보드게임을 통해 카테고리(테마) 목록을 조회합니다.")
     public ResponseEntity<?> readCategoryGroupListOfBoardGame(
             @PathVariable Long gameId
@@ -44,7 +44,7 @@ public class CategoryGroupController {
     }
 
     // 카테고리를 통한 카테고리(테마) 목록 조회
-    @GetMapping("/theme/{cateId}")
+    @GetMapping("/theme/cate/{cateId}")
     @ApiOperation(value = "카테고리를 통한 카테고리(테마) 목록 조회", notes = "카테고리를 통해 카테고리(테마) 목록을 조회합니다.")
     public ResponseEntity<?> readCategoryGroupListOfCategory(
             @PathVariable Long cateId
@@ -84,7 +84,7 @@ public class CategoryGroupController {
     }
 
     // 보드게임을 통한 타입 목록 조회
-    @GetMapping("/type/{gameId}")
+    @GetMapping("/type/game/{gameId}")
     @ApiOperation(value = "보드게임을 통한 타입 목록 조회", notes = "보드게임을 통해 타입 목록을 조회합니다.")
     public ResponseEntity<?> readTypeGroupListOfBoardGame(
             @PathVariable Long gameId
@@ -93,7 +93,7 @@ public class CategoryGroupController {
     }
 
     // 타입을 통한 타입 목록 조회
-    @GetMapping("/type/{typeId}")
+    @GetMapping("/type/cate/{typeId}")
     @ApiOperation(value = "타입을 통한 타입 목록 조회", notes = "타입을 통해 타입 목록을 조회합니다.")
     public ResponseEntity<?> readTypeGroupListOfType(
             @PathVariable Long typeId
@@ -133,7 +133,7 @@ public class CategoryGroupController {
     }
 
     // 보드게임을 통한 진행방식 목록 조회
-    @GetMapping("/mechanism/{gameId}")
+    @GetMapping("/mechanism/game/{gameId}")
     @ApiOperation(value = "보드게임을 통한 진행방식 목록 조회", notes = "보드게임을 통해 진행방식 목록을 조회합니다.")
     public ResponseEntity<?> readMechanismGroupListOfBoardGame(
             @PathVariable Long gameId
@@ -142,10 +142,10 @@ public class CategoryGroupController {
     }
 
     // 진행방식을 통한 진행방식 목록 조회
-    @GetMapping("/mechanism/{mechanismId}")
+    @GetMapping("/mechanism/cate/{mechanismId}")
     @ApiOperation(value = "진행방식을 통한 진행방식 목록 조회", notes = "진행방식을 통해 진행방식 목록을 조회합니다.")
     public ResponseEntity<?> readMechanismGroupListOfMechanism(
-            @PathVariable Long mechanismId
+            @PathVariable Byte mechanismId
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(MechanismGroupListResponse.of(200, "Success", mechanismGroupService.readMechanismGroupListOfMechanism(mechanismId)));
     }

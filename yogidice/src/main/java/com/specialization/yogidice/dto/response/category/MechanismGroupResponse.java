@@ -18,7 +18,7 @@ public class MechanismGroupResponse extends BaseResponseBody {
 
     private String gameTitle;
 
-    private byte mechanismId;
+    private Byte mechanismId;
 
     private String mechanismName;
 

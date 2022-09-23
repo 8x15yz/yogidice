@@ -41,7 +41,7 @@ public class BoardGameService {
                 request.getTitleKr(),
                 request.getTitleEng(),
                 request.getPublishYear(),
-                request.getThumbURL(),
+                request.getThumbUrl(),
                 request.getRatingBl(),
                 request.getRatingUser(),
                 request.getBbgCode(),
@@ -52,9 +52,9 @@ public class BoardGameService {
                 request.getMaxTime(),
                 request.getAge(),
                 request.getDifficulty(),
-                request.getYoutubeURL(),
+                request.getYoutubeUrl(),
                 request.getContents(),
-                request.getContentsImgURL()
+                request.getContentsImgUrl()
         );
         return boardGameRepository.save(saveBoardGame).getId();
     }
@@ -105,7 +105,7 @@ public class BoardGameService {
                 request.getTitleKr(),
                 request.getTitleEng(),
                 request.getPublishYear(),
-                request.getThumbURL(),
+                request.getThumbUrl(),
                 request.getRatingBl(),
                 request.getRatingUser(),
                 request.getBbgCode(),
@@ -116,9 +116,9 @@ public class BoardGameService {
                 request.getMaxTime(),
                 request.getAge(),
                 request.getDifficulty(),
-                request.getYoutubeURL(),
+                request.getYoutubeUrl(),
                 request.getContents(),
-                request.getContentsImgURL()
+                request.getContentsImgUrl()
         );
         boardGameRepository.save(boardGame);
     }
