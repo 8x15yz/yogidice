@@ -6,7 +6,7 @@
   </div>
   <div class="game-chip-container">
     <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
-    <div>{{ playTimes }}</div>
+    <div>{{ playTimes }}분 소요</div>
     <div>{{ playLevel }}</div>
   </div>
 </template>
@@ -64,7 +64,8 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 90%;
-  margin-top: 2vw;
+  margin: 2vw 2vw 0vw 2vw;
+  align-items: flex-start;
 }
 .game-title{ 
   white-space: nowrap;
@@ -72,20 +73,19 @@ export default {
   text-overflow: ellipsis;
 }
 .rating {
-  color: yellow;
+  color: var(--color-mint);
   width: 30%;
 }
 .game-chip-container {
   display: flex;
   justify-content: flex-start;
-  margin: 1vw 0vw 2vw 2vw;
+  margin: 2vw 2vw 2vw 2vw;
   gap: 1vw;
   align-self: flex-start;
 
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 500;
-
 }
 .game-chip-container > div {
   border-radius: 40px;

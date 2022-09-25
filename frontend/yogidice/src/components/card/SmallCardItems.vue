@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { computed,toRefs,reactive,getCurrentInstance,ref } from "vue"
+import { computed,toRefs,getCurrentInstance,ref } from "vue"
 
 export default {
   props: {
@@ -21,20 +21,18 @@ export default {
     let checkedMark = ref(false)
 
     let imgUrl = computed(() => `https://boardlife.co.kr/${thumburl.value}`)
-    const userSelection = reactive([])
-    let selectCnt = computed(() => userSelection.length)
+    let selectCnt 
 
     // 지금 일단 동시 선택 안됨(선택은 되는데 담기지가 않음)
     const selectImg = function(e) {
-      let gameTitle = e.target.nextElementSibling.innerText
+      // 선택된 상태면 선택 해제
       if (e.target.style.filter) {
       e.target.style.filter = ""
-      userSelection.splice(userSelection.indexOf(gameTitle),1)
-
+      selectCnt = -1
       } else {
+      // 선택해주기
       e.target.style.filter = "brightness(50%)"
-      userSelection.push(gameTitle)
-      console.log(userSelection)
+      selectCnt = 1
       }
       checkedMark.value = !checkedMark.value
       emitter.emit("selectCnt",selectCnt)
@@ -45,7 +43,6 @@ export default {
     key,
     title_kr,
     imgUrl,
-    userSelection,
     checkedMark,
     selectImg
   }}

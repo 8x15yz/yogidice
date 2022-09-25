@@ -1,18 +1,18 @@
 <template>
   <div class="modal-back">
     <div class="dialog">
-      <modal-content :typeAndTarget="typeAndTarget">
+      <modal-content>
         <template #header>
-          {{ header }}
+          {{ contents.header }}
         </template>
         <template #body>
-          {{ body }}
+          {{ contents.body }}
         </template>
         <template #footer1>
-          {{ footer1 }}
+          {{ contents.footer1 }}
         </template>
         <template #footer2>
-          {{ footer2 }}
+          {{ contents.footer2 }}
         </template>
       </modal-content>
     </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, toRefs } from "@vue/runtime-core";
+import { onMounted,computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import ModalContent from "./ModalContent.vue";
 
@@ -28,37 +28,24 @@ export default {
   components: {
     ModalContent,
   },
-  props: {
-    contents: Object,
-  },
-  setup(props) {
+  setup() {
     const store = useStore();
-    const { modalType } = toRefs(props.contents);
-    const { header } = toRefs(props.contents);
-    const { body } = toRefs(props.contents);
-    const { footer1 } = toRefs(props.contents);
-    const { footer2 } = toRefs(props.contents);
-    const { nextPage } = toRefs(props.contents);
-    const typeAndTarget = reactive({
-      modalType: modalType,
-      nextPage: nextPage,
-    });
+
+    let contents = computed(() => store.state.modal.contents)
+
 
     onMounted(() => {
       const modalBack = document.querySelector(".modal-back");
       window.addEventListener("click", (e) => {
         if (e.target === modalBack) {
-          store.commit("changeModal");
+          store.dispatch("modal/closeModal");
         }
       });
     });
 
     return {
-      typeAndTarget,
-      header,
-      body,
-      footer1,
-      footer2,
+      contents
+
     };
   },
 };
