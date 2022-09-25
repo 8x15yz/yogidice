@@ -7,34 +7,40 @@
         <button @click="registNickname" class="button-small-blue text-button">계속</button>
       </div>
     </div>
-    <modal-dialog v-show="showModal" :contents='contents'></modal-dialog>
+    <modal-dialog v-show="showModal"></modal-dialog>
   </div>
 
   
 </template>
 
 <script>
-import {reactive, ref} from 'vue';
-import ModalDialog from "@/components/ModalDialog.vue";
+import {reactive, ref, computed } from 'vue';
+import { useStore } from 'vuex'
+import ModalDialog from "@/components/modal/ModalDialog.vue";
 
 export default {
   components: {
     ModalDialog
   },
   setup() {
-    let showModal = ref(false)
-    let contents = reactive({
-      'header':'',
-      'body':''
-    })
+    const store = useStore()
+    let showModal = computed(()=>store.state.modal.showModal)
     let nickNameValue = ref('')
+    let contents = reactive({
+      'info': { 'from': 'registNickName', 'content':'' },
+      'header':'',
+      'body':'',
+      'footer1':'',
+      'footer2':'',
+    })
     const registNickname = function () {
-      // if 로그인 성공이면
-      contents.header = '로그인 성공'
+      contents.header = '닉네임 변경'
       contents.body = `${ nickNameValue.value } 으로 등록하시겠습니까?`
-      console.log(contents)
-
-      showModal.value = true
+      contents.footer1 = "계속"
+      contents.footer2 = "취소"
+      contents.info.content = nickNameValue.value
+      store.dispatch("registModal",contents)
+      store.dispatch("openModal")
     }
     return {
       showModal,

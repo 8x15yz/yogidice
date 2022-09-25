@@ -2,11 +2,11 @@
   <header>
     <div class="header-box">
       <div class="header-1">
-        <img id="head-logo" src="../static/logo_white.png" alt="">
+        <img id="head-logo" @click="moveToMain" src="../static/logo_white.png" alt="">
       </div>
       <div id="head-title" class="text-headline-6">여기 Dice</div>
       <div class="header-2">
-        <span id="head-profile" class="material-icons">person</span>
+        <span id="head-profile" @click="moveToMypage" class="material-icons">person</span>
       </div>
     </div>
   </header>
@@ -14,7 +14,22 @@
 </template>
 
 <script>
-export default { 
+import { useRouter } from 'vue-router'
+
+export default {
+  setup() { 
+    const router = useRouter()
+    const moveToMain = function () {
+      router.push({name: "MainPage"})
+    }
+    const moveToMypage = function () {
+      router.push({name: "MypageView"})
+    }
+    return {
+      moveToMain,
+      moveToMypage
+    }
+  }
 
 }
 </script>
@@ -25,7 +40,9 @@ header {
 }
 #wrap2 {
   background-color: var(--color-bg-base);
-  overflow: scroll;
+  height: 94vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .header-box {
   display: flex;
