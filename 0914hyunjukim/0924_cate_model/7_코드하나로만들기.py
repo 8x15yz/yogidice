@@ -55,8 +55,8 @@ for score in tqdm(range(len(mec_score_board))):
 
     calc_score_abs.loc[score] = arr
 
-# calc_score_abs = calc_score_abs.sort_values(by=["result"], ascending=[False]) 
-# print(calc_score_abs)
+calc_score_abs = calc_score_abs.sort_values(by=["result"], ascending=[False]) 
+print(calc_score_abs)
 
 
 result = []
@@ -64,4 +64,13 @@ calc_score_abs.sort_values(by=["result"], ascending=False, inplace=True)
 # for i in range(11):
 #     result.append(calc_score_abs.loc[i]['no'])
 
-print(calc_score_abs.head(11))
+result = []
+
+cnt = 0
+for score in calc_score_abs.iterrows():
+    cnt += 1
+    if cnt == 11:
+        break
+    result.append(calc_score_abs.loc[score[0]]['no'])
+
+print(result)
