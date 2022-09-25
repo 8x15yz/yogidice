@@ -110,7 +110,7 @@
                     <mypage-review v-if="reviewview"></mypage-review>
                 </div>
                 <div v-if="bookmarkview" class="cardlist-my">
-                    <!-- <card-list></card-list> -->
+                    <small-card-list></small-card-list>
                 </div>
             </div>
             <!-- 워드클라우드 / 플레이 / 리뷰 / 북마크 상세 들어갈 곳 -->
@@ -124,7 +124,7 @@ import WordCloud from '../components/WordCloud.vue';
 import MypageReview from '../components/MypageReview.vue';
 // import MypageBookmark from '../components/MypageBookmark.vue';
 // import MypagePlay from '../components/MypagePlay.vue';
-// import CardList from '../components/CardList.vue';
+import SmallCardList from '../components/SmallCardList.vue';
 
 
 export default {
@@ -133,7 +133,7 @@ export default {
     MypageReview,
     // MypageBookmark,
     // MypagePlay,
-    // CardList
+    SmallCardList
   },
   setup() {
         const mainview = ref(true);
