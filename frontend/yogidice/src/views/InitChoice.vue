@@ -31,17 +31,16 @@ export default {
     const store = useStore()
     let showModal = computed(()=>store.state.modal.showModal)
     let contents = reactive({
-      'info':{'from':'','content':''},
+      'info':{'from':'initChoice','content':''},
       'header':'',
       'body':'',
       'footer1': '',
       'footer2': '',
     })
-    let selectCnt = ref("")
+    let selectCnt = ref(0)
 
     const registInitGame = function (e) {
-      contents.info.from = 'initChoice'
-      contents.header = ''
+      // 아무것도 선택하지 않으면 버튼이 검은색
       if (e.target.className.includes('dark')) {
         contents.body = '게임을 선택하지 않으셨습니다. 계속 진행하시겠습니까?'
         contents.footer1 = '계속'
@@ -51,11 +50,9 @@ export default {
         contents.footer1 = '계속'
         contents.footer2 = '취소'
       }
-      store.dispatch("openModal")
+      store.dispatch("modal/registModal",contents)
+      store.dispatch("modal/openModal")
     }
-
-
-
 
     const internalInstance = getCurrentInstance()
     const emitter = internalInstance.appContext.config.globalProperties.emitter
@@ -63,17 +60,22 @@ export default {
     let initMessage = ref(true)
 
     onMounted(() => {
+      // 선택의 개수에 따라 버튼 색깔 바꿔주기
       const initBtn = document.querySelector(".init-select-btn")
       emitter.on("selectCnt",(data) => {
-        if (data.value>0) {
+        selectCnt.value += data
+        if (selectCnt.value) {
           initBtn.setAttribute("class","button-long-blue init-select-btn text-button")
           initBtn.innerText = "게임 선택"
+          // 여기서 data로 숫자만 받지말고 해당 게임정보 받아서 contents.content에 넣어줘야함
+          // 아니면 state에 게임바구니 만들어서 거기에 넣어줘도 됨 -> modal 창에서 받아주고 전송
         } else {
           initBtn.setAttribute("class","button-long-dark init-select-btn text-button")
           initBtn.innerText = "아직 플레이해본 게임이 없다면?"
         }
-        selectCnt.value = data.value
+        // 선택한 개수
       })
+      // 첫 멘트 나왔다가 사라지기
       setTimeout(function()
       { initMessage.value = !initMessage.value },
     3000)})

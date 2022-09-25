@@ -4,7 +4,8 @@
     <div
       v-for="game in filteredGames"
       :key="game.key"
-      id="long-card" 
+      id="long-card"
+      @click="showDetail(game)"
     >
       <long-card-items
       :game="game"></long-card-items>
@@ -14,6 +15,7 @@
 
 <script>
 import { ref,getCurrentInstance,computed } from 'vue'
+import { useRouter } from 'vue-router'
 import LongCardItems from "@/components/card/LongCardItems.vue"
 
 export default {
@@ -21,6 +23,10 @@ export default {
     LongCardItems
   },
   setup() {
+    const router = useRouter()
+    const showDetail = function(game) {
+      router.push({name:"GameDetail", params:{"gameId":game.key}})
+    }
     // mitt 쓰기
     const internalInstance = getCurrentInstance()
     const emitter = internalInstance.appContext.config.globalProperties.emitter
@@ -30,7 +36,7 @@ export default {
     emitter.on('inputValue', (data) => {
       inputValue.value = data
       searchFailCheck()      
-  })
+    })
 
     // 나중엔 store에서 받아올듯?
     let games = [{'key': 1, 'title_kr': '쓰루 디 에이지스: 문명에 관한 새로운 이야기', 'thumburl': 'wys2/swf_upload/2022/02/24/1645643684643042_lg.jpg','rating': 4.5,
@@ -50,7 +56,8 @@ export default {
       inputValue,
       filteredGames,
       showFailMsg,
-      searchFailCheck
+      searchFailCheck,
+      showDetail
     }
   }
 

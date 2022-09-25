@@ -34,7 +34,6 @@ export default {
       'footer2':'',
     })
     const registNickname = function () {
-      // if 로그인 성공이면
       contents.header = '닉네임 변경'
       contents.body = `${ nickNameValue.value } 으로 등록하시겠습니까?`
       contents.footer1 = "계속"

@@ -89,6 +89,7 @@ export default {
           cardListType.classList.remove("isactive")
         }
       e.target.classList.add("isactive")
+      // 여기서 해당하는 게임 받아와서 state에 저장해주기
       }
     }
     return {

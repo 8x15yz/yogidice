@@ -68,7 +68,7 @@ export default {
   text-align: left;
 }
 .introduce-box div {
-  width: 88vw;
+  width: 90vw;
   text-align: left;
 
 }

@@ -42,7 +42,9 @@ export default {
 
 <style scoped>
 button {
+  width:90vw;
   height: 26px;
+  align-self: center;
 }
 .rating {
   align-self: center;
@@ -60,11 +62,10 @@ button {
 }
 .detail-card-container {
   width: 96vw;
-  margin-top: 5vw;
+  padding-top: 5vw;
   margin-left: 2vw;
   margin-right: 2vw;
-  /* border-radius: 2px; */
-  /* object-fit: fill; */
+
   background-size: 50vw 50vw;
   background-repeat: no-repeat;
   background-position: center;

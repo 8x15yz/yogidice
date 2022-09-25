@@ -20,17 +20,26 @@
 <script>
 import { onMounted, computed, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
 
 export default {
 
   setup() {
     const store = useStore();
-    const router = useRouter();
 
     let isShowModal = computed(() => store.state.modal.showModal)
 
     let info = computed(() => store.state.modal.contents.info)
+
+    // 이벤트 리스너 중복 방지를 위한 함수 정의
+    const registerToInit = function () {
+          store.dispatch("user/registNickName", {'nickName':info.value.content});
+        }
+    const registBookMark = function () {
+          store.dispatch("user/registBookMark", {'gameList':info.value.content});
+        }
+    const closeModal = function () { 
+          store.dispatch("modal/closeModal")
+        }
 
     onMounted( function () {
       const titleBox = document.querySelector(".modal-header")
@@ -47,34 +56,18 @@ export default {
 
       watch(isShowModal, (newValue) => {
         if (newValue === true && info.value.from === "registNickName") {
-          firstButton.addEventListener("click", function () {
-          store.dispatch("closeModal");
-          store.dispatch("user/registNickName", {'nickName':info.value.content});
-          router.push({
-            name: "InitChoice",
-          })
-        });
-        secondButton.addEventListener("click", function () { 
-          store.dispatch("closeModal")
-        })
-      } else if (newValue === true && info.value.from === "initChoice") {
-          firstButton.addEventListener("click", function () {
-          store.dispatch("closeModal");
-          store.dispatch("user/registBookMark", {'gameList':info.value.content});
-          router.push({
-            name: "InitChoice",
-          })
-        });
-        secondButton.addEventListener("click", function () { 
-          store.dispatch("closeModal")
-        })
-      }
-
+          console.log(firstButton)
+          firstButton.addEventListener("click", registerToInit);
+          secondButton.addEventListener("click", closeModal)    
+        } else if (newValue === true && info.value.from === "initChoice") {
+          firstButton.addEventListener("click", registBookMark)
+          secondButton.addEventListener("click", closeModal)
+        }
       })
-      
     })
   }
-}
+ }
+
 </script>
 
 <style>

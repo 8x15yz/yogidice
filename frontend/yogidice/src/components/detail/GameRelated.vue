@@ -1,5 +1,7 @@
 <template>
-  <main-card-list></main-card-list>
+  <div class="related-game-container">
+    <main-card-list></main-card-list>
+  </div>
 </template>
 
 <script>
@@ -13,5 +15,8 @@ export default {
 </script>
 
 <style>
-
+.related-game-container {
+  margin: 2vh 2vw;
+  overflow: scroll;
+}
 </style>

@@ -38,16 +38,28 @@ export default {
     let detailMenus
     onMounted(()=>{
       detailMenus = document.querySelectorAll(".detail-menu-bar div")
+      const detailPage = document.querySelector(".detail-page")
+      const coverPage = document.querySelector("#wrap2")
       for (let detailMenu of detailMenus) {
         detailMenu.addEventListener("click", (e) => {
           for (let detailMenu of detailMenus) {
             if (detailMenu.getAttribute("id") === e.target.id) {
-              detailMenu.classList.add("isactive")     
+              detailMenu.classList.add("isactive")
+              if (e.target.id === "game-introduce") {
+                detailPage.style.transform = "translateX(0vw)"
+                coverPage.style.overflowY = "scroll"
+              } else if (e.target.id === "game-review") {
+                detailPage.style.transform = "translateX(-100vw)"
+                coverPage.style.overflowY = "visible"
+              } else { 
+                detailPage.style.transform = "translateX(-200vw)"
+                coverPage.style.overflowY = "hidden"
+              }
             } else {
               detailMenu.classList.remove("isactive")
             }
           }
-      })
+        })
       }
     })
     let game ={'key': 1, 'title_kr': '쓰루 디 에이지스: 문명에 관한 새로운 이야기', 'thumburl': 'wys2/swf_upload/2022/02/24/1645643684643042_lg.jpg','rating': 4.5,
@@ -61,7 +73,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style>
 .game-chemi {
   margin: 3vh 4vw 3vh 4vw;
   white-space: nowrap;
@@ -116,7 +128,9 @@ export default {
   width: 300vw;
   display: flex;
   flex-wrap: nowrap;
-  overflow: scroll;
+  overflow-x: hidden;
+  transition: all 0.5s;
+
   
 }
 </style>

@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .main-card-img {
   width: 52vw;
   height: 52vw;
@@ -64,7 +64,8 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 90%;
-  margin-top: 2vw;
+  margin: 2vw 2vw 0vw 2vw;
+  align-items: flex-start;
 }
 .game-title{ 
   white-space: nowrap;
@@ -78,7 +79,7 @@ export default {
 .game-chip-container {
   display: flex;
   justify-content: flex-start;
-  margin: 2vw 0vw 2vw 2vw;
+  margin: 2vw 2vw 2vw 2vw;
   gap: 1vw;
   align-self: flex-start;
 

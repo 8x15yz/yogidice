@@ -38,7 +38,7 @@ export default {
       const modalBack = document.querySelector(".modal-back");
       window.addEventListener("click", (e) => {
         if (e.target === modalBack) {
-          store.dispatch("closeModal");
+          store.dispatch("modal/closeModal");
         }
       });
     });

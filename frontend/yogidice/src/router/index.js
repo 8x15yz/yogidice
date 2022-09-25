@@ -17,6 +17,7 @@ import MoreGameView from "@/views/MoreGameView.vue";
 import DiceBgLayout from '@/layouts/DiceBgLayout.vue'
 import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
 import DetailView from '@/views/DetailView.vue'
+import PlaceView from "@/views/PlaceView.vue"
 
 
 // Vue.use(VueRouter);
@@ -98,6 +99,17 @@ const routes = [
             path: ':gameId',
             name: 'GameDetail',
             component: DetailView
+        },
+    ]
+  },
+  {
+    path: '/cafes',
+    component: GreyBgHeadBar,
+    children: [
+        {
+            path: '',
+            name: 'PlaceView',
+            component: PlaceView
         },
     ]
   },

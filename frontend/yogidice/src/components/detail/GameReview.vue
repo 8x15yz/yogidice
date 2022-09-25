@@ -1,42 +1,44 @@
 <template>
-  <div class="rating-total">
-    <div>
-      <div class="text-huge">3.5</div>
-      <div class="text-caption">210명 참여</div>
-    </div>
-    <div class="count-rating">
-      <div class="rating-graph">
-        <span class="rating">★1</span>
-        <span class="review-progress">
-          <span class="review-progress-value"></span>
-        </span>
+  <div class="review-box">
+    <div class="rating-total">
+      <div>
+        <div class="text-huge">3.5</div>
+        <div class="text-caption">210명 참여</div>
       </div>
-      <div class="rating-graph">
-        <span class="rating">★2</span>
-        <span class="review-progress">
-          <span class="review-progress-value"></span>
-        </span>
+      <div class="count-rating">
+        <div class="rating-graph">
+          <span class="rating">★1</span>
+          <span class="review-progress">
+            <span class="review-progress-value"></span>
+          </span>
+        </div>
+        <div class="rating-graph">
+          <span class="rating">★2</span>
+          <span class="review-progress">
+            <span class="review-progress-value"></span>
+          </span>
+        </div>
+        <div class="rating-graph">
+          <span class="rating">★3</span>
+          <span class="review-progress">
+            <span class="review-progress-value"></span>
+          </span>
+        </div>
+        <div class="rating-graph">
+          <span class="rating">★4</span>
+          <span class="review-progress">
+            <span class="review-progress-value"></span>
+          </span>
+        </div>
+        <div class="rating-graph">
+          <span class="rating">★5</span>
+          <span class="review-progress">
+            <span class="review-progress-value"></span>
+          </span>
+        </div>
       </div>
-      <div class="rating-graph">
-        <span class="rating">★3</span>
-        <span class="review-progress">
-          <span class="review-progress-value"></span>
-        </span>
-      </div>
-      <div class="rating-graph">
-        <span class="rating">★4</span>
-        <span class="review-progress">
-          <span class="review-progress-value"></span>
-        </span>
-      </div>
-      <div class="rating-graph">
-        <span class="rating">★5</span>
-        <span class="review-progress">
-          <span class="review-progress-value"></span>
-        </span>
-      </div>
-    </div>
 
+    </div>
   </div>
 </template>
 
@@ -47,6 +49,9 @@ export default {
 </script>
 
 <style>
+.review-box {
+  width: 100vw;
+}
 .rating-total {
   display: flex;
   width: 80vw;

@@ -5,6 +5,7 @@ import api from '@/api/api.js'
 
 export default {
   namespaced: true,
+ 
   state: () => ({
     token: localStorage.getItem("token") || "",
     currentUser: {},
@@ -31,18 +32,29 @@ export default {
       })
       .then(() =>{
         commit("SET_CURRENT_USER",newNickName)
-        alert("닉네임이 성공적으로 변경되었습니다!")     
+        alert("닉네임이 성공적으로 변경되었습니다!")
+        router.push({name: "InitChoice"})     
       }) 
       .catch(() => alert("닉네임을 변경하지 못했습니다."))
     },
-    registBookMark({ getters }, gameList) {
+    registBookMark({ getters, dispatch }, gameList) {
       axios({
         url: api.users.bookmark(),
         method: "post",
         headers: getters.authHeader,
         data: gameList
-      }).then(() => console.log("북마크 등록 성공!"))
-      .catch(err => console.log(err))
+      }).then(() => {
+        dispatch("modal/registModal", {'info': {},'from':'','header':'','body':'성공적으로 등록되었습니다!','footer1':'','footer2':''},{ root: true })
+        setTimeout(function(){router.push({
+          name: "MainPage",
+        })}, 2000)
+      }
+      )
+      .catch(() => {
+        dispatch("modal/registModal", {'info': {},'from':'','header':'','body':'등록에 실패하였습니다!','footer1':'','footer2':''},{ root: true })
+        setTimeout(function(){dispatch("modal/closeModal",null,{ root:true })}, 2000)
+      }
+      )
     },
     saveToken({ commit }, token) {
       commit("SET_TOKEN", token);
