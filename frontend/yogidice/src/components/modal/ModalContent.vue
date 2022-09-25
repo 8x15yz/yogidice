@@ -18,21 +18,22 @@
 </template>
 
 <script>
-import { onMounted, toRefs, watch } from "@vue/runtime-core";
+import { onMounted, computed, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
 export default {
-  props: { typeAndTarget: Object },
 
-  setup(props) {
+  setup() {
     const store = useStore();
     const router = useRouter();
 
-    const { modalType } = toRefs(props.typeAndTarget);
-    const { nextPage } = toRefs(props.typeAndTarget);
+    let isShowModal = computed(() => store.state.modal.showModal)
 
-    onMounted(function () {
+    let info = computed(() => store.state.modal.contents.info)
+
+    onMounted( function () {
+      const titleBox = document.querySelector(".modal-header")
       const bodyBox = document.querySelector(".modal-body");
       const firstButton = document.querySelector(
         ".modal-footer button:nth-child(1)",
@@ -40,36 +41,40 @@ export default {
       const secondButton = document.querySelector(
         ".modal-footer button:nth-child(2)",
       );
+      titleBox.classList.add("text-subtitle-1")
+      bodyBox.classList.add("text-subtitle-2");
+      bodyBox.style.color = "var(--color-grey-5)";
 
-      watch(modalType, (newValue, oldValue) => {
-        if (newValue === "onlyContent") {
-          bodyBox.classList.add("text-subtitle-2");
-          bodyBox.style.color = "var(--color-grey-5)";
+      watch(isShowModal, (newValue) => {
+        if (newValue === true && info.value.from === "registNickName") {
           firstButton.addEventListener("click", function () {
-            if (firstButton.innerText !== "") {
-              store.commit("changeModal");
-              bodyBox.classList.remove("text-subtitle-2");
-              router.push({
-                name: nextPage.value,
-              });
-            }
-          });
-          secondButton.addEventListener("click", function () {
-            if (
-              secondButton.innerText === "취소" ||
-              secondButton.innerText === "닫기"
-            ) {
-              store.commit("changeModal");
-              bodyBox.classList.remove("text-subtitle-2");
-            }
-          });
-        } else {
-          console.log(oldValue, firstButton);
-        }
-      });
-    });
-  },
-};
+          store.dispatch("closeModal");
+          store.dispatch("user/registNickName", {'nickName':info.value.content});
+          router.push({
+            name: "InitChoice",
+          })
+        });
+        secondButton.addEventListener("click", function () { 
+          store.dispatch("closeModal")
+        })
+      } else if (newValue === true && info.value.from === "initChoice") {
+          firstButton.addEventListener("click", function () {
+          store.dispatch("closeModal");
+          store.dispatch("user/registBookMark", {'gameList':info.value.content});
+          router.push({
+            name: "InitChoice",
+          })
+        });
+        secondButton.addEventListener("click", function () { 
+          store.dispatch("closeModal")
+        })
+      }
+
+      })
+      
+    })
+  }
+}
 </script>
 
 <style>

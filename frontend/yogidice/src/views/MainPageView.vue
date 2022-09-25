@@ -2,7 +2,9 @@
   <div class="search-bar-black-bg">
     <search-bar></search-bar>
   </div>
-  <div class="search-res-bg" v-show="showSearchResult"></div>
+  <div class="search-res-bg" v-show="showSearchResult">
+    <long-card-list></long-card-list>
+  </div>
   <div id="wrap2-back">
     <div class="text-headline-6 main-message">유저님에게 맞는 <br> 보드게임을 추천해드려요</div>
     <!-- 추천 게임 타입 선택 -->
@@ -39,12 +41,14 @@
 
 <script>
 import { onMounted,getCurrentInstance,ref,computed,watch } from '@vue/runtime-core'
-import MainCardList from '@/components/MainCardList.vue'
+import MainCardList from '@/components/card/MainCardList.vue'
+import LongCardList from '@/components/card/LongCardList.vue'
 import SearchBar from '@/components/SearchBar.vue'
 
 export default {
   components: {
     MainCardList,
+    LongCardList,
     SearchBar
   },
   setup() {

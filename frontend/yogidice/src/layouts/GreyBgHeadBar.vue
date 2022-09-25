@@ -25,6 +25,7 @@ header {
 }
 #wrap2 {
   background-color: var(--color-bg-base);
+  height: 94vh;
   overflow: scroll;
 }
 .header-box {

@@ -9,7 +9,7 @@
       <small-card-list></small-card-list>
       <button @click='registInitGame' class="button-long-dark init-select-btn text-button">아직 플레이해본 게임이 없다면?</button>
     </div>
-    <modal-dialog v-show="showModal" :contents='contents'></modal-dialog>
+    <modal-dialog v-show="showModal"></modal-dialog>
   </div>
 </template>
 
@@ -17,8 +17,8 @@
 import { onMounted, ref, computed, reactive, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex';
 import SearchBar from '@/components/SearchBar.vue';
-import ModalDialog from "@/components/ModalDialog.vue";
-import SmallCardList from "@/components/SmallCardList.vue";
+import ModalDialog from "@/components/modal/ModalDialog.vue";
+import SmallCardList from "@/components/card/SmallCardList.vue";
 
 
 export default {
@@ -31,8 +31,7 @@ export default {
     const store = useStore()
     let showModal = computed(()=>store.state.modal.showModal)
     let contents = reactive({
-      'modalType':'',
-      'nextPage': '',
+      'info':{'from':'','content':''},
       'header':'',
       'body':'',
       'footer1': '',
@@ -41,22 +40,18 @@ export default {
     let selectCnt = ref("")
 
     const registInitGame = function (e) {
-      console.log(e.target.className.includes('dark'))
-
-      contents.modalType = 'onlyContent'
+      contents.info.from = 'initChoice'
       contents.header = ''
-      contents.nextPage = 'MainPage'
-      // 만약 닉네임이 중복이 아니라면 
       if (e.target.className.includes('dark')) {
         contents.body = '게임을 선택하지 않으셨습니다. 계속 진행하시겠습니까?'
         contents.footer1 = '계속'
         contents.footer2 = '취소'
-      } else { // 만약 닉네임이 중복이라면
+      } else { 
         contents.body = `${selectCnt.value}개의 게임을 제출하시겠습니까?`
         contents.footer1 = '계속'
         contents.footer2 = '취소'
       }
-      store.commit("changeModal")
+      store.dispatch("openModal")
     }
 
 

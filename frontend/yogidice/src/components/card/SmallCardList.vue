@@ -13,7 +13,7 @@
 
 <script>
 import { ref,getCurrentInstance,computed } from 'vue'
-import GameCardItems from "@/components/SmallCardItems.vue"
+import GameCardItems from "@/components/card/SmallCardItems.vue"
 
 export default {
   components: {

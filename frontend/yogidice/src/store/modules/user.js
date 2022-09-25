@@ -1,5 +1,7 @@
 import axios from "axios";
 import router from "@/router";
+import api from '@/api/api.js'
+
 
 export default {
   namespaced: true,
@@ -20,6 +22,28 @@ export default {
     SET_CURRENT_USER: (state, user) => (state.currentUser = user),
   },
   actions: {
+    registNickName({ commit,getters }, newNickName) {
+      axios({
+        url: api.users.get(),
+        method: "put",
+        headers: getters.authHeader,
+        data: newNickName,
+      })
+      .then(() =>{
+        commit("SET_CURRENT_USER",newNickName)
+        alert("닉네임이 성공적으로 변경되었습니다!")     
+      }) 
+      .catch(() => alert("닉네임을 변경하지 못했습니다."))
+    },
+    registBookMark({ getters }, gameList) {
+      axios({
+        url: api.users.bookmark(),
+        method: "post",
+        headers: getters.authHeader,
+        data: gameList
+      }).then(() => console.log("북마크 등록 성공!"))
+      .catch(err => console.log(err))
+    },
     saveToken({ commit }, token) {
       commit("SET_TOKEN", token);
       localStorage.setItem("token", token);
@@ -34,7 +58,7 @@ export default {
     fetchCurrentUser({ commit, getters, dispatch }) {
       if (getters.isLogginedIn) {
         axios({
-          url: "http://j7b206.p.ssafy.io:8081/api/users/",
+          url: api.users.get(),   
           method: "get",
           headers: getters.authHeader,
         })
@@ -52,7 +76,7 @@ export default {
 
     getKakaoUserInfo({ dispatch }, code) {
       axios
-        .get("http://j7b206.p.ssafy.io:8081/api/users/callback?code=" + code)
+        .get(`${api.users.callback()}+?code=" + ${code}`)
         .then((res) => {
           dispatch("checkUser", res.data);
         })
@@ -63,7 +87,7 @@ export default {
 
     checkUser({ dispatch }, userInfo) {
       axios({
-        url: "http://j7b206.p.ssafy.io:8081/api/users/check",
+        url: api.users.check(),
         method: "post",
         data: userInfo,
       })
@@ -81,7 +105,7 @@ export default {
 
     kakaoRegist({ dispatch }, formData) {
       axios({
-        url: "http://j7b206.p.ssafy.io:8081/api/users/regist",
+        url: api.users.regist(),
         method: "post",
         data: JSON.stringify(formData),
       })
@@ -98,7 +122,7 @@ export default {
 
     kakaoLogin({ dispatch }, userInfo) {
       axios({
-        url: "http://j7b206.p.ssafy.io:8081/api/users/login",
+        url: api.users.login(),
         method: "post",
         data: userInfo,
       })
@@ -115,5 +139,7 @@ export default {
           console.log(err);
         });
     },
+
+
   },
 };
