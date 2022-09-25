@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import csv
+from tqdm import tqdm
 
 # 1. 대분류 데이터 불러오기
 mec_main_dic = json.loads(open("mec_main_dic.text", "r", encoding='utf-8').read())
@@ -26,7 +27,7 @@ mec_score_board = pd.DataFrame({'no': [], 'economic' : [], 'figure' : [], 'strat
 
 # print(game_mec_info)
 i = -1
-for game in game_mec_info:
+for game in tqdm(game_mec_info):
     i += 1
     arr = [game_mec_info[i][0]]
     count = {'economic' : 0, 'figure' : 0, 'stratgy' : 0, 'rule' : 0, 'puzzle' : 0, 'party' : 0}
@@ -37,7 +38,7 @@ for game in game_mec_info:
     
     for mec in count:
         # 각 매커니즘 대분류 갯수에 비해 각 게임이 가진 매커니즘이 몇개나되는지 비율으로 계산함
-        arr.append((count[mec]/main_mechanisum_len[mec])*10)
+        arr.append((count[mec]/main_mechanisum_len[mec])*10) # 백분율으로 계산
     mec_score_board.loc[i] = arr
 
 mec_score_board.to_csv("mec_score_board.csv", mode='w')
