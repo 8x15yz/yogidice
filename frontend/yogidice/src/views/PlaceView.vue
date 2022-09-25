@@ -19,7 +19,7 @@ export default {
         
           lat.value = position.coords.latitude, // 위도
           lon.value = position.coords.longitude; // 경도  
-          console.log(lat,lon)              
+          console.log(lat.value,lon.value)              
       });
       }
       const options = {
