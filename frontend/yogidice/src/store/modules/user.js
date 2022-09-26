@@ -1,11 +1,10 @@
 import axios from "axios";
 import router from "@/router";
-import api from '@/api/api.js'
-
+import api from "@/api/api.js";
 
 export default {
   namespaced: true,
- 
+
   state: () => ({
     token: localStorage.getItem("token") || "",
     currentUser: {},
@@ -23,38 +22,63 @@ export default {
     SET_CURRENT_USER: (state, user) => (state.currentUser = user),
   },
   actions: {
-    registNickName({ commit,getters }, newNickName) {
+    registNickName({ commit, getters }, newNickName) {
       axios({
         url: api.users.get(),
         method: "put",
         headers: getters.authHeader,
         data: newNickName,
       })
-      .then(() =>{
-        commit("SET_CURRENT_USER",newNickName)
-        alert("닉네임이 성공적으로 변경되었습니다!")
-        router.push({name: "InitChoice"})     
-      }) 
-      .catch(() => alert("닉네임을 변경하지 못했습니다."))
+        .then(() => {
+          commit("SET_CURRENT_USER", newNickName);
+          alert("닉네임이 성공적으로 변경되었습니다!");
+          router.push({ name: "InitChoice" });
+        })
+        .catch(() => alert("닉네임을 변경하지 못했습니다."));
     },
     registBookMark({ getters, dispatch }, gameList) {
       axios({
         url: api.users.bookmark(),
         method: "post",
         headers: getters.authHeader,
-        data: gameList
-      }).then(() => {
-        dispatch("modal/registModal", {'info': {},'from':'','header':'','body':'성공적으로 등록되었습니다!','footer1':'','footer2':''},{ root: true })
-        setTimeout(function(){router.push({
-          name: "MainPage",
-        })}, 2000)
-      }
-      )
-      .catch(() => {
-        dispatch("modal/registModal", {'info': {},'from':'','header':'','body':'등록에 실패하였습니다!','footer1':'','footer2':''},{ root: true })
-        setTimeout(function(){dispatch("modal/closeModal",null,{ root:true })}, 2000)
-      }
-      )
+        data: gameList,
+      })
+        .then(() => {
+          dispatch(
+            "modal/registModal",
+            {
+              info: {},
+              from: "",
+              header: "",
+              body: "성공적으로 등록되었습니다!",
+              footer1: "",
+              footer2: "",
+            },
+            { root: true },
+          );
+          setTimeout(function () {
+            router.push({
+              name: "MainPage",
+            });
+          }, 2000);
+        })
+        .catch(() => {
+          dispatch(
+            "modal/registModal",
+            {
+              info: {},
+              from: "",
+              header: "",
+              body: "등록에 실패하였습니다!",
+              footer1: "",
+              footer2: "",
+            },
+            { root: true },
+          );
+          setTimeout(function () {
+            dispatch("modal/closeModal", null, { root: true });
+          }, 2000);
+        });
     },
     saveToken({ commit }, token) {
       commit("SET_TOKEN", token);
@@ -70,7 +94,7 @@ export default {
     fetchCurrentUser({ commit, getters, dispatch }) {
       if (getters.isLogginedIn) {
         axios({
-          url: api.users.get(),   
+          url: api.users.get(),
           method: "get",
           headers: getters.authHeader,
         })
@@ -88,7 +112,7 @@ export default {
 
     getKakaoUserInfo({ dispatch }, code) {
       axios
-        .get(`${api.users.callback()}+?code=" + ${code}`)
+        .get(`${api.users.callback()}?code=${code}`)
         .then((res) => {
           dispatch("checkUser", res.data);
         })
@@ -143,7 +167,7 @@ export default {
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
           router.push({
-            name: "NewUserResearch",
+            name: "RegistNickName",
             params: { nickName: userInfo.nickName },
           });
         })
@@ -151,7 +175,5 @@ export default {
           console.log(err);
         });
     },
-
-
   },
 };
