@@ -152,7 +152,7 @@ export default {
           const token = res.headers["authorization"];
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
-          router.push({ name: "home" });
+          router.push({ name: "HomeView" });
         })
         .catch((err) => {
           console.log(err);
@@ -169,7 +169,7 @@ export default {
           const token = res.headers["authorization"];
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
-          router.push({ name: "home" });
+          router.push({ name: "HomeView" });
         })
         .catch((err) => {
           console.log(err);
