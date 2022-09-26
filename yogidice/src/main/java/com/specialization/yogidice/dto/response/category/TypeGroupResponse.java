@@ -18,7 +18,7 @@ public class TypeGroupResponse extends BaseResponseBody {
 
     private String gameTitle;
 
-    private Long typeId;
+    private Byte typeId;
 
     private String typeName;
 

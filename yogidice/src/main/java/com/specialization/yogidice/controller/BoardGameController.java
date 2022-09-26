@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/games")
@@ -69,4 +67,13 @@ public class BoardGameController {
         boardGameService.deleteBoardGame(gameId);
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
+
+    /*
+    // 상위 10개 게임 리스트 조회 (리뷰 많은 순)
+    @GetMapping("/review")
+    @ApiOperation(value = "보드게임 상위 10개 게임 리스트 조회 (리뷰 많은 순)", notes = "상위 10개 게임 리스트를 리뷰가 많은 순으로 조회합니다.")
+    public ResponseEntity<?> readBoardGameListByReviews() {
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.topGameByReviews()));
+    }
+    */
 }
