@@ -1,11 +1,15 @@
 <template>
     <div class="mypage-container">
-        <div class="mypage-blank"></div>
+        <div class="mypage-blank">
+            <grey-bg-head-bar></grey-bg-head-bar>
+        </div>
         <div>
             <!-- 회원정보 나오는곳 -->
             <div class="profile-container-outer">
                 <div class="profile-container">
-                    <p class="profile-inner" style="font-size : 35px" @click="myPageBtn('main')">아기공룡둘째</p>
+                    <p class="profile-inner" style="font-size : 35px">
+                        <span @click="myPageBtn('main')">아기공룡둘째</span>
+                    </p>
                     <span>💌</span><span class="profile-email">8x15yz@gmail.com</span>
                 </div>
             </div>
@@ -124,7 +128,8 @@ import WordCloud from '../components/WordCloud.vue';
 import MypageReview from '../components/MypageReview.vue';
 // import MypageBookmark from '../components/MypageBookmark.vue';
 // import MypagePlay from '../components/MypagePlay.vue';
-import SmallCardList from '../components/SmallCardList.vue';
+import SmallCardList from '../components/card/SmallCardList.vue';
+import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
 
 
 export default {
@@ -133,7 +138,8 @@ export default {
     MypageReview,
     // MypageBookmark,
     // MypagePlay,
-    SmallCardList
+    SmallCardList,
+    GreyBgHeadBar
   },
   setup() {
         const mainview = ref(true);

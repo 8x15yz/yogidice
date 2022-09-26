@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ReviewComponents from '../components/ReviewComponents.vue';
+import ReviewComponents from './card/ReviewComponents.vue';
 import { onMounted } from "@vue/runtime-core";
 
 export default {
@@ -27,6 +27,9 @@ export default {
 .review-components-overflow {
     overflow: auto;
     height: 50vh;
+    width: 350px;
+    /* background-color: pink; */
 }
+.review-components-overflow::-webkit-scrollbar{width: 0px;}
 
 </style>
