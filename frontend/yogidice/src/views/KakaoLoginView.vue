@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>로딩중...</div>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
     let code = param.get("code");
 
     const getInfo = () => store.dispatch("user/getKakaoUserInfo", code);
-    getInfo(code);
+    setTimeout(getInfo, 5000);
 
     return {
       code,
