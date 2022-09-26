@@ -2,7 +2,6 @@
 // import VueRouter from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
 
-
 import HomeView from "@/views/HomeView.vue";
 import SignupView from "@/views/SignupView.vue";
 import KakaoLoginView from "@/views/KakaoLoginView.vue";
@@ -14,24 +13,18 @@ import InitChoice from "@/views/InitChoice.vue";
 import MypageView from "@/views/MypageView.vue";
 import MainPageView from "@/views/MainPageView.vue";
 import MoreGameView from "@/views/MoreGameView.vue";
-import DiceBgLayout from '@/layouts/DiceBgLayout.vue'
-import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
-import DetailView from '@/views/DetailView.vue'
-import PlaceView from "@/views/PlaceView.vue"
-
+import DiceBgLayout from "@/layouts/DiceBgLayout.vue";
+import GreyBgHeadBar from "@/layouts/GreyBgHeadBar.vue";
+import DetailView from "@/views/DetailView.vue";
+import PlaceView from "@/views/PlaceView.vue";
 
 // Vue.use(VueRouter);
 
 const routes = [
   {
-    path:"/",
-    name:"HomeView",
-    component: HomeView
-  },
-  {
-    path: "/kakaologin",
-    name: "KakaoLoginView",
-    component: KakaoLoginView,
+    path: "/",
+    name: "HomeView",
+    component: HomeView,
   },
   {
     path: "/qwerty",
@@ -49,69 +42,74 @@ const routes = [
     component: WordCloud,
   },
   {
-    path: '/MyPage',
-    name: 'MypageView',
+    path: "/MyPage",
+    name: "MypageView",
     component: MypageView,
   },
   {
-    path: '/signup',
+    path: "/signup",
     component: DiceBgLayout,
     children: [
-        {
-          path: '',
-          name: 'SignupView',
-          component: SignupView,
-        },
-        {
-            path: "regist",
-            name: "RegistNickName",
-            component: RegistNickName,
-            props: true, 
-        },
-        {            
-            path: 'choice',
-            name: 'InitChoice',
-            component: InitChoice
-        },
-    ]
+      {
+        path: "",
+        name: "SignupView",
+        component: SignupView,
+      },
+      {
+        path: "regist",
+        name: "RegistNickName",
+        component: RegistNickName,
+        props: true,
+      },
+      {
+        path: "choice",
+        name: "InitChoice",
+        component: InitChoice,
+      },
+      {
+        path: "/kakaologin",
+        name: "KakaoLoginView",
+        component: KakaoLoginView,
+      },
+    ],
   },
   {
-    path: '/home',
+    path: "/home",
     component: GreyBgHeadBar,
     children: [
-        {
-            path: '',
-            name: 'MainPage',
-            component: MainPageView
-        },
-        {
-            path: ':type',
-            name: 'MoreList',
-            component: MoreGameView, 
-        }
-    ]
+      {
+        path: "",
+        name: "MainPage",
+        component: MainPageView,
+      },
+      {
+        path: ":type",
+        name: "MoreList",
+        component: MoreGameView,
+      },
+    ],
   },
   {
-    path: '/game',
+    path: "/game",
     component: GreyBgHeadBar,
     children: [
-        {
-            path: ':gameId',
-            name: 'GameDetail',
-            component: DetailView
-        },
-    ]
+      {
+        path: ":gameId",
+        name: "GameDetail",
+        component: DetailView,
+      },
+    ],
   },
   {
-    path: '/cafes',
+    path: "/cafes",
     component: GreyBgHeadBar,
     children: [
-        {
-            path: '',
-            name: 'PlaceView',
-            component: PlaceView
-        },
-    ]
+      {
+        path: "",
+        name: "PlaceView",
+        component: PlaceView,
+      },
+    ],
   },
 ];
 
