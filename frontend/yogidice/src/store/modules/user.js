@@ -131,7 +131,10 @@ export default {
           if (res.data.registed) {
             dispatch("kakaoLogin", userInfo);
           } else {
-            router.push({ name: "BerChart" });
+            router.push({
+              name: "RegistNickName",
+              params: { nickName: userInfo.nickName },
+            });
           }
         })
         .catch((err) => {
@@ -166,10 +169,7 @@ export default {
           const token = res.headers["authorization"];
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
-          router.push({
-            name: "RegistNickName",
-            params: { nickName: userInfo.nickName },
-          });
+          router.push({ name: "home" });
         })
         .catch((err) => {
           console.log(err);
