@@ -128,6 +128,7 @@ export default {
         data: userInfo,
       })
         .then((res) => {
+          setTimeout(() => {}, 2000);
           if (res.data.registed) {
             dispatch("kakaoLogin", userInfo);
           } else {
@@ -152,7 +153,7 @@ export default {
           const token = res.headers["authorization"];
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
-          router.push({ name: "HomeView" });
+          router.push({ name: "MainPage" });
         })
         .catch((err) => {
           console.log(err);
@@ -169,7 +170,7 @@ export default {
           const token = res.headers["authorization"];
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
-          router.push({ name: "HomeView" });
+          router.push({ name: "MainPage" });
         })
         .catch((err) => {
           console.log(err);
