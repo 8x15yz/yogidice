@@ -56,7 +56,7 @@ public class UserService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", kakaoRestApiKey);
-        body.add("redirect_uri", "http://j7b206.p.ssafy.io/kakaologin");
+        body.add("redirect_uri", "https://yogidice.site/kakaologin");
         body.add("code", code);
 
         // HTTP 요청 보내기
