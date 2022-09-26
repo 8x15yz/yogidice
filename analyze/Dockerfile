@@ -1,5 +1,5 @@
 FROM python:3.7.9
-WORKDIR /var/jenkins_home/workspace/deploytest/analyze
+WORKDIR /var/jenkins_home/workspace/yogidicedeploy/analyze
 COPY requirements.txt ./
 
 RUN pip install --upgrade pip

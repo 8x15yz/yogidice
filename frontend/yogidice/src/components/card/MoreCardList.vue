@@ -47,7 +47,6 @@ export default {
   width: 100vw;
   padding: 2vw 4vw 2vw 4vw;
   border-bottom: 2px solid var(--color-grey-3);
-
 }
 #more-game-card-container {
   display: flex;

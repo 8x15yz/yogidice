@@ -7,6 +7,7 @@
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   height: 300px;
+  border: solid rgb(193, 193, 193) 1px;
 }
 </style>
 
