@@ -127,7 +127,7 @@ import { ref } from 'vue'
 import WordCloud from '../components/WordCloud.vue';
 import MypageReview from '../components/MypageReview.vue';
 // import MypageBookmark from '../components/MypageBookmark.vue';
-// import MypagePlay from '../components/MypagePlay.vue';
+import MypagePlay from '../components/MypagePlay.vue';
 import SmallCardList from '../components/card/SmallCardList.vue';
 import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
 
@@ -137,7 +137,7 @@ export default {
     WordCloud,
     MypageReview,
     // MypageBookmark,
-    // MypagePlay,
+    MypagePlay,
     SmallCardList,
     GreyBgHeadBar
   },

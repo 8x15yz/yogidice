@@ -1,5 +1,7 @@
 <template>
-<button @click="testisuser" style="position:absolute;">이거</button>
+<!-- 이거 나중에 없앨거임 내가쓴댓을인지 확인하기 위함 => 내가쓴댓글이면 수정할 수 있게 -->
+<button @click="isuser = !isuser" style="position:absolute;">이거</button>
+<!-- 이거 나중에 없앨거임 내가쓴댓을인지 확인하기 위함 => 내가쓴댓글이면 수정할 수 있게 -->
     <div>
         <div v-for="data in datum" :key="data.key" id="review-component-base">
             <div class="review-title-rating-wrapper">
@@ -17,7 +19,7 @@
             <div class="review-create-date">
                 {{data.create_date}}
             </div>
-            <div class="review-content-text-overflow ">
+            <div class="review-content-text-overflow">
                 {{data.review}}
             </div>
         </div>
@@ -26,28 +28,24 @@
 </template>
 
 <script>
-import { reactive } from '@vue/runtime-core'
+import { reactive, ref } from '@vue/runtime-core'
 
 export default{
     props: {
         reviewdatum: Object
     },
     setup(props) {
-        let isuser = true
+        const isuser = ref(true)
         const datum = reactive(props.reviewdatum)
 
         const reviewUpdateModalOn = function () {
             console.log('네')
-        }
-        const testisuser = function () {
-            isuser == false
-            console.log(isuser)
+            // 리뷰쓰는 폼 만들어야돼
         }
         return {
             isuser,
             datum,
-            reviewUpdateModalOn,
-            testisuser
+            reviewUpdateModalOn
         }
     },
 }
@@ -73,7 +71,8 @@ export default{
 .review-content-text-overflow {
     overflow: hidden;
     -webkit-line-clamp: 3;
-    width: 300px;
+    width: 326px;
+    /* background-color: pink; */
 }
 .rating {
   align-self: center;
