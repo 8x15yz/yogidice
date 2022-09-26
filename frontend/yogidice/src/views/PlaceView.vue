@@ -239,9 +239,10 @@ export default {
 
         el.className = 'item';
         el.addEventListener("click",function () {
-          el.style.height = "13vh"
+          if (el.style.height === "13vh") {
+            el.style.height = "9vh"
+          } else { el.style.height = "13vh" }
         })
-        
 
         return el;
     }
