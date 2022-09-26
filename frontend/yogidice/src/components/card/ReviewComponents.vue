@@ -1,6 +1,6 @@
 <template>
 <!-- 이거 나중에 없앨거임 내가쓴댓을인지 확인하기 위함 => 내가쓴댓글이면 수정할 수 있게 -->
-<button @click="isuser = !isuser" style="position:absolute;">이거</button>
+<!-- <button @click="isuser = !isuser" style="position:absolute;">이거</button> -->
 <!-- 이거 나중에 없앨거임 내가쓴댓을인지 확인하기 위함 => 내가쓴댓글이면 수정할 수 있게 -->
     <div>
         <div v-for="data in datum" :key="data.key" id="review-component-base">
@@ -53,7 +53,7 @@ export default{
 
 <style>
 #review-component-base {
-    width: 326px;
+    width: 82vw;
     background-color: white;
     height: auto;
     border-radius: 5px;
@@ -62,6 +62,7 @@ export default{
     margin-bottom: 10px;
     padding: 10px;
     border: solid 1px rgb(197, 197, 197);
+    margin-left: 5px;
 }
 .review-title-rating-wrapper {
     display: flex;
@@ -69,10 +70,11 @@ export default{
     align-items: center;
 }
 .review-content-text-overflow {
-    overflow: hidden;
+    /* overflow: hidden; */
     -webkit-line-clamp: 3;
-    width: 326px;
+    width: 83vw;
     /* background-color: pink; */
+    margin-bottom: 10px;
 }
 .rating {
   align-self: center;
@@ -85,7 +87,7 @@ export default{
 .review-title {
     font-size: 20px; 
     font-weight: bolder;
-    width: 270px;
+    width: 100vw;
     height: 25px;
     overflow: hidden;
     /* background-color: pink; */
