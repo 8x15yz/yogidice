@@ -1,7 +1,14 @@
 <template>
-  <div>배경 없애야겠다</div>
   <div id="word-cloud"></div>
 </template>
+
+<style>
+#word-cloud {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  height: 300px;
+}
+</style>
 
 <script>
 export default {
@@ -37,8 +44,8 @@ export default {
     },
     end(words) {
       const d3 = require("d3");
-      const width = 500;
-      const height = 500;
+      const width = 300;
+      const height = 300;
       d3.select("#word-cloud")
         .append("svg")
         .attr("width", width)

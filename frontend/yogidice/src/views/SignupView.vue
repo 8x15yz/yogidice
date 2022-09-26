@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="signUpPage">
+    <div>
       <service-introduce />
       <img
         @click="kakaoLogin"
@@ -9,27 +9,20 @@
         alt="Kakao Login"
       />
     </div>
-    <new-user-research v-show="nickNamePage" />
   </div>
 </template>
 
 <script>
-import ServiceIntroduce from "@/components/ServiceIntroduce.vue";
-import NewUserResearch from "@/components/NewUserResearch.vue";
-import { useStore } from "vuex";
-// import { useRouter } from 'vue-router'
-import { computed } from "vue";
+import ServiceIntroduce from "@/components/intro/ServiceIntroduce.vue";
+import { useRouter } from 'vue-router'
 export default {
   components: {
     ServiceIntroduce,
-    NewUserResearch,
   },
 
   setup() {
-    const store = useStore();
-    let signUpPage = computed(() => store.state.page.signUpPage);
-    let nickNamePage = computed(() => store.state.page.nickNamePage);
-    // const router = useRouter()
+    const router = useRouter();
+
 
     const kakaoLogin = function () {
       window.location.replace(
@@ -39,15 +32,10 @@ export default {
           process.env.VUE_APP_KAKAO_REDIRECT_URI +
           "&response_type=code",
       );
-      // router.push({
-      //   name:"NewUserResearch")}
-      // store.commit("changeSignUpPage");
-      // store.commit("changeNickNamePage");
+      router.push({name:"RegistNickName"})
     };
     return {
       kakaoLogin,
-      signUpPage,
-      nickNamePage,
     };
   },
 };
