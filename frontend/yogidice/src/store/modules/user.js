@@ -128,7 +128,6 @@ export default {
         data: userInfo,
       })
         .then((res) => {
-          setTimeout(() => {}, 2000);
           if (res.data.registed) {
             dispatch("kakaoLogin", userInfo);
           } else {
