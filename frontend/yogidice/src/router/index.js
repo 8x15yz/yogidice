@@ -66,6 +66,11 @@ const routes = [
         name: "InitChoice",
         component: InitChoice,
       },
+      {
+        path: "/kakaologin",
+        name: "KakaoLoginView",
+        component: KakaoLoginView,
+      },
     ],
   },
   {
@@ -81,11 +86,6 @@ const routes = [
         path: ":type",
         name: "MoreList",
         component: MoreGameView,
-      },
-      {
-        path: "/kakaologin",
-        name: "KakaoLoginView",
-        component: KakaoLoginView,
       },
     ],
   },
