@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .main-card-img {
   width: 52vw;
   height: 52vw;
