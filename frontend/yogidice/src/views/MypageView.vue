@@ -9,7 +9,7 @@
 
         <!-- 리뷰받는 모달폼 -->
         <div class="my-review-bg">
-            <review-modal></review-modal>
+            <review-modal ></review-modal>
         </div>
         <!-- 리뷰받는 모달폼 -->
 
@@ -212,7 +212,7 @@ export default {
 }
 .play-components-overflow {
     overflow: auto;
-    height: 50vh;
+    height: 60vh;
     width: 95vw;
 }
 .play-components-overflow::-webkit-scrollbar{width: 0px;}
@@ -312,7 +312,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.493);
-    height: 50vh;
+    height: 60vh;
     overflow: hidden;
 }
 </style>
