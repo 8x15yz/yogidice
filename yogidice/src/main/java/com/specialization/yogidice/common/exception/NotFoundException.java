@@ -20,6 +20,8 @@ public class NotFoundException extends RuntimeException {
     public static final String CAFEGAME_LIST_NOT_FOUND = "해당 카페에 등록된 보드게임 목록이 없습니다.";
     public static final String BGGDATA_NOT_FOUND = "등록되지 않은 BGG 평점 데이터입니다.";
     public static final String BGGDATA_LIST_NOT_FOUND = "등록된 BGG 평점 데이터 목록이 없습니다.";
+    public static final String NUMOFREVIEW_NOT_FOUND = "등록되지 않은 리뷰 수 데이터입니다";
+    public static final String NUMOFREVIEW_LIST_NOT_FOUND = "등록된 총 리뷰 수 데이터 목록이 없습니다";
 
     public NotFoundException(String message) {
         super(message);

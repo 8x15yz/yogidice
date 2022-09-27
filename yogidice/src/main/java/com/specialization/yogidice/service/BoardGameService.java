@@ -3,9 +3,7 @@ package com.specialization.yogidice.service;
 import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.domain.entity.BoardGame;
-import com.specialization.yogidice.domain.entity.History;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
-import com.specialization.yogidice.domain.repository.HistoryRepository;
 import com.specialization.yogidice.domain.repository.category.CategoryGroupRepository;
 import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
 import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +31,6 @@ public class BoardGameService {
     private final CategoryGroupRepository categoryGroupRepository;
     private final TypeGroupRepository typeGroupRepository;
     private final MechanismGroupRepository mechanismGroupRepository;
-    private final HistoryRepository historyRepository;
 
     @Transactional
     public Long createBoardGame(BoardGameRequest request) {

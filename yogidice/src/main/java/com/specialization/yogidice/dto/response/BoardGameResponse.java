@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @ApiModel("BoardGameResponse")
 public class BoardGameResponse extends BaseResponseBody {
-    private long id;
+    private Long id;
 
     private String titleKr;
 

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoryCreateRequest {
+public class NumOfReviewRequest {
     @NotNull
     private Long gameId;
 }
