@@ -53,8 +53,10 @@ button {
 .chip-rating {
   width: 100%;
   gap: 2vw;
-
+  display: flex;
+  margin-bottom: 1.5vh;
 }
+
 .detail-game-title {
   white-space: nowrap;
   overflow:hidden;

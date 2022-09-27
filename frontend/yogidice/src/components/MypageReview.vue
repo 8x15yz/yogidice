@@ -1,30 +1,59 @@
 <template>
-    <div>
-        <review-components class="review-component-base"
+    <div class="review-components-overflow">
+        <!-- 데이터 없을때 -->
+        <div v-if="reviewdatum.length == 0" class="review-components-msg">
+            <div>
+                <div>남긴 리뷰가 없습니다.</div>
+                <div>리뷰를 남겨보세요! 😄</div>
+            </div>
+        </div>
+        <!-- 데이터 없을때 -->
+        
+
+        <!-- 데이터 들어오면 -->
+        <review-components class="review-components-overflow"
         :reviewdatum='reviewdatum'></review-components>
-        <!-- <div
-        v-for="game in reviewdatum"
-        :key="game.key"
-        >
-        {{game.title_kr}}
-        </div> -->
+        <!-- 데이터 들어오면 -->
     </div>
 </template>
 
 <script>
-import ReviewComponents from '../components/ReviewComponents.vue';
+import ReviewComponents from './card/ReviewComponents.vue';
+import { onMounted } from "@vue/runtime-core";
 
 export default {
     components: {
         ReviewComponents
     },
     setup() {
-        const reviewdatum =  [{'key': 1, 'title_kr': '쓰루 디 에이지스: 문명에 관한 새로운 이야기', 'thumburl': 'wys2/swf_upload/2022/02/24/1645643684643042_lg.jpg'}, {'key': 2, 'title_kr': '가이아 프로젝트', 'thumburl': 'data/boardgame_strategy/2021/03/09/1615274670-490381.jpg'}, {'key': 3, 'title_kr': '황혼의 투쟁', 'thumburl': 'data/boardgame_strategy/2021/02/03/1612344501-765004.jpg'}, {'key': 4, 'title_kr': '푸에르토 리코', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640328882-556458.jpg'}, {'key': 5, 'title_kr': '팬데믹 레거시: 시즌 1', 'thumburl': 'data/boardgame_strategy/2020/04/02/1585818479-857227.png'}, {'key': 6, 'title_kr': '7 원더스: 대결', 'thumburl': 'data/boardgame_strategy/2021/03/09/1615276187-302156.png'}, {'key': 7, 'title_kr': '아그리콜라', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329018-317029.png'}, {'key': 8, 'title_kr': '버건디의 성', 'thumburl': 'data/boardgame_strategy/2020/04/02/1585818831-183512.jpg'}, {'key': 9, 'title_kr': '테라 미스티카 빅 박스', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329073-893153.jpg'}, {'key': 10, 'title_kr': '브라스: 버밍엄', 'thumburl': 'wys2/swf_upload/2022/02/13/1644738474034685_lg.jpg'}, {'key': 11, 'title_kr': '안드로이드: 넷러너', 'thumburl': 'wys2/swf_upload/2022/04/01/1648822880778532_lg.jpg'}, {'key': 12, 'title_kr': '메이지 나이트: 얼티밋 에디션', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329191-62264.jpg'}, {'key': 13, 'title_kr': '촐킨: 마야의 달력', 'thumburl': 'data/boardgame_strategy/2021/02/03/1612346336-782738.jpg'}, {'key': 14, 'title_kr': '도미니언', 'thumburl': 'data/boardgame_strategy/2021/02/03/1612344032-986124.png'}, {'key': 15, 'title_kr': '아컴 호러: 카드 게임', 'thumburl': 'wys2/swf_upload/2022/07/18/1658093520711797_lg.jpg'}, {'key': 16, 'title_kr': '버라지', 'thumburl': 'wys2/swf_upload/2022/04/26/1650902133768524_lg.jpg'}, {'key': 17, 'title_kr': '더 갤러리스트', 'thumburl': 'wys2/swf_upload/2022/01/16/1642264092333367_lg.jpg'}, {'key': 18, 'title_kr': '르아브르', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329356-468430.png'}, {'key': 19, 'title_kr': '브래스', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329424-901592.jpg'}, {'key': 20, 'title_kr': '테라 미스티카', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329478-974134.jpg'}, {'key': 21, 'title_kr': '오딘을 위하여', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329574-996804.png'}, {'key': 22, 'title_kr': '트라야누스', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329639-798299.png'}, {'key': 23, 'title_kr': '스플렌더', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640329799-345514.png'}, {'key': 24, 'title_kr': '레지스탕스: 아발론', 'thumburl': 'data/boardgame_strategy/2022/01/02/1641052726-191444.png'}, {'key': 25, 'title_kr': '티츄', 'thumburl': 'data/boardgame_strategy/2022/01/02/1641052786-66356.jpg'}]
-        
-        
+        onMounted(() => console.log("안녕"));
+        const reviewdatum =  [{'bg_title': '아르낙의 잊혀진 유적( 2020 )', 'rating': 4, 'review' : '깔끔한 룰과 적당한 메커니즘 요소들의 조화로 어느정도의 재미는 누구에게나 보편적으로 보장되는듯 하다. 그러나 그 이상의 특별함이나 테마가 확 와닿는건 없었다', 'create_date' : '2022-09-18'}, {'bg_title': '마블 챔피언스: 카드 게임 코어 세트( 2019 )', 'rating': 6, 'review' : '덱게임을 좋아하는 분이라면 추천. 도미니언 이후로 최고임', 'create_date' : '2022-09-13' }, {'bg_title': '아크 노바(2021)' ,'rating': 4, 'review' : '벌써 3주째 주말마다 하고 있습니다. 꿀잼', 'create_date' : '2022-05-07'}, {'bg_title': '그랜드 오스트리아 호텔' ,'rating': 7, 'review' :  '그냥 테마와 메커니즘의 결합도가 정말 아름다운 게임입니다. 호텔에 손님 받고 보너스 콤보 효과를 받는 점이 너무 좋고요! 적절한 운요소도 게임을 가볍게 해서 좋습니다 +_+ 그리고 가볍고 캐릭터들의 뽕맛도 너무 마음에 듭니다. 2인 베스트인게 아쉽지만 왈츠 확장으로 해결 되었다니 너무 기대 됩니다! 커플 유로 게임으로 가장 추천드리고 싶습니다.', 'create_date' : '2022-04-07' }]
+        // const reviewdatum =  []
+        console.log(reviewdatum)
         return {
             reviewdatum
         }
     },
 }
 </script>
+
+<style>
+.review-components-overflow {
+    align-items: center;
+    overflow: auto;
+    height: 50vh;
+    width: 90vw;
+    /* background-color: pink; */
+}
+.review-components-overflow::-webkit-scrollbar{width: 0px;}
+.review-components-msg {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    height: 90vw;
+    background-color: rgba(255, 255, 255, 0.823);
+}
+</style>
