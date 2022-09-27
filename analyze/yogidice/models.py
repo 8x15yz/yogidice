@@ -13,7 +13,6 @@ class BggData(models.Model):
     bgg_code = models.BigIntegerField()
     nick_name = models.CharField(max_length=50)
     rating_user = models.FloatField()
-    title_eng = models.CharField(max_length=100)
 
     class Meta:
         managed = False
@@ -28,9 +27,9 @@ class BoardGame(models.Model):
     contents = models.CharField(max_length=500, blank=True, null=True)
     contents_img_url = models.CharField(max_length=200, blank=True, null=True)
     difficulty = models.FloatField()
-    max_players = models.IntegerField()
+    max_players = models.IntegerField(blank=True, null=True)
     max_time = models.CharField(max_length=50, blank=True, null=True)
-    min_players = models.IntegerField()
+    min_players = models.IntegerField(blank=True, null=True)
     min_time = models.CharField(max_length=50, blank=True, null=True)
     playing_time = models.CharField(max_length=50, blank=True, null=True)
     publish_year = models.IntegerField()
@@ -103,8 +102,8 @@ class CategoryGroup(models.Model):
 
 class History(models.Model):
     history_id = models.BigAutoField(primary_key=True)
-    create_at = models.DateTimeField(blank=True, null=True)
-    rating = models.IntegerField()
+    created_date = models.DateTimeField(blank=True, null=True)
+    rating = models.FloatField()
     review = models.CharField(max_length=1000, blank=True, null=True)
     game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
@@ -116,7 +115,7 @@ class History(models.Model):
 
 
 class Mechanism(models.Model):
-    mechanism_id = models.AutoField(primary_key=True)
+    mechanism_id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50)
     parents_mec = models.CharField(max_length=50)
 
@@ -138,7 +137,7 @@ class MechanismGroup(models.Model):
 
 
 class Type(models.Model):
-    type_id = models.BigAutoField(primary_key=True)
+    type_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
 
     class Meta:
@@ -150,7 +149,7 @@ class Type(models.Model):
 class TypeGroup(models.Model):
     type_group_id = models.BigAutoField(primary_key=True)
     game = models.ForeignKey(BoardGame, models.DO_NOTHING, blank=True, null=True)
-    type = models.ForeignKey(Type, models.DO_NOTHING, blank=True, null=True)
+    type_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
