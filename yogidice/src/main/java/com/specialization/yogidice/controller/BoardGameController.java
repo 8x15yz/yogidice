@@ -2,10 +2,7 @@ package com.specialization.yogidice.controller;
 
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
-import com.specialization.yogidice.dto.response.BaseResponseBody;
-import com.specialization.yogidice.dto.response.BoardGameListResponse;
-import com.specialization.yogidice.dto.response.BoardGameResponse;
-import com.specialization.yogidice.dto.response.NumOfReviewListResponse;
+import com.specialization.yogidice.dto.response.*;
 import com.specialization.yogidice.service.BoardGameService;
 import com.specialization.yogidice.service.NumOfReviewService;
 import io.swagger.annotations.Api;
@@ -73,6 +70,13 @@ public class BoardGameController {
         boardGameService.deleteBoardGame(gameId);
         numOfReviewService.deleteNumOfReview((gameId));
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    // 상위 10개 게임 리스트 조회 (최신 게임 순)
+    @GetMapping("/recent")
+    @ApiOperation(value = "보드게임 상위 10개 게임 리스트 조회 (최신 게임 순)", notes = "상위 10개 게임 리스트를 최신 게임 순으로 조회합니다.")
+    public ResponseEntity<?> readBoardGameListByPublishYear() {
+        return ResponseEntity.status(HttpStatus.OK).body(RecentGameListResponse.of(200, "Success", boardGameService.readPublishYearTop()));
     }
 
     // 상위 10개 게임 리스트 조회 (리뷰 많은 순)
