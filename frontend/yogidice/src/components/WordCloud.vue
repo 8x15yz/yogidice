@@ -3,7 +3,8 @@
 </template>
 <style>
   #word-cloud {
-    background-color: rgb(183, 207, 199);
+    background-color: rgba(255, 255, 255, 0.56);
+    
   }
 </style>
 
@@ -27,15 +28,15 @@ export default {
         console.log(mgr.mechanismName)
         let wordelem = new Object();
         wordelem.text = mgr.mechanismName
-        wordelem.size = 20
+        wordelem.size = wValue*0.04
         if (mgr.mechanismName == '영역 이동') {
-          wordelem.color = 'yellow'
+          wordelem.color = 'red'
         }
         else if (mgr.mechanismName == '시나리오 / 미션 / 캠페인 게임') {
           wordelem.color = 'red'
         }
         else {
-          wordelem.color = 'blue'
+          wordelem.color = 'green'
         }
         this.words.push(wordelem)
       }
@@ -70,7 +71,7 @@ export default {
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .style("background", "rgb(183, 207, 199)")
+        .style("background", "rgba(255, 255, 255, 0.5)")
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
         .selectAll("text")

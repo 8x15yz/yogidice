@@ -47,8 +47,8 @@ export default {
         ],
         datasets: [
           {
-            borderColor: "green",
-            pointBackgroundColor: "yellow",
+            borderColor: "#71C9CE",
+            pointBackgroundColor: "#71C9CE",
             data: props.lengamecategory,
           }
         ],

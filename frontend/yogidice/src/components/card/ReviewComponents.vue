@@ -85,7 +85,7 @@ export default{
     font-size: 20px; 
     font-weight: bolder;
     width: 100vw;
-    height: 25px;
+    height: 20px;
     overflow: hidden;
     /* background-color: pink; */
 } 

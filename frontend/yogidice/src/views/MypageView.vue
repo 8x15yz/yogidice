@@ -31,30 +31,30 @@
         <!-- 마이페이지 세부페이지 버튼-->
         <div class="mypage-link-btn-outer">
             <div class="mypage-link-btn-wrapper">
-                <div class="mypage-link-btn-inner" @click="myPageBtn('play')">
+                <div class="mypage-link-btn-inner border-rad-left" @click="myPageBtn('play')">
                     <div>
-                        <div>🎮</div>
+                        <div><i class="fas fa-chess"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">플레이</p>
-                            <p class="mp-btn-p">(23)</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 23</p>
                         </div>
                     </div>
                 </div>
                 <div class="mypage-link-btn-inner" @click="myPageBtn('review')">
                     <div>
-                        <div>✏</div>
+                        <div><i class="fas fa-pencil-alt"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">리뷰</p>
-                            <p class="mp-btn-p">(12)</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 12</p>
                         </div>
                     </div>
                 </div>
-                <div class="mypage-link-btn-inner" @click="myPageBtn('bookmark')">
+                <div class="mypage-link-btn-inner border-rad-right" @click="myPageBtn('bookmark')">
                     <div>
-                        <div>📍</div>
+                        <div><i class="fas fa-bookmark"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">북마크</p>
-                            <p class="mp-btn-p">(40)</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 40</p>
                         </div>
                     </div>
                 </div>
@@ -226,11 +226,11 @@ export default {
     background-color: var(--color-bg-modal);
     display: flex;
     justify-content: center;
-    align-items: center;
+
 }
 .play-components-overflow {
     overflow: auto;
-    height: 60vh;
+    height: 50vh;
     width: 95vw;
 }
 .play-components-overflow::-webkit-scrollbar{width: 0px;}
@@ -238,7 +238,6 @@ export default {
     height:70px;
 }
 .mypage-container {
-    background-color: rgba(246, 246, 246, 0.575);
     height: 100vh;
 }
 .displayFlex {
@@ -270,7 +269,7 @@ export default {
     align-items: center;
     height: 150px;
     width: 100%;
-    /* background-color: pink; */
+    /* background-color: yellow; */
 }
 .mypage-link-btn-wrapper {
     display: flex;
@@ -289,7 +288,6 @@ export default {
     justify-content: center;
     align-items: center;
     outline: 0.5px black solid;
-    border-radius: 4px;
     width: 100%;
 }
 .mypage-link-btn-inner > div {
@@ -298,6 +296,14 @@ export default {
 .mypage-link-btn-inner > div > div {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.border-rad-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius:4px;
+}
+.border-rad-right {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius:4px;
 }
 .mp-btn-p {
     margin: 0px;
@@ -330,8 +336,9 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.493);
-    height: 60vh;
+    height: 50vh;
     overflow: hidden;
+    /* background-color: brown; */
 }
 </style>
 

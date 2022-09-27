@@ -58,6 +58,7 @@ export default {
   padding: 10px;
 }
 .play-my-rating-title{
+  margin-top: 4px;
   padding: 5px;
 }
 .play-card-case {

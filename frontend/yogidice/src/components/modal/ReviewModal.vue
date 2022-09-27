@@ -1,46 +1,49 @@
 <template>
+    <!-- <div> -->
     <!-- 모달폼 작성하는 곳 -->
-    <div class="review-modal-form" v-if="reviewform">
-        <div class="review-modal-form-inner">
-            <div class="review-modal-title">
-                <span>리뷰</span>
-                <span style="margin-right: 20px;" @click="$emit('CloseReviewModal')"><i class="fas fa-times"></i></span>
-            </div>
-            <div class="rmi-displayflex">
-                <div class="review-modal-inner">
-                    <div>
-                        <div class="rating-comment">플레이하신 {{playgame}}에 대해 리뷰를 남겨주세요!</div>
-                        <div class="star-rating-wrap">
-                            <div class="star-rating">
-                                ★★★★★
-                                <span>★★★★★</span>
-                                <input type="range" v-model="star" step="1" min="0" max="10">
+        <!-- <div style="height: 20vw"></div> -->
+        <div class="review-modal-form" v-if="reviewform">
+            <div class="review-modal-form-inner">
+                <div class="review-modal-title">
+                    <span>리뷰</span>
+                    <span style="margin-right: 20px;" @click="$emit('CloseReviewModal')"><i class="fas fa-times"></i></span>
+                </div>
+                <div class="rmi-displayflex">
+                    <div class="review-modal-inner">
+                        <div>
+                            <div class="rating-comment">플레이하신 {{playgame}}에 대해 리뷰를 남겨주세요!</div>
+                            <div class="star-rating-wrap">
+                                <div class="star-rating">
+                                    ★★★★★
+                                    <span>★★★★★</span>
+                                    <input type="range" v-model="star" step="1" min="0" max="10">
+                                </div>
+                                <div class="star-rating-point">{{star}}점</div>
                             </div>
-                            <div class="star-rating-point">{{star}}점</div>
+                            
+                            <textarea class="review-modal-inner-textarea" v-model="gamereviewtext"></textarea>
                         </div>
-                        
-                        <textarea class="review-modal-inner-textarea" v-model="gamereviewtext"></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="rmi-displayflex">
-                <div class="review-modal-bottom"> 
-                    <div class="im-not-play-this-game">게임을 플레이하지 않았습니다</div>
-                    <div class="review-modal-btn-wrap">
-                        <div class="review-submit" @click="submitReview">등록</div>
-                        <div class="review-revoke" @click="$emit('CloseReviewModal')">취소</div>
+                <div class="rmi-displayflex">
+                    <div class="review-modal-bottom"> 
+                        <div class="im-not-play-this-game">게임을 플레이하지 않았습니다</div>
+                        <div class="review-modal-btn-wrap">
+                            <div class="review-submit" @click="submitReview">등록</div>
+                            <div class="review-revoke" @click="$emit('CloseReviewModal')">취소</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- 모달폼 작성하는 곳 -->
+        <!-- 모달폼 작성하는 곳 -->
 
-    <!-- 작성완료 확인모달 -->
-    <div class="modal-review-submitted" v-if="!reviewform">
-        <p style="font-weight: bold;">리뷰가 등록되었습니다 😄</p>
-    </div>
-    <!-- 작성완료 확인모달 -->
+        <!-- 작성완료 확인모달 -->
+        <div class="modal-review-submitted" v-if="!reviewform">
+            <p style="font-weight: bold;">리뷰가 등록되었습니다 😄</p>
+        </div>
+        <!-- 작성완료 확인모달 -->
+    <!-- </div> -->
 </template>
 
 <script>
@@ -69,7 +72,7 @@ export default {
                 setTimeout(() => {
                     emit('CloseReviewModal')
                     reviewform.value = true
-                    }, 2300);
+                    }, 1500);
             }
         }
         return {
@@ -134,25 +137,29 @@ export default {
     pointer-events: none;
   }
 .review-modal-form {
+    position: relative;
+    top: 100px;
     width: 85vw;
-    height: 55vh;
+    height: 350px;
     background-color: white;    
     border-radius: 10px;
 }
 .review-modal-bottom {
     /* background-color: greenyellow; */
     width: 75vw;
-    height: 10vh;
+    height: 70px;
+    align-items: end;
 }
 .review-modal-inner {
     /* background-color: pink; */
-    height: 38vh;
+    height: 200px;
     width: 75vw;
     border-top: 1px solid rgb(121, 121, 121);
     
 }
 .im-not-play-this-game {
-    font-size: 1vw;
+    margin-top: 20px;
+    font-size: 3vw;
     text-align: end;
     color: rgb(145, 145, 145);
     text-decoration: underline;
@@ -163,8 +170,8 @@ export default {
     justify-content: center;
 }
 .review-modal-inner-textarea {
-    height: 20vh;
-    width: 75vw;
+    height: 100px;
+    width: 74vw;
     border: none;
     border-radius: 5px;
     background-color: rgb(216, 216, 216);
@@ -205,6 +212,8 @@ export default {
     box-shadow: 0px 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .modal-review-submitted {
+    position: relative;
+    top: 200px;
     width: 85vw;
     height: 20vh;
     background-color: white;    
