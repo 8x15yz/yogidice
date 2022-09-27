@@ -1,39 +1,58 @@
 <template>
   <div id="word-cloud"></div>
 </template>
-
 <style>
-#word-cloud {
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  height: 300px;
-  border: solid rgb(193, 193, 193) 1px;
-}
+  #word-cloud {
+    background-color: rgb(183, 207, 199);
+  }
 </style>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'WordCloud',
   data() {
     return {
-      words: [
-        { text: "Bad", size: 25 },
-        { text: "짜증나게", size: 20 },
-        { text: "하지마", size: 30 },
-        { text: "왘", size: 24 },
-        { text: "연유커피", size: 10 },
-      ],
+      words: [],
+      wValue: 0
     };
   },
   mounted() {
-    this.genLayout();
+    const wValue = document.body.clientWidth
+    this.wValue = wValue
+    axios.get('https://j7b206.p.ssafy.io/api/games/12333')
+    .then(res => {
+      console.log(res.data.mechanismGroupResponses)
+      const mgrlist = res.data.mechanismGroupResponses
+      for (let mgr of mgrlist) {
+        console.log(mgr.mechanismName)
+        let wordelem = new Object();
+        wordelem.text = mgr.mechanismName
+        wordelem.size = 20
+        if (mgr.mechanismName == '영역 이동') {
+          wordelem.color = 'yellow'
+        }
+        else if (mgr.mechanismName == '시나리오 / 미션 / 캠페인 게임') {
+          wordelem.color = 'red'
+        }
+        else {
+          wordelem.color = 'blue'
+        }
+        this.words.push(wordelem)
+      }
+      console.log(this.words)
+      this.genLayout();
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    
   },
   methods: {
     genLayout() {
       const cloud = require("d3-cloud");
       cloud()
         .words(this.words)
-        .padding(1)
+        .padding(4)
         .font("Impact")
         .fontSize(function (d) {
           return d.size;
@@ -45,30 +64,29 @@ export default {
     },
     end(words) {
       const d3 = require("d3");
-      const width = 300;
-      const height = 300;
+      const width = this.wValue
+      const height = this.wValue
       d3.select("#word-cloud")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .style("background", "white")
+        .style("background", "rgb(183, 207, 199)")
         .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")") // g를 중심에서 단어들을 그리기 때문에 g를 svg 중심으로 이동
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
         .selectAll("text")
         .data(words)
         .enter()
         .append("text")
         .style("font-size", (d) => {
-          return d.size*2 + "px";
+          return d.size*0.3 + "vw";
         })
-        .style("font-family", "Impact")
+        .style("fill", (d) => {return d.color})
         .attr("text-anchor", "middle")
         .attr("transform", (d) => {
-          return "translate(" + [d.x, d.y] + ")";
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
         })
         .text((d) => d.text);
     },
   },
 };
 </script>
-

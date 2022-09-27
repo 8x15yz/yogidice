@@ -22,7 +22,7 @@
                 </div>
                 <div v-if='!game.rating' class="chip-rating">
                     <span class="play-my-rating-title">리뷰를 작성하세요</span>
-                    <i class="far fa-edit play-my-icon"></i>
+                    <i class="far fa-edit play-my-icon" @click="$emit('OpenReviewModal')"></i>
                 </div>
             </div>
         </div>
@@ -39,6 +39,9 @@ export default {
   props: {
     userplaygames: Object
   },
+  emits:[
+    'OpenReviewModal',
+    ],
   setup(props) {
     const datum = reactive(props.userplaygames)
 
