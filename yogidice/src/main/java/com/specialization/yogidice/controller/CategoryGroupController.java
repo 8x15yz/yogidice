@@ -96,7 +96,7 @@ public class CategoryGroupController {
     @GetMapping("/type/cate/{typeId}")
     @ApiOperation(value = "타입을 통한 타입 목록 조회", notes = "타입을 통해 타입 목록을 조회합니다.")
     public ResponseEntity<?> readTypeGroupListOfType(
-            @PathVariable Long typeId
+            @PathVariable Byte typeId
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(TypeGroupListResponse.of(200, "Success", typeGroupService.readTypeGroupListOfType(typeId)));
     }
@@ -145,7 +145,7 @@ public class CategoryGroupController {
     @GetMapping("/mechanism/cate/{mechanismId}")
     @ApiOperation(value = "진행방식을 통한 진행방식 목록 조회", notes = "진행방식을 통해 진행방식 목록을 조회합니다.")
     public ResponseEntity<?> readMechanismGroupListOfMechanism(
-            @PathVariable Byte mechanismId
+            @PathVariable Long mechanismId
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(MechanismGroupListResponse.of(200, "Success", mechanismGroupService.readMechanismGroupListOfMechanism(mechanismId)));
     }

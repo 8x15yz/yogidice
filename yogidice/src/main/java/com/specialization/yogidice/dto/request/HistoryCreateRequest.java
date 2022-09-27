@@ -10,10 +10,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HistoryCreateRequest {
-    private double rating;
-
-    private String review;
-
     @NotNull
     private Long gameId;
 }

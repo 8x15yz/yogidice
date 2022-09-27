@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("MechanismGroupResponse")
 public class MechanismGroupResponse extends BaseResponseBody {
-    private long id;
+    private Long id;
 
     private Long gameId;
 
     private String gameTitle;
 
-    private Byte mechanismId;
+    private Long mechanismId;
 
     private String mechanismName;
 

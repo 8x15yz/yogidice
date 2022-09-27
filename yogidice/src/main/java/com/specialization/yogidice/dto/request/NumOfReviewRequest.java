@@ -1,4 +1,4 @@
-package com.specialization.yogidice.dto.request.category;
+package com.specialization.yogidice.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MechanismGroupCreateRequest {
+public class NumOfReviewRequest {
     @NotNull
     private Long gameId;
-
-    @NotNull
-    private Long mechanismId;
 }

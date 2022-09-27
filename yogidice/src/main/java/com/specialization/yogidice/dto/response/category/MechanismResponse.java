@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("MechanismResponse")
 public class MechanismResponse extends BaseResponseBody {
-    private byte id;
+    private Long id;
 
     private String name;
 
@@ -26,7 +26,7 @@ public class MechanismResponse extends BaseResponseBody {
         );
     }
 
-    public static MechanismResponse of(Integer statusCode, String message, byte mechanismId) {
+    public static MechanismResponse of(Integer statusCode, String message, Long mechanismId) {
         MechanismResponse response = new MechanismResponse();
         response.setStatusCode(statusCode);
         response.setMessage(message);

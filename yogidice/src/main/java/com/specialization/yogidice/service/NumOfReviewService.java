@@ -1,0 +1,62 @@
+package com.specialization.yogidice.service;
+
+import com.specialization.yogidice.common.exception.DuplicateException;
+import com.specialization.yogidice.common.exception.NotFoundException;
+import com.specialization.yogidice.domain.entity.BoardGame;
+import com.specialization.yogidice.domain.entity.NumOfReview;
+import com.specialization.yogidice.domain.repository.BoardGameRepository;
+import com.specialization.yogidice.domain.repository.NumOfReviewRepository;
+import com.specialization.yogidice.dto.request.NumOfReviewRequest;
+import com.specialization.yogidice.dto.response.NumOfReviewResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.specialization.yogidice.common.exception.NotFoundException.*;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class NumOfReviewService {
+    private final NumOfReviewRepository numOfReviewRepository;
+    private final BoardGameRepository boardGameRepository;
+
+
+    @Transactional
+    public Long createNumOfReview(NumOfReviewRequest request) {
+        BoardGame boardGame = boardGameRepository.findById(request.getGameId())
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
+        if (numOfReviewRepository.findByBoardGame(boardGame).isPresent()) {
+            throw new DuplicateException(String.format("%s 의 총 리뷰 수가 이미 등록되어 있습니다.", boardGame.getTitleKr()));
+        }
+        NumOfReview saveNumOfReview = NumOfReview.create(
+                boardGame
+        );
+        return numOfReviewRepository.save(saveNumOfReview).getId();
+    }
+
+    @Transactional
+    public List<NumOfReviewResponse> readNumOfReviewTop10List() {
+        List<NumOfReview> numOfReviews = numOfReviewRepository.findTop10ByOrderByNumberDesc();
+        if (numOfReviews.isEmpty()) {
+            throw new NotFoundException(NUMOFREVIEW_LIST_NOT_FOUND);
+        }
+        List<NumOfReviewResponse> responses = new ArrayList<>();
+        for (NumOfReview numOfReview : numOfReviews) {
+            responses.add(NumOfReviewResponse.response(numOfReview));
+        }
+        return responses;
+    }
+
+    @Transactional
+    public void deleteNumOfReview(Long gameId) {
+        BoardGame boardGame = boardGameRepository.findById(gameId)
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
+        NumOfReview numOfReview = numOfReviewRepository.findByBoardGame(boardGame)
+                .orElseThrow(() -> new NotFoundException(NUMOFREVIEW_NOT_FOUND));
+        numOfReviewRepository.delete(numOfReview);
+    }
+}
