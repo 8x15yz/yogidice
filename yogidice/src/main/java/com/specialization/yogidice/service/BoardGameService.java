@@ -9,6 +9,7 @@ import com.specialization.yogidice.domain.repository.category.MechanismGroupRepo
 import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.response.BoardGameResponse;
+import com.specialization.yogidice.dto.response.RecentGameResponse;
 import com.specialization.yogidice.dto.response.category.CategoryGroupResponse;
 import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
@@ -130,62 +131,16 @@ public class BoardGameService {
         boardGameRepository.delete(boardGame);
     }
 
-    /*
     @Transactional
-    public List<BoardGameResponse> topGameByReviews() {
-        List<BoardGame> boardGames = boardGameRepository.findAll();
-        if (boardGames.isEmpty()) {
+    public List<RecentGameResponse> readPublishYearTop() {
+        List<BoardGame> games = boardGameRepository.findTop10ByOrderByPublishYearDesc();
+        if (games.isEmpty()) {
             throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
         }
-
-        List<ShowGameList> showGameLists = new ArrayList<>();
-        for (BoardGame boardGame : boardGames) {
-            List<History> histories = historyRepository.findByBoardGame(boardGame);
-            if (!histories.isEmpty()) {
-                int cnt = 0;
-                for (History history : histories) {
-                    if (history.getRating() > 0.0) {
-                        cnt++;
-                    }
-                }
-                if (cnt > 0) {
-                    showGameLists.add(new ShowGameList(boardGame.getId(), cnt));
-                }
-            }
-        }
-        Collections.sort(showGameLists);
-
-        List<BoardGameResponse> responses = new ArrayList<>();
-        for (ShowGameList gameList : showGameLists) {
-            BoardGame boardGame = boardGameRepository.findById(gameList.gameId)
-                    .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-            List<CategoryGroupResponse> categoryGroupResponses = categoryGroupRepository.findByBoardGame(boardGame).stream()
-                    .map(CategoryGroupResponse::response)
-                    .collect(Collectors.toList());
-            List<TypeGroupResponse> typeGroupResponses = typeGroupRepository.findByBoardGame(boardGame).stream()
-                    .map(TypeGroupResponse::response)
-                    .collect(Collectors.toList());
-            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(boardGame).stream()
-                    .map(MechanismGroupResponse::response)
-                    .collect(Collectors.toList());
-            responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
+        List<RecentGameResponse> responses = new ArrayList<>();
+        for (BoardGame boardGame : games) {
+            responses.add(RecentGameResponse.response(boardGame));
         }
         return responses;
     }
-
-    public static class ShowGameList implements Comparable<ShowGameList> {
-        Long gameId;
-        int count;
-
-        ShowGameList(Long gameId, int count) {
-            this.gameId = gameId;
-            this.count = count;
-        }
-
-        @Override
-        public int compareTo(ShowGameList o) {
-            return this.count - o.count;
-        }
-    }
-    */
 }

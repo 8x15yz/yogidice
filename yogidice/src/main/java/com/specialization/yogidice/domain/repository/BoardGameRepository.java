@@ -10,4 +10,5 @@ import java.util.Optional;
 
 public interface BoardGameRepository extends JpaRepository<BoardGame, Long> {
     Optional<BoardGame> findByTitleKr(String titleKr);
+    List<BoardGame> findTop10ByOrderByPublishYearDesc();
 }
