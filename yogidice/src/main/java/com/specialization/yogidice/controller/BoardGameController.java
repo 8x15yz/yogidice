@@ -1,10 +1,13 @@
 package com.specialization.yogidice.controller;
 
 import com.specialization.yogidice.dto.request.BoardGameRequest;
+import com.specialization.yogidice.dto.request.NumOfReviewRequest;
 import com.specialization.yogidice.dto.response.BaseResponseBody;
 import com.specialization.yogidice.dto.response.BoardGameListResponse;
 import com.specialization.yogidice.dto.response.BoardGameResponse;
+import com.specialization.yogidice.dto.response.NumOfReviewListResponse;
 import com.specialization.yogidice.service.BoardGameService;
+import com.specialization.yogidice.service.NumOfReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/games")
@@ -22,6 +23,7 @@ import java.util.Map;
 @Api(tags = {"보드게임 API"})
 public class BoardGameController {
     private final BoardGameService boardGameService;
+    private final NumOfReviewService numOfReviewService;
 
     // 보드게임 추가
     @PostMapping
@@ -30,6 +32,8 @@ public class BoardGameController {
             @Valid @RequestBody BoardGameRequest request
     ) {
         Long gameId = boardGameService.createBoardGame(request);
+        NumOfReviewRequest numOfReviewRequest = new NumOfReviewRequest(gameId);
+        numOfReviewService.createNumOfReview(numOfReviewRequest);
         return ResponseEntity.status(HttpStatus.OK).body(BoardGameResponse.of(200, "Success", gameId));
     }
 
@@ -67,6 +71,14 @@ public class BoardGameController {
             @PathVariable Long gameId
     ) {
         boardGameService.deleteBoardGame(gameId);
+        numOfReviewService.deleteNumOfReview((gameId));
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    // 상위 10개 게임 리스트 조회 (리뷰 많은 순)
+    @GetMapping("/review")
+    @ApiOperation(value = "보드게임 상위 10개 게임 리스트 조회 (리뷰 많은 순)", notes = "상위 10개 게임 리스트를 리뷰가 많은 순으로 조회합니다.")
+    public ResponseEntity<?> readBoardGameListByReviews() {
+        return ResponseEntity.status(HttpStatus.OK).body(NumOfReviewListResponse.of(200, "Success", numOfReviewService.readNumOfReviewTop10List()));
     }
 }

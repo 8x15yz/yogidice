@@ -11,5 +11,5 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class TypeGroupUpdateRequest {
     @NotNull
-    private Long typeId;
+    private Byte typeId;
 }

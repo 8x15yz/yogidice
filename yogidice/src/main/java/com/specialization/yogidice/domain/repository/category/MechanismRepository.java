@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface MechanismRepository extends JpaRepository<Mechanism, Byte> {
+public interface MechanismRepository extends JpaRepository<Mechanism, Long> {
     Optional<Mechanism> findByName(String name);
 }

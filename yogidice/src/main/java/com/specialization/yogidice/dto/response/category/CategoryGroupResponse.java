@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("CategoryGroupResponse")
 public class CategoryGroupResponse extends BaseResponseBody {
-    private long id;
+    private Long id;
 
     private Long gameId;
 

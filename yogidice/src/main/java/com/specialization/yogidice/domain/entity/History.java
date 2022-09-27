@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,6 +18,7 @@ public class History extends BaseTimeEntity {
     @Column(name = "history_id")
     private Long id;
 
+    @NotNull
     private double rating;
 
     @Column(length = 1000)
@@ -30,10 +32,9 @@ public class History extends BaseTimeEntity {
     @JoinColumn(name = "game_id")
     private BoardGame boardGame;
 
-    public static History create(double rating, String review, User user, BoardGame boardGame) {
+    public static History create(User user, BoardGame boardGame) {
         History history = new History();
-        history.rating = rating;
-        history.review = review;
+        history.rating = 0;
         history.user = user;
         history.boardGame = boardGame;
         return history;

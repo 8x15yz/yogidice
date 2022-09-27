@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("TypeResponse")
 public class TypeResponse extends BaseResponseBody {
-    private long id;
+    private Byte id;
 
     private String name;
 
@@ -23,7 +23,7 @@ public class TypeResponse extends BaseResponseBody {
         );
     }
 
-    public static TypeResponse of(Integer statusCode, String message, Long typeId) {
+    public static TypeResponse of(Integer statusCode, String message, Byte typeId) {
         TypeResponse response = new TypeResponse();
         response.setStatusCode(statusCode);
         response.setMessage(message);
