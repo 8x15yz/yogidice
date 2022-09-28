@@ -32,7 +32,7 @@ export default {
 
     // 이벤트 리스너 중복 방지를 위한 함수 정의
     const registerToInit = function () {
-          store.dispatch("user/registNickName", {'nickName':info.value.content});
+          store.dispatch("user/kakaoRegist", {'kakaoId':info.value.content.kakaoId, "nickname":info.value.content.nickname});
         }
     const registBookMark = function () {
           store.dispatch("user/registBookMark", {'gameList':info.value.content});

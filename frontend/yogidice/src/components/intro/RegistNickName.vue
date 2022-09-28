@@ -25,25 +25,26 @@ export default {
     ModalDialog,
   },
   props: {
-    nickName: String,
+    userInfo: Object,
   },
   setup(props) {
     const store = useStore();
+    const userInfo = reactive(props.userInfo)
     let showModal = computed(() => store.state.modal.showModal);
-    let nickNameValue = ref(props.nickName);
+    let nickNameValue = ref(userInfo.nickName);
     let contents = reactive({
-      info: { from: "registNickName", content: "" },
+      info: { from: "registNickName", content: userInfo },
       header: "",
       body: "",
       footer1: "",
       footer2: "",
     });
     const registNickname = function () {
-      contents.header = "닉네임 변경";
+      contents.header = "닉네임 등록";
       contents.body = `${nickNameValue.value} 으로 등록하시겠습니까?`;
       contents.footer1 = "계속";
       contents.footer2 = "취소";
-      contents.info.content = nickNameValue.value;
+      contents.info.content = userInfo.value;
       store.dispatch("modal/registModal", contents);
       store.dispatch("modal/openModal");
     };
