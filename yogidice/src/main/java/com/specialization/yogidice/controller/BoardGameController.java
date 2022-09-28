@@ -10,9 +10,10 @@ import com.specialization.yogidice.service.NumOfReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import net.minidev.json.JSONObject;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
@@ -101,16 +102,39 @@ public class BoardGameController {
     public ResponseEntity<?> nextRecommend(
             @ApiIgnore @LoginUser User user,
             @PathVariable Long gameId) {
-        String boardGameList="";
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8000/analyze/recommend/play";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getId());
+        jsonObject.put("gameId", gameId);
+
+        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+        String boardGameList = restTemplate.postForObject(url, request, String.class);
+
         return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
 
-    @GetMapping("/recommend")
+    @GetMapping("/recommend/main")
     @ApiOperation(value = "메인 추천", notes = "메인 페이지에서 게임을 추천합니다.")
     public ResponseEntity<?> mainRecommend(
-            @ApiIgnore @LoginUser User user,
-            @PathVariable Long gameId) {
-        String boardGameList="";
+            @ApiIgnore @LoginUser User user
+            ) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8000/analyze/recommend/main";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getId());
+
+        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+        String boardGameList = restTemplate.postForObject(url, request, String.class);
+
         return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
 
@@ -120,7 +144,18 @@ public class BoardGameController {
     public ResponseEntity<?> detailRecommend(
             @ApiIgnore @LoginUser User user,
             @PathVariable Long gameId) {
-        String boardGameList="";
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8000/analyze/recommend/detail";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getId());
+        jsonObject.put("gameId", gameId);
+
+        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+        String boardGameList = restTemplate.postForObject(url, request, String.class);
         return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
 }
