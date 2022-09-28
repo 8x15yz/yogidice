@@ -56,7 +56,7 @@ public class TypeGroupService {
     }
 
     @Transactional
-    public List<TypeGroupResponse> readTypeGroupListOfType(Long typeId) {
+    public List<TypeGroupResponse> readTypeGroupListOfType(Byte typeId) {
         Type type = typeRepository.findById(typeId)
                 .orElseThrow(() -> new NotFoundException(TYPE_NOT_FOUND));
         List<TypeGroup> typeGroups = typeGroupRepository.findByType(type);

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("CategoryResponse")
 public class CategoryResponse extends BaseResponseBody {
-    private long id;
+    private Long id;
 
     private String name;
 

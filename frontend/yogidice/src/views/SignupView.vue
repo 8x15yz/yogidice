@@ -14,16 +14,12 @@
 
 <script>
 import ServiceIntroduce from "@/components/intro/ServiceIntroduce.vue";
-import { useRouter } from 'vue-router'
 export default {
   components: {
     ServiceIntroduce,
   },
 
   setup() {
-    const router = useRouter();
-
-
     const kakaoLogin = function () {
       window.location.replace(
         "https://kauth.kakao.com/oauth/authorize?client_id=" +
@@ -32,7 +28,6 @@ export default {
           process.env.VUE_APP_KAKAO_REDIRECT_URI +
           "&response_type=code",
       );
-      router.push({name:"RegistNickName"})
     };
     return {
       kakaoLogin,

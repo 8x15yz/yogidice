@@ -2,7 +2,6 @@
 // import VueRouter from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
 
-
 import HomeView from "@/views/HomeView.vue";
 import SignupView from "@/views/SignupView.vue";
 import KakaoLoginView from "@/views/KakaoLoginView.vue";
@@ -25,14 +24,9 @@ import GamePlusView from "@/views/GamePlusView.vue"
 
 const routes = [
   {
-    path:"/",
-    name:"HomeView",
-    component: HomeView
-  },
-  {
-    path: "/kakaologin",
-    name: "KakaoLoginView",
-    component: KakaoLoginView,
+    path: "/",
+    name: "HomeView",
+    component: HomeView,
   },
   {
     path: "/qwerty",
@@ -50,69 +44,74 @@ const routes = [
     component: WordCloud,
   },
   {
-    path: '/MyPage',
-    name: 'MypageView',
+    path: "/MyPage",
+    name: "MypageView",
     component: MypageView,
   },
   {
-    path: '/signup',
+    path: "/signup",
     component: DiceBgLayout,
     children: [
-        {
-          path: '',
-          name: 'SignupView',
-          component: SignupView,
-        },
-        {
-            path: "regist",
-            name: "RegistNickName",
-            component: RegistNickName,
-            props: true, 
-        },
-        {            
-            path: 'choice',
-            name: 'InitChoice',
-            component: InitChoice
-        },
-    ]
+      {
+        path: "",
+        name: "SignupView",
+        component: SignupView,
+      },
+      {
+        path: "regist",
+        name: "RegistNickName",
+        component: RegistNickName,
+        props: true,
+      },
+      {
+        path: "choice",
+        name: "InitChoice",
+        component: InitChoice,
+      },
+      {
+        path: "/kakaologin",
+        name: "KakaoLoginView",
+        component: KakaoLoginView,
+      },
+    ],
   },
   {
-    path: '/home',
+    path: "/home",
     component: GreyBgHeadBar,
     children: [
-        {
-            path: '',
-            name: 'MainPage',
-            component: MainPageView
-        },
-        {
-            path: ':type',
-            name: 'MoreList',
-            component: MoreGameView, 
-        }
-    ]
+      {
+        path: "",
+        name: "MainPage",
+        component: MainPageView,
+      },
+      {
+        path: ":type",
+        name: "MoreList",
+        component: MoreGameView,
+      },
+    ],
   },
   {
-    path: '/game',
+    path: "/game",
     component: GreyBgHeadBar,
     children: [
-        {
-            path: ':gameId',
-            name: 'GameDetail',
-            component: DetailView
-        },
-    ]
+      {
+        path: ":gameId",
+        name: "GameDetail",
+        component: DetailView,
+      },
+    ],
   },
   {
-    path: '/cafes',
+    path: "/cafes",
     component: GreyBgHeadBar,
     children: [
-        {
-            path: '',
-            name: 'PlaceView',
-            component: PlaceView
-        },
-    ]
+      {
+        path: "",
+        name: "PlaceView",
+        component: PlaceView,
+      },
+    ],
   },
   {
     path: '/plusgame',

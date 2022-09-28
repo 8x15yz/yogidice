@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel("BggDataResponse")
 public class BggDataResponse extends BaseResponseBody {
-    private long id;
+    private Long id;
 
     private String titleEng;
 

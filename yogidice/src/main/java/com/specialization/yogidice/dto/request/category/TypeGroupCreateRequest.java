@@ -14,5 +14,5 @@ public class TypeGroupCreateRequest {
     private Long gameId;
 
     @NotNull
-    private Long typeId;
+    private Byte typeId;
 }

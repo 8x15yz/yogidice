@@ -4,10 +4,12 @@ import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.History;
+import com.specialization.yogidice.domain.entity.NumOfReview;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.domain.entity.type.Reviewed;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
 import com.specialization.yogidice.domain.repository.HistoryRepository;
+import com.specialization.yogidice.domain.repository.NumOfReviewRepository;
 import com.specialization.yogidice.domain.repository.UserRepository;
 import com.specialization.yogidice.dto.request.HistoryCreateRequest;
 import com.specialization.yogidice.dto.request.HistoryUpdateRequest;
@@ -28,6 +30,7 @@ public class HistoryService {
     private final UserRepository userRepository;
     private final BoardGameRepository boardGameRepository;
     private final HistoryRepository historyRepository;
+    private final NumOfReviewRepository numOfReviewRepository;
 
     @Transactional
     public Long createHistory(Long userId, HistoryCreateRequest request) {
@@ -39,8 +42,6 @@ public class HistoryService {
             throw new DuplicateException(String.format("%s 은/는 이미 History에 등록된 보드게임입니다.", boardGame.getTitleKr()));
         }
         History saveHistory = History.create(
-                request.getRating(),
-                request.getReview(),
                 user,
                 boardGame
         );
@@ -69,6 +70,11 @@ public class HistoryService {
         }
         History history = historyRepository.findById(historyId)
                 .orElseThrow(() -> new NotFoundException(HISTORY_NOT_FOUND));
+        if (history.getRating() == 0) {
+            NumOfReview numOfReview = numOfReviewRepository.findByBoardGame(history.getBoardGame())
+                    .orElseThrow(() -> new NotFoundException(NUMOFREVIEW_NOT_FOUND));
+            numOfReview.addReview();
+        }
         history.update(
                 request.getRating(),
                 request.getReview()
@@ -80,6 +86,9 @@ public class HistoryService {
     public void deleteHistory(Long historyId) {
         History history = historyRepository.findById(historyId)
                 .orElseThrow(() -> new NotFoundException(HISTORY_NOT_FOUND));
+        NumOfReview numOfReview = numOfReviewRepository.findByBoardGame(history.getBoardGame())
+                .orElseThrow(() -> new NotFoundException(NUMOFREVIEW_NOT_FOUND));
+        numOfReview.deleteReview();
         historyRepository.delete(history);
     }
 }
