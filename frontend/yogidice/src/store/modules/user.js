@@ -24,7 +24,7 @@ export default {
   actions: {
     registNickName({ commit, getters }, newNickName) {
       axios({
-        url: api.users.get(),
+        url: api.users.regist(),
         method: "put",
         headers: getters.authHeader,
         data: newNickName,
@@ -133,7 +133,7 @@ export default {
           } else {
             router.push({
               name: "RegistNickName",
-              params: { nickName: userInfo.nickName },
+              params: { userInfo: userInfo },
             });
           }
         })
