@@ -1,8 +1,8 @@
 <template>
   <div>
-    <detail-card-item :game='game'></detail-card-item>
+    <detail-card-item :game="game"></detail-card-item>
     <div class="game-chemi">
-      <div class="text-subtitle-1">현주님과 {{game.title_kr}}의 케미는 70점입니다 </div>
+      <div class="text-subtitle-1">현주님과 {{gameTitle}}의 케미는 70점입니다 </div>
       <div class="progress">
         <div class="progress-value"></div>
       </div>
@@ -23,6 +23,8 @@
 <script>
 import DetailCardItem from "@/components/card/DetailCardItem.vue"
 import { onMounted } from '@vue/runtime-core'
+import { useRoute } from "vue-router"
+import { useStore } from "vuex"
 import GameIntroduce from '@/components/detail/GameIntroduce.vue'
 import GameReview from '@/components/detail/GameReview.vue'
 import GameRelated from '@/components/detail/GameRelated.vue'
@@ -33,10 +35,18 @@ export default {
     GameReview,
     GameRelated,
   },
+  
   setup() {
-
+    const route = useRoute()
+    const store = useStore()
+    
     let detailMenus
+    let gameId = route.query.gameId
+    let gameTitle = route.query.title
+    store.dispatch("games/getDetails",gameId)
+
     onMounted(()=>{
+ 
       detailMenus = document.querySelectorAll(".detail-menu-bar div")
       const detailPage = document.querySelector(".detail-page")
       const coverPage = document.querySelector("#wrap2")
@@ -62,11 +72,9 @@ export default {
         })
       }
     })
-    let game ={'key': 1, 'title_kr': '쓰루 디 에이지스: 문명에 관한 새로운 이야기', 'thumburl': 'wys2/swf_upload/2022/02/24/1645643684643042_lg.jpg','rating': 4.5,
-    'maxPlayers': 4,'minPlayers': 2,'playTimes' : 180, 'playLevel' : "매우 어려움"}
 
     return {
-      game
+      gameTitle
     }
   }
 

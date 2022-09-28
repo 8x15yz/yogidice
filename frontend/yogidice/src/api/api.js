@@ -1,4 +1,4 @@
-const HOST = "https://yogidice.site/api";
+const HOST = "http://localhost:8081/api";
 
 const user = "/users";
 const game = "/games";
@@ -22,6 +22,7 @@ export default {
   games: {
     getCreate: () => HOST + game,
     detailEdit: (gameId) => HOST + game + `/${gameId}`,
+    mostReviewd: () => HOST + game + '/review'
   },
 
   bggDats: {

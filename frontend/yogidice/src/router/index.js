@@ -94,7 +94,7 @@ const routes = [
     component: GreyBgHeadBar,
     children: [
       {
-        path: ":gameId",
+        path: "/info",
         name: "GameDetail",
         component: DetailView,
       },
