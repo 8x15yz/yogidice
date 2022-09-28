@@ -7,7 +7,6 @@ import com.specialization.yogidice.common.config.security.util.JwtUtil;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.domain.entity.type.Reviewed;
-import com.specialization.yogidice.domain.repository.BoardGameRepository;
 import com.specialization.yogidice.domain.repository.BookmarkRepository;
 import com.specialization.yogidice.domain.repository.HistoryRepository;
 import com.specialization.yogidice.domain.repository.UserRepository;
@@ -106,9 +105,8 @@ public class UserService {
     // 이미 가입된 카카오 계정인지 확인
     @Transactional
     public User checkUser(KakaoUserResponse response) {
-        User user = userRepository.findByKakaoId(response.getKakaoId())
+        return userRepository.findByKakaoId(response.getKakaoId())
                 .orElse(null);
-        return user;
     }
 
     // 카카오 계정으로 회원가입
@@ -126,9 +124,8 @@ public class UserService {
 
     // 로그인을 위한 회원 조회
     public User findUser(KakaoUserResponse kakaoUser) {
-        User user = userRepository.findByKakaoId(kakaoUser.getKakaoId())
+        return userRepository.findByKakaoId(kakaoUser.getKakaoId())
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        return user;
     }
 
     // 회원 정보 조회

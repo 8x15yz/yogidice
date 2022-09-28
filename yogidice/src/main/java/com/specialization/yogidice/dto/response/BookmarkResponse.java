@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("BookmarkResponse")
-public class BookmarkResponse extends BaseResponseBody {
+public class BookmarkResponse {
     private Long id;
 
     private Long userId;
@@ -29,13 +29,5 @@ public class BookmarkResponse extends BaseResponseBody {
                 bookmark.getBoardGame().getId(),
                 bookmark.getBoardGame().getTitleKr()
         );
-    }
-
-    public static BookmarkResponse of(Integer statusCode, String message, Long bookmarkId) {
-        BookmarkResponse response = new BookmarkResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(bookmarkId);
-        return response;
     }
 }

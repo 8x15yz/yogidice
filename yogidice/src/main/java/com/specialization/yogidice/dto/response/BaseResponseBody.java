@@ -17,7 +17,8 @@ public class BaseResponseBody {
     @ApiModelProperty(name = "응답 코드", example = "200")
     Integer statusCode = null;
 
-    public BaseResponseBody() {}
+    public BaseResponseBody() {
+    }
 
     public BaseResponseBody(Integer statusCode) {
         this.statusCode = statusCode;

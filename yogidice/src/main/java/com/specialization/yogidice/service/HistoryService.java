@@ -70,11 +70,19 @@ public class HistoryService {
         }
         History history = historyRepository.findById(historyId)
                 .orElseThrow(() -> new NotFoundException(HISTORY_NOT_FOUND));
+        NumOfReview numOfReview = numOfReviewRepository.findByBoardGame(history.getBoardGame())
+                .orElseThrow(() -> new NotFoundException(NUMOFREVIEW_NOT_FOUND));
+        double sum;
+        int number;
         if (history.getRating() == 0) {
-            NumOfReview numOfReview = numOfReviewRepository.findByBoardGame(history.getBoardGame())
-                    .orElseThrow(() -> new NotFoundException(NUMOFREVIEW_NOT_FOUND));
+            sum = numOfReview.getBoardGame().getRatingUser() * numOfReview.getNumber() + request.getRating();
+            number = numOfReview.getNumber() + 1;
             numOfReview.addReview();
+        } else {
+            sum = numOfReview.getBoardGame().getRatingUser() * numOfReview.getNumber() - history.getRating() + request.getRating();
+            number = numOfReview.getNumber();
         }
+        history.getBoardGame().updateRatingUser(sum / number);
         history.update(
                 request.getRating(),
                 request.getReview()
@@ -88,7 +96,31 @@ public class HistoryService {
                 .orElseThrow(() -> new NotFoundException(HISTORY_NOT_FOUND));
         NumOfReview numOfReview = numOfReviewRepository.findByBoardGame(history.getBoardGame())
                 .orElseThrow(() -> new NotFoundException(NUMOFREVIEW_NOT_FOUND));
+        double sum = numOfReview.getBoardGame().getRatingUser() * numOfReview.getNumber() - history.getRating();
+        int number = numOfReview.getNumber() - 1;
+        history.getBoardGame().updateRatingUser(sum / number);
         numOfReview.deleteReview();
         historyRepository.delete(history);
+    }
+
+    @Transactional
+    public void deleteHistoryByUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        List<History> histories = historyRepository.findByUser(user);
+        if (histories.isEmpty()) {
+            throw new NotFoundException((HISTORY_LIST_NOT_FOUND));
+        }
+        for (History history : histories) {
+            if (history.getRating() > 0) {
+                NumOfReview numOfReview = numOfReviewRepository.findByBoardGame(history.getBoardGame())
+                        .orElseThrow(() -> new NotFoundException(NUMOFREVIEW_NOT_FOUND));
+                double sum = numOfReview.getBoardGame().getRatingUser() * numOfReview.getNumber() - history.getRating();
+                int number = numOfReview.getNumber() - 1;
+                history.getBoardGame().updateRatingUser(sum / number);
+                numOfReview.deleteReview();
+            }
+            historyRepository.delete(history);
+        }
     }
 }

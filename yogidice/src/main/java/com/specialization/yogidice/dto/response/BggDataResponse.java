@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("BggDataResponse")
-public class BggDataResponse extends BaseResponseBody {
+public class BggDataResponse {
     private Long id;
 
     private String titleEng;
@@ -31,25 +31,5 @@ public class BggDataResponse extends BaseResponseBody {
                 bggData.getNickName(),
                 bggData.getRatingUser()
         );
-    }
-
-    public static BggDataResponse of(Integer statusCode, String message, Long bggDataId) {
-        BggDataResponse response = new BggDataResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(bggDataId);
-        return response;
-    }
-
-    public static BggDataResponse of(Integer statusCode, String message, BggDataResponse bggDataResponse) {
-        BggDataResponse response = new BggDataResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(bggDataResponse.getId());
-        response.setTitleEng(bggDataResponse.getTitleEng());
-        response.setBggCode(bggDataResponse.getBggCode());
-        response.setNickName(bggDataResponse.getNickName());
-        response.setRatingUser(bggDataResponse.getRatingUser());
-        return response;
     }
 }

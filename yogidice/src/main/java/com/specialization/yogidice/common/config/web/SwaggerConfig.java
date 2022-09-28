@@ -1,7 +1,6 @@
 package com.specialization.yogidice.common.config.web;
 
 import com.fasterxml.classmate.TypeResolver;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,7 +20,6 @@ import org.springframework.util.StringUtils;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
@@ -33,8 +31,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -43,8 +41,10 @@ public class SwaggerConfig {
     private static final String API_NAME = "YogiDice API 문서";
     private static final String API_VERSION = "0.0.1";
     private static final String API_DESCRIPTION = "YogiDice API 명세서";
-    // documentationpluginsbootstrapper 에러 설정
     TypeResolver typeResolver = new TypeResolver();
+
+    // documentationpluginsbootstrapper 에러 설정
+
     @Bean
     public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier, ServletEndpointsSupplier servletEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier, EndpointMediaTypes endpointMediaTypes, CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties, Environment environment) {
         List<ExposableEndpoint<?>> allEndpoints = new ArrayList();
@@ -73,8 +73,8 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.specialization.yogidice.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                .securityContexts(Arrays.asList(securityContext()))
-                .securitySchemes(Arrays.asList(apiKey()));
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(apiKey()));
     }
 
     private ApiInfo apiInfo() {
@@ -98,22 +98,19 @@ public class SwaggerConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+        return Collections.singletonList(new SecurityReference("JWT", authorizationScopes));
     }
 
-    @ApiModel
     @Data
+    @ApiModel
     static class MyPagable {
-
         @ApiModelProperty(value = "페이지 번호(0..N")
         private Integer page;
 
-        @ApiModelProperty(value="페이지 크기(0..100)")
+        @ApiModelProperty(value = "페이지 크기(0..100)")
         private Integer size;
 
-        @ApiModelProperty(value="정렬 (사용법: 컬럼명, ASC or DESC)")
+        @ApiModelProperty(value = "정렬 (사용법: 컬럼명, ASC or DESC)")
         private List<String> sort;
     }
-
-
 }
