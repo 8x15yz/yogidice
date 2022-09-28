@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("NumOfReviewResponse")
-public class NumOfReviewResponse extends BaseResponseBody {
+public class NumOfReviewResponse {
     private Long id;
 
     private Long gameId;
@@ -26,13 +26,5 @@ public class NumOfReviewResponse extends BaseResponseBody {
                 numOfReview.getBoardGame().getTitleKr(),
                 numOfReview.getNumber()
         );
-    }
-
-    public static NumOfReviewResponse of(Integer statusCode, String message, Long numReviewId) {
-        NumOfReviewResponse response = new NumOfReviewResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(numReviewId);
-        return response;
     }
 }

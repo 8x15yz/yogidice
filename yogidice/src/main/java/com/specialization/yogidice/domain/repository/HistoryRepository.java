@@ -12,6 +12,4 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
     List<History> findByUser(User user);
 
     Optional<History> findByUserAndBoardGame(User user, BoardGame boardGame);
-
-//    List<History> findByBoardGame(BoardGame boardGame);
 }

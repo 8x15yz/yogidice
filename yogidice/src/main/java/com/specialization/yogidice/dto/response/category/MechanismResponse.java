@@ -1,7 +1,6 @@
 package com.specialization.yogidice.dto.response.category;
 
 import com.specialization.yogidice.domain.entity.category.Mechanism;
-import com.specialization.yogidice.dto.response.BaseResponseBody;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("MechanismResponse")
-public class MechanismResponse extends BaseResponseBody {
+public class MechanismResponse {
     private Long id;
 
     private String name;
@@ -24,23 +23,5 @@ public class MechanismResponse extends BaseResponseBody {
                 mechanism.getName(),
                 mechanism.getParentsMec()
         );
-    }
-
-    public static MechanismResponse of(Integer statusCode, String message, Long mechanismId) {
-        MechanismResponse response = new MechanismResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(mechanismId);
-        return response;
-    }
-
-    public static MechanismResponse of(Integer statusCode, String message, MechanismResponse mechanismResponse) {
-        MechanismResponse response = new MechanismResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(mechanismResponse.getId());
-        response.setName(mechanismResponse.getName());
-        response.setParentsMec(mechanismResponse.getParentsMec());
-        return response;
     }
 }

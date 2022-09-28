@@ -1,17 +1,17 @@
 <template>
   <img class="long-img" :src='imgUrl' alt="">
   <div class="game-info">
-    <div class="game-title text-subtitle-1">{{ title_kr }}</div>
+    <div class="game-title text-subtitle-1">{{ oneGame.title_kr }}</div>
     <div class="chip-rating">
-      <div class="text-subtitle-1 rating">★{{ rating }}</div>
+      <div class="text-subtitle-1 rating">★{{ oneGame.rating }}</div>
       <div class="game-chip-container">
-        <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
-        <div>{{ playTimes }}</div>
-        <div>{{ playLevel }}</div>
+        <div>{{ `${oneGame.minPlayers}~${oneGame.maxPlayers}인` }}</div>
+        <div>{{ oneGame.playTimes }}</div>
+        <div>{{ oneGame.playLevel }}</div>
       </div>
     </div>
   </div>
-  <div class="bookmark-alert text-subtitle-1" v-show="test">
+  <div class="bookmark-alert text-subtitle-1" v-show="showRegister">
     북마크가 등록되었습니다!<span class="material-icons">check_circle</span>
   </div>
   <span class="material-icons bookmark-icon" v-show="bookmarkBorder" @click="registerBookMark">bookmark_border</span>
@@ -26,23 +26,16 @@ export default {
     game: Object
   },
   setup(props) {
+    let oneGame = toRefs(props.game)
 
-    let { key } = toRefs(props.game)
-    let { title_kr } = toRefs(props.game)
-    let { thumburl } = toRefs(props.game)
-    let { maxPlayers } = toRefs(props.game)
-    let { minPlayers } = toRefs(props.game)
-    let { playTimes } = toRefs(props.game)
-    let { playLevel } = toRefs(props.game)
-    let { rating } = toRefs(props.game)
     let checkedMark = ref(false)
 
     let bookmarkBorder = ref(true)
     let bookmarkFilled = ref(false)
 
-    let imgUrl = computed(() => `https://boardlife.co.kr/${thumburl.value}`)
+    let imgUrl = computed(() => `https://boardlife.co.kr/${oneGame.thumburl.value}`)
 
-    let test = ref(false)
+    let showRegister = ref(false)
     const registerBookMark = function () {
       if (bookmarkBorder.value === false) {
         bookmarkBorder.value = true
@@ -51,25 +44,26 @@ export default {
         bookmarkBorder.value = false
         bookmarkFilled.value = true
         
-        test.value = true
-        setTimeout(()=>test.value=false,3000)        
+        showRegister.value = true
+        setTimeout(()=>showRegister.value=false,3000)        
       }      
     }
 
   return {
-    key,
-    title_kr,
+    oneGame,
+    // key,
+    // title_kr,
     imgUrl,
     checkedMark,
-    maxPlayers,
-    minPlayers,
-    playTimes,
-    playLevel,
-    rating,
+    // maxPlayers,
+    // minPlayers,
+    // playTimes,
+    // playLevel,
+    // rating,
     registerBookMark,
     bookmarkBorder,
     bookmarkFilled,
-    test
+    showRegister
   }}
 
 

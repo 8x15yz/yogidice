@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("BoardGameResponse")
-public class BoardGameResponse extends BaseResponseBody {
+public class BoardGameResponse {
     private Long id;
 
     private String titleKr;
@@ -87,41 +87,5 @@ public class BoardGameResponse extends BaseResponseBody {
                 typeLists,
                 mechanismLists
         );
-    }
-
-    public static BoardGameResponse of(Integer statusCode, String message, Long gameId) {
-        BoardGameResponse response = new BoardGameResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(gameId);
-        return response;
-    }
-
-    public static BoardGameResponse of(Integer statusCode, String message, BoardGameResponse boardGameResponse) {
-        BoardGameResponse response = new BoardGameResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(boardGameResponse.getId());
-        response.setTitleKr(boardGameResponse.getTitleKr());
-        response.setTitleEng(boardGameResponse.getTitleEng());
-        response.setPublishYear(boardGameResponse.getPublishYear());
-        response.setThumbUrl(boardGameResponse.getThumbUrl());
-        response.setRatingBl(boardGameResponse.getRatingBl());
-        response.setRatingUser(boardGameResponse.getRatingUser());
-        response.setBggCode(boardGameResponse.getBggCode());
-        response.setMinPlayers(boardGameResponse.getMinPlayers());
-        response.setMaxPlayers(boardGameResponse.getMaxPlayers());
-        response.setPlayingTime(boardGameResponse.getPlayingTime());
-        response.setMinTime(boardGameResponse.getMinTime());
-        response.setMaxTime(boardGameResponse.getMaxTime());
-        response.setAge(boardGameResponse.getAge());
-        response.setDifficulty(boardGameResponse.getDifficulty());
-        response.setYoutubeUrl(boardGameResponse.getYoutubeUrl());
-        response.setContents(boardGameResponse.getContents());
-        response.setContentsImgUrl(boardGameResponse.getContentsImgUrl());
-        response.setCategoryGroupResponses(boardGameResponse.getCategoryGroupResponses());
-        response.setTypeGroupResponses(boardGameResponse.getTypeGroupResponses());
-        response.setMechanismGroupResponses(boardGameResponse.getMechanismGroupResponses());
-        return response;
     }
 }

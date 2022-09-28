@@ -1,51 +1,42 @@
 <template>
-  <img class="main-card-img" @click="moveGameDetail" :src='imgUrl' alt="">
+  <img class="main-card-img" @click="moveGameDetail" :src='thumbUrl' alt="">
   <div class="title-rating">
-    <div class="game-title text-subtitle-1">{{ title_kr }}</div>
-    <div class="text-subtitle-1 rating">★{{ rating }}</div>
+    <div class="game-title text-subtitle-1">{{ mainGame.title_kr }}</div>
+    <div class="text-subtitle-1 rating">★{{ mainGame.rating }}</div>
   </div>
   <div class="game-chip-container">
-    <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
-    <div>{{ playTimes }}분 소요</div>
-    <div>{{ playLevel }}</div>
+    <div>{{ mainGame.players }}</div>
+    <div>{{ mainGame.times }}분 소요</div>
+    <div>{{ mainGame.level }}</div>
   </div>
 </template>
 
 <script>
-import { computed,toRefs,reactive,ref } from "vue"
+import { toRefs,reactive,ref } from "vue"
 
 export default {
   props: {
     game: Object
   },
-  setup(props) {
-   
-    let { key } = toRefs(props.game)
-    let { title_kr } = toRefs(props.game)
-    let { thumburl } = toRefs(props.game)
-    let { maxPlayers } = toRefs(props.game)
-    let { minPlayers } = toRefs(props.game)
-    let { playTimes } = toRefs(props.game)
-    let { playLevel } = toRefs(props.game)
-    let { rating } = toRefs(props.game)
-   
+  setup(props, context) {
+    let mainGame = toRefs(props.game)
+    let thumbUrl = mainGame.thumbUrl
+  
     let checkedMark = ref(false)
 
-    let imgUrl = computed(() => `https://boardlife.co.kr/${thumburl.value}`)
     const userSelection = reactive([])
+    const moveGameDetail = function() {
+      context.emit("moveGameDetail",mainGame)
+    }
     
 
   return {
-    key,
-    title_kr,
-    imgUrl,
-    maxPlayers,
-    minPlayers,
-    playTimes,
-    playLevel,
+    mainGame,
     userSelection,
     checkedMark,
-    rating
+    thumbUrl,
+    moveGameDetail
+    
     }}
 
 
@@ -89,7 +80,7 @@ export default {
 }
 .game-chip-container > div {
   border-radius: 40px;
-  padding: 2px 8px 2px 8px; 
+  padding: 2px 6px 2px 6px; 
   font-size: 8px;
   font-weight: bold;
 }

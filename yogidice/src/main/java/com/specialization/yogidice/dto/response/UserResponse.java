@@ -13,12 +13,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("UserResponse")
-public class UserResponse extends BaseResponseBody {
+public class UserResponse {
     private Long id;
+
     private String kakaoId;
+
     private String nickName;
+
     private Reviewed reviewed;
+
     private List<HistoryResponse> historyResponses;
+
     private List<BookmarkResponse> bookmarkResponses;
 
     public static UserResponse response(
@@ -34,26 +39,5 @@ public class UserResponse extends BaseResponseBody {
                 historys,
                 bookmarks
         );
-    }
-
-    public static UserResponse of(Integer statusCode, String message, UserResponse userResponse) {
-        UserResponse response = new UserResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(userResponse.getId());
-        response.setKakaoId(userResponse.getKakaoId());
-        response.setNickName(userResponse.getNickName());
-        response.setReviewed(userResponse.getReviewed());
-        response.setHistoryResponses(userResponse.getHistoryResponses());
-        response.setBookmarkResponses(userResponse.getBookmarkResponses());
-        return response;
-    }
-
-    public static UserResponse of(Integer statusCode, String message, Reviewed reviewed) {
-        UserResponse response = new UserResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setReviewed(reviewed);
-        return response;
     }
 }
