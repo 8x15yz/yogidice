@@ -25,7 +25,7 @@
         <img class="left-img" src="../static/Checklist.png" alt="">
       </div>
       <div class="right-two">
-        <div class="right-top">
+        <div class="right-top"  @click="moveToGamePage">
           <div class="left-title text-subtitle-1">아이템 창고</div>
           <img src="../static/Slot_machine.png" alt="">
         </div>
@@ -101,13 +101,18 @@ export default {
       // 여기서 해당하는 게임 받아와서 state에 저장해주기
       store.dispatch("games/changeMainGames",e.target.innerText)
       }
+      const moveToGamePage = function () {
+      router.push({name: "GamePlusView"})
+    }
+
       
     return {
       changeActive,
       searchMain,
       filteredGames,
       showSearchResult,
-      moveToCafes
+      moveToCafes,
+      moveToGamePage
     }
   }
 }
