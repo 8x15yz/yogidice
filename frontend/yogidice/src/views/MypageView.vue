@@ -141,8 +141,8 @@ import WordCloud from '../components/WordCloud.vue';
 import MypageReview from '../components/MypageReview.vue';
 import MypageBookmark from '../components/MypageBookmark.vue';
 import MypagePlay from '../components/MypagePlay.vue';
-import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
-import ReviewModal from '@/components/modal/ReviewModal.vue'
+import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue';
+import ReviewModal from '@/components/modal/ReviewModal.vue';
 
 
 export default {

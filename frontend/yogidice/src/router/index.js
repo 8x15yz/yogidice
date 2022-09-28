@@ -18,6 +18,7 @@ import DiceBgLayout from '@/layouts/DiceBgLayout.vue'
 import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
 import DetailView from '@/views/DetailView.vue'
 import PlaceView from "@/views/PlaceView.vue"
+import GamePlusView from "@/views/GamePlusView.vue"
 
 
 // Vue.use(VueRouter);
@@ -113,6 +114,11 @@ const routes = [
         },
     ]
   },
+  {
+    path: '/plusgame',
+    name: 'GamePlusView',
+    component: GamePlusView,
+  }
 ];
 
 const router = createRouter({
