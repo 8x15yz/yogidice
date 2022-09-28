@@ -13,10 +13,12 @@ import InitChoice from "@/views/InitChoice.vue";
 import MypageView from "@/views/MypageView.vue";
 import MainPageView from "@/views/MainPageView.vue";
 import MoreGameView from "@/views/MoreGameView.vue";
-import DiceBgLayout from "@/layouts/DiceBgLayout.vue";
-import GreyBgHeadBar from "@/layouts/GreyBgHeadBar.vue";
-import DetailView from "@/views/DetailView.vue";
-import PlaceView from "@/views/PlaceView.vue";
+import DiceBgLayout from '@/layouts/DiceBgLayout.vue'
+import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
+import DetailView from '@/views/DetailView.vue'
+import PlaceView from "@/views/PlaceView.vue"
+import GamePlusView from "@/views/GamePlusView.vue"
+
 
 // Vue.use(VueRouter);
 
@@ -111,6 +113,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/plusgame',
+    name: 'GamePlusView',
+    component: GamePlusView,
+  }
 ];
 
 const router = createRouter({

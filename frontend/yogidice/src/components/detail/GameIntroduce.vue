@@ -2,7 +2,9 @@
   <div class="introduce-box">
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6">게임 유형</div>
-      <ber-chart></ber-chart>
+      <ber-chart
+      :lengamecategory="lengamecategory" >
+      </ber-chart>
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6"> 게임 설명 </div>
@@ -52,11 +54,14 @@ export default {
     contents.body = "게임 타입에 대한 설명 주룩주룩"
     store.commit("changeModal") 
   }
+  const lengamecategory = [1, 2, 3, 4, 5, 6] // berChart으로 prop되는 데이터
   return {
     showModal,
     contents,
-    describeType
+    describeType,
+    lengamecategory
   }
+  
 }
 
 }

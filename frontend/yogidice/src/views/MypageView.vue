@@ -8,8 +8,10 @@
 
 
         <!-- 리뷰받는 모달폼 -->
-        <div class="my-review-bg">
-            <review-modal></review-modal>
+        <div class="my-review-bg" v-if="reviewmodalview">
+            <review-modal 
+            @CloseReviewModal="CloseReviewModal"
+            ></review-modal>
         </div>
         <!-- 리뷰받는 모달폼 -->
 
@@ -29,30 +31,30 @@
         <!-- 마이페이지 세부페이지 버튼-->
         <div class="mypage-link-btn-outer">
             <div class="mypage-link-btn-wrapper">
-                <div class="mypage-link-btn-inner" @click="myPageBtn('play')">
+                <div class="mypage-link-btn-inner border-rad-left" @click="myPageBtn('play')">
                     <div>
-                        <div>🎮</div>
+                        <div><i class="fas fa-chess"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">플레이</p>
-                            <p class="mp-btn-p">(23)</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 23</p>
                         </div>
                     </div>
                 </div>
                 <div class="mypage-link-btn-inner" @click="myPageBtn('review')">
                     <div>
-                        <div>✏</div>
+                        <div><i class="fas fa-pencil-alt"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">리뷰</p>
-                            <p class="mp-btn-p">(12)</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 12</p>
                         </div>
                     </div>
                 </div>
-                <div class="mypage-link-btn-inner" @click="myPageBtn('bookmark')">
+                <div class="mypage-link-btn-inner border-rad-right" @click="myPageBtn('bookmark')">
                     <div>
-                        <div>📍</div>
+                        <div><i class="fas fa-bookmark"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">북마크</p>
-                            <p class="mp-btn-p">(40)</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 40</p>
                         </div>
                     </div>
                 </div>
@@ -114,12 +116,16 @@
             :userplaygames="userplaygames" 
             v-if="playview"
             class="play-components-overflow"
+            @OpenReviewModal="OpenReviewModal"
             ></mypage-play>
             <div>
                 <mypage-bookmark v-if="bookmarkview"></mypage-bookmark>
             </div>
             <div>
-                <mypage-review v-if="reviewview"></mypage-review>
+                <mypage-review 
+                v-if="reviewview"
+                @OpenReviewModal="OpenReviewModal"
+                ></mypage-review>
             </div>
             <div v-if="bookmarkview" class="cardlist-my">
                 <my-page-bookmark></my-page-bookmark>
@@ -135,8 +141,8 @@ import WordCloud from '../components/WordCloud.vue';
 import MypageReview from '../components/MypageReview.vue';
 import MypageBookmark from '../components/MypageBookmark.vue';
 import MypagePlay from '../components/MypagePlay.vue';
-import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
-import ReviewModal from '@/components/modal/ReviewModal.vue'
+import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue';
+import ReviewModal from '@/components/modal/ReviewModal.vue';
 
 
 export default {
@@ -148,11 +154,13 @@ export default {
     GreyBgHeadBar,
     ReviewModal
   },
+  
   setup() {
         const mainview = ref(true);
         const playview = ref(false);
         const reviewview = ref(false);
         const bookmarkview = ref(false);
+        const reviewmodalview = ref(false)
         
         const userplaygames = [{'key': 1, 'title_kr': '쓰루 디 에이지스: 문명에 관한 새로운 이야기', 'thumburl': 'wys2/swf_upload/2022/02/24/1645643684643042_lg.jpg','rating': 4.5,
             'maxPlayers': 4,'minPlayers': 2,'playTimes' : 180, 'playLevel' : "매우 어려움"}, {'key': 2, 'title_kr': '가이아 프로젝트', 'thumburl': 'data/boardgame_strategy/2021/03/09/1615274670-490381.jpg','rating': 4.5,'maxPlayers': 4,'minPlayers': 2,'playTimes' : 180,'playLevel' : "매우 어려움"}, {'key': 3, 'title_kr': '황혼의 투쟁', 'thumburl': 'data/boardgame_strategy/2021/02/03/1612344501-765004.jpg','rating': 4.5,'maxPlayers': 4,'minPlayers': 2,'playTimes' : 180,'playLevel' : "매우 어려움"}, {'key': 4, 'title_kr': '푸에르토 리코', 'thumburl': 'data/boardgame_strategy/2021/12/24/1640328882-556458.jpg'}
@@ -186,6 +194,13 @@ export default {
                 reviewview.value = false
                 bookmarkview.value = false
             }
+        
+        }
+        const CloseReviewModal = function() { 
+            reviewmodalview.value = false
+        }
+        const OpenReviewModal = function() { 
+            reviewmodalview.value = true
         }
         return {
             myPageBtn,
@@ -193,7 +208,10 @@ export default {
             playview,
             reviewview,
             bookmarkview,
-            userplaygames
+            userplaygames,
+            reviewmodalview,
+            CloseReviewModal,
+            OpenReviewModal
         }
     }
   }
@@ -208,7 +226,7 @@ export default {
     background-color: var(--color-bg-modal);
     display: flex;
     justify-content: center;
-    align-items: center;
+
 }
 .play-components-overflow {
     overflow: auto;
@@ -220,7 +238,6 @@ export default {
     height:70px;
 }
 .mypage-container {
-    background-color: rgba(246, 246, 246, 0.575);
     height: 100vh;
 }
 .displayFlex {
@@ -252,7 +269,7 @@ export default {
     align-items: center;
     height: 150px;
     width: 100%;
-    /* background-color: pink; */
+    /* background-color: yellow; */
 }
 .mypage-link-btn-wrapper {
     display: flex;
@@ -271,7 +288,6 @@ export default {
     justify-content: center;
     align-items: center;
     outline: 0.5px black solid;
-    border-radius: 4px;
     width: 100%;
 }
 .mypage-link-btn-inner > div {
@@ -280,6 +296,14 @@ export default {
 .mypage-link-btn-inner > div > div {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.border-rad-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius:4px;
+}
+.border-rad-right {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius:4px;
 }
 .mp-btn-p {
     margin: 0px;
@@ -314,6 +338,7 @@ export default {
     background-color: rgba(255, 255, 255, 0.493);
     height: 50vh;
     overflow: hidden;
+    /* background-color: brown; */
 }
 </style>
 

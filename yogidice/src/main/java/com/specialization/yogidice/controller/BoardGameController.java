@@ -1,5 +1,7 @@
 package com.specialization.yogidice.controller;
 
+import com.specialization.yogidice.common.config.web.LoginUser;
+import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
 import com.specialization.yogidice.dto.response.*;
@@ -8,11 +10,13 @@ import com.specialization.yogidice.service.NumOfReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import net.minidev.json.JSONObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 
@@ -113,5 +117,74 @@ public class BoardGameController {
     @ApiOperation(value = "리뷰 많은 순 전체 보드게임 리스트 조회", notes = "리뷰 많은 순 전체 보드게임 리스트를 조회합니다.")
     public ResponseEntity<?> readAllListByNumOfReview(@PageableDefault(size = 30) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(NumOfReviewListResponse.of(200, "Success", numOfReviewService.readAllListByNumOfReview(pageable)));
+    }
+
+    @PostMapping("/recommend")
+    @ApiOperation(value = "pick 추천", notes = "질문 답변에 따른 추천 보드게임을 분석합니다.")
+    public ResponseEntity<?> pickRecommend(/*@RequestBody*/) {
+        String boardGameList = "";
+        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+    }
+
+    @GetMapping("/recommend/play/{gameId}")
+    @ApiOperation(value = "게임이 끝난 후 다음 게임 추천", notes = "게임이 끝난 후 연관된 다음 게임을 추천합니다.")
+    public ResponseEntity<?> nextRecommend(
+            @ApiIgnore @LoginUser User user,
+            @PathVariable Long gameId) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8000/analyze/recommend/play";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getId());
+        jsonObject.put("gameId", gameId);
+
+        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+        String boardGameList = restTemplate.postForObject(url, request, String.class);
+
+        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+    }
+
+    @GetMapping("/recommend/main")
+    @ApiOperation(value = "메인 추천", notes = "메인 페이지에서 게임을 추천합니다.")
+    public ResponseEntity<?> mainRecommend(
+            @ApiIgnore @LoginUser User user
+    ) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8000/analyze/recommend/main";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getId());
+
+        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+        String boardGameList = restTemplate.postForObject(url, request, String.class);
+
+        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+    }
+
+
+    @GetMapping("/recommend/detail/{gameId}")
+    @ApiOperation(value = "보드게임 상세 페이지 하단 추천", notes = "보드게임 상세 페이지 하단에서 보드게임을 추천합니다.")
+    public ResponseEntity<?> detailRecommend(
+            @ApiIgnore @LoginUser User user,
+            @PathVariable Long gameId) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8000/analyze/recommend/detail";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getId());
+        jsonObject.put("gameId", gameId);
+
+        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+        String boardGameList = restTemplate.postForObject(url, request, String.class);
+        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
 }
