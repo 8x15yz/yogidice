@@ -5,16 +5,18 @@
 </template>
 
 <script>
-import { computed,toRefs,getCurrentInstance,ref } from "vue"
+import { computed,toRefs,getCurrentInstance,ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   props: {
     game: Object
   },
   setup(props) {
+    let store = useStore()
     const internalInstance = getCurrentInstance()
     const emitter = internalInstance.appContext.config.globalProperties.emitter
-
+    let presentPage = computed(() => store.state.page.presentPage)
     let { key } = toRefs(props.game)
     let { title_kr } = toRefs(props.game)
     let { thumburl } = toRefs(props.game)
@@ -25,17 +27,19 @@ export default {
 
     // 지금 일단 동시 선택 안됨(선택은 되는데 담기지가 않음)
     const selectImg = function(e) {
-      // 선택된 상태면 선택 해제
-      if (e.target.style.filter) {
-      e.target.style.filter = ""
-      selectCnt = -1
-      } else {
-      // 선택해주기
-      e.target.style.filter = "brightness(50%)"
-      selectCnt = 1
+      if (presentPage.value === "선호도조사") {
+        // 선택된 상태면 선택 해제
+        if (e.target.style.filter) {
+        e.target.style.filter = ""
+        selectCnt = -1
+        } else {
+        // 선택해주기
+        e.target.style.filter = "brightness(50%)"
+        selectCnt = 1
+        }
+        checkedMark.value = !checkedMark.value
+        emitter.emit("selectCnt",selectCnt)
       }
-      checkedMark.value = !checkedMark.value
-      emitter.emit("selectCnt",selectCnt)
     }
 
 
