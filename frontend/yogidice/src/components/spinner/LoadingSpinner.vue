@@ -34,18 +34,18 @@ export default {};
   width: 50px;
   height: 50px;
   text-align: center;
-  
+  justify-content : center;
   font-size: 20px;
   border-radius: 50px;
   background: white;
  
 }
 .spinner-inside{
-    margin-top:15%;
-    margin-left: 15%;
+    margin-top:20%;
+    margin-left: 20%;
     width: 30px;
     height: 30px;
-    background-image: url("@/static/loadingspinner30.gif");
+    background-image: url("@/static/loading30.gif");
 }
 /* .spinner-container {
   display: inline-block;
