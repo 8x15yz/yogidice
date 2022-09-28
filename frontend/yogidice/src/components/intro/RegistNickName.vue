@@ -44,8 +44,8 @@ export default {
       contents.footer1 = "계속";
       contents.footer2 = "취소";
       contents.info.content = nickNameValue.value;
-      store.dispatch("registModal", contents);
-      store.dispatch("openModal");
+      store.dispatch("modal/registModal", contents);
+      store.dispatch("modal/openModal");
     };
     return {
       showModal,
