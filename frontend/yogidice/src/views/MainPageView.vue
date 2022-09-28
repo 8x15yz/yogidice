@@ -26,7 +26,7 @@
       </div>
       <div class="right-two">
         <div class="right-top">
-          <div class="left-title text-subtitle-1">아이템 창고</div>
+          <div class="left-title text-subtitle-1" @click="moveToGamePage">아이템 창고</div>
           <img src="../static/Slot_machine.png" width="100%" alt="">
         </div>
         <div class="right-bottom">
@@ -41,9 +41,11 @@
 
 <script>
 import { onMounted,getCurrentInstance,ref,computed,watch } from '@vue/runtime-core'
+import { useRouter } from 'vue-router'
 import MainCardList from '@/components/card/MainCardList.vue'
 import LongCardList from '@/components/card/LongCardList.vue'
 import SearchBar from '@/components/SearchBar.vue'
+
 
 export default {
   components: {
@@ -52,6 +54,7 @@ export default {
     SearchBar
   },
   setup() {
+    const router = useRouter()
     // mitt 쓰기
     const internalInstance = getCurrentInstance()
     const emitter = internalInstance.appContext.config.globalProperties.emitter
@@ -92,11 +95,15 @@ export default {
       // 여기서 해당하는 게임 받아와서 state에 저장해주기
       }
     }
+    const moveToGamePage = function () {
+      router.push({name: "GamePlusView"})
+    }
     return {
       changeActive,
       searchMain,
       filteredGames,
       showSearchResult,
+      moveToGamePage
     }
   }
 }
