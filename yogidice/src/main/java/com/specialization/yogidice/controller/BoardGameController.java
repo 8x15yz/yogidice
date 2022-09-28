@@ -1,5 +1,7 @@
 package com.specialization.yogidice.controller;
 
+import com.specialization.yogidice.common.config.web.LoginUser;
+import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
 import com.specialization.yogidice.dto.response.*;
@@ -11,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 
@@ -84,5 +87,40 @@ public class BoardGameController {
     @ApiOperation(value = "보드게임 상위 10개 게임 리스트 조회 (리뷰 많은 순)", notes = "상위 10개 게임 리스트를 리뷰가 많은 순으로 조회합니다.")
     public ResponseEntity<?> readBoardGameListByReviews() {
         return ResponseEntity.status(HttpStatus.OK).body(NumOfReviewListResponse.of(200, "Success", numOfReviewService.readNumOfReviewTop10List()));
+    }
+
+    @PostMapping("/recommend")
+    @ApiOperation(value = "pick 추천", notes = "질문 답변에 따른 추천 보드게임을 분석합니다.")
+    public ResponseEntity<?> pickRecommend(/*@RequestBody*/ ) {
+        String boardGameList="";
+        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+    }
+
+    @GetMapping("/recommend/play/{gameId}")
+    @ApiOperation(value = "게임이 끝난 후 다음 게임 추천", notes = "게임이 끝난 후 연관된 다음 게임을 추천합니다.")
+    public ResponseEntity<?> nextRecommend(
+            @ApiIgnore @LoginUser User user,
+            @PathVariable Long gameId) {
+        String boardGameList="";
+        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+    }
+
+    @GetMapping("/recommend")
+    @ApiOperation(value = "메인 추천", notes = "메인 페이지에서 게임을 추천합니다.")
+    public ResponseEntity<?> mainRecommend(
+            @ApiIgnore @LoginUser User user,
+            @PathVariable Long gameId) {
+        String boardGameList="";
+        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+    }
+
+
+    @GetMapping("/recommend/detail/{gameId}")
+    @ApiOperation(value = "보드게임 상세 페이지 하단 추천", notes = "보드게임 상세 페이지 하단에서 보드게임을 추천합니다.")
+    public ResponseEntity<?> detailRecommend(
+            @ApiIgnore @LoginUser User user,
+            @PathVariable Long gameId) {
+        String boardGameList="";
+        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
 }
