@@ -11,6 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import net.minidev.json.JSONObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -41,8 +43,8 @@ public class BoardGameController {
     // 보드게임 목록 조회
     @GetMapping
     @ApiOperation(value = "보드게임 목록 조회", notes = "보드게임 목록을 조회합니다.")
-    public ResponseEntity<?> readBoardGameList() {
-        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readBoardGameList()));
+    public ResponseEntity<?> readBoardGameList(@PageableDefault(size = 30)Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readBoardGameList(pageable)));
     }
 
     // 보드게임 상세 조회
