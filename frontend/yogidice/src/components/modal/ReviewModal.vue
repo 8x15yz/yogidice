@@ -1,46 +1,225 @@
 <template>
-    <div class="review-modal-form">
-        <div style="margin: 10px;">리뷰</div>
-        <div>
-            <div class="review-modal-inner">
-                <div class="rmi-inner">
-                    <div style="margin: 10px;">플레이하신 게임에 대해 리뷰를 납ㅁ겨주세요!!</div>
-                    <div style="margin: 10px;">💛💛💛💛💛 <span>5점</span></div>
-                    <textarea class="review-modal-inner-textarea"></textarea>
+    <!-- <div> -->
+    <!-- 모달폼 작성하는 곳 -->
+        <!-- <div style="height: 20vw"></div> -->
+        <div class="review-modal-form" v-if="reviewform">
+            <div class="review-modal-form-inner">
+                <div class="review-modal-title">
+                    <span>리뷰</span>
+                    <span style="margin-right: 20px;" @click="$emit('CloseReviewModal')"><i class="fas fa-times"></i></span>
+                </div>
+                <div class="rmi-displayflex">
+                    <div class="review-modal-inner">
+                        <div>
+                            <div class="rating-comment">플레이하신 {{playgame}}에 대해 리뷰를 남겨주세요!</div>
+                            <div class="star-rating-wrap">
+                                <div class="star-rating">
+                                    ★★★★★
+                                    <span>★★★★★</span>
+                                    <input type="range" v-model="star" step="1" min="0" max="10">
+                                </div>
+                                <div class="star-rating-point">{{star}}점</div>
+                            </div>
+                            
+                            <textarea class="review-modal-inner-textarea" v-model="gamereviewtext"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="rmi-displayflex">
+                    <div class="review-modal-bottom"> 
+                        <div class="im-not-play-this-game">게임을 플레이하지 않았습니다</div>
+                        <div class="review-modal-btn-wrap">
+                            <div class="review-submit" @click="submitReview">등록</div>
+                            <div class="review-revoke" @click="$emit('CloseReviewModal')">취소</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="review-modal-btn-wrap">
-            <button>등록</button>
-            <button>취소</button>
+        <!-- 모달폼 작성하는 곳 -->
+
+        <!-- 작성완료 확인모달 -->
+        <div class="modal-review-submitted" v-if="!reviewform">
+            <p style="font-weight: bold;">리뷰가 등록되었습니다 😄</p>
         </div>
-    </div>
+        <!-- 작성완료 확인모달 -->
+    <!-- </div> -->
 </template>
 
+<script>
+import { ref } from 'vue'
+import { getCurrentInstance } from "vue";
+
+export default {
+    emits:[
+    'CloseReviewModal',
+    ],
+    setup() {
+        const { emit } = getCurrentInstance();
+        const star = ref(1)
+        const playgame = '클루'
+        const gamereviewtext = ref('')
+        const reviewform = ref(true)
+        
+
+        const submitReview = function() {
+            if (gamereviewtext.value == "") {
+                window.alert('다시써')
+            }
+            else {
+                reviewform.value = false
+                console.log(gamereviewtext.value, star.value) // 리뷰 데이터 받아왔음
+                setTimeout(() => {
+                    emit('CloseReviewModal')
+                    reviewform.value = true
+                    }, 1500);
+            }
+        }
+        return {
+            star,
+            playgame,
+            gamereviewtext,
+            submitReview,
+            reviewform
+        }
+    },
+}
+</script>
+
+
 <style>
+.review-modal-title {
+    margin: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 5vw;
+    display: flex;
+    justify-content: space-between;
+}
+.rating-comment {
+    margin-top: 15px; 
+    margin-bottom: 5px; 
+    font-size: 4vw;
+}
+.star-rating-wrap {
+    display:flex; 
+    justify-content: center;
+}
+.star-rating-point {
+    margin: 10px;
+    font-size: 6vw;
+    color: rgb(0, 0, 0);
+}
+.star-rating {
+    position: relative;
+    font-size: 8vw;
+    color: #ddd;
+    margin-bottom: 15px; 
+  }
+  
+  .star-rating > input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .star-rating > span {
+    width: calc(v-bind ('star') * 10%);
+    /* width:  50%; */
+    position: absolute; 
+    left: 0;
+    color: rgb(255, 239, 19);
+    overflow: hidden;
+    pointer-events: none;
+  }
 .review-modal-form {
-    width: 70vw;
-    height: 45vh;
+    position: relative;
+    top: 100px;
+    width: 85vw;
+    height: 350px;
     background-color: white;    
-    padding: 20px;
     border-radius: 10px;
+}
+.review-modal-bottom {
+    /* background-color: greenyellow; */
+    width: 75vw;
+    height: 70px;
+    align-items: end;
 }
 .review-modal-inner {
     /* background-color: pink; */
-    height: 35vh;
-    width: 70vw;
+    height: 200px;
+    width: 75vw;
     border-top: 1px solid rgb(121, 121, 121);
+    
 }
-.rmi-inner {
-    margin: 20px;
+.im-not-play-this-game {
+    margin-top: 20px;
+    font-size: 3vw;
+    text-align: end;
+    color: rgb(145, 145, 145);
+    text-decoration: underline;
+    text-underline-position: under;
+}
+.rmi-displayflex {
+    display: flex;
+    justify-content: center;
 }
 .review-modal-inner-textarea {
-    height: 20vh;
-    width: 60vw;
+    height: 100px;
+    width: 74vw;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(216, 216, 216);
+}
+.review-modal-inner-textarea:focus {
+    outline: solid 2px rgb(199, 199, 199);
 }
 .review-modal-btn-wrap {
     display: flex;
     justify-content: end;
-    margin: 20px;
+    margin: 5px;
+}
+.review-submit {
+    margin: 5px;
+    width: 80px;
+    height: 25px;
+    border-radius: 5px;
+    background-color: #889EEB;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.review-revoke {
+    margin: 5px;
+    width: 80px;
+    height: 25px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    outline: solid 1px #c3d0ff83;
+    color: #889EEB;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.modal-review-submitted {
+    position: relative;
+    top: 200px;
+    width: 85vw;
+    height: 20vh;
+    background-color: white;    
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
