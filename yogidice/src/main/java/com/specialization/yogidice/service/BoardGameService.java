@@ -14,6 +14,7 @@ import com.specialization.yogidice.dto.response.category.CategoryGroupResponse;
 import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,8 +62,8 @@ public class BoardGameService {
     }
 
     @Transactional
-    public List<BoardGameResponse> readBoardGameList() {
-        List<BoardGame> boardGames = boardGameRepository.findAll();
+    public List<BoardGameResponse> readBoardGameList(Pageable pageable) {
+        List<BoardGame> boardGames = boardGameRepository.findAll(pageable).getContent();
         if (boardGames.isEmpty()) {
             throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
         }
