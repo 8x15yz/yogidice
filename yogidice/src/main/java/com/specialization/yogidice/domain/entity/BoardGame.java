@@ -79,6 +79,12 @@ public class BoardGame {
     @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MechanismGroup> mechanismGroups = new ArrayList<>();
 
+    @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<History> histories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
     @OneToOne(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
     private NumOfReview numOfReview;
 
@@ -122,5 +128,9 @@ public class BoardGame {
         this.youtubeUrl = youtubeUrl;
         this.contents = contents;
         this.contentsImgUrl = contentsImgUrl;
+    }
+
+    public void updateRatingUser(double ratingUser) {
+        this.ratingUser = ratingUser;
     }
 }

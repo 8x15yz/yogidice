@@ -9,11 +9,13 @@ import com.specialization.yogidice.domain.repository.category.MechanismGroupRepo
 import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.response.BoardGameResponse;
+import com.specialization.yogidice.dto.response.RatingGameResponse;
 import com.specialization.yogidice.dto.response.RecentGameResponse;
 import com.specialization.yogidice.dto.response.category.CategoryGroupResponse;
 import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,8 +63,8 @@ public class BoardGameService {
     }
 
     @Transactional
-    public List<BoardGameResponse> readBoardGameList() {
-        List<BoardGame> boardGames = boardGameRepository.findAll();
+    public List<BoardGameResponse> readBoardGameList(Pageable pageable) {
+        List<BoardGame> boardGames = boardGameRepository.findAll(pageable).getContent();
         if (boardGames.isEmpty()) {
             throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
         }
@@ -132,8 +134,47 @@ public class BoardGameService {
     }
 
     @Transactional
-    public List<RecentGameResponse> readPublishYearTop() {
+    public List<RatingGameResponse> readTop10ListByRatingUser() {
+        List<BoardGame> games = boardGameRepository.findTop10ByOrderByRatingUserDesc();
+        if (games.isEmpty()) {
+            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+        }
+        List<RatingGameResponse> responses = new ArrayList<>();
+        for (BoardGame boardGame : games) {
+            responses.add(RatingGameResponse.response(boardGame));
+        }
+        return responses;
+    }
+
+    @Transactional
+    public List<RatingGameResponse> readAllListByRatingUser(Pageable pageable) {
+        List<BoardGame> games = boardGameRepository.findAllByOrderByRatingUserDesc(pageable).getContent();
+        if (games.isEmpty()) {
+            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+        }
+        List<RatingGameResponse> responses = new ArrayList<>();
+        for (BoardGame boardGame : games) {
+            responses.add(RatingGameResponse.response(boardGame));
+        }
+        return responses;
+    }
+
+    @Transactional
+    public List<RecentGameResponse> readTop10ListByPublishYear() {
         List<BoardGame> games = boardGameRepository.findTop10ByOrderByPublishYearDesc();
+        if (games.isEmpty()) {
+            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+        }
+        List<RecentGameResponse> responses = new ArrayList<>();
+        for (BoardGame boardGame : games) {
+            responses.add(RecentGameResponse.response(boardGame));
+        }
+        return responses;
+    }
+
+    @Transactional
+    public List<RecentGameResponse> readAllListByPublishYear(Pageable pageable) {
+        List<BoardGame> games = boardGameRepository.findAllByOrderByPublishYearDesc(pageable).getContent();
         if (games.isEmpty()) {
             throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
         }

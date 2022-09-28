@@ -33,7 +33,7 @@ public class CategoryController {
             @Valid @RequestBody CategoryRequest request
     ) {
         Long cateId = categoryService.createCategory(request);
-        return ResponseEntity.status(HttpStatus.OK).body(CategoryResponse.of(200, "Success", cateId));
+        return ResponseEntity.status(HttpStatus.OK).body(CategoryCreateResponse.of(200, "Success", cateId));
     }
 
     // 카테고리(테마) 목록 조회
@@ -49,7 +49,7 @@ public class CategoryController {
     public ResponseEntity<?> readCategory(
             @PathVariable Long cateId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(CategoryResponse.of(200, "Success", categoryService.readCategory(cateId)));
+        return ResponseEntity.status(HttpStatus.OK).body(CategoryDetailResponse.of(200, "Success", categoryService.readCategory(cateId)));
     }
 
     // 카테고리(테마) 수정
@@ -80,7 +80,7 @@ public class CategoryController {
             @Valid @RequestBody TypeRequest request
     ) {
         Byte typeId = typeService.createType(request);
-        return ResponseEntity.status(HttpStatus.OK).body(TypeResponse.of(200, "Success", typeId));
+        return ResponseEntity.status(HttpStatus.OK).body(TypeCreateResponse.of(200, "Success", typeId));
     }
 
     // 타입 목록 조회
@@ -96,7 +96,7 @@ public class CategoryController {
     public ResponseEntity<?> readType(
             @PathVariable Byte typeId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(TypeResponse.of(200, "Success", typeService.readType(typeId)));
+        return ResponseEntity.status(HttpStatus.OK).body(TypeDetailResponse.of(200, "Success", typeService.readType(typeId)));
     }
 
     // 타입 수정
@@ -127,7 +127,7 @@ public class CategoryController {
             @Valid @RequestBody MechanismRequest request
     ) {
         Long mechanismId = mechanismService.createMechanism(request);
-        return ResponseEntity.status(HttpStatus.OK).body(MechanismResponse.of(200, "Success", mechanismId));
+        return ResponseEntity.status(HttpStatus.OK).body(MechanismCreateResponse.of(200, "Success", mechanismId));
     }
 
     // 진행방식 목록 조회
@@ -143,7 +143,7 @@ public class CategoryController {
     public ResponseEntity<?> readMechanism(
             @PathVariable Long mechanismId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(MechanismResponse.of(200, "Success", mechanismService.readMechanism(mechanismId)));
+        return ResponseEntity.status(HttpStatus.OK).body(MechanismDetailResponse.of(200, "Success", mechanismService.readMechanism(mechanismId)));
     }
 
     // 진행방식 수정

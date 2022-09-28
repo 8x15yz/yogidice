@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("CafeGameResponse")
-public class CafeGameResponse extends BaseResponseBody {
+public class CafeGameResponse {
     private Long id;
 
     private Long cafeId;
@@ -29,13 +29,5 @@ public class CafeGameResponse extends BaseResponseBody {
                 cafeGameList.getBoardGame().getId(),
                 cafeGameList.getBoardGame().getTitleKr()
         );
-    }
-
-    public static CafeGameResponse of(Integer statusCode, String message, Long gameListId) {
-        CafeGameResponse response = new CafeGameResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(gameListId);
-        return response;
     }
 }

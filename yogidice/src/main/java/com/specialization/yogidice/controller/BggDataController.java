@@ -1,8 +1,10 @@
 package com.specialization.yogidice.controller;
 
 import com.specialization.yogidice.dto.request.BggDataRequest;
-import com.specialization.yogidice.dto.request.BoardGameRequest;
-import com.specialization.yogidice.dto.response.*;
+import com.specialization.yogidice.dto.response.BaseResponseBody;
+import com.specialization.yogidice.dto.response.BggDataCreateResponse;
+import com.specialization.yogidice.dto.response.BggDataDetailResponse;
+import com.specialization.yogidice.dto.response.BggDataListResponse;
 import com.specialization.yogidice.service.BggDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +29,7 @@ public class BggDataController {
             @Valid @RequestBody BggDataRequest request
     ) {
         Long bggDataId = bggDataService.createBggData(request);
-        return ResponseEntity.status(HttpStatus.OK).body(BggDataResponse.of(200, "Success", bggDataId));
+        return ResponseEntity.status(HttpStatus.OK).body(BggDataCreateResponse.of(200, "Success", bggDataId));
     }
 
     // BGG 보드게임 평점 목록 조회
@@ -43,7 +45,7 @@ public class BggDataController {
     public ResponseEntity<?> readBggData(
             @PathVariable Long bggDataId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(BggDataResponse.of(200, "Success", bggDataService.readBggData(bggDataId)));
+        return ResponseEntity.status(HttpStatus.OK).body(BggDataDetailResponse.of(200, "Success", bggDataService.readBggData(bggDataId)));
     }
 
     // BGG 보드게임 평점 정보 수정

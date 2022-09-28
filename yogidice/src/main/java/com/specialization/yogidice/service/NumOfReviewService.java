@@ -9,6 +9,7 @@ import com.specialization.yogidice.domain.repository.NumOfReviewRepository;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
 import com.specialization.yogidice.dto.response.NumOfReviewResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,7 @@ public class NumOfReviewService {
 
 
     @Transactional
-    public Long createNumOfReview(NumOfReviewRequest request) {
+    public void createNumOfReview(NumOfReviewRequest request) {
         BoardGame boardGame = boardGameRepository.findById(request.getGameId())
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         if (numOfReviewRepository.findByBoardGame(boardGame).isPresent()) {
@@ -35,11 +36,11 @@ public class NumOfReviewService {
         NumOfReview saveNumOfReview = NumOfReview.create(
                 boardGame
         );
-        return numOfReviewRepository.save(saveNumOfReview).getId();
+        numOfReviewRepository.save(saveNumOfReview);
     }
 
     @Transactional
-    public List<NumOfReviewResponse> readNumOfReviewTop10List() {
+    public List<NumOfReviewResponse> readTop10ListByNumOfReview() {
         List<NumOfReview> numOfReviews = numOfReviewRepository.findTop10ByOrderByNumberDesc();
         if (numOfReviews.isEmpty()) {
             throw new NotFoundException(NUMOFREVIEW_LIST_NOT_FOUND);
@@ -52,11 +53,15 @@ public class NumOfReviewService {
     }
 
     @Transactional
-    public void deleteNumOfReview(Long gameId) {
-        BoardGame boardGame = boardGameRepository.findById(gameId)
-                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        NumOfReview numOfReview = numOfReviewRepository.findByBoardGame(boardGame)
-                .orElseThrow(() -> new NotFoundException(NUMOFREVIEW_NOT_FOUND));
-        numOfReviewRepository.delete(numOfReview);
+    public List<NumOfReviewResponse> readAllListByNumOfReview(Pageable pageable) {
+        List<NumOfReview> numOfReviews = numOfReviewRepository.findAllByOrderByNumberDesc(pageable).getContent();
+        if (numOfReviews.isEmpty()) {
+            throw new NotFoundException(NUMOFREVIEW_LIST_NOT_FOUND);
+        }
+        List<NumOfReviewResponse> responses = new ArrayList<>();
+        for (NumOfReview numOfReview : numOfReviews) {
+            responses.add(NumOfReviewResponse.response(numOfReview));
+        }
+        return responses;
     }
 }

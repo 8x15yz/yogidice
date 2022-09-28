@@ -1,9 +1,7 @@
 package com.specialization.yogidice.controller;
 
 import com.specialization.yogidice.dto.request.BoardGameCafeRequest;
-import com.specialization.yogidice.dto.response.BaseResponseBody;
-import com.specialization.yogidice.dto.response.BoardGameCafeListResponse;
-import com.specialization.yogidice.dto.response.BoardGameCafeResponse;
+import com.specialization.yogidice.dto.response.*;
 import com.specialization.yogidice.service.BoardGameCafeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +26,7 @@ public class BoardGameCafeController {
             @Valid @RequestBody BoardGameCafeRequest request
     ) {
         Long cafeId = boardGameCafeService.createBoardGameCafe(request);
-        return ResponseEntity.status(HttpStatus.OK).body(BoardGameCafeResponse.of(200, "Success", cafeId));
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameCafeCreateResponse.of(200, "Success", cafeId));
     }
 
     // 보드게임 카페 목록 조회
@@ -44,7 +42,7 @@ public class BoardGameCafeController {
     public ResponseEntity<?> readBoardGameCafe(
             @PathVariable Long cafeId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(BoardGameCafeResponse.of(200, "Success", boardGameCafeService.readBoardGameCafe(cafeId)));
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameCafeDetailResponse.of(200, "Success", boardGameCafeService.readBoardGameCafe(cafeId)));
     }
 
     // 보드게임 카페 수정
