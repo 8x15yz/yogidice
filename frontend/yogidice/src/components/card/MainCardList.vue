@@ -4,7 +4,6 @@
       v-for="game in gameLists"
       :key="game.gameId"
       id="main-card"
-      @move-game-detail="showDetail(game)"
       @click="showDetail(game)"
     >
       <main-card-items
