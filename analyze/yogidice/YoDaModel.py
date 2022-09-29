@@ -1,11 +1,17 @@
 import csv
 import pandas as pd
 from tqdm import tqdm
-import json
+import numpy as np
 
-def knn(list):
-  result = []
+def search(list):
+  csv_data = np.loadtxt('../../data/ratingMatrix.csv', delimiter=',')
+  user = np.zeros(15242, int)
   for i in list:
-    result.append(i['game'])
-  result = dict(zip(range(1, len(result) + 1), result))
-  return result
+    user[int(i) -1] = 1
+  cal = user @ csv_data
+  index = np.argsort(cal)[::-1][:10]
+
+  return index
+
+
+

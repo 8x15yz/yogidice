@@ -39,7 +39,7 @@ from rest_framework.status import (
 
 from django.http import ( HttpResponse, JsonResponse)
 from . import CateModel
-# from . import YoDaModel
+from . import YoDaModel
 
 @api_view(['GET'])
 def bggdata_list(request):
@@ -95,7 +95,7 @@ def get_user_data(request, user):
         serializer = HistorySerializer(data, many=True)
         list = []
         for i in serializer.data:
-            list.append(search_rating(i['game']))
-        # model_result = YoDaModel.knn(serializer.data)
+            list.append(i['game'])
+        model_result = YoDaModel.search(list)
         return JsonResponse(serializer.list,'json')
         
