@@ -35,11 +35,11 @@ public class BoardGameDetailResponse extends BaseResponseBody {
 
     private Byte maxPlayers;
 
-    private String playingTime;
+    private int playingTime;
 
-    private String minTime;
+    private int minTime;
 
-    private String maxTime;
+    private int maxTime;
 
     private int age;
 
