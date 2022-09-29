@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("HistoryResponse")
-public class HistoryResponse extends BaseResponseBody {
+public class HistoryResponse {
     private Long Id;
 
     private double rating;
@@ -40,13 +40,5 @@ public class HistoryResponse extends BaseResponseBody {
                 history.getBoardGame().getId(),
                 history.getBoardGame().getTitleKr()
         );
-    }
-
-    public static HistoryResponse of(Integer statusCode, String message, Long historyId) {
-        HistoryResponse response = new HistoryResponse();
-        response.setStatusCode(statusCode);
-        response.setMessage(message);
-        response.setId(historyId);
-        return response;
     }
 }

@@ -14,5 +14,5 @@ public class MechanismGroupCreateRequest {
     private Long gameId;
 
     @NotNull
-    private Byte mechanismId;
+    private Long mechanismId;
 }

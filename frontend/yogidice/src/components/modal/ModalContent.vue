@@ -30,9 +30,11 @@ export default {
 
     let info = computed(() => store.state.modal.contents.info)
 
+
+
     // 이벤트 리스너 중복 방지를 위한 함수 정의
     const registerToInit = function () {
-          store.dispatch("user/registNickName", {'nickName':info.value.content});
+          store.dispatch("user/kakaoRegist", {'kakaoId':info.value.content.kakaoId, "nickName":info.value.content.nickName});
         }
     const registBookMark = function () {
           store.dispatch("user/registBookMark", {'gameList':info.value.content});
@@ -56,7 +58,6 @@ export default {
 
       watch(isShowModal, (newValue) => {
         if (newValue === true && info.value.from === "registNickName") {
-          console.log(firstButton)
           firstButton.addEventListener("click", registerToInit);
           secondButton.addEventListener("click", closeModal)    
         } else if (newValue === true && info.value.from === "initChoice") {

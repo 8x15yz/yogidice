@@ -31,7 +31,7 @@ public class CategoryGroupController {
             @Valid @RequestBody CategoryGroupCreateRequest request
     ) {
         Long cateGroupId = categoryGroupService.createCategoryGroup(request);
-        return ResponseEntity.status(HttpStatus.OK).body(CategoryGroupResponse.of(200, "Success", cateGroupId));
+        return ResponseEntity.status(HttpStatus.OK).body(CategoryGroupCreateResponse.of(200, "Success", cateGroupId));
     }
 
     // 보드게임을 통한 카테고리(테마) 목록 조회
@@ -80,7 +80,7 @@ public class CategoryGroupController {
             @Valid @RequestBody TypeGroupCreateRequest request
     ) {
         Long typeGroupId = typeGroupService.createTypeGroup(request);
-        return ResponseEntity.status(HttpStatus.OK).body(TypeGroupResponse.of(200, "Success", typeGroupId));
+        return ResponseEntity.status(HttpStatus.OK).body(TypeGroupCreateResponse.of(200, "Success", typeGroupId));
     }
 
     // 보드게임을 통한 타입 목록 조회
@@ -96,7 +96,7 @@ public class CategoryGroupController {
     @GetMapping("/type/cate/{typeId}")
     @ApiOperation(value = "타입을 통한 타입 목록 조회", notes = "타입을 통해 타입 목록을 조회합니다.")
     public ResponseEntity<?> readTypeGroupListOfType(
-            @PathVariable Long typeId
+            @PathVariable Byte typeId
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(TypeGroupListResponse.of(200, "Success", typeGroupService.readTypeGroupListOfType(typeId)));
     }
@@ -129,7 +129,7 @@ public class CategoryGroupController {
             @Valid @RequestBody MechanismGroupCreateRequest request
     ) {
         Long mechanismGroupId = mechanismGroupService.createMechanismGroup(request);
-        return ResponseEntity.status(HttpStatus.OK).body(MechanismGroupResponse.of(200, "Success", mechanismGroupId));
+        return ResponseEntity.status(HttpStatus.OK).body(MechanismGroupCreateResponse.of(200, "Success", mechanismGroupId));
     }
 
     // 보드게임을 통한 진행방식 목록 조회
@@ -145,7 +145,7 @@ public class CategoryGroupController {
     @GetMapping("/mechanism/cate/{mechanismId}")
     @ApiOperation(value = "진행방식을 통한 진행방식 목록 조회", notes = "진행방식을 통해 진행방식 목록을 조회합니다.")
     public ResponseEntity<?> readMechanismGroupListOfMechanism(
-            @PathVariable Byte mechanismId
+            @PathVariable Long mechanismId
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(MechanismGroupListResponse.of(200, "Success", mechanismGroupService.readMechanismGroupListOfMechanism(mechanismId)));
     }

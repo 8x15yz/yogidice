@@ -3,8 +3,8 @@ package com.specialization.yogidice.controller;
 import com.specialization.yogidice.dto.request.CafeGameListCreateRequest;
 import com.specialization.yogidice.dto.request.CafeGameListUpdateRequest;
 import com.specialization.yogidice.dto.response.BaseResponseBody;
+import com.specialization.yogidice.dto.response.CafeGameCreateResponse;
 import com.specialization.yogidice.dto.response.CafeGameListResponse;
-import com.specialization.yogidice.dto.response.CafeGameResponse;
 import com.specialization.yogidice.service.CafeGameListService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +29,7 @@ public class CafeGameListController {
             @Valid @RequestBody CafeGameListCreateRequest request
     ) {
         Long gameListId = cafeGameListService.createCafeGameList(request);
-        return ResponseEntity.status(HttpStatus.OK).body(CafeGameResponse.of(200, "Success", gameListId));
+        return ResponseEntity.status(HttpStatus.OK).body(CafeGameCreateResponse.of(200, "Success", gameListId));
     }
 
     // 보드게임 카페를 통한 보드게임 카페 보유 보드게임 목록 조회

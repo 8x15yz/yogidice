@@ -107,7 +107,7 @@ public class UserController {
     public ResponseEntity<?> readUser(
             @ApiIgnore @LoginUser User user
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(UserResponse.of(200, "Success", userService.readUser(user.getId())));
+        return ResponseEntity.status(HttpStatus.OK).body(UserDetailResponse.of(200, "Success", userService.readUser(user.getId())));
     }
 
     // 회원 정보 수정
@@ -139,6 +139,7 @@ public class UserController {
     public ResponseEntity<?> deleteUser(
             @ApiIgnore @LoginUser User user
     ) {
+        historyService.deleteHistoryByUser(user.getId());
         userService.deleteUser(user.getId());
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
@@ -157,7 +158,7 @@ public class UserController {
             @Valid @RequestBody BookmarkRequest request
     ) {
         Long bookmarkId = bookmarkService.createBookmark(user.getId(), request);
-        return ResponseEntity.status(HttpStatus.OK).body(BookmarkResponse.of(200, "Success", bookmarkId));
+        return ResponseEntity.status(HttpStatus.OK).body(BookmarkCreateResponse.of(200, "Success", bookmarkId));
     }
 
     // 북마크 목록 조회
@@ -205,7 +206,7 @@ public class UserController {
             @Valid @RequestBody HistoryCreateRequest request
     ) {
         Long historyId = historyService.createHistory(user.getId(), request);
-        return ResponseEntity.status(HttpStatus.OK).body(HistoryResponse.of(200, "Success", historyId));
+        return ResponseEntity.status(HttpStatus.OK).body(HistoryCreateResponse.of(200, "Success", historyId));
     }
 
     @GetMapping("/history")
@@ -266,6 +267,6 @@ public class UserController {
     public ResponseEntity<?> checkReview(
             @ApiIgnore @LoginUser User user
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(UserResponse.of(200, "Success", userService.checkReview(user.getId())));
+        return ResponseEntity.status(HttpStatus.OK).body(UserReviewedResponse.of(200, "Success", userService.checkReview(user.getId())));
     }
 }

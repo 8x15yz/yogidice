@@ -3,13 +3,13 @@
     <div class="detail-game-info">
       <div class="chip-rating">
         <div class="detail-game-chip-container">
-          <div>'2인~3인'</div>
-          <div>{{gameInfo.playTimes}}</div>
-          <div>{{gameInfo.playLevel}}</div>
+          <div>{{`${gameInfo.minPlayers} ~ ${gameInfo.maxPlayers}인`}}</div>
+          <div>{{`${gameInfo.playingTime}분 소요`}}</div>
+          <div>{{gameInfo.difficulty}}</div>
         </div>
-        <div class="text-subtitle-1 rating">★{{gameInfo.rating}}</div>
+        <div class="text-subtitle-1 rating">★{{gameInfo.ratingUser}}</div>
       </div>
-      <div class="detail-game-title text-headline-6">{{ gameInfo.title_kr }}</div>
+      <div class="detail-game-title text-headline-6">{{ gameInfo.titleKr }}</div>
       <hr style="width:100%">
       <button class="button-long-blue text-button">게임하러 가기</button>
     </div>
@@ -17,19 +17,20 @@
 </template>
 
 <script>
-import { computed,toRefs } from '@vue/runtime-core'
+import { computed } from '@vue/runtime-core'
+import { useStore } from 'vuex'
 export default {
-  props: {
-    game:Object
-  },
-  setup(props) {
-    let gameInfo = toRefs(props.game)
-    // router 동적 변수로 게임 번호 가져오고 그거로 axios 요청해서 데이터 받아오기
+
+  setup() {
+    const store = useStore()
+    let gameInfo = computed(()=>store.state.games.detail)
     let backImgUrl = computed(()=>{
       return {
-        "background-image": `url(https://boardlife.co.kr/${gameInfo.thumburl.value})`
+        "background-image": `url(${gameInfo.value.thumbUrl})`
       }
     })
+
+
     
     return {
       gameInfo,
@@ -61,6 +62,7 @@ button {
   white-space: nowrap;
   overflow:hidden;
   text-overflow: ellipsis;
+  text-align: left;
 }
 .detail-card-container {
   width: 96vw;
@@ -107,6 +109,9 @@ button {
 }
 .detail-game-chip-container div:nth-child(3) {
   background-color: var(--color-chip-letter-purple);
+}
+hr {
+  margin: 2vh 0vw;
 }
 
 </style>

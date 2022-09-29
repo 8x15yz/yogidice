@@ -23,7 +23,7 @@ public class TypeService {
     private final TypeRepository typeRepository;
 
     @Transactional
-    public Long createType(TypeRequest request) {
+    public Byte createType(TypeRequest request) {
         if (typeRepository.findByName(request.getName()).isPresent()) {
             throw new DuplicateException(String.format("%s 은/는 이미 등록된 보드게임 타입입니다.", request.getName()));
         }
@@ -47,14 +47,14 @@ public class TypeService {
     }
 
     @Transactional
-    public TypeResponse readType(Long typeId) {
+    public TypeResponse readType(Byte typeId) {
         Type type = typeRepository.findById(typeId)
                 .orElseThrow(() -> new NotFoundException(TYPE_NOT_FOUND));
         return TypeResponse.response(type);
     }
 
     @Transactional
-    public void updateType(Long typeId, TypeRequest request) {
+    public void updateType(Byte typeId, TypeRequest request) {
         Type type = typeRepository.findById(typeId)
                 .orElseThrow(() -> new NotFoundException(TYPE_NOT_FOUND));
         type.update(
@@ -64,7 +64,7 @@ public class TypeService {
     }
 
     @Transactional
-    public void deleteType(Long typeId) {
+    public void deleteType(Byte typeId) {
         Type type = typeRepository.findById(typeId)
                 .orElseThrow(() -> new NotFoundException(TYPE_NOT_FOUND));
         typeRepository.delete(type);

@@ -18,7 +18,7 @@ public class Mechanism {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mechanism_id")
-    private Byte id;
+    private Long id;
 
     @NotNull
     @Column(length = 50)

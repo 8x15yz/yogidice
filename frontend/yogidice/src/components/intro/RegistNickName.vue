@@ -4,7 +4,7 @@
       <label for="nickname-input" class="text-subtitle-2"
         >사용할 닉네임을 입력하세요</label
       >
-      <input id="nickname-input" v-model="nickNameValue" type="text" />
+      <input id="nickname-input" v-model="userNickName" type="text" />
       <div>
         <button @click="registNickname" class="button-small-blue text-button">
           계속
@@ -16,42 +16,46 @@
 </template>
 
 <script>
-import { reactive, ref, computed } from "vue";
+import { reactive,  computed, ref } from "vue";
 import { useStore } from "vuex";
+import { useRoute } from "vue-router"
 import ModalDialog from "@/components/modal/ModalDialog.vue";
 
 export default {
   components: {
     ModalDialog,
   },
-  props: {
-    nickName: String,
-  },
-  setup(props) {
+
+  setup() {
+    const route = useRoute()
     const store = useStore();
+
+    let userNickName = ref(route.params.nickName)
+    const userId = route.params.kakaoId
+
     let showModal = computed(() => store.state.modal.showModal);
-    let nickNameValue = ref(props.nickName);
     let contents = reactive({
-      info: { from: "registNickName", content: "" },
+      info: { from: "registNickName", content: {"nickName":userNickName.value, "kakaoId":userId} },
       header: "",
       body: "",
       footer1: "",
       footer2: "",
     });
     const registNickname = function () {
-      contents.header = "닉네임 변경";
-      contents.body = `${nickNameValue.value} 으로 등록하시겠습니까?`;
+      contents.header = "닉네임 등록";
+      contents.body = `${userNickName.value} 으로 등록하시겠습니까?`;
       contents.footer1 = "계속";
       contents.footer2 = "취소";
-      contents.info.content = nickNameValue.value;
-      store.dispatch("registModal", contents);
-      store.dispatch("openModal");
+      contents.info.content = { "nickName":userNickName.value, "kakaoId":userId};
+      store.dispatch("modal/registModal", contents);
+      store.dispatch("modal/openModal");
     };
     return {
       showModal,
-      nickNameValue,
+      // nickNameValue,
       registNickname,
       contents,
+      userNickName
     };
   },
 };

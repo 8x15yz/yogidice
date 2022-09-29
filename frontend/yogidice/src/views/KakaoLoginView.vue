@@ -38,8 +38,8 @@ export default {
 <style>
  .loading {
   position: absolute;
-  width: 100vw;
-  height: 90vh;
+  width: 100%;
+  height: 100%;
   background-color: var(--color-bg-modal)
 }
 </style>

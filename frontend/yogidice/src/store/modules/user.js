@@ -24,7 +24,7 @@ export default {
   actions: {
     registNickName({ commit, getters }, newNickName) {
       axios({
-        url: api.users.get(),
+        url: api.users.regist(),
         method: "put",
         headers: getters.authHeader,
         data: newNickName,
@@ -133,7 +133,7 @@ export default {
           } else {
             router.push({
               name: "RegistNickName",
-              params: { nickName: userInfo.nickName },
+              params: { nickName: userInfo.nickName, kakaoId: userInfo.kakaoId },
             });
           }
         })
@@ -146,13 +146,14 @@ export default {
       axios({
         url: api.users.regist(),
         method: "post",
-        data: JSON.stringify(formData),
+        data: formData,
       })
         .then((res) => {
           const token = res.headers["authorization"];
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
-          router.push({ name: "MainPage" });
+          dispatch("modal/closeModal",null,{ root:true });
+          router.push({ name: "InitChoice" });
         })
         .catch((err) => {
           console.log(err);

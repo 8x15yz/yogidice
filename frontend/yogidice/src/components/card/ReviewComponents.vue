@@ -12,8 +12,8 @@
                 <div class="rating review-rating">
                     ★{{data.rating}} 
                 </div>
-                <div v-if="isuser" @click="reviewUpdateModalOn" class="icon-padding">
-                    <i class="far fa-edit review-rating"></i>
+                <div v-if="isuser" class="icon-padding" @click="$emit('OpenReviewModal')">
+                    <i class="far fa-edit review-rating" ></i>
                 </div>
             </div>
             <div class="review-create-date">
@@ -34,18 +34,16 @@ export default{
     props: {
         reviewdatum: Object
     },
+    emits:[
+        'OpenReviewModal',
+    ],
     setup(props) {
         const isuser = ref(true)
         const datum = reactive(props.reviewdatum)
 
-        const reviewUpdateModalOn = function () {
-            console.log('네')
-            // 리뷰쓰는 폼 만들어야돼
-        }
         return {
             isuser,
             datum,
-            reviewUpdateModalOn
         }
     },
 }
@@ -58,7 +56,6 @@ export default{
     height: auto;
     border-radius: 5px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
     border: solid 1px rgb(197, 197, 197);
@@ -88,7 +85,7 @@ export default{
     font-size: 20px; 
     font-weight: bolder;
     width: 100vw;
-    height: 25px;
+    height: 20px;
     overflow: hidden;
     /* background-color: pink; */
 } 
