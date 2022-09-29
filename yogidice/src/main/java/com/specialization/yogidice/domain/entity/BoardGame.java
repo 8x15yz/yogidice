@@ -48,13 +48,10 @@ public class BoardGame {
 
     private Byte maxPlayers;
 
-    @Column(length = 50)
     private int playingTime;
 
-    @Column(length = 50)
     private int minTime;
 
-    @Column(length = 50)
     private int maxTime;
 
     private int age;
