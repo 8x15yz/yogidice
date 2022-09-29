@@ -15,4 +15,7 @@ public class MechanismRequest {
 
     @NotNull
     private String parentsMec;
+
+    @NotNull
+    private String description;
 }

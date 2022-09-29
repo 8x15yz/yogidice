@@ -28,18 +28,23 @@ public class Mechanism {
     @Column(length = 50)
     private String parentsMec;
 
+    @NotNull
+    private String description;
+
     @OneToMany(mappedBy = "mechanism", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MechanismGroup> mechanismGroups = new ArrayList<>();
 
-    public static Mechanism create(String name, String parentsMec) {
+    public static Mechanism create(String name, String parentsMec, String description) {
         Mechanism mechanism = new Mechanism();
         mechanism.name = name;
         mechanism.parentsMec = parentsMec;
+        mechanism.description = description;
         return mechanism;
     }
 
-    public void update(String name, String parentsMec) {
+    public void update(String name, String parentsMec, String description) {
         this.name = name;
         this.parentsMec = parentsMec;
+        this.description = description;
     }
 }
