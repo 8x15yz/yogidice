@@ -60,6 +60,7 @@ export default {
     let initMessage = ref(true)
 
     onMounted(() => {
+      store.dispatch("page/registPresentPage","선호도조사", { root:true })
       // 선택의 개수에 따라 버튼 색깔 바꿔주기
       const initBtn = document.querySelector(".init-select-btn")
       emitter.on("selectCnt",(data) => {
