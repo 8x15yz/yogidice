@@ -27,7 +27,7 @@ public class BoardGameRepositorySupport {
                         qBoardGame.playingTime.between(questionConfig.getQFourLower(), questionConfig.getQFourUpper()),
                         qBoardGame.publishYear.between(questionConfig.getQFiveLower(), questionConfig.getQFiveUpper()))
                 .orderBy(qBoardGame.ratingUser.add(qBoardGame.ratingBl).desc())
-                .limit(5)
+                .limit(200)
                 .fetch();
         return boardGameList;
     }

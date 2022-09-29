@@ -2,6 +2,7 @@ package com.specialization.yogidice.service;
 
 import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
+import com.specialization.yogidice.common.util.MechanismClassifier;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
 import com.specialization.yogidice.domain.repository.BoardGameRepositorySupport;
@@ -203,6 +204,15 @@ public class BoardGameService {
                     .map(MechanismGroupResponse::response)
                     .collect(Collectors.toList());
             responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
+        }
+
+        //여기서 메카니즘 대분류 필터링
+        for (int i = responses.size()-1; i>=0; i--) {
+            System.out.println(responses.size());
+            if (!MechanismClassifier.checkMechanism(request.getQuestion3(), responses.get(i))) {
+                responses.remove(i);
+            }
+            System.out.println(responses.size());
         }
         return responses;
     }
