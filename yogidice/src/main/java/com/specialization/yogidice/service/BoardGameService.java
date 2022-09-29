@@ -4,9 +4,11 @@ import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
+import com.specialization.yogidice.domain.repository.BoardGameRepositorySupport;
 import com.specialization.yogidice.domain.repository.category.CategoryGroupRepository;
 import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
 import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
+import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.response.BoardGameResponse;
 import com.specialization.yogidice.dto.response.RatingGameResponse;
@@ -34,6 +36,7 @@ public class BoardGameService {
     private final CategoryGroupRepository categoryGroupRepository;
     private final TypeGroupRepository typeGroupRepository;
     private final MechanismGroupRepository mechanismGroupRepository;
+    private final BoardGameRepositorySupport boardGameRepositorySupport;
 
     @Transactional
     public Long createBoardGame(BoardGameRequest request) {
@@ -181,6 +184,25 @@ public class BoardGameService {
         List<RecentGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : games) {
             responses.add(RecentGameResponse.response(boardGame));
+        }
+        return responses;
+    }
+
+    @Transactional
+    public List<BoardGameResponse> readPickBoardGame(BoardGamePickRequest request) {
+        List<BoardGame> boardGames = boardGameRepositorySupport.findBoardGameByPick(request);
+        List<BoardGameResponse> responses = new ArrayList<>();
+        for (BoardGame boardGame : boardGames) {
+            List<CategoryGroupResponse> categoryGroupResponses = categoryGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(CategoryGroupResponse::response)
+                    .collect(Collectors.toList());
+            List<TypeGroupResponse> typeGroupResponses = typeGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(TypeGroupResponse::response)
+                    .collect(Collectors.toList());
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(MechanismGroupResponse::response)
+                    .collect(Collectors.toList());
+            responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
         }
         return responses;
     }
