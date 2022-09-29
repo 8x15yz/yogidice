@@ -1,5 +1,5 @@
 <template>
-  <img class="main-card-img" @click="moveGameDetail" :src='thumbUrl' alt="">
+  <img class="main-card-img" :src='thumbUrl' alt="">
   <div class="title-rating">
     <div class="game-title text-subtitle-1">{{ mainGame.title_kr }}</div>
     <div class="text-subtitle-1 rating">★{{ mainGame.rating }}</div>
@@ -18,16 +18,16 @@ export default {
   props: {
     game: Object
   },
-  setup(props, context) {
+  setup(props) {
     let mainGame = toRefs(props.game)
     let thumbUrl = mainGame.thumbUrl
   
     let checkedMark = ref(false)
 
     const userSelection = reactive([])
-    const moveGameDetail = function() {
-      context.emit("moveGameDetail",mainGame)
-    }
+    // const moveGameDetail = function() {
+    //   context.emit("moveGameDetail",mainGame)
+    // }
     
 
   return {
@@ -35,7 +35,6 @@ export default {
     userSelection,
     checkedMark,
     thumbUrl,
-    moveGameDetail
     
     }}
 
