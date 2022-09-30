@@ -19,7 +19,6 @@ import { onMounted } from "vue"
 export default {
   setup () {
   let locPosition
-  let test = (e) => {console.log(e.target)}
   let showSearchList = function () {
     let searchList = document.querySelector(".search-list-title")
     let mapContainer = document.querySelector("#map")
@@ -30,7 +29,7 @@ export default {
         searchList.classList.remove("showing-list")
       
       } else {
-        mapContainer.style.height = "50vh"
+        mapContainer.style.height = "40vh"
         arrowIcon.style.rotate = "270deg"
         searchList.classList.add("showing-list")
     }
@@ -42,7 +41,7 @@ export default {
       initMap()
     } else {
       const script = document.createElement("script");
-      script.src = "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=9b22a355e61014bf58d711fa901c8f4a&libraries=services"
+      script.src = "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=98483126b77d6c122713d9878feec1bc&libraries=services"
       /* global kakao */
       script.addEventListener("load", () => {
         kakao.maps.load(initMap)
@@ -191,7 +190,7 @@ export default {
                 };
             })(marker, places[i].place_name);
 
-            fragment.appendChild(document.createElement("hr"))
+            // fragment.appendChild(document.createElement("hr"))
             fragment.appendChild(itemEl);
         }
 
@@ -295,6 +294,7 @@ export default {
             if (i===pagination.current) {
                 el.className = 'on';
             } else {
+                el.className = 'off'
                 el.onclick = (function(i) {
                     return function() {
                         pagination.gotoPage(i);
@@ -325,13 +325,16 @@ export default {
     }
     return {
       showSearchList,
-      test
     }
   }
 }
 </script>
 
 <style>
+.off {
+  
+
+}
 #map {
   width:100vw;
   height:80vh;
@@ -381,7 +384,7 @@ a {
 }
 .on {
   text-decoration: underline;
-  color: red;
+  color: blue;
 }
 .arrow-icon {
   rotate: 90deg;
@@ -389,7 +392,7 @@ a {
   padding-top: 2vh;
 }
 hr {
-  width: 100vw;
+  width: 5vw;
   margin: 0px;
 }
 .li-container {

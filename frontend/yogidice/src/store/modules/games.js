@@ -18,7 +18,8 @@ export default {
   mutations: {
     SET_DETAIL: (state,details) => state.detail = details,
     SET_MAIN_GAMES: (state,games) => state.mainGames.push(games),
-    SET_TYPE: (state,type) => state.presentType = type, 
+    SET_TYPE: (state,type) => state.presentType = type,
+    RESET_GAMES: (state) => state.mainGames = [],
   },
   actions: {
     getDetails ({commit},gameId) {
@@ -32,21 +33,30 @@ export default {
 
     },
     changeMainGames({commit,dispatch},type){
-      if (type === "리뷰많은순") {
-        axios({
-          url: api.games.mostReviewd(),
-          method: "get",
-        })
-        .then(res => {
-          let tmp = []
-          for (let r of res.data.responses) {
-            tmp.push(r.gameId)
-          }
-          dispatch("registGameDetails",tmp)
-          commit("SET_TYPE",type)
-        })
-        .catch(err => console.log(err))
+      let url 
+      if (type === "리뷰많은순") { 
+        url = api.games.mostReviewd10()
+      } 
+      else if (type === "TOP10") { 
+        url = api.games.mostRating10()
+      } 
+      else if (type === "최신게임"){ 
+        url = api.games.mostRecent10()
       }
+      
+      axios({
+        url: url,
+        method: "get",
+      })
+      .then(res => {
+        let tmp = []
+        for (let r of res.data.responses) {
+          tmp.push(r.gameId)
+        }
+        dispatch("registGameDetails",tmp)
+        commit("SET_TYPE",type)
+      })
+      .catch(err => console.log(err))
     },
 
     registGameDetails ({commit},gameNums) {
@@ -72,7 +82,9 @@ export default {
           console.log(err)
         })
       }
-
+    },
+    resetMainGames ({commit}) {
+      commit("RESET_GAMES")
     }
     
   }

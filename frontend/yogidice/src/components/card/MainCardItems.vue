@@ -6,7 +6,7 @@
   </div>
   <div class="game-chip-container">
     <div>{{ mainGame.players }}</div>
-    <div>{{ mainGame.times }}분 소요</div>
+    <div>{{ mainGame.times }}분</div>
     <div>{{ mainGame.level }}</div>
   </div>
 </template>
@@ -44,8 +44,8 @@ export default {
 
 <style>
 .main-card-img {
-  width: 52vw;
-  height: 52vw;
+  width: 56vw;
+  height: 56vw;
   object-fit: fill;
   border-bottom: 1px solid black;
   border-radius: 4px 4px 0 0;
@@ -65,6 +65,7 @@ export default {
 .rating {
   color: var(--color-mint);
   width: 30%;
+  text-align: right;
 }
 .game-chip-container {
   display: flex;
@@ -80,7 +81,7 @@ export default {
 .game-chip-container > div {
   border-radius: 40px;
   padding: 2px 6px 2px 6px; 
-  font-size: 8px;
+  font-size: 12px;
   font-weight: bold;
 }
 .game-chip-container div:nth-child(1) {
