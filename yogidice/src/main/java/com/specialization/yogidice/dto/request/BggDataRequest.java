@@ -11,9 +11,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class BggDataRequest {
     @NotNull
-    private String titleEng;
-
-    @NotNull
     private Long bbgCode;
 
     @NotNull

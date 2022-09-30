@@ -19,10 +19,6 @@ public class BggData {
     private Long id;
 
     @NotNull
-    @Column(length = 100)
-    private String titleEng;
-
-    @NotNull
     private long bggCode;
 
     @NotNull
@@ -32,17 +28,15 @@ public class BggData {
     @NotNull
     private double ratingUser;
 
-    public static BggData create(String titleEng, Long bggCode, String nickName, double ratingUser) {
+    public static BggData create(Long bggCode, String nickName, double ratingUser) {
         BggData bggData = new BggData();
-        bggData.titleEng = titleEng;
         bggData.bggCode = bggCode;
         bggData.nickName = nickName;
         bggData.ratingUser = ratingUser;
         return bggData;
     }
 
-    public void update(String titleEng, Long bggCode, String nickName, double ratingUser) {
-        this.titleEng = titleEng;
+    public void update(Long bggCode, String nickName, double ratingUser) {
         this.bggCode = bggCode;
         this.nickName = nickName;
         this.ratingUser = ratingUser;
