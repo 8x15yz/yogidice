@@ -11,6 +11,7 @@ import com.specialization.yogidice.domain.repository.category.MechanismGroupRepo
 import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
 import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
+import com.specialization.yogidice.dto.response.BoardGameListResponse;
 import com.specialization.yogidice.dto.response.BoardGameResponse;
 import com.specialization.yogidice.dto.response.RatingGameResponse;
 import com.specialization.yogidice.dto.response.RecentGameResponse;
@@ -190,6 +191,30 @@ public class BoardGameService {
     }
 
     @Transactional
+    public List<BoardGameResponse> readExtendedEditionGameList(Long boardGameId) {
+        BoardGame boardGame = boardGameRepository.findById(boardGameId)
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
+        List<BoardGame> games = boardGameRepository.findByBggCodeAndPublishYearNotLikeAndTitleKrNotLike(boardGame.getBggCode(), boardGame.getPublishYear(), boardGame.getTitleKr());
+        if (games.isEmpty()) {
+            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+        }
+        List<BoardGameResponse> responses = new ArrayList<>();
+        for (BoardGame game : games) {
+            List<CategoryGroupResponse> categoryGroupResponses = categoryGroupRepository.findByBoardGame(game).stream()
+                    .map(CategoryGroupResponse::response)
+                    .collect(Collectors.toList());
+            List<TypeGroupResponse> typeGroupResponses = typeGroupRepository.findByBoardGame(game).stream()
+                    .map(TypeGroupResponse::response)
+                    .collect(Collectors.toList());
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(game).stream()
+                    .map(MechanismGroupResponse::response)
+                    .collect(Collectors.toList());
+            responses.add(BoardGameResponse.response(game, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
+        }
+        return responses;
+    }
+
+    @Transactional
     public List<BoardGameResponse> readPickBoardGame(BoardGamePickRequest request) {
         List<BoardGame> boardGames = boardGameRepositorySupport.findBoardGameByPick(request);
         List<BoardGameResponse> responses = new ArrayList<>();
@@ -217,3 +242,4 @@ public class BoardGameService {
         return responses;
     }
 }
+

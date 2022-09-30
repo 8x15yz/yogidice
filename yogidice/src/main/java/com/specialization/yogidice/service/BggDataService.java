@@ -24,11 +24,10 @@ public class BggDataService {
 
     @Transactional
     public Long createBggData(BggDataRequest request) {
-        if (bggDataRepository.findByBggCode(request.getBbgCode()).isPresent()) {
-            throw new DuplicateException(String.format("%s 은/는 이미 등록된 보드게임입니다.", request.getTitleEng()));
+        if (bggDataRepository.findByBggCodeAndNickNameAndRatingUser(request.getBbgCode(), request.getNickName(), request.getRatingUser()).isPresent()) {
+            throw new DuplicateException(String.format("해당 보드게임에 대한 %s 님의 평가가 이미 등록되어 있습니다.", request.getNickName()));
         }
         BggData saveBggData = BggData.create(
-                request.getTitleEng(),
                 request.getBbgCode(),
                 request.getNickName(),
                 request.getRatingUser()
@@ -61,7 +60,6 @@ public class BggDataService {
         BggData bggData = bggDataRepository.findById(bggDataId)
                 .orElseThrow(() -> new NotFoundException(BGGDATA_NOT_FOUND));
         bggData.update(
-                request.getTitleEng(),
                 request.getBbgCode(),
                 request.getNickName(),
                 request.getRatingUser()

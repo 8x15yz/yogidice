@@ -134,12 +134,13 @@ export default {
   #introduce-slide-box {
     width: 400vw;
     transition: all 0.5s;
-    margin-top: 20vh;
+    margin-top: 10vh;
   }
   #introduce-slide-container {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
   }
   .slide-box {
     width: 80vw;
