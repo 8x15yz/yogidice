@@ -67,7 +67,7 @@ export default {
 }
 
 #main-card {
-  width: 52vw;
+  width: 56vw;
   box-shadow: var(--shadow-card);
   background-color: var(--color-white);
   border-radius: 4px;

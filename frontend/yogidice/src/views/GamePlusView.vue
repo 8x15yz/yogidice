@@ -58,7 +58,6 @@
             </div>
         </div>
     </div>
-    <!-- game 메뉴하단바 -->
 
     
 </template>
@@ -263,6 +262,7 @@ export default {
     font-weight: bold;
     color: white;
     font-size: 5vw;
+    position: sticky;
 }
 
 .game-menu-center {
