@@ -198,4 +198,12 @@ public class BoardGameController {
         String boardGameList = restTemplate.postForObject(url, request, String.class);
         return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
+
+    @GetMapping("/search/{title}")
+    @ApiOperation(value = "보드게임 이름으로 검색", notes = "보드게임 타이틀로 게임을 검색합니다.")
+    public ResponseEntity<?> searchBoardGame(
+            @PathVariable String title) {
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.searchBoardGame(title)));
+
+    }
 }
