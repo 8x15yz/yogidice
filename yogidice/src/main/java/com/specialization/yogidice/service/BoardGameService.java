@@ -214,6 +214,7 @@ public class BoardGameService {
         return responses;
     }
 
+
     @Transactional
     public List<BoardGameResponse> readPickBoardGame(BoardGamePickRequest request) {
         List<BoardGame> boardGames = boardGameRepositorySupport.findBoardGameByPick(request);
