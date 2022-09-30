@@ -1,4 +1,4 @@
-const HOST = "https://j7b206.p.ssafy.io/api";
+const HOST = "http://localhost:8081/api";
 
 const user = "/users";
 const game = "/games";

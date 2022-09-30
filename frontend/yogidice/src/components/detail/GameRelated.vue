@@ -1,9 +1,11 @@
 <template>
-  <div class="related-game-container">
-    <main-card-list></main-card-list>
-  </div>
-  <div class="related-game-container">
-    <sub-card-list></sub-card-list>
+  <div class="related-box">
+    <div class="related-game-container">
+      <main-card-list></main-card-list>
+    </div>
+    <div class="related-game-container">
+      <sub-card-list></sub-card-list>
+    </div>
   </div>
 </template>
 
@@ -22,5 +24,8 @@ export default {
 .related-game-container {
   margin: 2vh 2vw;
   overflow: scroll;
+}
+.related-box {
+  overflow-x: scroll;
 }
 </style>

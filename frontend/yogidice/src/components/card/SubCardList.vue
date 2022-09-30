@@ -1,7 +1,8 @@
 <template>
   <div id="main-game-card-container">
+    <h3>확장판 게임 목록</h3>
     <div
-      v-for="game in gameLists"
+      v-for="game in subGameLists"
       :key="game.gameId"
       id="main-card"
       @move-game-detail="showDetail(game)"
@@ -15,7 +16,7 @@
 <script>
 import MainCardItems from "@/components/card/MainCardItems.vue";
 import { onMounted, computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
@@ -25,21 +26,24 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const route = useRoute();
+
     const showDetail = function (n) {
       router.push({
         name: "GameDetail",
         query: { gameId: n.gameId, title: n.title_kr },
       });
     };
-    let gameLists = computed(() => store.state.games.mainGames);
-    let gameId;
+    let subGameLists = computed(() => store.state.games.subGames);
+    let gameId = route.query.gameId;
 
     onMounted(() => {
-      store.dispatch("games/changeMainGames", gameId);
+      store.dispatch("games/resetSubGames");
+      store.dispatch("games/changeSubGames", gameId);
     });
 
     return {
-      gameLists,
+      subGameLists,
       showDetail,
     };
   },
@@ -69,18 +73,5 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-}
-
-.card-more {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-}
-.card-more > div {
-  width: 20vw;
-  margin-top: 10px;
-  text-align: center;
 }
 </style>

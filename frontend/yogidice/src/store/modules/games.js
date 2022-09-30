@@ -18,6 +18,7 @@ export default {
     SET_SUB_GAMES: (state, games) => state.subGames.push(games),
     SET_TYPE: (state, type) => (state.presentType = type),
     RESET_GAMES: (state) => (state.mainGames = []),
+    RESET_SUB_GAMES: (state) => (state.subGames = []),
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -50,7 +51,11 @@ export default {
             tmp.push(r.gameId);
           }
           let kind = "main";
-          dispatch("registGameDetails", tmp, kind);
+          let params = {
+            gameNums: tmp,
+            kind: kind,
+          };
+          dispatch("registGameDetails", params);
           commit("SET_TYPE", type);
         })
         .catch((err) => console.log(err));
@@ -63,15 +68,20 @@ export default {
         .then((res) => {
           let tmp = [];
           for (let r of res.data.responses) {
-            tmp.push(r.gameId);
+            tmp.push(r.id);
           }
           let kind = "sub";
-          dispatch("registGameDetails", tmp, kind);
+          let params = {
+            gameNums: tmp,
+            kind: kind,
+          };
+          dispatch("registGameDetails", params);
         })
         .catch((err) => console.log(err));
     },
-    registGameDetails({ commit }, gameNums, kind) {
-      for (let gameNum of gameNums) {
+
+    registGameDetails({ commit }, params) {
+      for (let gameNum of params.gameNums) {
         axios({
           url: api.games.detailEdit(gameNum),
           method: "get",
@@ -87,7 +97,7 @@ export default {
               times: data.playingTime,
               level: data.difficulty,
             };
-            if (kind) {
+            if (params.kind === "main") {
               commit("SET_MAIN_GAMES", details);
             } else {
               commit("SET_SUB_GAMES", details);
@@ -100,6 +110,9 @@ export default {
     },
     resetMainGames({ commit }) {
       commit("RESET_GAMES");
+    },
+    resetSubGames({ commit }) {
+      commit("RESET_SUB_GAMES");
     },
   },
 };

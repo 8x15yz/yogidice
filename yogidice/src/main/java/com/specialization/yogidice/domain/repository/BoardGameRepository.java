@@ -21,5 +21,5 @@ public interface BoardGameRepository extends JpaRepository<BoardGame, Long> {
 
     Page<BoardGame> findAllByOrderByPublishYearDesc(Pageable pageable);
 
-    List<BoardGame> findByBggCodeAndTitleKrNotLike(Long bggCode, String titleKr);
+    List<BoardGame> findByBggCodeAndPublishYearNotLikeAndTitleKrNotLike(Long bggCode, int publishYear, String titleKr);
 }
