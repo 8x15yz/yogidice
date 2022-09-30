@@ -1,4 +1,4 @@
-const HOST = "https://yogidice.site/api";
+const HOST = "https://j7b206.p.ssafy.io/api";
 
 const user = "/users";
 const game = "/games";
@@ -22,6 +22,9 @@ export default {
   games: {
     getCreate: () => HOST + game,
     detailEdit: (gameId) => HOST + game + `/${gameId}`,
+    mostReviewd10: () => HOST + game + '/top10/review',
+    mostRecent10: () => HOST + game + '/top10/recent',
+    mostRating10: () => HOST + game + '/top10/rating',
   },
 
   bggDats: {

@@ -1,12 +1,12 @@
 <template>
-  <img class="main-card-img" @click="moveGameDetail" :src='thumbUrl' alt="">
+  <img class="main-card-img" :src='thumbUrl' alt="">
   <div class="title-rating">
     <div class="game-title text-subtitle-1">{{ mainGame.title_kr }}</div>
     <div class="text-subtitle-1 rating">★{{ mainGame.rating }}</div>
   </div>
   <div class="game-chip-container">
     <div>{{ mainGame.players }}</div>
-    <div>{{ mainGame.times }}분 소요</div>
+    <div>{{ mainGame.times }}분</div>
     <div>{{ mainGame.level }}</div>
   </div>
 </template>
@@ -18,16 +18,16 @@ export default {
   props: {
     game: Object
   },
-  setup(props, context) {
+  setup(props) {
     let mainGame = toRefs(props.game)
     let thumbUrl = mainGame.thumbUrl
   
     let checkedMark = ref(false)
 
     const userSelection = reactive([])
-    const moveGameDetail = function() {
-      context.emit("moveGameDetail",mainGame)
-    }
+    // const moveGameDetail = function() {
+    //   context.emit("moveGameDetail",mainGame)
+    // }
     
 
   return {
@@ -35,7 +35,6 @@ export default {
     userSelection,
     checkedMark,
     thumbUrl,
-    moveGameDetail
     
     }}
 
@@ -45,8 +44,8 @@ export default {
 
 <style>
 .main-card-img {
-  width: 52vw;
-  height: 52vw;
+  width: 56vw;
+  height: 56vw;
   object-fit: fill;
   border-bottom: 1px solid black;
   border-radius: 4px 4px 0 0;
@@ -66,6 +65,7 @@ export default {
 .rating {
   color: var(--color-mint);
   width: 30%;
+  text-align: right;
 }
 .game-chip-container {
   display: flex;
@@ -81,7 +81,7 @@ export default {
 .game-chip-container > div {
   border-radius: 40px;
   padding: 2px 6px 2px 6px; 
-  font-size: 8px;
+  font-size: 12px;
   font-weight: bold;
 }
 .game-chip-container div:nth-child(1) {
