@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 public class BggDataResponse {
     private Long id;
 
-    private String titleEng;
-
     private Long bggCode;
 
     private String nickName;
@@ -26,7 +24,6 @@ public class BggDataResponse {
     ) {
         return new BggDataResponse(
                 bggData.getId(),
-                bggData.getTitleEng(),
                 bggData.getBggCode(),
                 bggData.getNickName(),
                 bggData.getRatingUser()
