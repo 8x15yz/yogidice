@@ -190,7 +190,7 @@ public class BoardGameService {
     public List<BoardGameResponse> readExtendedEditionGameList(Long boardGameId) {
         BoardGame boardGame = boardGameRepository.findById(boardGameId)
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        List<BoardGame> games = boardGameRepository.findByBggCodeAndTitleKrNotLike(boardGame.getBggCode(), boardGame.getTitleKr());
+        List<BoardGame> games = boardGameRepository.findByBggCodeAndPublishYearNotLikeAndTitleKrNotLike(boardGame.getBggCode(), boardGame.getPublishYear(), boardGame.getTitleKr());
         if (games.isEmpty()) {
             throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
         }
