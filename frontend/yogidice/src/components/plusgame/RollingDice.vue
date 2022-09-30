@@ -1,120 +1,152 @@
 <template>
-    <div>
-        <div id="webgl-container"></div>
-    </div>
+        <div id="container">
+            <div id="cube" :class="{'show1': dicenum == 6, 
+                                    'show2': dicenum == 1, 
+                                    'show3': dicenum == 2, 
+                                    'show4': dicenum == 3, 
+                                    'show5': dicenum == 4, 
+                                    'show6': dicenum == 5}">
+                <div class="top"></div>
+                <div class="front"></div>
+                <div class="left"></div>
+                <div class="back"></div>
+                <div class="right"></div>
+                <div class="bottom"></div>
+            </div>
+        </div>
+    <div class="rollit" @click="clickDiceInfo">이거</div>
 </template>
 
-<script>
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+<style>
+    .rollit {
+        width: 100px;
+        height: 50px;
+        background-color: gray;
+    }
 
-export default {
-    methods: {
-        constructor() {
-            const divContainer = document.querySelector("#webgl-container");
-            this._divContainer = divContainer; // 다른 메서드에서 참조하기 위해 필드화로 할당해두는 과정
+    #container {
+    margin:50px auto;
+    width:200px;
+    height:200px;
+    perspective:600px;
+    }
 
-            const renderder = new THREE.WebGLRenderer({ antialias: true }); // antialias : object들을 매끄럾게 보여주는 
-            renderder.setPixelRatio(window.devicePixelRatio); // 픽셀의 비율 => 윈도우의 픽셀비율속성으로 설정
-            divContainer.appendChild(renderder.domElement); 
-            this._renderer = renderder;
+    #cube {
+    position:relative;
+    transform-style: preserve-3d;
+    transition: transform .4s;
+    width: 100%;
+    height: 100%;
+    }
 
-            const scene = new THREE.Scene();
-            this._scene = scene; // scene 객체를 필드화시켜서 역시 다른 메서드에서 참조하도록 함
+    #cube div {
+    border:1px solid #ccc;
+    border-radius:30px;
+    width:198px;
+    height:198px;
+    position:absolute;
+    background-image: url(https://1.bp.blogspot.com/-8oHADm0XlWY/UV72I6qYX_I/AAAAAAAAD8U/83sdKrWjjRg/s1600/Dice.png);
+    background-repeat:no-repeat;
+    opacity:.85;
+    }
 
-            this._setupCamera(); // camera에 대한 속성
-            this._setupLight();   // Light에 대한 속성 
-            this._setupModel();  // Mesh에 대한 속성
+    .front  { transform: rotateY(   0deg ) translateZ( 100px ); background-position: -12px -12px; }
+    .back   { transform: rotateX( 180deg ) translateZ( 100px ); background-position: -463px -239px; }
+    .right  { transform: rotateY(  90deg ) translateZ( 100px ); background-position: -236px -12px; }
+    .left   { transform: rotateY( -90deg ) translateZ( 100px ); background-position: -241px -235px; }
+    .top    { transform: rotateX(  90deg ) translateZ( 100px ); background-position: -459px -12px; }
+    .bottom { transform: rotateX( -90deg ) translateZ( 100px ); background-position: -12px -235px; }
 
-            this._setupControls();
+    #cube.show1 { transform: translateZ( -100px ) rotateY(    0deg ); }
+    #cube.show2 { transform: translateZ( -100px ) rotateX( -180deg ); }
+    #cube.show3 { transform: translateZ( -100px ) rotateY(  -90deg ); }
+    #cube.show4 { transform: translateZ( -100px ) rotateY(   90deg ); }
+    #cube.show5 { transform: translateZ( -100px ) rotateX(  -90deg ); }
+    #cube.show6 { transform: translateZ( -100px ) rotateX(   90deg ); }
 
-            window.onresize = this.resize.bind(this); // 윈도우의 창 크기가 변경함에 따라 속성들을 재지정해줘야 하기 때문에 
-            this.resize();
-
-            requestAnimationFrame(this.render.bind(this)); // api에 넘겨주는 과정 => 호출하기 위함
-        },
-        _setupControls() {
-            new OrbitControls(this._camera, this._divContainer);
-        },
-
-        _setupCamera() {
-            const width = this._divContainer.clientWidth;
-            const height = this._divContainer.clientHeight;
-            const camera = new THREE.PerspectiveCamera(
-                75, 
-                width / height,
-                0.1, 
-                100
-            );
-            camera.position.z = 2;
-            this._camera = camera;
-        },
-
-        _setupLight() {
-            const color = 0xffffff;
-            const intensity = 1;
-            const light = new THREE.DirectionalLight(color, intensity);
-            light.position.set(-1, 2, 4);
-            this._scene.add(light);
-        },
-
-        _setupModel() {
-            const loader = new THREE.TextureLoader();
-                var materials = [
-                    new THREE.MeshBasicMaterial({
-                        map: loader.load("https://i.ibb.co/vkRprX3/dice-1.png")
-                    }),
-                    new THREE.MeshBasicMaterial({
-                        map: loader.load("https://i.ibb.co/Br573sj/dice-2.png")
-                    }),
-                    new THREE.MeshBasicMaterial({
-                        map: loader.load("https://i.ibb.co/mv6g4LZ/dice-3.png")
-                    }),
-                    new THREE.MeshBasicMaterial({
-                        map: loader.load("https://i.ibb.co/dQYNFct/dice-4.png")
-                    }),
-                    new THREE.MeshBasicMaterial({
-                        map: loader.load("https://i.ibb.co/9hnHZb7/dice-5.png")
-                    }),
-                    new THREE.MeshBasicMaterial({
-                        map: loader.load("https://i.ibb.co/9N1nvkz/dice-6.png")
-                    })
-                ];
-
-                const geometry = new THREE.BoxGeometry(1, 1, 1, 1, 1, 1, materials);
-
-            const cube = new THREE.Mesh(geometry, materials);
-
-            this._scene.add(cube);
-            this._cube = cube;
-        },
-
-        resize() {
-            const width = this._divContainer.clientWidth;
-            const height = this._divContainer.clientHeight;
-
-            this._camera.aspect = width / height;
-            this._camera.updateProjectionMatrix();
-
-            this._renderer.setSize(width, height);
-        },
-
-        render(time) {
-            this._renderer.render(this._scene, this._camera);
-            this.update(time);
-            requestAnimationFrame(this.render.bind(this));
-        },
-
-        update(time) {
-            time *= 0.001;
-            this._cube.rotation.x = time;
-            this._cube.rotation.y = time;
-            this._cube.rotation.z = time;
+    @keyframes shake {
+        0%, 100% {
+            transform: translate3d(0, 0, 0)
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            transform: translate3d(-10px, 0, 0)
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+            transform: translate3d(10px, 0, 0)
+        }
         }
 
-    },
-    mounted() {
-        this.constructor()
+        .shake {
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        animation-name: shake;
+        }
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale3d(.3, .3, .3)
+            }
+            50% {
+                opacity: 1
+            }
+            }
+
+            .zoomIn {
+            background-color: gray; height: 500px;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            animation-name: zoomIn
+            }
+
+
+</style>
+
+<script>
+import { ref } from '@vue/runtime-core'
+
+export default {
+    setup () {
+        // let face = 1;
+
+        // const show = function() {
+        //     const divContainer = document.querySelector("#cube");
+        //     divContainer.attr('class', 'show'+face);
+        //     if(face == 6) {
+        //         face=1;
+        //     } else {
+        //         face++; 
+        //     }
+        // };
+
+        // var timer=setInterval("show()", 500);
+        const dicenum = ref(false);
+        function clickDice() {
+            dicenum.value = Math.floor(Math.random()*(6-1)+1)
+        }
+        function clickDiceInfo() {
+            for (let i = 1 ; i < 10; i ++) {
+                setTimeout(() => clickDice(), 270*i);
+            }
+            setTimeout(() => document.querySelector("#container").className = "shake", 3000);
+            setTimeout(() => document.querySelector("#diceBg").className = "zoomIn", 2900);
+            setTimeout(() => document.querySelector("#container").className = "", 4000);
+            setTimeout(() => document.querySelector("#diceBg").className = "", 4600);
+        }
+        return {
+            dicenum,
+            clickDiceInfo
+        }
     }
 }
 </script>
