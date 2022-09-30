@@ -40,6 +40,7 @@ export default{
     setup(props) {
         const isuser = ref(true)
         const datum = reactive(props.reviewdatum)
+        console.log('여기서는' , datum)
 
         return {
             isuser,

@@ -2,7 +2,7 @@
   <div>
     <detail-card-item :game="game"></detail-card-item>
     <div class="game-chemi">
-      <div class="text-subtitle-1">현주님과 {{gameTitle}}의 케미는 70점입니다 </div>
+      <div class="text-subtitle-1" style="line-height: 30px;"><span style="font-size:20px; color:green;">아기공룡둘째</span>님과 <br> <span style="font-size:18px; color:blue;">{{gameTitle}}</span>의 <br> 케미는 <span style="font-size:20px; color:red">70점</span>입니다 </div>
       <div class="progress">
         <div class="progress-value"></div>
       </div>
@@ -17,6 +17,7 @@
       <game-review></game-review>
       <game-related></game-related>
     </div>
+    <div id="footer"></div>
   </div>
 </template>
 
@@ -84,7 +85,7 @@ export default {
 <style>
 .game-chemi {
   margin: 3vh 4vw 3vh 4vw;
-  white-space: nowrap;
+  white-space: wrap;
   overflow:hidden;
   text-overflow: ellipsis;
 }

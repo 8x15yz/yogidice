@@ -20,8 +20,11 @@
     <div class="text-subtitle-1 main-message">요기 다이스의 부가 기능을 살펴보세요!</div>
     <div class="add-ons">
       <div class="left-one">
-        <div class="left-title text-subtitle-1">내 취향저격<br> 게임</div>
-        <div class="left-content text-body-1">지금 내가 할 수 있는<br> 최고의 게임 찾기!</div>
+        <div> 
+          <div class="left-title text-subtitle-1">내 취향저격<br> 게임</div>
+          <br>
+          <div class="left-content text-body-1">지금 내가 할 수 있는<br> 최고의 게임 찾기!</div>
+        </div>
         <img class="left-img" src="../static/Checklist.png" alt="">
       </div>
       <div class="right-two">
@@ -35,6 +38,7 @@
         </div>
       </div>
     </div>
+    <div id="footer"></div>
 
   </div>
 </template>
@@ -57,7 +61,6 @@ export default {
     const store = useStore()
     const router = useRouter()
     const moveToCafes = function () {
-      console.log("응?")
       router.push({name:"PlaceView"})
     }
 
@@ -92,16 +95,19 @@ export default {
     const searchMain = (e) => {
       console.log(e.target.value)
     }
+
     const changeActive = (e) => {
       for (let cardListType of cardListTypes) {
         if (cardListType.classList.contains("isactive")) {
           cardListType.classList.remove("isactive")
         }}
       e.target.classList.add("isactive")
+      store.dispatch("games/resetMainGames")
       // 여기서 해당하는 게임 받아와서 state에 저장해주기
       store.dispatch("games/changeMainGames",e.target.innerText)
       }
-      const moveToGamePage = function () {
+
+    const moveToGamePage = function () {
       router.push({name: "GamePlusView"})
     }
 
@@ -119,6 +125,9 @@ export default {
 </script>
 
 <style>
+#footer {
+  height: 10vh;
+}
 #wrap2-back {
   width: 90vw;
   height: 90vh;
@@ -158,6 +167,7 @@ export default {
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--shadow-card);
+  
 }
 .left-title{
   font-family: 'Pretendard';
@@ -171,9 +181,10 @@ export default {
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 600;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 12px;
   text-align: left;
+  color: var(--color-grey-5)
 }
 .left-img {
   align-self: flex-end;
@@ -186,7 +197,9 @@ export default {
 .right-top{
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
+
   width: 40vw;
   height: 16vh;
   padding: 2vh 0 0 2vh;
@@ -198,8 +211,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   width: 40vw;
   height: 16vh;
+
   padding: 2vh 0 0 2vh;
   background-color: white;
   border-radius: 10px;

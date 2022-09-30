@@ -17,6 +17,7 @@ export default {
     SET_MAIN_GAMES: (state, games) => state.mainGames.push(games),
     SET_SUB_GAMES: (state, games) => state.subGames.push(games),
     SET_TYPE: (state, type) => (state.presentType = type),
+    RESET_GAMES: (state) => (state.mainGames = []),
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -31,22 +32,28 @@ export default {
         .catch((err) => console.log(err));
     },
     changeMainGames({ commit, dispatch }, type) {
+      let url;
       if (type === "리뷰많은순") {
-        axios({
-          url: api.games.mostReviewd(),
-          method: "get",
-        })
-          .then((res) => {
-            let tmp = [];
-            for (let r of res.data.responses) {
-              tmp.push(r.gameId);
-            }
-            let kind = "main";
-            dispatch("registGameDetails", tmp, kind);
-            commit("SET_TYPE", type);
-          })
-          .catch((err) => console.log(err));
+        url = api.games.mostReviewd10();
+      } else if (type === "TOP10") {
+        url = api.games.mostRating10();
+      } else if (type === "최신게임") {
+        url = api.games.mostRecent10();
       }
+      axios({
+        url: url,
+        method: "get",
+      })
+        .then((res) => {
+          let tmp = [];
+          for (let r of res.data.responses) {
+            tmp.push(r.gameId);
+          }
+          let kind = "main";
+          dispatch("registGameDetails", tmp, kind);
+          commit("SET_TYPE", type);
+        })
+        .catch((err) => console.log(err));
     },
     changeSubGames({ dispatch }, gameId) {
       axios({
@@ -90,6 +97,9 @@ export default {
             console.log(err);
           });
       }
+    },
+    resetMainGames({ commit }) {
+      commit("RESET_GAMES");
     },
   },
 };

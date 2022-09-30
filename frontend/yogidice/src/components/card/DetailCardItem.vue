@@ -48,14 +48,17 @@ button {
   align-self: center;
 }
 .rating {
-  align-self: center;
+  font-size: 18px;
+  line-height: normal;
+  align-self: flex-start;
   color: yellow;
+  text-align: left;
 }
 .chip-rating {
   width: 100%;
   gap: 2vw;
   display: flex;
-  margin-bottom: 1.5vh;
+  margin-bottom: 0vh;
 }
 
 .detail-game-title {
