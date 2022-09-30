@@ -119,6 +119,15 @@ public class BoardGameController {
         return ResponseEntity.status(HttpStatus.OK).body(NumOfReviewListResponse.of(200, "Success", numOfReviewService.readAllListByNumOfReview(pageable)));
     }
 
+    // 보드게임 확장판 리스트 조회
+    @GetMapping("/extend/{gameId}")
+    @ApiOperation(value = "보드게임 확장판 리스트 조회", notes = "보드게임 확장판 리스트를 조회합니다.")
+    public ResponseEntity<?> readExtendedEditionGameList(
+            @PathVariable Long gameId
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readExtendedEditionGameList(gameId)));
+    }
+
     @PostMapping("/recommend")
     @ApiOperation(value = "pick 추천", notes = "질문 답변에 따른 추천 보드게임을 분석합니다.")
     public ResponseEntity<?> pickRecommend(/*@RequestBody*/) {

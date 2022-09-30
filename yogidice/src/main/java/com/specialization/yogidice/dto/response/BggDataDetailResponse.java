@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 public class BggDataDetailResponse extends BaseResponseBody {
     private Long id;
 
-    private String titleEng;
-
     private Long bggCode;
 
     private String nickName;
@@ -25,7 +23,6 @@ public class BggDataDetailResponse extends BaseResponseBody {
         response.setStatusCode(statusCode);
         response.setMessage(message);
         response.setId(bggDataResponse.getId());
-        response.setTitleEng(bggDataResponse.getTitleEng());
         response.setBggCode(bggDataResponse.getBggCode());
         response.setNickName(bggDataResponse.getNickName());
         response.setRatingUser(bggDataResponse.getRatingUser());

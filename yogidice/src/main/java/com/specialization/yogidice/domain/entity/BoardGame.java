@@ -48,14 +48,11 @@ public class BoardGame {
 
     private Byte maxPlayers;
 
-    @Column(length = 50)
-    private String playingTime;
+    private int playingTime;
 
-    @Column(length = 50)
-    private String minTime;
+    private int minTime;
 
-    @Column(length = 50)
-    private String maxTime;
+    private int maxTime;
 
     private int age;
 
@@ -88,7 +85,7 @@ public class BoardGame {
     @OneToOne(mappedBy = "boardGame", cascade = CascadeType.ALL, orphanRemoval = true)
     private NumOfReview numOfReview;
 
-    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbUrl, double ratingBl, double ratingUser, Long bggCode, Byte minPlayers, Byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeUrl, String contents, String contentsImgUrl) {
+    public static BoardGame create(String titleKr, String titleEng, int publishYear, String thumbUrl, double ratingBl, double ratingUser, Long bggCode, Byte minPlayers, Byte maxPlayers, int playingTime, int minTime, int maxTime, int age, double difficulty, String youtubeUrl, String contents, String contentsImgUrl) {
         BoardGame boardGame = new BoardGame();
         boardGame.titleKr = titleKr;
         boardGame.titleEng = titleEng;
@@ -110,7 +107,7 @@ public class BoardGame {
         return boardGame;
     }
 
-    public void update(String titleKr, String titleEng, int publishYear, String thumbUrl, double ratingBl, double ratingUser, Long bggCode, Byte minPlayers, Byte maxPlayers, String playingTime, String minTime, String maxTime, int age, double difficulty, String youtubeUrl, String contents, String contentsImgUrl) {
+    public void update(String titleKr, String titleEng, int publishYear, String thumbUrl, double ratingBl, double ratingUser, Long bggCode, Byte minPlayers, Byte maxPlayers, int playingTime, int minTime, int maxTime, int age, double difficulty, String youtubeUrl, String contents, String contentsImgUrl) {
         this.titleKr = titleKr;
         this.titleEng = titleEng;
         this.publishYear = publishYear;
