@@ -1,68 +1,49 @@
 import csv
-import pandas as pd
-from tqdm import tqdm
+import numpy as np
 
-def calccate(gameid): 
-    mec_score_board = open("./yogidice/asset/mec_score_board.csv", "r", newline='', encoding='utf-8')
-    mec_score_board = list(csv.reader(mec_score_board))
+def calccate(game_id): 
+    game_id = str(game_id)
+    gameid_list = open("./yogidice/asset/gameid_list.csv", "r", newline='', encoding='utf-8')
+    gameid_list = list(csv.reader(gameid_list))
+    # print(gameid_list[0])
 
-    mec_main_all = open('./yogidice/asset/mec_main_all.csv', "r", newline='', encoding='utf-8')
-    game_mec_info = open('./yogidice/asset/game_mec_info.csv', "r", newline='', encoding='utf-8')
-    mec_main_all = list(csv.reader(mec_main_all))
-    game_mec_info = list(csv.reader(game_mec_info))
+    # game_id = str(input())
+    mecinfo_0930_gameid = open("./yogidice/asset/mecinfo_0930_gameid.csv", "r", newline='', encoding='utf-8')
+    mecinfo_0930 = open("./yogidice/asset/mecinfo_0930_noindex.csv", "r", newline='', encoding='utf-8')
+    mecinfo_0930_gameid = list(csv.reader(mecinfo_0930_gameid))
+    mecinfo_0930 = list(csv.reader(mecinfo_0930))
+    testarr = mecinfo_0930[gameid_list[0].index(game_id)]
+    testarr = list(map(int, testarr))
 
-    game_id = str(gameid)
+    for i in range(15242):
+        mecinfo_0930[i] = list(map(int, mecinfo_0930[i]))
 
-    obj_score = []
-    obj_score_2 = []
+    # 전치행렬으로 만들었음
+    transpose = np.array(list(np.transpose(mecinfo_0930)))
+    testarr = np.array(testarr)
 
-    for i in mec_score_board:
-        if i[1] == game_id:
-            obj_score = i[2:]
-            break
-    # print(obj_score)
+    transpose_result = list(testarr@transpose)
 
-    for info in game_mec_info:
-        if info[0] == game_id:
-            obj_score_2 = info[1:]
-            if '' in obj_score_2:
-                obj_score_2.remove('')
-            obj_score_2 = set(obj_score_2)
-            break
+    # print(sorted(testarr@transpose, reverse=True))
+    for i in range(15242):
+        mecinfo_0930_gameid[i].append(transpose_result[i])
+    result = sorted(mecinfo_0930_gameid, key=lambda mecinfo_0930_gameid:mecinfo_0930_gameid[1], reverse=True)[:30]
+    #최대 30개 보낼수잇어
 
-
-    calc_score_abs = pd.DataFrame({'no': [], 'result' : []})
-
-
-    for score in tqdm(range(len(mec_score_board))):
-        arr = [mec_score_board[score][1], 0]
-        scr = mec_score_board[score][2:]
-
-        sum_score = 0
-        if '' in game_mec_info[score]:
-            game_mec_info[score].remove('')
-        info = set(game_mec_info[score][1:])
-        jk = (len(obj_score_2.intersection(info))/len(obj_score_2.union(info)))*70
-
-        if jk != 0:
-            for i in range(6):
-                column_sc = 5-(abs(float(scr[i])-float(obj_score[i]))*0.1*5)
-                sum_score += column_sc
-
-            arr[1] = sum_score+jk
-
-        calc_score_abs.loc[score] = arr
-
-    calc_score_abs = calc_score_abs.sort_values(by=["result"], ascending=[False]) 
-
-    result = []
-
-    cnt = 0
-    for score in calc_score_abs.iterrows():
-        cnt += 1
-        if cnt == 11:
-            break
-        result.append(calc_score_abs.loc[score[0]]['no'])
+    result_id = []
+    for res in result:
+        result_id.append(res[0])
 
 
-    return (result)
+    # 겹치는거 빼기
+    real_result = []
+    for i in range(30):
+        elem = result_id.pop(0)
+        if elem in result_id:
+            continue
+        else:
+            real_result.append(elem)
+    # print(real_result)
+
+
+    return (real_result)

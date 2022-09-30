@@ -1,4 +1,5 @@
 from urllib import response
+import json
 
 from .models import (
     BggData,
@@ -59,18 +60,12 @@ def boardgame_list(request):
 @api_view(['GET'])
 def recommend_detail(request, game_id):
     model_result = CateModel.calccate(game_id)
-    return JsonResponse({
-        '1st' : model_result[0],
-        '2nd' : model_result[1],
-        '3rd' : model_result[2],
-        '4th' : model_result[3],
-        '5th' : model_result[4],
-        '6th' : model_result[5],
-        '7th' : model_result[6],
-        '8th' : model_result[7],
-        '9th' : model_result[8],
-        '10th' : model_result[9]
-    })
+    main_dic = {}
+    mec_cnt = 0
+    for elem in model_result:
+        mec_cnt += 1
+        main_dic[mec_cnt] = elem
+    return JsonResponse(main_dic)
 
 @api_view(['GET'])
 def search_rating(request, game_id):
