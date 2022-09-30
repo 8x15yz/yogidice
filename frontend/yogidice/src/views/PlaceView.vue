@@ -331,14 +331,9 @@ export default {
 </script>
 
 <style>
-<<<<<<< HEAD
-.item{
-  /* border-bottom: dashed red; */
-=======
 .off {
   
 
->>>>>>> 5eee9ca8bcd395c4e9320c97d791f60e9a71781f
 }
 #map {
   width:100vw;
@@ -364,8 +359,6 @@ export default {
   justify-content: flex-start;
   padding: 0vh;
   margin: 0vh;
-  /* background-color: aqua; */
-  /* outline: solid 2px blue; */
 }
 
 #wrap2.map-wrap {
