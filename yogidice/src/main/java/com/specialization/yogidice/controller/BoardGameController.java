@@ -2,6 +2,7 @@ package com.specialization.yogidice.controller;
 
 import com.specialization.yogidice.common.config.web.LoginUser;
 import com.specialization.yogidice.domain.entity.User;
+import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
 import com.specialization.yogidice.dto.response.*;
@@ -130,9 +131,9 @@ public class BoardGameController {
 
     @PostMapping("/recommend")
     @ApiOperation(value = "pick 추천", notes = "질문 답변에 따른 추천 보드게임을 분석합니다.")
-    public ResponseEntity<?> pickRecommend(/*@RequestBody*/) {
+    public ResponseEntity<?> pickRecommend(@RequestBody BoardGamePickRequest boardGamePickRequest) {
         String boardGameList = "";
-        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readPickBoardGame(boardGamePickRequest)));
     }
 
     @GetMapping("/recommend/play/{gameId}")
