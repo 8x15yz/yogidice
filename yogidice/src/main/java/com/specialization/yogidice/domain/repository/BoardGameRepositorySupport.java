@@ -1,15 +1,18 @@
 package com.specialization.yogidice.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.specialization.yogidice.common.util.DeduplicationUtils;
 import com.specialization.yogidice.common.util.QuestionConfig;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.QBoardGame;
+import com.specialization.yogidice.domain.entity.QNumOfReview;
+import com.specialization.yogidice.domain.entity.QNumOfReviewNoMap;
 import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Repository
 public class BoardGameRepositorySupport {
@@ -17,18 +20,46 @@ public class BoardGameRepositorySupport {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
-    QBoardGame qBoardGame = QBoardGame.boardGame;
+    QBoardGame boardGame = QBoardGame.boardGame;
+    QNumOfReviewNoMap numOfReviewNoMap = QNumOfReviewNoMap.numOfReviewNoMap;
+    QNumOfReview numOfReview = QNumOfReview.numOfReview;
 
     public List<BoardGame> findBoardGameByPick(BoardGamePickRequest request) {
         QuestionConfig questionConfig = new QuestionConfig(request);
-        List<BoardGame> boardGameList = jpaQueryFactory.selectFrom(qBoardGame)
-                .where(qBoardGame.maxPlayers.between(questionConfig.getQOneLower(), questionConfig.getQOneUpper()),
-                        qBoardGame.difficulty.between(questionConfig.getQTwoLower(), questionConfig.getQTwoUpper()),
-                        qBoardGame.playingTime.between(questionConfig.getQFourLower(), questionConfig.getQFourUpper()),
-                        qBoardGame.publishYear.between(questionConfig.getQFiveLower(), questionConfig.getQFiveUpper()))
-                .orderBy(qBoardGame.ratingUser.add(qBoardGame.ratingBl).desc())
+        List<BoardGame> boardGameList = jpaQueryFactory
+                .selectFrom(boardGame)
+                .where(
+                        boardGame.difficulty.between(questionConfig.getQTwoLower(), questionConfig.getQTwoUpper()),
+                        boardGame.playingTime.between(questionConfig.getQFourLower(), questionConfig.getQFourUpper()),
+                        boardGame.publishYear.between(questionConfig.getQFiveLower(), questionConfig.getQFiveUpper()),
+                        boardGame.maxPlayers.goe(questionConfig.getQOne()),
+                        boardGame.minPlayers.loe(questionConfig.getQOne())
+                )
+                .orderBy(boardGame.numOfReview.number.divide(5000).add(boardGame.ratingBl).add(boardGame.ratingUser).desc())
+                .limit(100)
+                .fetch();
+
+
+        return DeduplicationUtils.deduplication(boardGameList, BoardGame::getBggCode);
+    }
+
+    /*public List<BoardGame> findBoardGameByPick(BoardGamePickRequest request) {
+        QuestionConfig questionConfig = new QuestionConfig(request);
+        List<BoardGame> boardGameList = jpaQueryFactory.selectFrom(boardGame)
+                .from(boardGame, numOfReviewNoMap)
+                .where(boardGame.maxPlayers.between(questionConfig.getQOneLower(), questionConfig.getQOneUpper()),
+                        boardGame.difficulty.between(questionConfig.getQTwoLower(), questionConfig.getQTwoUpper()),
+                        boardGame.playingTime.between(questionConfig.getQFourLower(), questionConfig.getQFourUpper()),
+                        boardGame.publishYear.between(questionConfig.getQFiveLower(), questionConfig.getQFiveUpper()))
+                .orderBy(boardGame.ratingUser.add(boardGame.ratingBl).desc())
                 .limit(200)
                 .fetch();
+        Collections.sort(boardGameList, new Comparator<BoardGame>() {
+            @Override
+            public int compare(BoardGame o1, BoardGame o2) {
+                return o2.getNumOfReview().getNumber() - o1.getNumOfReview().getNumber();
+            }
+        });
         return boardGameList;
-    }
+    }*/
 }

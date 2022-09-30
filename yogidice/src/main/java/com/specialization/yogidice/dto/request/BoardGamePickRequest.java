@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class BoardGamePickRequest {
 
     @NotNull
-    @ApiModelProperty(name="인원수 ", notes = "1: 1, 2: 2~4, 3: 4~8, 4: 9~", example = "3")
+    @ApiModelProperty(name="인원수 ", notes = "1: 1, 2: 2, 3: 3, 4:4, 5:5, 6:6, 7: 7 이상", example = "3")
     private Integer question1;
 
     @NotNull

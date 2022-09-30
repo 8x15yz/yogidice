@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QuestionConfig {
-    int qOneLower;
-    int qOneUpper;
+    int qOne;
     int qTwoLower;
     int qTwoUpper;
 
@@ -22,19 +21,7 @@ public class QuestionConfig {
 
 
     public QuestionConfig(BoardGamePickRequest request) {
-        if(request.getQuestion1()==1){
-            this.qOneLower=0;
-            this.qOneUpper=1;
-        } else if(request.getQuestion1()==2){
-            this.qOneLower=2;
-            this.qOneUpper=4;
-        } else if(request.getQuestion1()==3){
-            this.qOneLower=4;
-            this.qOneUpper=8;
-        }else {
-            this.qOneLower = 9;
-            this.qOneUpper = 1000;
-        };
+        this.qOne = request.getQuestion1();
 
 
         //난이도
