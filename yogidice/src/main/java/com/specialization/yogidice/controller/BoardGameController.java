@@ -2,6 +2,7 @@ package com.specialization.yogidice.controller;
 
 import com.specialization.yogidice.common.config.web.LoginUser;
 import com.specialization.yogidice.domain.entity.User;
+import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
 import com.specialization.yogidice.dto.response.*;
@@ -130,10 +131,11 @@ public class BoardGameController {
 
     @PostMapping("/recommend")
     @ApiOperation(value = "pick 추천", notes = "질문 답변에 따른 추천 보드게임을 분석합니다.")
-    public ResponseEntity<?> pickRecommend(/*@RequestBody*/) {
+    public ResponseEntity<?> pickRecommend(@RequestBody BoardGamePickRequest boardGamePickRequest) {
         String boardGameList = "";
-        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readPickBoardGame(boardGamePickRequest)));
     }
+
 
     @GetMapping("/recommend/play/{gameId}")
     @ApiOperation(value = "게임이 끝난 후 다음 게임 추천", notes = "게임이 끝난 후 연관된 다음 게임을 추천합니다.")
@@ -195,5 +197,13 @@ public class BoardGameController {
         HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
         String boardGameList = restTemplate.postForObject(url, request, String.class);
         return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+    }
+
+    @GetMapping("/search/{title}")
+    @ApiOperation(value = "보드게임 이름으로 검색", notes = "보드게임 타이틀로 게임을 검색합니다.")
+    public ResponseEntity<?> searchBoardGame(
+            @PathVariable String title) {
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.searchBoardGame(title)));
+
     }
 }
