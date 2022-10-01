@@ -196,7 +196,7 @@ public class BoardGameController {
     public ResponseEntity<?> detailRecommend(
             @PathVariable Long gameId)  {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+gameId;
+        String url = "http://localhost:8000/analyze/recommend/detail/"+gameId;
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -206,7 +206,7 @@ public class BoardGameController {
         jsonObject.put("gameId", gameId);
 
         HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
-        String boardGameList = restTemplate.getForObject(url, String.class);
+        String boardGameList = restTemplate.getForObject(url,String.class);
         try {
             Map<String, Object> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
             Map<Integer, Long> boardMap = new HashMap<>();
