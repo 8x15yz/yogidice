@@ -197,6 +197,7 @@ public class BoardGameController {
             @PathVariable Long gameId)  {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+gameId;
+//        String url = "http://localhost:8000/analyze/recommend/detail/"+gameId;  //로컬에서
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -214,6 +215,10 @@ public class BoardGameController {
                 boardMap.put(Integer.parseInt(key), Long.parseLong((String)mapping.get(key)));
             }
             List<Long> boardGameIds = new ArrayList<>(boardMap.values());
+            for(Integer key : boardMap.keySet()){
+                boardGameIds.add(boardMap.get(key));
+                System.out.println(boardMap.get(key));
+            }
             List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
 
 //            for(BoardGame b : boardGames) System.out.println(b.getTitleKr());
