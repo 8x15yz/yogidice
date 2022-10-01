@@ -1,6 +1,10 @@
 package com.specialization.yogidice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.specialization.yogidice.common.config.web.LoginUser;
+import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
@@ -20,6 +24,14 @@ import org.springframework.web.client.RestTemplate;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.lang.reflect.Type;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.reflect.TypeToken;
 
 @RestController
 @RequestMapping("/games")
@@ -182,21 +194,33 @@ public class BoardGameController {
     @GetMapping("/recommend/detail/{gameId}")
     @ApiOperation(value = "보드게임 상세 페이지 하단 추천", notes = "보드게임 상세 페이지 하단에서 보드게임을 추천합니다.")
     public ResponseEntity<?> detailRecommend(
-            @ApiIgnore @LoginUser User user,
-            @PathVariable Long gameId) {
+            @PathVariable Long gameId)  {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8000/analyze/recommend/detail";
+        String url = "http://localhost:8000/analyze/recommend/detail/"+gameId;
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("userId", user.getId());
+
         jsonObject.put("gameId", gameId);
 
         HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
-        String boardGameList = restTemplate.postForObject(url, request, String.class);
-        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+        String boardGameList = restTemplate.getForObject(url, String.class);
+        try {
+            Map<String, Object> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
+            Map<Integer, Long> boardMap = new HashMap<>();
+            for (String key : mapping.keySet()) {
+                boardMap.put(Integer.parseInt(key), Long.parseLong((String)mapping.get(key)));
+            }
+            List<Long> boardGameIds = new ArrayList<>(boardMap.values());
+            List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
+
+//            for(BoardGame b : boardGames) System.out.println(b.getTitleKr());
+            return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
+        }catch (JsonProcessingException e){
+            return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
+        }
     }
 
     @GetMapping("/search/{title}")

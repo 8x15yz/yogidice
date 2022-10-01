@@ -12,10 +12,7 @@ import com.specialization.yogidice.domain.repository.category.MechanismGroupRepo
 import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
 import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
-import com.specialization.yogidice.dto.response.BoardGameListResponse;
-import com.specialization.yogidice.dto.response.BoardGameResponse;
-import com.specialization.yogidice.dto.response.RatingGameResponse;
-import com.specialization.yogidice.dto.response.RecentGameResponse;
+import com.specialization.yogidice.dto.response.*;
 import com.specialization.yogidice.dto.response.category.CategoryGroupResponse;
 import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
@@ -263,6 +260,22 @@ public class BoardGameService {
                     .collect(Collectors.toList());
             responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
         }
+        return responses;
+    }
+
+    public List<BoardGameSimpleResponse> detailRecommend(List<Long> boardGameIds) {
+        List<BoardGame> boardGames = boardGameRepository.findAllByIdIn(boardGameIds);
+        for(BoardGame board : boardGames){
+            System.out.println(board.getTitleKr());
+        }
+        if (boardGames.isEmpty()) {
+            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+        }
+        ArrayList<BoardGameSimpleResponse> responses = new ArrayList<>();
+        for (BoardGame boardGame : boardGames) {
+            responses.add(BoardGameSimpleResponse.response(boardGame));
+        }
+
         return responses;
     }
 }
