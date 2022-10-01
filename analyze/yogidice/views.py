@@ -93,4 +93,7 @@ def get_user_data(request, user):
             list.append(search_rating(i['game']))
         # model_result = YoDaModel.knn(serializer.data)
         return JsonResponse(serializer.list,'json')
+
+# @api_view(['GET'])
+# def get_user_data(request, game_id):
         
