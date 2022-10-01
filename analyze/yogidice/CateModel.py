@@ -27,7 +27,7 @@ def calccate(game_id):
     # print(sorted(testarr@transpose, reverse=True))
     for i in range(15242):
         mecinfo_0930_gameid[i].append(transpose_result[i])
-    result = sorted(mecinfo_0930_gameid, key=lambda mecinfo_0930_gameid:mecinfo_0930_gameid[1], reverse=True)[:101]
+    result = sorted(mecinfo_0930_gameid, key=lambda mecinfo_0930_gameid:mecinfo_0930_gameid[1], reverse=True)[:201]
     #최대 30개 보낼수잇어
 
     result_id = []
@@ -37,7 +37,7 @@ def calccate(game_id):
 
     # 겹치는거 빼기
     real_result = []
-    for i in range(101):
+    for i in range(201):
         elem = result_id.pop(0)
         if elem in result_id:
             continue
