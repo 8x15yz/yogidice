@@ -8,9 +8,9 @@ def calccate(game_id):
     # print(gameid_list[0])
 
     # game_id = str(input())
-    mecinfo_0930_gameid = open("./yogidice/asset/mecinfo_0930_gameid.csv", "r", newline='', encoding='utf-8')
+    mecinfo_1001_gameid = open("./yogidice/asset/mecinfo_1001_gameid.csv", "r", newline='', encoding='utf-8')
     mecinfo_0930 = open("./yogidice/asset/mecinfo_0930_noindex.csv", "r", newline='', encoding='utf-8')
-    mecinfo_0930_gameid = list(csv.reader(mecinfo_0930_gameid))
+    mecinfo_1001_gameid = list(csv.reader(mecinfo_1001_gameid))
     mecinfo_0930 = list(csv.reader(mecinfo_0930))
     testarr = mecinfo_0930[gameid_list[0].index(game_id)]
     testarr = list(map(int, testarr))
@@ -26,23 +26,26 @@ def calccate(game_id):
 
     # print(sorted(testarr@transpose, reverse=True))
     for i in range(15242):
-        mecinfo_0930_gameid[i].append(transpose_result[i])
-    result = sorted(mecinfo_0930_gameid, key=lambda mecinfo_0930_gameid:mecinfo_0930_gameid[1], reverse=True)[:201]
+        mecinfo_1001_gameid[i].append(transpose_result[i])
+    result = sorted(mecinfo_1001_gameid, key=lambda mecinfo_1001_gameid:mecinfo_1001_gameid[2], reverse=True)[:51]
     #최대 30개 보낼수잇어
+    # print(result)
 
+    result_code = []
     result_id = []
     for res in result:
-        result_id.append(res[0])
+        result_code.append(res[0])
+        result_id.append(res[1])
 
 
     # 겹치는거 빼기
     real_result = []
-    for i in range(201):
-        elem = result_id.pop(0)
-        if elem in result_id:
+    for i in range(51):
+        elem = result_code.pop(0)
+        if elem in result_code:
             continue
         else:
-            real_result.append(elem)
+            real_result.append(result_id[i])
     # print(real_result)
 
 
