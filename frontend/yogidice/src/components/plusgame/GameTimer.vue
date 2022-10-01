@@ -1,94 +1,69 @@
 <template>
-  <!-- <div class="stop-watch-component">
-    <div class="stop-watch-group">
-      <div class="stop-watch hour">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
-      </div>
-      <div class="stop-watch minute">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
-      </div>
-      <div class="stop-watch second">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
-      </div>
-      <div class="screen">
-          <p id="time">00:00:00</p>  
-      </div>
-    </div>
-    <div id="stop-watch-buttons">
-      <button id="start-button-stopwatch" class="text-button">start</button>
-      <button id="stop-button-stopwatch" class="text-button">stop</button>
-      <button id="reset-button-stopwatch" class="text-button">reset</button>
-    </div>
-  </div> -->
   <div class="timer-component">
     <div class="timer-group">
       <div class="timer hour">
           <div class="hand"><span></span></div>
           <div class="hand"><span></span></div>
       </div>
-      <div class="screen">
-          <p id="time">{{initTime}}</p>  
+      <div class="timer second">
+          <div class="hand"><span></span></div>
+          <div class="hand"><span></span></div>
+      </div>
+      <div class="timer-screen">
+          <p id="timer-time" class="text-headline-6">{{baseTime}}</p>  
       </div>
     </div>
     <div id="timer-buttons">
-      <button id="start-button" class="text-button">start</button>
-      <button id="stop-button" class="text-button">stop</button>
-      <button id="reset-button" class="text-button">reset</button>
+      <button id="start-button" class="text-button">START</button>
+      <button id="stop-button" class="text-button">STOP</button>
+      <button id="reset-button" class="text-button">RESET</button>
     </div>
   </div>
   <br>
-  <div class="inputs">
+  <div id="input-box">
     <div>
-      <input type="number" name="points" min="0" max="59" step="1" value="1">
-      <label>시간</label>
+      <input type="number" min="0" max="99" v-model="startHour">
+      <span>시간 </span>
     </div>
     <div>
-      <input type="number" name="points" min="0" max="59" step="1" value="1">
-      <label>분</label>
+      <input type="number" min="0" max="59" v-model="startMin">
+      <span>분 </span>
     </div>
     <div>
-      <input type="number" name="points" min="0" max="59" step="1" value="1">
-      <label>초</label>
+      <input type="number" min="0" max="59" v-model="startSec" >
+      <span>초 </span>
     </div>
-    <button>설정</button>
+    <button id="set-time-button" type="submit">설정</button>
   </div>
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core';
+import { onMounted, ref } from '@vue/runtime-core';
 export default {
   setup(){ 
-    let timer
-    // let timeDisplay = ref("00:00:00")
-    let startTimer
+    let timer_down
+    let startHour = ref(0)
+    let startMin = ref(0)
+    let startSec = ref(0)
+    let baseTime = ref('00:00:00')
+    // let total = ref(0)
   
     onMounted(()=>{
-      let one_second = 1000
-      let one_minute = one_second * 60
-      let one_hour = one_minute * 60
-      let screen = document.getElementById('time');
+      let timer_down_start
 
       let animationTarget1 = document.querySelectorAll(".timer .hand:first-child span")
       let animationTarget2 = document.querySelectorAll(".timer .hand:last-child span")
       let startButton = document.querySelector("#start-button")
+      let setTimeButton = document.querySelector("#set-time-button")
+      let totalCircle = document.querySelectorAll(".timer.hour .hand span")
+
       
       startButton.addEventListener("click",function(e){
-        if (!e.target.classList.contains("processing")) {
+        if (!e.target.classList.contains("processing") && baseTime.value !== "00:00:00") {
           e.target.classList.add("processing")
-          for (let t of animationTarget1) {
-            t.style.animationName = "spin1"
-          }
-          for (let t2 of animationTarget2) {
-            t2.style.animationName = "spin2"
-          }
-          // 만약, 리셋한게 아니라 잠시 일시정지라면?
-          let baseTime = screen.innerText
-          let startDate = new Date()
 
-          startTimer = setInterval(function(){timer(startDate,baseTime)},1000)
+          // 만약, 리셋한게 아니라 잠시 일시정지라면?
+          timer_down()
         }
       })
             
@@ -102,35 +77,79 @@ export default {
           t2.style.animationName = ""
         }        
         startButton.classList.remove("processing")
-        clearInterval(startTimer)
+        clearInterval(timer_down_start)
       })
 
       let resetButton = document.querySelector("#reset-button")
       resetButton.addEventListener("click",function(){
-        screen.innerText = "00:00:00";
+        baseTime.value = "00:00:00";
       })
 
-      timer = function (startDate,base) {      
-        let now = new Date()
-        let passed = now - startDate
-        let parts = [];
-        let baseHour = Number(base.substr(0,2))
-        let baseMin = Number(base.substr(3,2))
-        let baseSec = Number(base.substr(6,2))
+      setTimeButton.addEventListener("click",function(){
+        let displayNum = [];
 
-        parts[0] = '' + (Math.floor( passed / one_hour ) + baseHour);
-        parts[1] = '' + (Math.floor( (passed % one_hour) / one_minute ) + baseMin);
-        parts[2] = '' + (Math.floor( ( (passed % one_hour) % one_minute ) / one_second ) + baseSec);
+        displayNum[0] = ((''+startHour.value).length == 1) ? '0' + (''+startHour.value) : (''+startHour.value);
+        displayNum[1] = ((''+startMin.value).length == 1) ? '0' + (''+startMin.value) : (''+startMin.value);
+        displayNum[2] = ((''+startSec.value).length == 1) ? '0' + (''+startSec.value) : (''+startSec.value);
+        baseTime.value = displayNum.join(':');
 
-        parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
-        parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
-        parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
+        // baseTime.value = `${startHour.value}:${startMin.value}:${startSec.value}`
+        // total = computed(()=> startHour.value*3600+startMin.value*60+startSec.value)
+      })
 
-        screen.innerText = parts.join(':');
+      timer_down = function () {
+        let time = Number(baseTime.value.substr(0,2))+Number(baseTime.value.substr(3,2))+Number(baseTime.value.substr(6,2)); //기준시간 작성
+        let hour = ""; //시
+        let min = ""; //분
+        let sec = ""; //초
+        for (let c of totalCircle) {
+          c.style.animationDuration = `${time}s`
+        }
+        for (let t of animationTarget1) {
+          t.style.animationName = "spin1"
+        }
+        for (let t2 of animationTarget2) {
+          t2.style.animationName = "spin2"
+        }
+
+        //setInterval(함수, 시간) : 주기적인 실행
+        timer_down_start = setInterval(function() {
+
+          time--;
+          //parseInt() : 정수를 반환
+          hour = ''+parseInt(time/3600)
+          min = ''+parseInt(time/60); //몫을 계산
+          sec = ''+(time%60); //나머지를 계산
+          let parts = []
+
+          parts[0] = (hour.length == 1) ? '0' + hour : hour;
+          parts[1] = (min.length == 1) ? '0' + min : min;
+          parts[2] = (sec.length == 1) ? '0' + sec : sec;
+
+          baseTime.value = parts.join(':');
+
+          //타임아웃 시
+          if (time === 0) {
+            clearInterval(timer_down_start); //setInterval() 실행을 끝냄
+            baseTime.value = "시간초과";
+            for (let t of animationTarget1) {
+             t.style.animationName = ""
+            }
+            for (let t2 of animationTarget2) {
+              t2.style.animationName = ""
+            }
+            if (navigator.vibrate) {
+              navigator.vibrate(3000); // 진동을 울리게 한다. 1000ms = 1s 이다.
+            } 
+          }
+        }, 1000);
       }
     })
     return {
-
+      startHour,
+      startMin,
+      startSec,
+      baseTime
     }
   }
 }
@@ -229,27 +248,6 @@ export default {
   top: 4vw;
 }
 
-.timer.minute {
-  background: rgba(0, 0, 0, .2);
-  height: 70vw;
-  left: 5vw;
-  width: 70vw;
-  top: 5vw;
-}
-
-.timer.minute .hand span {
-  animation-duration: 60s;
-  border-top-color: rgba(0, 255, 255);
-  border-right-color: rgba(0, 255, 255);
-  border-width: 35vw;
-}
-
-.timer.minute:after {
-  height: 62vw;
-  left: 4vw;
-  width: 62vw;
-  top: 4vw;
-}
 
 .timer.second {
   background: rgba(0, 0, 0, .2);
@@ -271,9 +269,9 @@ export default {
   left: 1vw;
   width: 58vw;
   top: 1vw;
-}
+} 
 
-.screen {
+.timer-screen {
   border-radius: 50%;
   height: 59vw;
   left: 10vw;
@@ -285,11 +283,11 @@ export default {
   justify-content: center;
 }
 
-.screen h2 {
+.timer-screen h2 {
   font-weight: 300; 
 }
 
-.screen p {
+.timer-screen p {
   border-radius: 4vw;
   font-size: 15vw;
   font-weight: 400;
@@ -336,8 +334,14 @@ export default {
 
 #start-button.processing{
   background-color: black;  
-
 }
+
+#input-box {
+  display: flex;
+  justify-content: center;
+  gap: 2vw;
+}
+
 
 
 </style>

@@ -10,6 +10,7 @@ export default {
     mainGames: [],
     subGames: [],
     presentType: "",
+    penalty: ["가","나","다","라","마","바"]
   }),
   getters: {},
   mutations: {
