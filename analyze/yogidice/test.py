@@ -2,5 +2,5 @@ import CateModel
 
 # CateModel.path
 
-id = input()
-print(CateModel.calccate(id))
+id = str(input())
+# print(CateModel.calccate(id))
