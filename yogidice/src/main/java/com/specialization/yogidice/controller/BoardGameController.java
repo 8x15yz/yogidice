@@ -196,7 +196,7 @@ public class BoardGameController {
     public ResponseEntity<?> detailRecommend(
             @PathVariable Long gameId)  {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8000/analyze/recommend/detail/"+gameId;
+        String url = "http://yogidice.site:8000/analyze/recommend/detail/"+gameId;
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
