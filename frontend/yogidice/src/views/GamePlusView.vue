@@ -5,8 +5,6 @@
     </div>
     <!-- navigation bar -->
 
-
-
     <!-- game 페이지 -->
     <div id="wrap-game-back">
         <div class="game-ing">{{클루}} 클루 게임중</div>
