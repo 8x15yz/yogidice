@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.specialization.yogidice.common.config.web.LoginUser;
+import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
@@ -213,20 +214,13 @@ public class BoardGameController {
                 boardMap.put(Integer.parseInt(key), Long.parseLong((String)mapping.get(key)));
             }
             List<Long> boardGameIds = new ArrayList<>(boardMap.values());
-            boardGameService.detailRecommend(boardGameIds);
-            System.out.println(boardMap.get(1));
-            System.out.println(boardMap.toString());
+            List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
+
+//            for(BoardGame b : boardGames) System.out.println(b.getTitleKr());
+            return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
         }catch (JsonProcessingException e){
             return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
         }
-
-//        ArrayList<Map<String, String>> data = gson.fromJson(boardGameList, type);
-//        for(Map a : data) System.out.println(a.toString());
-//        ArrayList<Object> list =  gson.fromJson(boardGameList, new TypeToken<ArrayList<Object>>(){}.getType());
-
-
-
-        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
 
     @GetMapping("/search/{title}")
