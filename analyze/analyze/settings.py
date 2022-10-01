@@ -161,7 +161,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080", # 프론트엔드 주소 작성
     "http://j7b206.p.ssafy.io",
+    "http://localhost",
     # "http://j7b206.p.ssafy.io/api",
+    "http://127.0.0.1"
 ]
 
 CORS_ALLOW_METHODS = [
