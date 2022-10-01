@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q!k(g0#vq$-qc6jeqqq$i_!(j1#!&ef6#)ctaagjv*shsdmm3v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['j7b206.p.ssafy.io', '127.0.0.1', 'yogidice.site', 'localhost']
+ALLOWED_HOSTS = ['j7b206.p.ssafy.io', '127.0.0.1', 'yogidice.site', 'localhost', '172.18.0.1']
 
 
 # Application definition
