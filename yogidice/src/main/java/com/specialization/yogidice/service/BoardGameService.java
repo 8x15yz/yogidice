@@ -265,4 +265,28 @@ public class BoardGameService {
         }
         return responses;
     }
+
+    public List<BoardGameResponse> detailRecommend(List<Long> boardGameIds) {
+        List<BoardGame> boardGames = boardGameRepository.findAllByIdIn(boardGameIds);
+        for(BoardGame board : boardGames){
+            System.out.println(board.getTitleKr());
+        }
+        if (boardGames.isEmpty()) {
+            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+        }
+        List<BoardGameResponse> responses = new ArrayList<>();
+        for (BoardGame boardGame : boardGames) {
+            List<CategoryGroupResponse> categoryGroupResponses = categoryGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(CategoryGroupResponse::response)
+                    .collect(Collectors.toList());
+            List<TypeGroupResponse> typeGroupResponses = typeGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(TypeGroupResponse::response)
+                    .collect(Collectors.toList());
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(MechanismGroupResponse::response)
+                    .collect(Collectors.toList());
+            responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
+        }
+        return responses;
+    }
 }
