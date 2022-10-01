@@ -21,26 +21,20 @@ for line in rdb:
   data.append(line[0])
 
 index = 0
-arr = np.zeros((15242,420148), dtype=np.float16)
-
+# arr = np.zeros((15242), dtype=np.float16)
+arr = [ [] for _ in range(15242)]
 
 for line in tqdm(ldata):
   gameindex = data.index(line[0])
-  userindex = user.index(line[1])
-
-  if arr[gameindex][userindex] == 0:
-    try :
-      arr[gameindex][userindex] = line[2]
-    except :
-      arr[gameindex][userindex] = 0
-  else : continue
+  try :
+    arr[gameindex].append(float(line[2]))
+  except :
+    arr[gameindex].append(0)
   
-info = pd.DataFrame(arr)
+print(arr[1])  
+info = pd.DataFrame({"data " :arr})
 
-if not os.path.exists('ratingMatrixR.csv'):
-  info.to_csv('ratingMatrixR.csv',  mode='w', header=True, index=False, encoding='utf-8', sep=',')  
-else:
-  info.to_csv('ratingMatrixR.csv',  mode='a', header=False, index=False, encoding='utf-8', sep=',')
+info.to_csv('ratingMatrixR.csv',  mode='w', header=True, index=False, encoding='utf-8', sep='|')  
 
 exit()
 
