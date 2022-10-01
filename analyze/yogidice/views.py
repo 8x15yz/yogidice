@@ -38,6 +38,7 @@ from rest_framework.status import (
     HTTP_204_NO_CONTENT,
 )
 
+from django.shortcuts import get_object_or_404
 from django.http import ( HttpResponse, JsonResponse)
 from . import CateModel
 # from . import YoDaModel
@@ -94,6 +95,11 @@ def get_user_data(request, user):
         # model_result = YoDaModel.knn(serializer.data)
         return JsonResponse(serializer.list,'json')
 
-# @api_view(['GET'])
-# def get_user_data(request, game_id):
+@api_view(['GET'])
+def game_detail(request, game_id):
+    if request.method == 'GET':
+        bg = BoardGame.objects.filter(bgg_code=game_id)
+        serializer = BoardGameSerializer(bg)
+        return Response(serializer.data)
+
         
