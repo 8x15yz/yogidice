@@ -15,7 +15,7 @@
         <div class="play-card-case" v-for="game in userplaygames" :key="game.key">
             <img class="long-img" :src='`https://boardlife.co.kr/${game.thumburl}`'>
             <div class="game-info">
-                <div class="my-game-title">{{ game.title_kr }}</div>
+                <div class="my-game-title">{{ game.gameTitle }}</div>
                 <div v-if="game.rating" class="chip-rating">
                     <span class="play-my-rating-title">내가 준 별점</span>
                     <div class="rating">★{{ game.rating }}</div>
