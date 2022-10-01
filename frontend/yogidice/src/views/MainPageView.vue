@@ -6,7 +6,7 @@
     <long-card-list></long-card-list>
   </div>
   <div id="wrap2-back">
-    <div class="text-headline-6 main-message">유저님에게 맞는 <br> 보드게임을 추천해드려요</div>
+    <div class="text-headline-6 main-message">{{nickName}}님에게 맞는 <br> 보드게임을 추천해드려요</div>
     <!-- 추천 게임 타입 선택 -->
     <div class="cardlist-type">
       <div @click="changeActive" class="text-body-1 isactive">추천</div>
@@ -111,6 +111,8 @@ export default {
       router.push({name: "GamePlusView"})
     }
 
+    // 유저 부분
+    let nickName = computed(()=>store.state.myuser.nickName)
       
     return {
       changeActive,
@@ -118,7 +120,8 @@ export default {
       filteredGames,
       showSearchResult,
       moveToCafes,
-      moveToGamePage
+      moveToGamePage,
+      nickName
     }
   }
 }

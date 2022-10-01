@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import BerChart from '../BerChart.vue'
 import ModalDialog from '@/components/modal/ModalDialog.vue'
 import { useStore } from 'vuex'
@@ -55,21 +54,35 @@ export default {
     contents.body = "게임 타입에 대한 설명 주룩주룩"
     store.commit("changeModal") 
   }
-  axios.get('https://j7b206.p.ssafy.io/api/games/12333')
-    .then(res => {
-      const mgrlist = console.log(res.data.mechanismGroupResponses)
-    for (let mgr of mgrlist) {
+  
+  let lengamecategory = reactive([0, 0, 0, 0, 0, 0])
+  // console.log('이거', gamedetail.value.mechanismGroupResponses)
+  async function gamedetailfunc() {
+    let gamedetail = computed(()=>store.state.games.detail)
+    return gamedetail;
+  }
+  gamedetailfunc().then( (gamedetail) => {
+    for (let mgr of gamedetail.value.mechanismGroupResponses) {
       console.log(mgr.parentsMec)
-    }})
-    .catch(err => {
-      console.log(err)
-    })
-  const lengamecategory = [1, 2, 3, 4, 5, 6] // berChart으로 prop되는 데이터
+      if (mgr.parentsMec == '추리카드퍼즐') { lengamecategory[0] += 1}
+      else if (mgr.parentsMec == '경제') { lengamecategory[1] += 1}
+      else if (mgr.parentsMec == '파티') { lengamecategory[2] += 1}
+      else if (mgr.parentsMec == '조건') { lengamecategory[3] += 1}
+      else if (mgr.parentsMec == '말') { lengamecategory[4] += 1}
+      else if (mgr.parentsMec == '전략') { lengamecategory[5] += 1}
+    }
+    console.log(lengamecategory)
+  }
+    
+  )
+  
+
+  
   return {
     showModal,
     contents,
     describeType,
-    lengamecategory
+    lengamecategory,
   }
   
 }
