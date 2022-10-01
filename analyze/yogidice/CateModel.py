@@ -2,23 +2,23 @@ import csv
 import numpy as np
 
 def calccate(game_id): 
-    game_id = str(game_id)
+    
     gameid_list = open("./yogidice/asset/gameid_list.csv", "r", newline='', encoding='utf-8')
-    gameid_list = list(csv.reader(gameid_list))
-    # print(gameid_list[0])
-
-    # game_id = str(input())
     mecinfo_1001_gameid = open("./yogidice/asset/mecinfo_1001_gameid.csv", "r", newline='', encoding='utf-8')
     mecinfo_0930 = open("./yogidice/asset/mecinfo_0930_noindex.csv", "r", newline='', encoding='utf-8')
+    gameid_list = list(csv.reader(gameid_list))
     mecinfo_1001_gameid = list(csv.reader(mecinfo_1001_gameid))
     mecinfo_0930 = list(csv.reader(mecinfo_0930))
+    game_id = str(mecinfo_1001_gameid[game_id-1][0])
+    
+    # game_id = str(input())
     testarr = mecinfo_0930[gameid_list[0].index(game_id)]
     testarr = list(map(int, testarr))
 
     for i in range(15242):
         mecinfo_0930[i] = list(map(int, mecinfo_0930[i]))
 
-    # 전치행렬으로 만들었음
+    # 전치행렬으로 만들었음ㄴ
     transpose = np.array(list(np.transpose(mecinfo_0930)))
     testarr = np.array(testarr)
 
