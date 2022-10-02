@@ -62,6 +62,9 @@ dependencies {
 
 	//apache io
 	implementation 'commons-io:commons-io:2.6'
+
+	//json
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
 tasks.named('test') {

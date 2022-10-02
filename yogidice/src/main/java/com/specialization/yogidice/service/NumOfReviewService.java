@@ -2,11 +2,13 @@ package com.specialization.yogidice.service;
 
 import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
+import com.specialization.yogidice.common.util.DeduplicationUtils;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.NumOfReview;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
 import com.specialization.yogidice.domain.repository.NumOfReviewRepository;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
+import com.specialization.yogidice.dto.response.BoardGameResponse;
 import com.specialization.yogidice.dto.response.NumOfReviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +43,8 @@ public class NumOfReviewService {
 
     @Transactional
     public List<NumOfReviewResponse> readTop10ListByNumOfReview() {
-        List<NumOfReview> numOfReviews = numOfReviewRepository.findTop10ByOrderByNumberDesc();
+//        List<NumOfReview> numOfReviews = numOfReviewRepository.findTop10ByOrderByNumberDesc();
+        List<NumOfReview> numOfReviews = numOfReviewRepository.findTop100ByOrderByNumberDesc();
         if (numOfReviews.isEmpty()) {
             throw new NotFoundException(NUMOFREVIEW_LIST_NOT_FOUND);
         }
@@ -49,6 +52,8 @@ public class NumOfReviewService {
         for (NumOfReview numOfReview : numOfReviews) {
             responses.add(NumOfReviewResponse.response(numOfReview));
         }
+        responses = DeduplicationUtils.deduplication(responses, NumOfReviewResponse::getBggCode);
+        for(NumOfReviewResponse response: responses) System.out.println(response.getBggCode());
         return responses;
     }
 

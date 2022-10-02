@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { reactive, ref } from '@vue/runtime-core'
+import { reactive, ref } from 'vue'
 
 export default{
     props: {
@@ -40,6 +40,7 @@ export default{
     setup(props) {
         const isuser = ref(true)
         const datum = reactive(props.reviewdatum)
+        console.log('여기서는' , datum)
 
         return {
             isuser,

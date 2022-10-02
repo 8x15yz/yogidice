@@ -1,5 +1,6 @@
 from urllib import response
 import json
+
 from .models import (
     BggData,
     BoardGame,
@@ -37,6 +38,7 @@ from rest_framework.status import (
     HTTP_204_NO_CONTENT,
 )
 
+from django.shortcuts import get_object_or_404
 from django.http import ( HttpResponse, JsonResponse)
 from . import CateModel
 from . import YoDaModel
@@ -59,18 +61,12 @@ def boardgame_list(request):
 @api_view(['GET'])
 def recommend_detail(request, game_id):
     model_result = CateModel.calccate(game_id)
-    return JsonResponse({
-        '1st' : model_result[0],
-        '2nd' : model_result[1],
-        '3rd' : model_result[2],
-        '4th' : model_result[3],
-        '5th' : model_result[4],
-        '6th' : model_result[5],
-        '7th' : model_result[6],
-        '8th' : model_result[7],
-        '9th' : model_result[8],
-        '10th' : model_result[9]
-    })
+    main_dic = {}
+    mec_cnt = 0
+    for elem in model_result:
+        mec_cnt += 1
+        main_dic[mec_cnt] = elem
+    return JsonResponse(main_dic)
 
 
 @api_view(['GET'])
@@ -86,4 +82,13 @@ def get_user_data(request, user):
         model_result = {"game" : YoDaModel.search(list, score)}
         # model_result = json.dumps(model_result)
         return JsonResponse(model_result, safe=False)
+
+@api_view(['GET'])
+def game_detail(request, game_id):
+    if request.method == 'GET':
+        bg = BoardGame.objects.filter(bgg_code=game_id)
+        serializer = BoardGameSerializer(bg)
+        return Response(serializer.data)
+
+
         

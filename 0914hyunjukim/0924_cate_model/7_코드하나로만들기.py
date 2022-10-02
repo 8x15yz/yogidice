@@ -30,7 +30,8 @@ for info in game_mec_info:
         obj_score_2 = set(obj_score_2)
         break
 
-calc_score_abs = pd.DataFrame({'no': [], 'economic' : [], 'figure' : [], 'stratgy' : [], 'rule' : [], 'puzzle' : [], 'party' : [], 'sum_score' : [], 'jk_score' : [], 'result' : []})
+# calc_score_abs = pd.DataFrame({'no': [],'sum_score' : [], 'jk_score' : [], 'result' : []})
+calc_score_abs = pd.DataFrame({'no': [], 'result' : []})
 
 
 for score in tqdm(range(len(mec_score_board))):
@@ -38,26 +39,27 @@ for score in tqdm(range(len(mec_score_board))):
     arr = [mec_score_board[score][1]]
     scr = mec_score_board[score][2:]
     sum_score = 0
-    for i in range(6):
-        column_sc = 5-(abs(float(scr[i])-float(obj_score[i]))*0.1*5)
-        arr.append(column_sc)
-        sum_score += column_sc
-    arr.append(sum_score)
-    # print(arr)
-
     if '' in game_mec_info[score]:
         game_mec_info[score].remove('')
     info = set(game_mec_info[score][1:])
     # print((len(obj_score.intersection(info))/len(obj_score.union(info)))*70)
     jk = (len(obj_score_2.intersection(info))/len(obj_score_2.union(info)))*70
-    arr.append(jk)
-    arr.append(float(arr[7])+jk)
+    # arr.append(jk)
+    if jk != 0:
+        for i in range(6):
+            column_sc = 5-(abs(float(scr[i])-float(obj_score[i]))*0.1*5)
+            sum_score += column_sc
+        # arr.append(sum_score)
+        # print(arr)
+        arr.append(sum_score+jk)
+    else:
+        arr.append(0)
 
     calc_score_abs.loc[score] = arr
 
 calc_score_abs = calc_score_abs.sort_values(by=["result"], ascending=[False]) 
 print(calc_score_abs)
-
+calc_score_abs.to_csv("calc_score_abs.csv", mode='w')
 
 result = []
 calc_score_abs.sort_values(by=["result"], ascending=False, inplace=True) 
@@ -73,4 +75,4 @@ for score in calc_score_abs.iterrows():
         break
     result.append(calc_score_abs.loc[score[0]]['no'])
 
-print(result)
+# print(result)

@@ -22,6 +22,10 @@ export default {
   games: {
     getCreate: () => HOST + game,
     detailEdit: (gameId) => HOST + game + `/${gameId}`,
+    extendedGames: (gameId) => HOST + game + "/extend" + `/${gameId}`,
+    mostReviewd10: () => HOST + game + "/top10/review",
+    mostRecent10: () => HOST + game + "/top10/recent",
+    mostRating10: () => HOST + game + "/top10/rating",
   },
 
   bggDats: {

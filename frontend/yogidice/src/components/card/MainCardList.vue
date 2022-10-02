@@ -4,7 +4,6 @@
       v-for="game in gameLists"
       :key="game.gameId"
       id="main-card"
-      @move-game-detail="showDetail(game)"
       @click="showDetail(game)"
     >
       <main-card-items
@@ -68,7 +67,7 @@ export default {
 }
 
 #main-card {
-  width: 52vw;
+  width: 56vw;
   box-shadow: var(--shadow-card);
   background-color: var(--color-white);
   border-radius: 4px;

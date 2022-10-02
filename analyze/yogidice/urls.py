@@ -6,4 +6,6 @@ urlpatterns = [
     path('boardgame_list', views.boardgame_list),
     path('recommend/detail/<int:game_id>', views.recommend_detail),
     path('킹와플/<int:user>', views.get_user_data),
+    path('game_detail/<int:game_id>', views.game_detail),
 ]
+  

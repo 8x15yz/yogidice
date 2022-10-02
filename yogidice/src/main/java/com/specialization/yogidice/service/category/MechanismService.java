@@ -29,7 +29,8 @@ public class MechanismService {
         }
         Mechanism saveMechanism = Mechanism.create(
                 request.getName(),
-                request.getParentsMec()
+                request.getParentsMec(),
+                request.getDescription()
         );
         return mechanismRepository.save(saveMechanism).getId();
     }
@@ -60,7 +61,8 @@ public class MechanismService {
                 .orElseThrow(() -> new NotFoundException(MECHANISM_NOT_FOUND));
         mechanism.update(
                 request.getName(),
-                request.getParentsMec()
+                request.getParentsMec(),
+                request.getDescription()
         );
         mechanismRepository.save(mechanism);
     }

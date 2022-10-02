@@ -17,11 +17,14 @@ public class MechanismResponse {
 
     private String parentsMec;
 
+    private String description;
+
     public static MechanismResponse response(Mechanism mechanism) {
         return new MechanismResponse(
                 mechanism.getId(),
                 mechanism.getName(),
-                mechanism.getParentsMec()
+                mechanism.getParentsMec(),
+                mechanism.getDescription()
         );
     }
 }

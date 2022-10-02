@@ -21,6 +21,7 @@ export default {
     background: url("static/lending_page.png") no-repeat fixed;
     background-size: 100% 100%;
     position: fixed;
+    /* overflow: scroll; */
   }
 
 </style>
