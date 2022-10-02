@@ -191,7 +191,25 @@ public class BoardGameController {
         HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
         String boardGameList = restTemplate.getForObject(url, String.class);
 
-        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+
+        try {
+            Map<String, ArrayList<String>> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
+            System.out.println(mapping.get("game"));
+            ArrayList<String> list = mapping.get("game");
+            ArrayList<Long> boardGameIds = new ArrayList<>();
+            for(String id : list){
+                boardGameIds.add(Long.parseLong(id));
+            }
+
+            List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
+
+            for(BoardGameSimpleResponse b : boardGames) System.out.println(b.getTitleKr());
+            return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
+        }catch (JsonProcessingException e){
+            return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
+        }
+
+
     }
 
 
