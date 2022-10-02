@@ -4,6 +4,7 @@ import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.common.util.DeduplicationUtils;
 import com.specialization.yogidice.common.util.MechanismClassifier;
+import com.specialization.yogidice.common.util.SortUtil;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
 import com.specialization.yogidice.domain.repository.BoardGameRepositorySupport;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -265,6 +267,15 @@ public class BoardGameService {
 
     public List<BoardGameSimpleResponse> detailRecommend(List<Long> boardGameIds) {
         List<BoardGame> boardGames = boardGameRepository.findAllByIdIn(boardGameIds);
+        ArrayList<BoardGame> boardGamesSorted = new ArrayList<>();
+        for(Long id : boardGameIds){
+            for(BoardGame boardGame: boardGames){
+                if(boardGame.getId() == id){
+                    boardGamesSorted.add(boardGame);
+                    break;
+                }
+            }
+        }
         for(BoardGame board : boardGames){
             System.out.println(board.getTitleKr());
         }
@@ -272,7 +283,7 @@ public class BoardGameService {
             throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
         }
         ArrayList<BoardGameSimpleResponse> responses = new ArrayList<>();
-        for (BoardGame boardGame : boardGames) {
+        for (BoardGame boardGame : boardGamesSorted) {
             responses.add(BoardGameSimpleResponse.response(boardGame));
         }
 
