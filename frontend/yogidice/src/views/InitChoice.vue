@@ -7,7 +7,9 @@
       </div>
       <search-bar></search-bar> 
       <small-card-list></small-card-list>
-      <button @click='registInitGame' class="button-long-dark init-select-btn text-button">아직 플레이해본 게임이 없다면?</button>
+      <button @click='registInitGame' class='button-long-dark init-select-btn text-button'>
+        아직 플레이해본 게임이 없다면?
+      </button>
     </div>
     <modal-dialog v-show="showModal"></modal-dialog>
   </div>
@@ -37,8 +39,11 @@ export default {
       'footer1': '',
       'footer2': '',
     })
-    let selectCnt = ref(0)
+    let selectedGames = computed(() => store.state.games.selectedGames)
+    let selectCnt = computed(()=>selectedGames.value.length)
+    let page = 1
 
+    // 버튼 클릭시
     const registInitGame = function (e) {
       // 아무것도 선택하지 않으면 버튼이 검은색
       if (e.target.className.includes('dark')) {
@@ -60,11 +65,14 @@ export default {
     let initMessage = ref(true)
 
     onMounted(() => {
+      store.dispatch("games/resetSmallGames",{root:true})
+      store.dispatch("games/changeSmallGames",{"type":"선호도조사", "page":page}, { root:true })
       store.dispatch("page/registPresentPage","선호도조사", { root:true })
+      
       // 선택의 개수에 따라 버튼 색깔 바꿔주기
       const initBtn = document.querySelector(".init-select-btn")
-      emitter.on("selectCnt",(data) => {
-        selectCnt.value += data
+      
+      emitter.on("checkOruncheck",() => {
         if (selectCnt.value) {
           initBtn.setAttribute("class","button-long-blue init-select-btn text-button")
           initBtn.innerText = "게임 선택"
@@ -74,12 +82,23 @@ export default {
           initBtn.setAttribute("class","button-long-dark init-select-btn text-button")
           initBtn.innerText = "아직 플레이해본 게임이 없다면?"
         }
-        // 선택한 개수
+
       })
       // 첫 멘트 나왔다가 사라지기
-      setTimeout(function()
-      { initMessage.value = !initMessage.value },
-    3000)})
+      setTimeout(function(){ 
+        initMessage.value = !initMessage.value 
+        const lastCard = document.querySelector("#last-card-line")
+        const io = new IntersectionObserver ((entries) => {
+          entries.forEach((entry)=>{
+            if (entry.isIntersecting) {
+              page ++
+              store.dispatch("games/changeSmallGames",{"type":"선호도조사", "page":page}, { root:true })
+            }
+          })
+        }) // 관찰자 초기화
+        io.observe(lastCard) // 관찰할 대상 등록
+      },3000)
+    })
 
 
     return {
@@ -109,5 +128,6 @@ export default {
   position: fixed;
   top: 95vh
 }
+
 
 </style>
