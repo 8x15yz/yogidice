@@ -245,8 +245,8 @@ public class UserController {
         historyService.updateHistory(user, historyId, request);
         //장고로부터 추천 받기
         RestTemplate restTemplate = new RestTemplate();
-        //String url = "http://172.18.0.1:8000/analyze/recommend/"+user.getId();
-        String url = "http://localhost:8000/analyze/recommend/"+user.getId();  //로컬에서
+        String url = "http://172.18.0.1:8000/analyze/recommend/"+user.getId();
+        //String url = "http://localhost:8000/analyze/recommend/"+user.getId();  //로컬에서
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
