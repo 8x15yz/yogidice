@@ -6,11 +6,13 @@ import com.google.gson.Gson;
 import com.specialization.yogidice.common.config.web.LoginUser;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.User;
+import com.specialization.yogidice.domain.repository.HistoryRepository;
 import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
 import com.specialization.yogidice.dto.response.*;
 import com.specialization.yogidice.service.BoardGameService;
+import com.specialization.yogidice.service.HistoryService;
 import com.specialization.yogidice.service.NumOfReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +42,8 @@ import com.google.gson.reflect.TypeToken;
 public class BoardGameController {
     private final BoardGameService boardGameService;
     private final NumOfReviewService numOfReviewService;
+
+    private final HistoryService historyService;
 
     // 보드게임 추가
     @PostMapping
@@ -234,5 +238,13 @@ public class BoardGameController {
             @PathVariable String title) {
         return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.searchBoardGame(title)));
 
+    }
+
+    @GetMapping("reviewAll/{gameId}")
+    @ApiOperation(value = "보드게임 리뷰 조회", notes = "보드게임 아이디로 리뷰를 조회합니다")
+    public ResponseEntity<?> readReviewAll(
+            @PathVariable Long gameId
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryListById(gameId)));
     }
 }
