@@ -180,8 +180,8 @@ public class BoardGameController {
             @ApiIgnore @LoginUser User user
     ) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8000/analyze/recommend/main";
-
+        String url = "http://172.18.0.1:8000/analyze/recommend/"+user.getId();
+        //String url = "http://localhost:8000/analyze/recommend/"+user.getId();  //로컬에서
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
@@ -189,7 +189,7 @@ public class BoardGameController {
         jsonObject.put("userId", user.getId());
 
         HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
-        String boardGameList = restTemplate.postForObject(url, request, String.class);
+        String boardGameList = restTemplate.getForObject(url, String.class);
 
         return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
