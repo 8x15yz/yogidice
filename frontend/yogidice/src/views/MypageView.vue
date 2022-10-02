@@ -27,7 +27,7 @@
                 <p class="profile-inner" style="font-size : 35px">
                     <span @click="myPageBtn('main')">{{nickName}}</span>
                 </p>
-                <span>💌</span><span class="profile-email">8x15yz@gmail.com</span>
+                <div style="padding: 3px;"><img src="../static/kakaologo.png" alt="" width="20" height="20">{{kakaoId}}</div>
             </div>
         </div>
         <!-- 회원정보 나오는곳 -->
@@ -41,7 +41,7 @@
                         <div><i class="fas fa-chess"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">플레이</p>
-                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 23</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;">{{userplaygames.length}}</p>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                         <div><i class="fas fa-pencil-alt"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">리뷰</p>
-                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 12</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;">{{userplaygames.length}}</p>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         <div><i class="fas fa-bookmark"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">북마크</p>
-                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;"> 40</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;">{{userbookgames.length}}</p>
                         </div>
                     </div>
                 </div>
@@ -177,9 +177,14 @@ export default {
         
         onMounted(()=>{
             store.dispatch("myuser/GetUserInfo")
+            store.dispatch("myuser/GetLikeMec")
         })
         let nickName = computed(()=>store.state.myuser.nickName)
+        let kakaoId = computed(()=>store.state.myuser.kakaoId)
         let userplaygames = computed(()=>store.state.myuser.history)
+        let userbookgames = computed(()=>store.state.myuser.bookmark)
+        let likePMec = computed(()=>store.state.myuser.likePMec)
+        let likeGameId = computed(()=>store.state.myuser.likeGameId)
 
         const myPageBtn = function(option) { // eslint-disable-line no-unused-vars
             if (option == 'play') {
@@ -221,8 +226,8 @@ export default {
                 url: 'https://j7b206.p.ssafy.io/api/users/login',
                 method: 'post',
                 data: {
-                    kakaoId: 'test2',
-                    nickName: 'test2'
+                    kakaoId: 'test1',
+                    nickName: 'test1'
                 }
             })
             .then(function a(response) { 
@@ -234,11 +239,13 @@ export default {
             });
         }
         function logOut() {
-            localStorage.removeItem("key")
+            localStorage.removeItem("token")
         }
         function viewUserInfo() {
             console.log('가라가')
             console.log('익서', userplaygames.value)
+            console.log('dlrj', likePMec.value)
+            console.log('dlsdfdfrj', likeGameId.value)
         }
         // 곧없앨거
 
@@ -255,7 +262,9 @@ export default {
             testlogin,
             logOut,
             viewUserInfo,
-            nickName
+            nickName,
+            userbookgames,
+            kakaoId
         }
     }
   }
