@@ -177,11 +177,14 @@ export default {
         
         onMounted(()=>{
             store.dispatch("myuser/GetUserInfo")
+            store.dispatch("myuser/GetLikeMec")
         })
         let nickName = computed(()=>store.state.myuser.nickName)
         let kakaoId = computed(()=>store.state.myuser.kakaoId)
         let userplaygames = computed(()=>store.state.myuser.history)
         let userbookgames = computed(()=>store.state.myuser.bookmark)
+        let likePMec = computed(()=>store.state.myuser.likePMec)
+        let likeGameId = computed(()=>store.state.myuser.likeGameId)
 
         const myPageBtn = function(option) { // eslint-disable-line no-unused-vars
             if (option == 'play') {
@@ -241,6 +244,8 @@ export default {
         function viewUserInfo() {
             console.log('가라가')
             console.log('익서', userplaygames.value)
+            console.log('dlrj', likePMec.value)
+            console.log('dlsdfdfrj', likeGameId.value)
         }
         // 곧없앨거
 
