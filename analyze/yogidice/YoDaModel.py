@@ -8,8 +8,8 @@ import time
 def search(list, score):
   # csv_data = pd.read_csv('../data/newMatrix.csv', delimiter='|', encoding='UTF-8')
   # rating_data = pd.read_csv('../data/newMatrixR.csv', delimiter='|', encoding='UTF-8')
-  csv_data = pd.read_csv('/var/jenkins_home/workspace/yogidicedeploy/data/newMatrix.csv', delimiter='|', encoding='UTF-8')
-  rating_data = pd.read_csv('/var/jenkins_home/workspace/yogidicedeploy/data/newMatrixR.csv', delimiter='|', encoding='UTF-8')
+  csv_data = pd.read_csv('./data/newMatrix.csv', delimiter='|', encoding='UTF-8')
+  rating_data = pd.read_csv('./data/newMatrixR.csv', delimiter='|', encoding='UTF-8')
 
   result = []
   resultR = []
