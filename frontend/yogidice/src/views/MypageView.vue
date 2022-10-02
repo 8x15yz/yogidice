@@ -27,7 +27,7 @@
                 <p class="profile-inner" style="font-size : 35px">
                     <span @click="myPageBtn('main')">{{nickName}}</span>
                 </p>
-                <span>💌</span><span class="profile-email">8x15yz@gmail.com</span>
+                <div style="padding: 3px;"><img src="../static/kakaologo.png" alt="" width="20" height="20">{{kakaoId}}{{lengamecategory}}</div>
             </div>
         </div>
         <!-- 회원정보 나오는곳 -->
@@ -78,7 +78,7 @@
                         <span>{{nickName}}</span><span>님은</span>
                     </div>
                     <div class="mp-bg-s-inner">
-                        <span id="mypage-cate-result">경제</span><span id="mypage-cate-result">마니아</span><span> 입니다</span><span>❓</span>
+                        <span id="mypage-cate-result">{{toponemec}}</span><span id="mypage-cate-result">마니아</span><span> 입니다</span><span>❓</span>
                     </div>
                 </div>
                 <!-- mainview : 보드게임 성향 알려주는곳 -->
@@ -116,7 +116,9 @@
 
         <!-- 워드클라우드 / 플레이 / 리뷰 / 북마크 상세 들어갈 곳 -->
         <div class="mypage-bottom-container">
-            <word-cloud v-if="mainview"></word-cloud>
+            <word-cloud 
+            v-if="mainview"
+            ></word-cloud>
             <mypage-play 
             :userplaygames="userplaygames" 
             v-if="playview"
@@ -142,7 +144,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed} from 'vue'
 
 import axios from 'axios'
 import { useStore } from 'vuex'
@@ -173,15 +175,20 @@ export default {
         const reviewview = ref(false);
         const bookmarkview = ref(false);
         const reviewmodalview = ref(false)
-
+        // const ParentMechanism = ['추카퍼', '경제', '파티', '조건', '말', '전략']
         
-        onMounted(()=>{
-            store.dispatch("myuser/GetUserInfo")
-        })
+        store.dispatch("myuser/GetUserInfo")
+
+        const lengamecategory = computed(()=>store.state.myuser.likePMec)
+        const toponemec = computed(()=>store.state.myuser.likePMecMax)
+        
         let nickName = computed(()=>store.state.myuser.nickName)
+        let kakaoId = computed(()=>store.state.myuser.kakaoId)
         let userplaygames = computed(()=>store.state.myuser.history)
         let userbookgames = computed(()=>store.state.myuser.bookmark)
+        
 
+        
         const myPageBtn = function(option) { // eslint-disable-line no-unused-vars
             if (option == 'play') {
                 playview.value = true
@@ -222,8 +229,8 @@ export default {
                 url: 'https://j7b206.p.ssafy.io/api/users/login',
                 method: 'post',
                 data: {
-                    kakaoId: 'test1',
-                    nickName: 'test1'
+                    kakaoId: 'test4',
+                    nickName: 'test4'
                 }
             })
             .then(function a(response) { 
@@ -238,8 +245,10 @@ export default {
             localStorage.removeItem("token")
         }
         function viewUserInfo() {
-            console.log('가라가')
-            console.log('익서', userplaygames.value)
+            // for (let mec of likeMecha.value) {
+            //     console.log(mec[1], mec[0])
+            // }
+            
         }
         // 곧없앨거
 
@@ -257,7 +266,10 @@ export default {
             logOut,
             viewUserInfo,
             nickName,
-            userbookgames
+            userbookgames,
+            kakaoId,
+            lengamecategory,
+            toponemec
         }
     }
   }
