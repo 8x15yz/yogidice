@@ -81,8 +81,30 @@ def search(list, score):
   for k in result:
     resultR.append(userR[k -1])
   
-  
-  return knn(result, resultR, score)  
+  knndata = knn(result, resultR, score)
+
+  final = []
+  for e in range(0, 15242):
+    try:
+      line = csv_data['data'][e].split(',')
+    except: continue
+    for l, v in enumerate(line) :
+      for k , v2 in enumerate(knndata) :
+        if int(v) == v2 and not e+1 == list[0] and not e+1 == list[1] and not e+1 == list[2]:
+          id = str(e + 1)
+          sc = rating_data['data'][e].split(',')[l]
+          final.append([id , sc])
+  final_temp = []
+  final_set = []
+  for value in final:
+    if value[0] not in final_temp:
+        final_temp.append(value[0])
+        final_set.append(value)
+  final_set = sorted(final_set, key =lambda item: item[1], reverse=True)[0:10]
+  final_result = []
+  for f in final_set:
+    final_result.append(f[0])
+  return final_result 
 
 
 def knn(result, resultR, score) :
@@ -104,6 +126,6 @@ def dist(score, score2) :
       sum += (float(i)-float(j))**2
   return math.sqrt(sum)
 
-start = time.time()
-print(search([1089, 4696, 7943], [5, 8, 3]))
-print(time.time() - start)
+# start = time.time()
+# print(search([1, 2, 3], [5, 8, 3]))
+# print(time.time() - start)
