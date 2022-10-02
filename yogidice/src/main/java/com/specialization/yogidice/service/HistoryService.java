@@ -123,4 +123,20 @@ public class HistoryService {
             historyRepository.delete(history);
         }
     }
+
+    @Transactional
+    public List<HistoryResponse> readHistoryListById(Long gameId) {
+        BoardGame boardGame = boardGameRepository.findById(gameId)
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));;
+        List<History> histories = historyRepository.findAllByBoardGame(boardGame);
+        if (histories.isEmpty()) {
+            throw new NotFoundException((HISTORY_LIST_NOT_FOUND));
+        }
+        List<HistoryResponse> responses = new ArrayList<>();
+        for (History history : histories) {
+            responses.add(HistoryResponse.response(history));
+        }
+        return responses;
+    }
+
 }
