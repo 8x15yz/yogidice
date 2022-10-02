@@ -8,6 +8,7 @@ export default {
   state: () => ({
     token: localStorage.getItem("token") || "",
     currentUser: {},
+    isBookMarkWorking: true,
   }),
   getters: {
     isLogginedIn: (state, _, rootState) =>
@@ -20,6 +21,7 @@ export default {
   mutations: {
     SET_TOKEN: (state, token) => (state.token = token),
     SET_CURRENT_USER: (state, user) => (state.currentUser = user),
+    BOOKMARK_NOT_WORKING: (state) => state.isBookMarkWorking = false,
   },
   actions: {
     registNickName({ commit, getters }, newNickName) {
@@ -36,49 +38,18 @@ export default {
         })
         .catch(() => alert("닉네임을 변경하지 못했습니다."));
     },
-    registBookMark({ getters, dispatch }, gameList) {
-      axios({
+    registBookMark({ getters, commit }, gameId) {
+      return axios({
         url: api.users.bookmark(),
         method: "post",
         headers: getters.authHeader,
-        data: gameList,
+        data: {"gameId":gameId},
       })
-        .then(() => {
-          dispatch(
-            "modal/registModal",
-            {
-              info: {},
-              from: "",
-              header: "",
-              body: "성공적으로 등록되었습니다!",
-              footer1: "",
-              footer2: "",
-            },
-            { root: true },
-          );
-          setTimeout(function () {
-            router.push({
-              name: "MainPage",
-            });
-          }, 2000);
-        })
-        .catch(() => {
-          dispatch(
-            "modal/registModal",
-            {
-              info: {},
-              from: "",
-              header: "",
-              body: "등록에 실패하였습니다!",
-              footer1: "",
-              footer2: "",
-            },
-            { root: true },
-          );
-          setTimeout(function () {
-            dispatch("modal/closeModal", null, { root: true });
-          }, 2000);
-        });
+      .then(() => {})
+        
+      .catch(() => {
+        commit("BOOKMARK_NOT_WORKING")
+      });
     },
     saveToken({ commit }, token) {
       commit("SET_TOKEN", token);
