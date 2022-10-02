@@ -27,7 +27,7 @@
                 <p class="profile-inner" style="font-size : 35px">
                     <span @click="myPageBtn('main')">{{nickName}}</span>
                 </p>
-                <span>💌</span><span class="profile-email">8x15yz@gmail.com</span>
+                <div style="padding: 3px;"><img src="../static/kakaologo.png" alt="" width="20" height="20">{{kakaoId}}</div>
             </div>
         </div>
         <!-- 회원정보 나오는곳 -->
@@ -179,6 +179,7 @@ export default {
             store.dispatch("myuser/GetUserInfo")
         })
         let nickName = computed(()=>store.state.myuser.nickName)
+        let kakaoId = computed(()=>store.state.myuser.kakaoId)
         let userplaygames = computed(()=>store.state.myuser.history)
         let userbookgames = computed(()=>store.state.myuser.bookmark)
 
@@ -257,7 +258,8 @@ export default {
             logOut,
             viewUserInfo,
             nickName,
-            userbookgames
+            userbookgames,
+            kakaoId
         }
     }
   }
