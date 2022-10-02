@@ -43,12 +43,12 @@ export default {
             })
             .catch((err) => {console.log(err)});
         },
-        GetLikeMec({commit, getters}) {
-            let likemec = getters.likemec;
-            commit('TEST_NUM', [0, 0, 0, 2, 0, 0]);
-            for (mec in likemec) {
-                commit('LIKE_GAME_ID', mec.value.id)
-            }
-        }
+        // GetLikeMec({commit, getters}) {
+        //     let likemec = getters.likemec;
+        //     commit('TEST_NUM', [0, 0, 0, 2, 0, 0]);
+        //     for (mec in likemec) {
+        //         commit('LIKE_GAME_ID', mec.value.id)
+        //     }
+        // }
     }
 }
