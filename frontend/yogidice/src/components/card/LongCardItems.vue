@@ -1,13 +1,13 @@
 <template>
-  <img class="long-img" :src='imgUrl' alt="">
+  <img class="long-img" :src='thumbUrl' alt="">
   <div class="game-info">
-    <div class="game-title text-subtitle-1">{{ oneGame.title_kr }}</div>
+    <div class="game-title text-subtitle-1">{{ titleKr }}</div>
     <div class="chip-rating">
-      <div class="text-subtitle-1 rating">★{{ oneGame.rating }}</div>
+      <div class="text-subtitle-1 rating">★{{ ratingUser }}</div>
       <div class="game-chip-container">
-        <div>{{ `${oneGame.minPlayers}~${oneGame.maxPlayers}인` }}</div>
-        <div>{{ oneGame.playTimes }}</div>
-        <div>{{ oneGame.playLevel }}</div>
+        <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
+        <div>{{ playingTime }}</div>
+        <div>{{ difficulty }}</div>
       </div>
     </div>
   </div>
@@ -19,21 +19,29 @@
 </template>
 
 <script>
-import { computed,toRefs,ref } from "vue"
+import { toRefs,ref } from "vue"
 
 export default {
   props: {
-    game: Object
+    lg: Object
   },
   setup(props) {
-    let oneGame = toRefs(props.game)
-
+  
     let checkedMark = ref(false)
+  
+    let { titleKr } = toRefs(props.lg)
+    let { thumbUrl } = toRefs(props.lg)
+    let { id } = toRefs(props.lg)
+    let { maxPlayers } = toRefs(props.lg)
+    let { minPlayers } = toRefs(props.lg)
+    let { playingTime } = toRefs(props.lg)
+    let { ratingUser } = toRefs(props.lg)
+    let { difficulty } = toRefs(props.lg)
+  
 
     let bookmarkBorder = ref(true)
     let bookmarkFilled = ref(false)
 
-    let imgUrl = computed(() => `https://boardlife.co.kr/${oneGame.thumburl.value}`)
 
     let showRegister = ref(false)
     const registerBookMark = function () {
@@ -50,20 +58,19 @@ export default {
     }
 
   return {
-    oneGame,
-    // key,
-    // title_kr,
-    imgUrl,
+    titleKr,
+    id,
+    thumbUrl,
     checkedMark,
-    // maxPlayers,
-    // minPlayers,
-    // playTimes,
-    // playLevel,
-    // rating,
     registerBookMark,
     bookmarkBorder,
     bookmarkFilled,
-    showRegister
+    showRegister,
+    maxPlayers,
+    minPlayers,
+    playingTime,
+    ratingUser,
+    difficulty
   }}
 
 

@@ -1,7 +1,9 @@
 <template>
-  <img class="smallImg" @click="selectImg" :src='imgUrl' alt="">
-  <p class="text-subtitle-2">{{ title_kr }}</p>
-  <span id="checked-mark" v-show="checkedMark" class="material-icons">check_circle</span>
+  <div>
+    <img class="smallImg" :class="{'checked-game':isChecked}" @click="selectImg" :src='thumbUrl' alt="">
+    <p class="text-subtitle-2">{{ titleKr }}</p>
+    <span id="checked-mark" v-show="isChecked" class="material-icons">check_circle</span>
+  </div>
 </template>
 
 <script>
@@ -16,39 +18,40 @@ export default {
     let store = useStore()
     const internalInstance = getCurrentInstance()
     const emitter = internalInstance.appContext.config.globalProperties.emitter
-    let presentPage = computed(() => store.state.page.presentPage)
-    let { key } = toRefs(props.game)
-    let { title_kr } = toRefs(props.game)
-    let { thumburl } = toRefs(props.game)
-    let checkedMark = ref(false)
 
-    let imgUrl = computed(() => `https://boardlife.co.kr/${thumburl.value}`)
-    let selectCnt 
+    let presentPage = computed(() => store.state.page.presentPage)
+    let selectedGames = computed(() => store.state.games.selectedGames)
+    let { titleKr } = toRefs(props.game)
+    let { thumbUrl } = toRefs(props.game)
+    let { id } = toRefs(props.game)
+    let checkedMark = ref(false)
+    let isChecked = computed(() => selectedGames.value.includes(id.value))
+  
+
+    // let selectCnt 
 
     // 지금 일단 동시 선택 안됨(선택은 되는데 담기지가 않음)
-    const selectImg = function(e) {
+    const selectImg = function() {
       if (presentPage.value === "선호도조사") {
         // 선택된 상태면 선택 해제
-        if (e.target.style.filter) {
-        e.target.style.filter = ""
-        selectCnt = -1
+        if (isChecked.value) {
+          store.dispatch("games/removeSelectedGames",id.value, {root:true})
         } else {
         // 선택해주기
-        e.target.style.filter = "brightness(50%)"
-        selectCnt = 1
+          store.dispatch("games/addSelectedGames",id.value, {root:true})
         }
-        checkedMark.value = !checkedMark.value
-        emitter.emit("selectCnt",selectCnt)
+        emitter.emit("checkOruncheck")
       }
     }
 
 
   return {
-    key,
-    title_kr,
-    imgUrl,
+    titleKr,
+    thumbUrl,
     checkedMark,
-    selectImg
+    selectImg,
+    selectedGames,
+    isChecked
   }}
 
 
@@ -73,6 +76,9 @@ export default {
   top: 8px;
   right: 6px;
   font-size: 8vw;
+}
+.checked-game {
+  filter: brightness(50%)
 }
 
 
