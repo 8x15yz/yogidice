@@ -1,5 +1,7 @@
 package com.specialization.yogidice.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.common.util.DeduplicationUtils;
@@ -22,13 +24,14 @@ import com.specialization.yogidice.dto.response.category.CategoryGroupResponse;
 import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
 import lombok.RequiredArgsConstructor;
+import net.minidev.json.JSONObject;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.specialization.yogidice.common.exception.NotFoundException.*;
@@ -313,5 +316,35 @@ public class BoardGameService {
             responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
         }
         return responses;
+    }
+
+    List<BoardGameSimpleResponse> recommendByBookmark(List<BookmarkResponse> bookmarkResponses) throws JsonProcessingException{
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();
+        //String url = "http://localhost:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();  //로컬에서
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("gameId", bookmarkResponses.get(0).getGameId());
+
+        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+        String boardGameList = restTemplate.getForObject(url,String.class);
+
+        HashMap<String, Object> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
+        HashMap<Integer, Long> boardMap = new HashMap<>();
+        for (String key : mapping.keySet()) {
+            boardMap.put(Integer.parseInt(key), Long.parseLong((String)mapping.get(key)));
+        }
+        List<Long> boardGameIds = new ArrayList<>(boardMap.values());
+        for(Integer key : boardMap.keySet()){
+                boardGameIds.add(boardMap.get(key));
+        }
+        List<BoardGameSimpleResponse> boardGames =  detailRecommend(boardGameIds);
+
+        
+        return boardGames;
     }
 }

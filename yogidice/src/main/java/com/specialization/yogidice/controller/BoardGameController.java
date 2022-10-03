@@ -185,15 +185,53 @@ public class BoardGameController {
     ) {
         //리뷰를 했다면
         if(user.getReviewed()== Reviewed.T) {
+            if(boardGameService.mainRecommend(user.getId()).size()==0){
+
+                List<BookmarkResponse> bookmarkResponses= bookmarkService.readBookmarkListOfUser(user.getId());
+                if(!bookmarkResponses.isEmpty()){
+                    System.out.println("리뷰 했지만 메인 추천이 0개 북마크 남김");
+                    RestTemplate restTemplate = new RestTemplate();
+                    String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();
+                    //String url = "http://localhost:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();  //로컬에서
+
+                    HttpHeaders httpHeaders = new HttpHeaders();
+                    httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+                    JSONObject jsonObject = new JSONObject();
+
+                    jsonObject.put("gameId", bookmarkResponses.get(0).getGameId());
+
+                    HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+                    String boardGameList = restTemplate.getForObject(url,String.class);
+                    try {
+                        Map<String, Object> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
+                        Map<Integer, Long> boardMap = new HashMap<>();
+                        for (String key : mapping.keySet()) {
+                            boardMap.put(Integer.parseInt(key), Long.parseLong((String)mapping.get(key)));
+                        }
+                        List<Long> boardGameIds = new ArrayList<>(boardMap.values());
+                        for(Integer key : boardMap.keySet()){
+                            boardGameIds.add(boardMap.get(key));
+                        }
+                        List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
+
+                        return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
+                    }catch (JsonProcessingException e) {
+                        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
+                    }
+                }else{
+                    return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
+                }
+            }
             return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
         }else{
         //리뷰를 하지 않았다면
             List<BookmarkResponse> bookmarkResponses= bookmarkService.readBookmarkListOfUser(user.getId());
             if(!bookmarkResponses.isEmpty()){
-                System.out.println("북마크 남김");
+                System.out.println("리뷰를 남기지 않았지만 북마크 남김");
                 RestTemplate restTemplate = new RestTemplate();
                 String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();
-        //        String url = "http://localhost:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();  //로컬에서
+                //String url = "http://localhost:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();  //로컬에서
 
                 HttpHeaders httpHeaders = new HttpHeaders();
                 httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -213,7 +251,6 @@ public class BoardGameController {
                     List<Long> boardGameIds = new ArrayList<>(boardMap.values());
                     for(Integer key : boardMap.keySet()){
                         boardGameIds.add(boardMap.get(key));
-                        System.out.println(boardMap.get(key));
                     }
                     List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
 
@@ -256,7 +293,6 @@ public class BoardGameController {
             List<Long> boardGameIds = new ArrayList<>(boardMap.values());
             for(Integer key : boardMap.keySet()){
                 boardGameIds.add(boardMap.get(key));
-                System.out.println(boardMap.get(key));
             }
             List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
 
