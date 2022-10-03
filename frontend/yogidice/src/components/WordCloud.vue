@@ -21,12 +21,12 @@ export default {
     const wValue = document.body.clientWidth
     this.wValue = wValue
     axios({
-                url: 'https://j7b206.p.ssafy.io/api/users/history',
+                url: 'https://j7b206.p.ssafy.io/api/games/12333',
                 method: 'get',
-                headers:{
-                  Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjY0NzMzMDMyLCJleHAiOjE2NjYwMjkwMzJ9.-L3xLvuOiDZu1ZsCMT-6mrMIxbVQj7JTOIVpMS_M5IQ`,
-                  "Content-type": "Application/JSON",
-                }
+                // headers:{
+                //   Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNjY0NzMzMDMyLCJleHAiOjE2NjYwMjkwMzJ9.-L3xLvuOiDZu1ZsCMT-6mrMIxbVQj7JTOIVpMS_M5IQ`,
+                //   "Content-type": "Application/JSON",
+                // }
     })
     .then(res => {
       console.log(res.data.mechanismGroupResponses)

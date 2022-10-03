@@ -116,9 +116,11 @@
 
         <!-- 워드클라우드 / 플레이 / 리뷰 / 북마크 상세 들어갈 곳 -->
         <div class="mypage-bottom-container">
-            <word-cloud 
-            v-if="mainview"
-            ></word-cloud>
+            <div v-if="mainview">
+                <div style="height: 400px;"></div>
+                <ber-chart></ber-chart>
+                <word-cloud></word-cloud>
+            </div>
             <mypage-play 
             :userplaygames="userplaygames" 
             v-if="playview"
@@ -150,6 +152,7 @@ import axios from 'axios'
 import { useStore } from 'vuex'
 
 import WordCloud from '../components/WordCloud.vue';
+import BerChart from '../components/BerChart.vue';
 import MypageReview from '../components/MypageReview.vue';
 import MypageBookmark from '../components/MypageBookmark.vue';
 import MypagePlay from '../components/MypagePlay.vue';
@@ -164,7 +167,8 @@ export default {
     MypageBookmark,
     MypagePlay,
     GreyBgHeadBar,
-    ReviewModal
+    ReviewModal,
+    BerChart
   },
   
   setup() {
@@ -395,7 +399,7 @@ export default {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.493);
     height: 50vh;
-    overflow: hidden;
+    overflow: auto;
     /* background-color: brown; */
 }
 </style>
