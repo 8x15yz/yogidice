@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { ref } from 'vue'
 import { getCurrentInstance } from "vue";
 
@@ -64,10 +65,17 @@ export default {
 
         const submitReview = function() {
             if (gamereviewtext.value == "") {
-                window.alert('다시써')
+                window.alert('리뷰를 작성하고 제출해주세요')
             }
             else {
                 reviewform.value = false
+                axios({
+                url: api.users.get(),
+                method: "post",
+                headers: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjY0Nzc5NjY1LCJleHAiOjE2NjYwNzU2NjV9.rStIFP6IdqGhp8t7N7qRTJV75-q9SwZ4eBbJgiX4M0I'
+                })
+                .then(() => {})
+                .catch((err) => {console.log(err)})
                 console.log(gamereviewtext.value, star.value) // 리뷰 데이터 받아왔음
                 setTimeout(() => {
                     emit('CloseReviewModal')
