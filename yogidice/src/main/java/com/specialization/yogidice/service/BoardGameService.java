@@ -318,7 +318,7 @@ public class BoardGameService {
         return responses;
     }
 
-    List<BoardGameSimpleResponse> recommendByBookmark(List<BookmarkResponse> bookmarkResponses) throws JsonProcessingException{
+    public List<BoardGameSimpleResponse> recommendByBookmark(List<BookmarkResponse> bookmarkResponses) throws JsonProcessingException{
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();
         //String url = "http://localhost:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();  //로컬에서
@@ -344,7 +344,7 @@ public class BoardGameService {
         }
         List<BoardGameSimpleResponse> boardGames =  detailRecommend(boardGameIds);
 
-        
+
         return boardGames;
     }
 }
