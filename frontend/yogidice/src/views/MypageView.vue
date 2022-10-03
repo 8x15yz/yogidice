@@ -27,7 +27,7 @@
                 <p class="profile-inner" style="font-size : 35px">
                     <span @click="myPageBtn('main')">{{nickName}}</span>
                 </p>
-                <div style="padding: 3px;"><img src="../static/kakaologo.png" alt="" width="20" height="20">{{kakaoId}}{{lengamecategory}}</div>
+                <div style="padding: 3px;"><img src="../static/kakaologo.png" alt="" width="20" height="20">{{kakaoId}}</div>
             </div>
         </div>
         <!-- 회원정보 나오는곳 -->
@@ -118,7 +118,7 @@
         <div class="mypage-bottom-container">
             <div v-if="mainview">
                 <div style="height: 400px;"></div>
-                <ber-chart></ber-chart>
+                <ber-chart :lengamecategory="lengamecategory" ></ber-chart>
                 <word-cloud></word-cloud>
             </div>
             <mypage-play 
@@ -182,14 +182,17 @@ export default {
         // const ParentMechanism = ['추카퍼', '경제', '파티', '조건', '말', '전략']
         
         store.dispatch("myuser/GetUserInfo")
+        store.dispatch("myuser/GetUserHistory")
 
-        const lengamecategory = computed(()=>store.state.myuser.likePMec)
-        const toponemec = computed(()=>store.state.myuser.likePMecMax)
         
         let nickName = computed(()=>store.state.myuser.nickName)
         let kakaoId = computed(()=>store.state.myuser.kakaoId)
         let userplaygames = computed(()=>store.state.myuser.history)
         let userbookgames = computed(()=>store.state.myuser.bookmark)
+
+        // let likeMecha = computed(()=>store.state.myuser.likeMecha)
+        let lengamecategory = computed(()=>store.state.myuser.likePMec)
+        let toponemec = computed(()=>store.state.myuser.likePMecMax)
         
 
         
@@ -233,8 +236,8 @@ export default {
                 url: 'https://j7b206.p.ssafy.io/api/users/login',
                 method: 'post',
                 data: {
-                    kakaoId: 'test4',
-                    nickName: 'test4'
+                    kakaoId: 'test2',
+                    nickName: 'test2'
                 }
             })
             .then(function a(response) { 
@@ -249,11 +252,9 @@ export default {
             localStorage.removeItem("token")
         }
         function viewUserInfo() {
-            // for (let mec of likeMecha.value) {
-            //     console.log(mec[1], mec[0])
-            // }
-            
+            store.dispatch("gamedetail/getLengames", 1)
         }
+        
         // 곧없앨거
 
         return {

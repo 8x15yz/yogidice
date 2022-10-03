@@ -1,7 +1,7 @@
 <template>
     <div class="my-bookmark-tag">
         <div v-for="game in games" :key="game.key">
-            <img class="smallImg" @click="selectImg" :src='`https://boardlife.co.kr/${game.thumburl}`' alt="">
+            <img class="smallImg" @click="selectImg" :src='game.thumbUrl' alt="">
             <p class="text-subtitle-2">{{ game.gameTitle }}</p>
         </div>
     </div>
@@ -16,6 +16,7 @@ export default {
   setup() {
     const store = useStore()
     let games = computed(()=>store.state.myuser.bookmark)
+    console.log(games)
     return {
       games
     }
