@@ -72,13 +72,19 @@ def recommend_detail(request, game_id):
 @api_view(['GET'])
 def get_user_data(request, user):
     if request.method == 'GET':
-        data = History.objects.filter(user_id = user).order_by('-created_date')[:3]
+        data = History.objects.filter(user_id = user).order_by('-created_date')
         serializer = HistorySerializer(data, many=True)
         list = []
         score = []
+        cnt = 0
         for i in serializer.data:
-            list.append(i['game'])
-            score.append(i['rating'])
+            if cnt == 3 : break
+            if i['rating'] == 0:
+                continue
+            else :
+                list.append(i['game'])
+                score.append(i['rating'])
+                cnt += 1
         model_result = {"game" : YoDaModel.search(list, score)}
         # model_result = json.dumps(model_result)
         return JsonResponse(model_result, safe=False)

@@ -21,13 +21,16 @@ public class BookmarkResponse {
 
     private String gameTitle;
 
+    private String thumbUrl;
+
     public static BookmarkResponse response(Bookmark bookmark) {
         return new BookmarkResponse(
                 bookmark.getId(),
                 bookmark.getUser().getId(),
                 bookmark.getUser().getNickName(),
                 bookmark.getBoardGame().getId(),
-                bookmark.getBoardGame().getTitleKr()
+                bookmark.getBoardGame().getTitleKr(),
+                bookmark.getBoardGame().getThumbUrl()
         );
     }
 }

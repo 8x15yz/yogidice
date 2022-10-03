@@ -226,7 +226,7 @@ public class UserController {
     public ResponseEntity<?> readHistory(
             @ApiIgnore @LoginUser User user
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryListOfUser(user.getId())));
+        return ResponseEntity.status(HttpStatus.OK).body(HistoryDetailListResponse.of(200, "Success", historyService.readHistoryListOfUser(user.getId())));
     }
 
     @PutMapping("/history/{historyId}")
@@ -270,7 +270,7 @@ public class UserController {
             recommendService.updateRecommend(user.getId(), boardGameIds);
             List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
 
-            for(BoardGameSimpleResponse b : boardGames) System.out.println(b.getTitleKr());
+//            for(BoardGameSimpleResponse b : boardGames) System.out.println(b.getTitleKr());
         }catch (JsonProcessingException e){
             return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
         }
