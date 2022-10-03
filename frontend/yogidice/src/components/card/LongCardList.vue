@@ -4,8 +4,6 @@
     <div
       v-for="lg in longGameLists"
       :key="lg.id"
-      id="long-card"
-      @click="showDetail(lg)"
     >
       <long-card-items
       :lg="lg"></long-card-items>
@@ -84,15 +82,6 @@ export default {
   padding: 5vw;
 }
 
-#long-card {
-  position: relative;
-  display: flex;
-  width: 90vw;
-  height: 20vw;
-  box-shadow: var(--shadow-card);
-  border-radius: 4px;
-  background-color: white;
-  overflow: hidden;
-}
+
 
 </style>

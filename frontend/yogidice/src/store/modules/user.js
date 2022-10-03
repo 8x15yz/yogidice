@@ -9,6 +9,7 @@ export default {
     token: localStorage.getItem("token") || "",
     currentUser: {},
     isBookMarkWorking: true,
+    myBookMark: [],
   }),
   getters: {
     isLogginedIn: (state, _, rootState) =>
@@ -22,6 +23,7 @@ export default {
     SET_TOKEN: (state, token) => (state.token = token),
     SET_CURRENT_USER: (state, user) => (state.currentUser = user),
     BOOKMARK_NOT_WORKING: (state) => state.isBookMarkWorking = false,
+    SET_BOOKMARK: (state, bookmarks) => state.myBookMark = bookmarks
   },
   actions: {
     registNickName({ commit, getters }, newNickName) {
@@ -49,6 +51,20 @@ export default {
         
       .catch(() => {
         commit("BOOKMARK_NOT_WORKING")
+      });
+    },
+    getBookMark({ getters,commit }) {
+      return axios({
+        url: api.users.bookmark(),
+        method: "get",
+        headers: getters.authHeader,
+      })
+      .then((res) => {
+        commit('SET_BOOKMARK',res.data.responses)
+      })
+        
+      .catch((err) => {
+        console.log(err)
       });
     },
     saveToken({ commit }, token) {
