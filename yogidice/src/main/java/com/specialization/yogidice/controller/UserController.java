@@ -177,7 +177,7 @@ public class UserController {
     }
 
     // 북마크 삭제
-    @DeleteMapping("/bookmark/{bookmarkId}")
+    @DeleteMapping("/bookmark/{gameId}")
     @ApiOperation(value = "북마크 삭제", notes = "북마크를 삭제합니다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -187,9 +187,9 @@ public class UserController {
     })
     public ResponseEntity<?> deleteBookmark(
             @ApiIgnore @LoginUser User user,
-            @PathVariable Long bookmarkId
+            @PathVariable Long gameId
     ) {
-        bookmarkService.deleteBookmark(bookmarkId);
+        bookmarkService.deleteBookmark(user.getId(), gameId);
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 
