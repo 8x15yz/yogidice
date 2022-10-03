@@ -5,7 +5,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import SignupView from "@/views/SignupView.vue";
 import KakaoLoginView from "@/views/KakaoLoginView.vue";
-import QwerTy from "@/components/QwerTy.vue";
 import BerChart from "@/components/BerChart.vue";
 import RegistNickName from "@/components/intro/RegistNickName.vue";
 import WordCloud from "../components/WordCloud.vue";
@@ -18,6 +17,9 @@ import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
 import DetailView from '@/views/DetailView.vue'
 import PlaceView from "@/views/PlaceView.vue"
 import GamePlusView from "@/views/GamePlusView.vue"
+import BoardBgLayout from "@/layouts/BoardBgLayout.vue"
+import PickView from "@/views/PickView.vue"
+import PickQuestionView from "@/views/PickQuestionView.vue"
 
 
 // Vue.use(VueRouter);
@@ -27,11 +29,6 @@ const routes = [
     path: "/",
     name: "HomeView",
     component: HomeView,
-  },
-  {
-    path: "/qwerty",
-    name: "QwerTy",
-    component: QwerTy,
   },
   {
     path: "/BerChart",
@@ -117,6 +114,23 @@ const routes = [
     path: '/plusgame',
     name: 'GamePlusView',
     component: GamePlusView,
+  },
+  {
+    path: "/pick",
+    component: BoardBgLayout,
+    children: [
+      {
+        path: "",
+        name: "GamePickHome",
+        component: PickView
+      },
+      {
+        path: "/question",
+        name: "QuestionView",
+        component: PickQuestionView
+      }
+    ]
+
   }
 ];
 
