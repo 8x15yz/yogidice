@@ -2,25 +2,28 @@ package com.specialization.yogidice.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.specialization.yogidice.common.config.web.LoginUser;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.dto.request.*;
 import com.specialization.yogidice.dto.response.*;
-import com.specialization.yogidice.service.BookmarkService;
-import com.specialization.yogidice.service.HistoryService;
-import com.specialization.yogidice.service.UserService;
+import com.specialization.yogidice.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import net.minidev.json.JSONObject;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -34,6 +37,9 @@ public class UserController {
     private final UserService userService;
     private final BookmarkService bookmarkService;
     private final HistoryService historyService;
+    private final RecommendService recommendService;
+    private final BoardGameService boardGameService;
+
 
     // 카카오 계정 정보 가져오기
     @GetMapping("/callback")
@@ -220,7 +226,7 @@ public class UserController {
     public ResponseEntity<?> readHistory(
             @ApiIgnore @LoginUser User user
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryListOfUser(user.getId())));
+        return ResponseEntity.status(HttpStatus.OK).body(HistoryDetailListResponse.of(200, "Success", historyService.readHistoryListOfUser(user.getId())));
     }
 
     @PutMapping("/history/{historyId}")
@@ -237,6 +243,38 @@ public class UserController {
             @Valid @RequestBody HistoryUpdateRequest request
     ) {
         historyService.updateHistory(user, historyId, request);
+        //장고로부터 추천 받기
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://172.18.0.1:8000/analyze/recommend/"+user.getId();
+        //String url = "http://localhost:8000/analyze/recommend/"+user.getId();  //로컬에서
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getId());
+
+        HttpEntity<String> httpRequest = new HttpEntity<>(jsonObject.toString(), httpHeaders);
+        String boardGameList = restTemplate.getForObject(url, String.class);
+
+
+        try {
+            Map<String, ArrayList<String>> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
+
+            ArrayList<String> list = mapping.get("game");
+            ArrayList<Long> boardGameIds = new ArrayList<>();
+            for(String id : list){
+                boardGameIds.add(Long.parseLong(id));
+            }
+            //추천 받아서 아이디 리스트 받기 완료
+            //유저 아이디 기반으로 삭제
+            recommendService.updateRecommend(user.getId(), boardGameIds);
+            List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
+
+//            for(BoardGameSimpleResponse b : boardGames) System.out.println(b.getTitleKr());
+        }catch (JsonProcessingException e){
+            return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
 

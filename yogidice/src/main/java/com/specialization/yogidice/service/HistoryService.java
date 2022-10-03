@@ -11,15 +11,20 @@ import com.specialization.yogidice.domain.repository.BoardGameRepository;
 import com.specialization.yogidice.domain.repository.HistoryRepository;
 import com.specialization.yogidice.domain.repository.NumOfReviewRepository;
 import com.specialization.yogidice.domain.repository.UserRepository;
+import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
 import com.specialization.yogidice.dto.request.HistoryCreateRequest;
 import com.specialization.yogidice.dto.request.HistoryUpdateRequest;
+import com.specialization.yogidice.dto.response.BoardGameResponse;
+import com.specialization.yogidice.dto.response.HistoryDetailResponse;
 import com.specialization.yogidice.dto.response.HistoryResponse;
+import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.specialization.yogidice.common.exception.NotFoundException.*;
 
@@ -31,6 +36,7 @@ public class HistoryService {
     private final BoardGameRepository boardGameRepository;
     private final HistoryRepository historyRepository;
     private final NumOfReviewRepository numOfReviewRepository;
+    private final MechanismGroupRepository mechanismGroupRepository;
 
     @Transactional
     public Long createHistory(Long userId, HistoryCreateRequest request) {
@@ -49,17 +55,21 @@ public class HistoryService {
     }
 
     @Transactional
-    public List<HistoryResponse> readHistoryListOfUser(Long userId) {
+    public List<HistoryDetailResponse> readHistoryListOfUser(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         List<History> histories = historyRepository.findByUser(user);
         if (histories.isEmpty()) {
             throw new NotFoundException((HISTORY_LIST_NOT_FOUND));
         }
-        List<HistoryResponse> responses = new ArrayList<>();
+        List<HistoryDetailResponse> responses = new ArrayList<>();
         for (History history : histories) {
-            responses.add(HistoryResponse.response(history));
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(history.getBoardGame()).stream()
+                    .map(MechanismGroupResponse::response)
+                    .collect(Collectors.toList());
+            responses.add(HistoryDetailResponse.response(history, mechanismGroupResponses));
         }
+
         return responses;
     }
 
@@ -87,6 +97,10 @@ public class HistoryService {
                 request.getRating(),
                 request.getReview()
         );
+        if(user.getReviewed()==Reviewed.F){
+            user.completeReview();
+        }
+        userRepository.save(user);
         historyRepository.save(history);
     }
 
@@ -123,4 +137,20 @@ public class HistoryService {
             historyRepository.delete(history);
         }
     }
+
+    @Transactional
+    public List<HistoryResponse> readHistoryListById(Long gameId) {
+        BoardGame boardGame = boardGameRepository.findById(gameId)
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));;
+        List<History> histories = historyRepository.findAllByBoardGame(boardGame);
+        if (histories.isEmpty()) {
+            throw new NotFoundException((HISTORY_LIST_NOT_FOUND));
+        }
+        List<HistoryResponse> responses = new ArrayList<>();
+        for (History history : histories) {
+            responses.add(HistoryResponse.response(history));
+        }
+        return responses;
+    }
+
 }

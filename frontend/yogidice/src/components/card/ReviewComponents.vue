@@ -6,7 +6,7 @@
         <div v-for="data in datum" :key="data.key" id="review-component-base">
             <div class="review-title-rating-wrapper">
                 <div class="review-rating review-title " >
-                    {{data.bg_title}}
+                    {{data.gameTitle}}
                     {{data.user}}
                 </div>
                 <div class="rating review-rating">
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="review-create-date">
-                {{data.create_date}}
+                {{data.createDate}}
             </div>
             <div class="review-content-text-overflow">
                 {{data.review}}
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { reactive, ref } from '@vue/runtime-core'
+import { reactive, ref } from 'vue'
 
 export default{
     props: {
@@ -40,7 +40,6 @@ export default{
     setup(props) {
         const isuser = ref(true)
         const datum = reactive(props.reviewdatum)
-        console.log('여기서는' , datum)
 
         return {
             isuser,

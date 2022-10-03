@@ -5,13 +5,11 @@
     </div>
     <!-- navigation bar -->
 
-
-
     <!-- game 페이지 -->
     <div id="wrap-game-back">
         <div class="game-ing">{{클루}} 클루 게임중</div>
         <div>
-            <game-timer v-if="timer"></game-timer>
+            <game-clock v-if="clock"></game-clock>
             <pick-penalty v-if="bomb"></pick-penalty>
             <pick-tagger v-if="person"></pick-tagger>
             <rolling-dice v-if="dice"></rolling-dice>
@@ -44,8 +42,8 @@
                 </div>
             </div>
             <div class="game-menu-center"></div>
-            <div :class="{'game-menu-btn left-border game-menu-selected': timer == true, 'game-menu-btn left-border game-menu-unsel': timer == false}">
-                <div @click="subMenuBtn('timer')">
+            <div :class="{'game-menu-btn left-border game-menu-selected': clock == true, 'game-menu-btn left-border game-menu-unsel': clock == false}">
+                <div @click="subMenuBtn('clock')">
                     <div class="gmb-df">🎲</div>
                     <div>타이머</div>
                 </div>
@@ -64,7 +62,7 @@
 
 <script>
 import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue';
-import GameTimer from '@/components/plusgame/GameTimer.vue';
+import GameClock from '@/components/plusgame/GameClock.vue';
 import PickPenalty from '@/components/plusgame/PickPenalty.vue';
 import PickTagger from '@/components/plusgame/PickTagger.vue';
 import RollingDice from '@/components/plusgame/RollingDice.vue';
@@ -73,7 +71,7 @@ import { ref } from '@vue/runtime-core'
 export default {
     components: {
         GreyBgHeadBar,
-        GameTimer,
+        GameClock,
         PickPenalty,
         PickTagger,
         RollingDice
@@ -82,7 +80,7 @@ export default {
         const submenu = ref(false);
         const dice = ref(false);
         const person = ref(false);
-        const timer = ref(false);
+        const clock = ref(false);
         const bomb = ref(false);
         const info = ref(false);
         const youtub = ref(false);
@@ -93,25 +91,25 @@ export default {
             if (option == 'dice') {
                 dice.value = !dice.value
                 person.value = false
-                timer.value = false
+                clock.value = false
                 bomb.value = false
             }
             else if (option == 'person') {
                 dice.value = false
                 person.value = !person.value
-                timer.value = false
+                clock.value = false
                 bomb.value = false
             }
-            else if (option == 'timer') {
+            else if (option == 'clock') {
                 dice.value = false
                 person.value = false
-                timer.value = !timer.value
+                clock.value = !clock.value
                 bomb.value = false
             }
             else if (option == 'bomb') {
                 dice.value = false
                 person.value = false
-                timer.value = false
+                clock.value = false
                 bomb.value = !bomb.value
             } 
             else if (option == 'info') {
@@ -147,7 +145,7 @@ export default {
             if (option == 'main') {
                 dice.value = false
                 person.value = false
-                timer.value = false
+                clock.value = false
                 bomb.value = false
             }
             else if (option == 'sub') {
@@ -164,7 +162,7 @@ export default {
             closeSubMenuBtn,
             dice,
             person,
-            timer,
+            clock,
             bomb,
             info,
             youtub,

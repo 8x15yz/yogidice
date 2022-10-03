@@ -17,6 +17,8 @@ public class NumOfReviewResponse {
 
     private String gameTitle;
 
+    private Long bggCode;
+
     private int number;
 
     public static NumOfReviewResponse response(NumOfReview numOfReview) {
@@ -24,6 +26,7 @@ public class NumOfReviewResponse {
                 numOfReview.getId(),
                 numOfReview.getBoardGame().getId(),
                 numOfReview.getBoardGame().getTitleKr(),
+                numOfReview.getBoardGame().getBggCode(),
                 numOfReview.getNumber()
         );
     }

@@ -1,11 +1,21 @@
 package com.specialization.yogidice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.specialization.yogidice.common.config.web.LoginUser;
+import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.User;
+import com.specialization.yogidice.domain.entity.type.Reviewed;
+import com.specialization.yogidice.domain.repository.BookmarkRepository;
+import com.specialization.yogidice.domain.repository.HistoryRepository;
+import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
 import com.specialization.yogidice.dto.response.*;
 import com.specialization.yogidice.service.BoardGameService;
+import com.specialization.yogidice.service.BookmarkService;
+import com.specialization.yogidice.service.HistoryService;
 import com.specialization.yogidice.service.NumOfReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +29,14 @@ import org.springframework.web.client.RestTemplate;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.lang.reflect.Type;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.reflect.TypeToken;
 
 @RestController
 @RequestMapping("/games")
@@ -27,6 +45,9 @@ import javax.validation.Valid;
 public class BoardGameController {
     private final BoardGameService boardGameService;
     private final NumOfReviewService numOfReviewService;
+
+    private final HistoryService historyService;
+    private final BookmarkService bookmarkService;
 
     // 보드게임 추가
     @PostMapping
@@ -130,10 +151,11 @@ public class BoardGameController {
 
     @PostMapping("/recommend")
     @ApiOperation(value = "pick 추천", notes = "질문 답변에 따른 추천 보드게임을 분석합니다.")
-    public ResponseEntity<?> pickRecommend(/*@RequestBody*/) {
+    public ResponseEntity<?> pickRecommend(@RequestBody BoardGamePickRequest boardGamePickRequest) {
         String boardGameList = "";
-        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readPickBoardGame(boardGamePickRequest)));
     }
+
 
     @GetMapping("/recommend/play/{gameId}")
     @ApiOperation(value = "게임이 끝난 후 다음 게임 추천", notes = "게임이 끝난 후 연관된 다음 게임을 추천합니다.")
@@ -161,39 +183,92 @@ public class BoardGameController {
     public ResponseEntity<?> mainRecommend(
             @ApiIgnore @LoginUser User user
     ) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8000/analyze/recommend/main";
+        //리뷰를 했다면
+        if(user.getReviewed()== Reviewed.T) {
+            if(boardGameService.mainRecommend(user.getId()).size()==0){
+                List<BookmarkResponse> bookmarkResponses= bookmarkService.readBookmarkListOfUser(user.getId());
+                if(!bookmarkResponses.isEmpty()){
+                    System.out.println("리뷰 했지만 메인 추천이 0개 북마크 남김");
+                    try{
+                        List<BoardGameSimpleResponse> boardGames = boardGameService.recommendByBookmark(bookmarkResponses);
+                        return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
+                    }catch (JsonProcessingException e) {
+                        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
+                    }
+                }else{
+                    return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
+                }
+            }
+            System.out.println("리뷰를 3개 이상 남겨서 메인 추천이 0개가 아니다.");
+            return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
+        }else{
+        //리뷰를 하지 않았다면
+            List<BookmarkResponse> bookmarkResponses= bookmarkService.readBookmarkListOfUser(user.getId());
+            if(!bookmarkResponses.isEmpty()){
+                System.out.println("리뷰를 남기지 않았지만 북마크 남김");
+                try{
+                    List<BoardGameSimpleResponse> boardGames = boardGameService.recommendByBookmark(bookmarkResponses);
+                    return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
+                }catch (JsonProcessingException e) {
+                    return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
+                }
+            }else{
+                return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
+            }
+        }
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("userId", user.getId());
-
-        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
-        String boardGameList = restTemplate.postForObject(url, request, String.class);
-
-        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
     }
 
 
     @GetMapping("/recommend/detail/{gameId}")
     @ApiOperation(value = "보드게임 상세 페이지 하단 추천", notes = "보드게임 상세 페이지 하단에서 보드게임을 추천합니다.")
     public ResponseEntity<?> detailRecommend(
-            @ApiIgnore @LoginUser User user,
-            @PathVariable Long gameId) {
+            @PathVariable Long gameId)  {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8000/analyze/recommend/detail";
+        String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+gameId;
+//        String url = "http://localhost:8000/analyze/recommend/detail/"+gameId;  //로컬에서
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("userId", user.getId());
+
         jsonObject.put("gameId", gameId);
 
         HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
-        String boardGameList = restTemplate.postForObject(url, request, String.class);
-        return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(200, "Success", boardGameList));
+        String boardGameList = restTemplate.getForObject(url,String.class);
+        try {
+            Map<String, Object> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
+            Map<Integer, Long> boardMap = new HashMap<>();
+            for (String key : mapping.keySet()) {
+                boardMap.put(Integer.parseInt(key), Long.parseLong((String)mapping.get(key)));
+            }
+            List<Long> boardGameIds = new ArrayList<>(boardMap.values());
+            for(Integer key : boardMap.keySet()){
+                boardGameIds.add(boardMap.get(key));
+            }
+            List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
+
+//            for(BoardGame b : boardGames) System.out.println(b.getTitleKr());
+            return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
+        }catch (JsonProcessingException e){
+            return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
+        }
+    }
+
+    @GetMapping("/search/{title}")
+    @ApiOperation(value = "보드게임 이름으로 검색", notes = "보드게임 타이틀로 게임을 검색합니다.")
+    public ResponseEntity<?> searchBoardGame(
+            @PathVariable String title) {
+        return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.searchBoardGame(title)));
+
+    }
+
+    @GetMapping("reviewAll/{gameId}")
+    @ApiOperation(value = "보드게임 리뷰 조회", notes = "보드게임 아이디로 리뷰를 조회합니다")
+    public ResponseEntity<?> readReviewAll(
+            @PathVariable Long gameId
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryListById(gameId)));
     }
 }

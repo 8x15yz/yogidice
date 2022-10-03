@@ -21,11 +21,15 @@ export default {
 
   games: {
     getCreate: () => HOST + game,
+    searchGame: (gameTitle) => HOST + game + "/search" + `/${gameTitle}`,
     detailEdit: (gameId) => HOST + game + `/${gameId}`,
     extendedGames: (gameId) => HOST + game + "/extend" + `/${gameId}`,
     mostReviewd10: () => HOST + game + "/top10/review",
     mostRecent10: () => HOST + game + "/top10/recent",
     mostRating10: () => HOST + game + "/top10/rating",
+    sortRating: () => HOST + game + "/rating",
+    sortReview: () => HOST + game + "/review",
+    sortRecent: () => HOST + game + "/recent",
   },
 
   bggDats: {

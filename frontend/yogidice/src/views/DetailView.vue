@@ -2,7 +2,7 @@
   <div>
     <detail-card-item :game="game"></detail-card-item>
     <div class="game-chemi">
-      <div class="text-subtitle-1" style="line-height: 30px;"><span style="font-size:20px; color:green;">아기공룡둘째</span>님과 <br> <span style="font-size:18px; color:blue;">{{gameTitle}}</span>의 <br> 케미는 <span style="font-size:20px; color:red">70점</span>입니다 </div>
+      <div class="text-subtitle-1" style="line-height: 30px;"><span style="font-size:20px; color:green;">{{nickName}}</span>님과 <br> <span style="font-size:18px; color:blue;">{{gameTitle}}</span>의 <br> 케미는 <span style="font-size:20px; color:red">70점</span>입니다 </div>
       <div class="progress">
         <div class="progress-value"></div>
       </div>
@@ -23,7 +23,7 @@
 
 <script>
 import DetailCardItem from "@/components/card/DetailCardItem.vue"
-import { onMounted } from '@vue/runtime-core'
+import { onMounted, computed } from '@vue/runtime-core'
 import { useRoute } from "vue-router"
 import { useStore } from "vuex"
 import GameIntroduce from '@/components/detail/GameIntroduce.vue'
@@ -73,9 +73,12 @@ export default {
         })
       }
     })
-
+    
+    // 유저 부분
+    let nickName = computed(()=>store.state.myuser.nickName)
     return {
-      gameTitle
+      gameTitle,
+      nickName
     }
   }
 

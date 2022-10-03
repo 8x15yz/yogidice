@@ -13,5 +13,7 @@ public interface NumOfReviewRepository extends JpaRepository<NumOfReview, Long> 
     Optional<NumOfReview> findByBoardGame(BoardGame boardGame);
 
     List<NumOfReview> findTop10ByOrderByNumberDesc();
+
+    List<NumOfReview> findTop100ByOrderByNumberDesc();
     Page<NumOfReview> findAllByOrderByNumberDesc(Pageable pageable);
 }
