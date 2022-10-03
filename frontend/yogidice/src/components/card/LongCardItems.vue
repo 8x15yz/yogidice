@@ -1,32 +1,35 @@
 <template>
-  <img class="long-img" :src='thumbUrl' alt="">
-  <div class="game-info">
-    <div class="game-title text-subtitle-1">{{ titleKr }}</div>
-    <div class="chip-rating">
-      <div class="text-subtitle-1 rating">★{{ ratingUser }}</div>
-      <div class="game-chip-container">
-        <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
-        <div>{{ playingTime }}</div>
-        <div>{{ difficulty }}</div>
+  <div id="long-card">
+    <img class="long-img" :src='thumbUrl' alt="">
+    <div class="game-info">
+      <div class="game-title text-subtitle-1">{{ titleKr }}</div>
+      <div class="chip-rating">
+        <div class="text-subtitle-1 rating">★{{ ratingUser }}</div>
+        <div class="game-chip-container">
+          <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
+          <div>{{ playingTime }}</div>
+          <div>{{ difficulty }}</div>
+        </div>
       </div>
     </div>
+    <div class="bookmark-alert text-subtitle-1" v-show="showRegister">
+      북마크가 등록되었습니다!<span class="material-icons">check_circle</span>
+    </div>
+    <span class="material-icons bookmark-icon" v-show="bookmarkBorder" @click="registerBookMark">bookmark_border</span>
+    <span class="material-icons bookmark-icon bookmarked" v-show="bookmarkFilled" @click="registerBookMark">bookmark</span>
   </div>
-  <div class="bookmark-alert text-subtitle-1" v-show="showRegister">
-    북마크가 등록되었습니다!<span class="material-icons">check_circle</span>
-  </div>
-  <span class="material-icons bookmark-icon" v-show="bookmarkBorder" @click="registerBookMark">bookmark_border</span>
-  <span class="material-icons bookmark-icon bookmarked" v-show="bookmarkFilled" @click="registerBookMark">bookmark</span>
 </template>
 
 <script>
-import { toRefs,ref } from "vue"
-
+import { toRefs,ref,computed } from "vue"
+import { useStore } from "vuex"
 export default {
   props: {
     lg: Object
   },
   setup(props) {
-  
+    const store = useStore()
+
     let checkedMark = ref(false)
   
     let { titleKr } = toRefs(props.lg)
@@ -42,17 +45,21 @@ export default {
     let bookmarkBorder = ref(true)
     let bookmarkFilled = ref(false)
 
+    const isGameinBookMark = computed(store.state.user.myBookMark().map(mark=>mark.gameId).contains(id.value))
 
     let showRegister = ref(false)
     const registerBookMark = function () {
-      if (bookmarkBorder.value === false) {
+      if (isGameinBookMark.value === false) {
         bookmarkBorder.value = true
         bookmarkFilled.value = false
+        //북마크 해제해야되는데 게임아이디가 아닌 북마크 아이디 필요함;;;
+
       } else {
         bookmarkBorder.value = false
         bookmarkFilled.value = true
-        
         showRegister.value = true
+        //북마크 등록 api
+        store.dispatch("user/registBookMark",id.value)
         setTimeout(()=>showRegister.value=false,3000)        
       }      
     }
@@ -124,6 +131,16 @@ export default {
   top:-8px;
   right: 8px;
   font-size: 8vw;
+}
+#long-card {
+  position: relative;
+  display: flex;
+  width: 90vw;
+  height: 20vw;
+  box-shadow: var(--shadow-card);
+  border-radius: 4px;
+  background-color: white;
+  overflow: hidden;
 }
 
 </style>

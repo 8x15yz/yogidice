@@ -56,8 +56,12 @@ public class BookmarkService {
     }
 
     @Transactional
-    public void deleteBookmark(Long bookmarkId) {
-        Bookmark bookmark = bookmarkRepository.findById(bookmarkId)
+    public void deleteBookmark(Long userId, Long gameId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        BoardGame boardGame = boardGameRepository.findById(gameId)
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
+        Bookmark bookmark = bookmarkRepository.findByUserAndBoardGame(user, boardGame)
                 .orElseThrow(() -> new NotFoundException(BOOKMARK_NOT_FOUND));
         bookmarkRepository.delete(bookmark);
     }
