@@ -28,7 +28,6 @@ export default {
     let isChecked = computed(() => selectedGames.value.includes(id.value))
   
 
-    // let selectCnt 
 
     // 지금 일단 동시 선택 안됨(선택은 되는데 담기지가 않음)
     const selectImg = function() {

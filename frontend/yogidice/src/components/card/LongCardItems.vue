@@ -1,7 +1,7 @@
 <template>
   <div id="long-card">
-    <img class="long-img" :src='thumbUrl' alt="">
-    <div class="game-info">
+    <img class="long-img" :src='thumbUrl' alt="" @click="showDetail(lg)">
+    <div class="game-info" @click="showDetail(lg)">
       <div class="game-title text-subtitle-1">{{ titleKr }}</div>
       <div class="chip-rating">
         <div class="text-subtitle-1 rating">★{{ ratingUser }}</div>
@@ -15,21 +15,22 @@
     <div class="bookmark-alert text-subtitle-1" v-show="showRegister">
       북마크가 등록되었습니다!<span class="material-icons">check_circle</span>
     </div>
-    <span class="material-icons bookmark-icon" v-show="bookmarkBorder" @click="registerBookMark">bookmark_border</span>
-    <span class="material-icons bookmark-icon bookmarked" v-show="bookmarkFilled" @click="registerBookMark">bookmark</span>
+    <span class="material-icons bookmark-icon" v-show="!isGameinBookMark" @click="registerBookMark">bookmark_border</span>
+    <span class="material-icons bookmark-icon bookmarked" v-show="isGameinBookMark" @click="registerBookMark">bookmark</span>
   </div>
 </template>
 
 <script>
 import { toRefs,ref,computed } from "vue"
 import { useStore } from "vuex"
+import { useRouter } from "vue-router"
 export default {
   props: {
     lg: Object
   },
   setup(props) {
     const store = useStore()
-
+    const router = useRouter()
     let checkedMark = ref(false)
   
     let { titleKr } = toRefs(props.lg)
@@ -40,23 +41,20 @@ export default {
     let { playingTime } = toRefs(props.lg)
     let { ratingUser } = toRefs(props.lg)
     let { difficulty } = toRefs(props.lg)
+
+    let myBookMarks = computed(()=>(store.state.user.myBookMark).map(mark=>mark.gameId))
+    let isGameinBookMark = computed(()=>myBookMarks.value.includes(id.value))
   
-
-    let bookmarkBorder = ref(true)
-    let bookmarkFilled = ref(false)
-
-    const isGameinBookMark = computed(store.state.user.myBookMark().map(mark=>mark.gameId).contains(id.value))
+    const showDetail = function(n) {
+      router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.titleKr}})
+    }
 
     let showRegister = ref(false)
     const registerBookMark = function () {
-      if (isGameinBookMark.value === false) {
-        bookmarkBorder.value = true
-        bookmarkFilled.value = false
-        //북마크 해제해야되는데 게임아이디가 아닌 북마크 아이디 필요함;;;
+      if (isGameinBookMark.value === true) {
+        store.dispatch("user/deleteBookMark",id.value)
 
       } else {
-        bookmarkBorder.value = false
-        bookmarkFilled.value = true
         showRegister.value = true
         //북마크 등록 api
         store.dispatch("user/registBookMark",id.value)
@@ -70,14 +68,15 @@ export default {
     thumbUrl,
     checkedMark,
     registerBookMark,
-    bookmarkBorder,
-    bookmarkFilled,
     showRegister,
     maxPlayers,
     minPlayers,
     playingTime,
     ratingUser,
-    difficulty
+    difficulty,
+    isGameinBookMark,
+    showDetail
+    
   }}
 
 

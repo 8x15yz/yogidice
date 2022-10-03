@@ -60,8 +60,19 @@
 
 <script>
 import { onMounted } from '@vue/runtime-core'
+import { useStore } from "vuex"
+import { useRouter } from 'vue-router'
 export default {
   setup() {
+    const store = useStore()
+    const router = useRouter()
+    let answers = {
+      "question1": 0,
+      "question2": 0,
+      "question3": 0,
+      "question4": 0,
+      "question5": 0,
+    }
 
 
     onMounted(()=>{
@@ -80,34 +91,50 @@ export default {
         questionBox.style.transform = "translateX(-400vw)" 
       }
       let moveEventFive = function () {
-        alert("끝")
+        store.dispatch("games/filteringGames",answers)
+        router.push({name:"PickResultView"})
       }
       
-      let answerBtnsOnes = document.querySelectorAll(".answer-one div")
-      for (let answerBtnOne of answerBtnsOnes) {
-        answerBtnOne.addEventListener("click",moveEventOne)
+      let answerBtnsOne = document.querySelectorAll(".answer-one div")
+      for (let i=0; i<answerBtnsOne.length; i++) {
+        answerBtnsOne[i].addEventListener("click", function() {
+          answers.question1 = i+1  
+          moveEventOne()
+        })
       }
       let answerBtnsTwos = document.querySelectorAll(".answer-two div")
-      for (let answerBtnTwo of answerBtnsTwos) {
-        answerBtnTwo.addEventListener("click",moveEventTwo)
+      for (let i=0; i<answerBtnsTwos.length; i++) {
+        answerBtnsTwos[i].addEventListener("click", function() {
+          answers.question2 = i+1  
+          moveEventTwo()
+        })
       }
       let answerBtnsThrees = document.querySelectorAll(".answer-three div")
-      for (let answerBtnThree of answerBtnsThrees) {
-        answerBtnThree.addEventListener("click",moveEventThree)
+      for (let i=0; i<answerBtnsThrees.length; i++) {
+        answerBtnsThrees[i].addEventListener("click", function() {
+          answers.question3 = i+1  
+          moveEventThree()
+        })
       }
       let answerBtnsFours = document.querySelectorAll(".answer-four div")
-      for (let answerBtnFour of answerBtnsFours) {
-        answerBtnFour.addEventListener("click",moveEventFour)
+      for (let i=0; i<answerBtnsFours.length; i++) {
+        answerBtnsFours[i].addEventListener("click", function() {
+          answers.question4 = i+1  
+          moveEventFour()
+        })
       }
       let answerBtnsFives = document.querySelectorAll(".answer-five div")
-      for (let answerBtnFive of answerBtnsFives) {
-        answerBtnFive.addEventListener("click",moveEventFive)
+      for (let i=0; i<answerBtnsFives.length; i++) {
+        answerBtnsFives[i].addEventListener("click", function() {
+          answers.question5 = i+1  
+          moveEventFive()
+        })
       }
       let backBtns = document.querySelectorAll(".go-to-back")
       for (let i=0; i<backBtns.length; i++)
-      backBtns[i].addEventListener("click",function(){
-        questionBox.style.transform=`translateX(${i*(-100)}vw)`
-      })
+        backBtns[i].addEventListener("click",function(){
+          questionBox.style.transform=`translateX(${i*(-100)}vw)`
+        })
     })
   }
 
