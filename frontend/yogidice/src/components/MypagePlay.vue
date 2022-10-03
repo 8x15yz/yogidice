@@ -21,8 +21,8 @@
                     <div class="rating">★{{ game.rating }}</div>
                 </div>
                 <div v-if='!game.rating' class="chip-rating">
-                    <span class="play-my-rating-title">리뷰를 작성하세요</span>
-                    <i class="far fa-edit play-my-icon" @click="$emit('OpenReviewModal')"></i>
+                    <span class="play-my-rating-title writed-yet">리뷰를 작성하세요</span>
+                    <i class="far fa-edit play-my-icon" @click="$emit('OpenReviewModal', [game.id, game.gameTitle])"></i>
                 </div>
             </div>
         </div>
@@ -61,6 +61,9 @@ export default {
 .play-my-rating-title{
   margin-top: 4px;
   padding: 5px;
+}
+.writed-yet {
+  font-size: 15px;
 }
 .play-card-case {
   display: flex;
