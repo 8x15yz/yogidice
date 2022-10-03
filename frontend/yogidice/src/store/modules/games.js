@@ -207,12 +207,13 @@ export default {
       commit("RESET_GAMES")
       axios({
         url: api.games.filtering(),
-        method: "get",
+        method: "post",
         data: answers
       })
-      console.log(answers)
       .then((res)=>{
-        commit('SET_MAIN_GAMES',res.data.responses)
+        for (let r of res.data.responses) {
+          commit('SET_MAIN_GAMES',r)
+        }
       })
       .catch((err)=>{console.log(err)})
     },

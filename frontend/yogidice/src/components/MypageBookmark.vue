@@ -56,10 +56,10 @@ export default {
   right: 6px;
   font-size: 8vw;
 }
-.text-subtitle-2 {
+/* .text-subtitle-2 {
     width: 28vw;
     overflow: hidden;
-}
+} */
 
 
 </style>
