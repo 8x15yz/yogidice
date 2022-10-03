@@ -13,6 +13,7 @@
         <!-- 데이터 들어오면 -->
         <review-components class="review-components-overflow"
         :reviewdatum='reviewdatum'
+        :reviewId='reviewId'
          @OpenReviewModal="OpenReviewModal"
         ></review-components>
         <!-- 데이터 들어오면 -->
@@ -38,8 +39,8 @@ export default {
         const reviewdatum = computed(()=>store.state.myuser.history)
         
         
-        const OpenReviewModal = function() {
-            emit("OpenReviewModal");
+        const OpenReviewModal = function(data) {
+            emit("OpenReviewModal", data);
         }
         return {
             reviewdatum,

@@ -47,27 +47,48 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import axios from 'axios'
+import { ref, reactive } from 'vue'
 import { getCurrentInstance } from "vue";
 
 export default {
     emits:[
     'CloseReviewModal',
     ],
-    setup() {
+    props: {
+        reviewId: Array
+    },
+    setup(props) {
         const { emit } = getCurrentInstance();
         const star = ref(1)
-        const playgame = '클루'
+        const playgame = reactive(props.reviewId[1])
         const gamereviewtext = ref('')
         const reviewform = ref(true)
         
 
         const submitReview = function() {
             if (gamereviewtext.value == "") {
-                window.alert('다시써')
+                window.alert('리뷰를 작성하고 제출해주세요')
             }
             else {
                 reviewform.value = false
+                console.log(props.reviewId)
+                axios({
+                    url: `https://yogidice.site/api/users/history/${props.reviewId[0]}`,
+                    method: "put",
+                    headers: {
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjY0Nzc5NjY1LCJleHAiOjE2NjYwNzU2NjV9.rStIFP6IdqGhp8t7N7qRTJV75-q9SwZ4eBbJgiX4M0I`,
+                        "Content-type": "Application/JSON",
+                    },
+                    data:{
+                        "rating": star.value,
+                        "review": gamereviewtext.value
+                    }
+                })
+                .then((res) => {
+                    console.log('ㄷ괬다', res)
+                })
+                .catch((err) => {console.log(err)})
                 console.log(gamereviewtext.value, star.value) // 리뷰 데이터 받아왔음
                 setTimeout(() => {
                     emit('CloseReviewModal')
