@@ -9,11 +9,11 @@
         <div>4인</div>
         <div>5인</div>
         <div>6인</div>
-        <div>7인</div>
+        <div>7인<br>이상</div>
       </div>
     </div>
     <div class="each-question">
-      <div class="question-sentence">게임의 난이도를<br>선택해주세요!</div>
+      <div class="question-sentence">게임의 난이도를선택해주세요!</div>
       <div class="answer answer-two">
         <div>매우쉬움</div>
         <div>쉬움</div>
@@ -24,7 +24,7 @@
       <div class="go-to-back"> 뒤로가기 </div>
     </div>
     <div class="each-question">
-      <div class="question-sentence">원하는 게임 타입을<br>골라주세요!</div>
+      <div class="question-sentence">원하는 게임 타입을골라주세요!</div>
       <div class="answer answer-three">
         <div>조건이 뭐시당가</div>
         <div>말을<br>이동하며<br>플레이</div>
@@ -36,7 +36,7 @@
       <div class="go-to-back"> 뒤로가기 </div>
     </div>
     <div class="each-question">
-      <div class="question-sentence">원하는 플레이 타임을<br>골라주세요!</div>
+      <div class="question-sentence">원하는 플레이 타임을 골라주세요!</div>
       <div class="answer answer-four">
         <div>30분<br>이하</div>
         <div>30분<br>~<br>1시간</div>
@@ -47,7 +47,7 @@
       <div class="go-to-back"> 뒤로가기 </div>
     </div>
     <div class="each-question">
-      <div class="question-sentence">언제 나온 게임이<br>좋으신가요!</div>
+      <div class="question-sentence">언제 나온 게임이 좋으신가요!</div>
       <div class="answer answer-five">
         <div>옛날감성</div>
         <div>보통</div>
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core'
+import { getCurrentInstance, onMounted } from '@vue/runtime-core'
 import { useStore } from "vuex"
 import { useRouter } from 'vue-router'
 export default {
@@ -74,23 +74,32 @@ export default {
       "question5": 0,
     }
 
+    const internalInstance = getCurrentInstance()
+    // 전역변수로 선언해놓은 mitt 가져오기
+    const emitter = internalInstance.appContext.config.globalProperties.emitter
+    
 
     onMounted(()=>{
       const questionBox = document.querySelector(".question-container")
 
       let moveEventOne = function () {
-        questionBox.style.transform = "translateX(-100vw)" 
+        questionBox.style.transform = "translateX(-100vw)"
+        emitter.emit('moveToTwo')
       }
       let moveEventTwo = function () {
-        questionBox.style.transform = "translateX(-200vw)" 
+        questionBox.style.transform = "translateX(-200vw)"
+        emitter.emit('moveToThree') 
       }
       let moveEventThree = function () {
         questionBox.style.transform = "translateX(-300vw)" 
+        emitter.emit('moveToFour')
       }
       let moveEventFour = function () {
         questionBox.style.transform = "translateX(-400vw)" 
+        emitter.emit('moveToFive')
       }
       let moveEventFive = function () {
+        console.log(answers)
         store.dispatch("games/filteringGames",answers)
         router.push({name:"PickResultView"})
       }
@@ -134,6 +143,7 @@ export default {
       for (let i=0; i<backBtns.length; i++)
         backBtns[i].addEventListener("click",function(){
           questionBox.style.transform=`translateX(${i*(-100)}vw)`
+          emitter.emit(`backToBefore`,i+1)
         })
     })
   }
@@ -151,12 +161,12 @@ export default {
 .each-question {
   width: 100vw;
   height: 60vh;
-  margin: 0 5vw;
+  margin: 10vw 5vw;
 }
 .question-sentence {
   width: 90vw;
   font-family: 'Pretendard';
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: bolder;
   margin-top: 4vh;
   text-align: center;
@@ -180,7 +190,7 @@ export default {
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   font-family: 'Pretendard';
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: bolder;
   text-align: center;
 }
@@ -199,7 +209,7 @@ export default {
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   font-family: 'Pretendard';
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bolder;
   text-align: center;
 }

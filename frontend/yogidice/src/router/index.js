@@ -126,12 +126,12 @@ const routes = [
         component: PickView
       },
       {
-        path: "/question",
+        path: "question",
         name: "QuestionView",
         component: PickQuestionView
       },
       {
-        path:"/result",
+        path:"result",
         name: "PickResultView",
         component: FilteringResView
       }

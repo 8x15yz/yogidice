@@ -2,7 +2,7 @@
   <div class="home-cover">
     <div class="pick-intro-title text-huge">당신의 겜성은?</div>
     <br>
-    <div class="pick-intro-describe text-headline-5"> 
+    <div class="pick-intro-describe text-body-1"> 
       요기다이스의 빅데이터를 기반으로 <br> 당신의 게임 성향(겜성)을 찾아드려요
     </div>
     <div class="pick-intro-icons">
@@ -44,18 +44,16 @@ export default {
 .home-cover {
   width: 90vw;
   height: 100vh;
-  padding: 30vh 5vw;
+  padding: 20vh 5vw;
   background-color: var(--color-bg-modal);
   color: white;
   font-family: "Pretendard";
 }
 .pick-intro-title{
-  font-size: 3rem;
   margin-bottom: 3rem;;
 
 }
 .pick-intro-describe{
-  font-size: 1.3rem;
   margin-bottom: 1.3rem;
 }
 .pick-intro-icons {
@@ -80,10 +78,10 @@ export default {
 }
 .pick-start {
   border-radius: 40px 40px;
-  font-size: 2rem;
+  font-size: 1rem;
   background-color: none;
   border: 3px solid white;
-  width: 50vw;
+  width: 40vw;
   padding: 8px;
   text-align: center;
 

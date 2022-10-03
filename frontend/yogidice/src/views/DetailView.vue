@@ -64,7 +64,8 @@ export default {
                 coverPage.style.overflowY = "visible"
               } else { 
                 detailPage.style.transform = "translateX(-200vw)"
-                coverPage.style.overflowY = "hidden"
+                coverPage.style.overflowY = "visible"
+                coverPage.style.height = "120vh;"
               }
             } else {
               detailMenu.classList.remove("isactive")
