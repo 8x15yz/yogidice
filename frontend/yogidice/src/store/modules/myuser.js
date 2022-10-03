@@ -42,8 +42,7 @@ export default {
             }).then((res) => {
                 commit("SET_NICKNAME", res.data.nickName);
                 commit("SET_KAKAOID", res.data.kakaoId);
-                commit("SET_BOOKMARK", res.data.bookmarkResponses);
-                commit("SET_HISTORY", res.data.historyResponses);             
+                commit("SET_BOOKMARK", res.data.bookmarkResponses);         
             })
             .catch((err) => {console.log(err)});
         },

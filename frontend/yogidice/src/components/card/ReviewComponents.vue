@@ -12,7 +12,7 @@
                 <div class="rating review-rating">
                     ★{{data.rating}} 
                 </div>
-                <div v-if="isuser" class="icon-padding" @click="$emit('OpenReviewModal')">
+                <div v-if="isuser" class="icon-padding" @click="$emit('OpenReviewModal', [data.id, data.gameTitle])">
                     <i class="far fa-edit review-rating" ></i>
                 </div>
             </div>
@@ -43,7 +43,7 @@ export default{
 
         return {
             isuser,
-            datum,
+            datum
         }
     },
 }

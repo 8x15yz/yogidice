@@ -32,7 +32,7 @@ export default {
     const router = useRouter()
     let page = ref(1)
     const showDetail = function(n) {
-      router.push({name:"GameDetail", query:{"gameId":n.gameId, "title":n.title_kr}})
+      router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.titleKr}})
     }
     let gameLists = computed(()=>store.state.games.mainGames)
     let gameType = computed(()=>store.state.games.presentType)
