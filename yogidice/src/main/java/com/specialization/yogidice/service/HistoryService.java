@@ -97,6 +97,10 @@ public class HistoryService {
                 request.getRating(),
                 request.getReview()
         );
+        if(user.getReviewed()==Reviewed.F){
+            user.completeReview();
+        }
+        userRepository.save(user);
         historyRepository.save(history);
     }
 

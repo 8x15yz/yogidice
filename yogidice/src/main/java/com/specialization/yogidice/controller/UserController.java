@@ -270,7 +270,7 @@ public class UserController {
             recommendService.updateRecommend(user.getId(), boardGameIds);
             List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
 
-            for(BoardGameSimpleResponse b : boardGames) System.out.println(b.getTitleKr());
+//            for(BoardGameSimpleResponse b : boardGames) System.out.println(b.getTitleKr());
         }catch (JsonProcessingException e){
             return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
         }
