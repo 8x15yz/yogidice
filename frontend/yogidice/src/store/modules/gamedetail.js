@@ -6,34 +6,41 @@ export default {
 
     state: () => ({
         lengamecategory: [0, 0, 0, 0, 0, 0],
+        detail: {},
     }),
     getters: {},
     mutations: {
-        SET_LENGAME: (state, lengamecategory) => (state.lengamecategory = lengamecategory),
+        // SET_LENGAME: (state, lengamecategory) => (state.lengamecategory = lengamecategory),
+        SET_DETAIL: (state, details) => (state.detail = details),
+        LIKE_P_MEC: (state, gid) => (state.lengamecategory[gid] += 1),
+        LIKE_P_MEC_RESET: (state) => (state.lengamecategory = [0, 0, 0, 0, 0, 0]),
+
     },
     actions: {
-        getLengame({ commit }, gameId) {
+        getLengames({commit}, gameId) {
+            commit('LIKE_P_MEC_RESET')
             axios({
               url: api.games.detailEdit(gameId),
               method: "get",
             })
               .then((res) => {
-                const mgrlist = res.value.mechanismGroupResponses
-                console.log('이ㅣ거돼?', res.value.mechanismGroupResponses)
-                
-                for (let mgr of mgrlist) {
-                    console.log(mgr.parentsMec)
-                    if (mgr.parentsMec == '추리카드퍼즐') { lengamecategory[0] += 1}
-                    else if (mgr.parentsMec == '경제') { lengamecategory[1] += 1}
-                    else if (mgr.parentsMec == '파티') { lengamecategory[2] += 1}
-                    else if (mgr.parentsMec == '조건') { lengamecategory[3] += 1}
-                    else if (mgr.parentsMec == '말') { lengamecategory[4] += 1}
-                    else if (mgr.parentsMec == '전략') { lengamecategory[5] += 1}
+                console.log("성공");
+                console.log(res.data.mechanismGroupResponses)
+                let pmec = [0, 0, 0, 0, 0, 0]
+                for (let mecha of res.data.mechanismGroupResponses) {
+                    console.log(mecha.parentsMec)
+                    if (mecha.parentsMec == '추리카드퍼즐') { commit('LIKE_P_MEC',0 ); pmec[0] += 1}
+                    else if (mecha.parentsMec == '경제') { commit('LIKE_P_MEC',1); pmec[1] += 1}
+                    else if (mecha.parentsMec == '파티') { commit('LIKE_P_MEC',2); pmec[2] += 1}
+                    else if (mecha.parentsMec == '조건') { commit('LIKE_P_MEC',3); pmec[3] += 1}
+                    else if (mecha.parentsMec== '말') { commit('LIKE_P_MEC',4); pmec[4] += 1}
+                    else if (mecha.parentsMec == '전략') { commit('LIKE_P_MEC',5); pmec[5] += 1}
+                    console.log(pmec)
                 }
-                console.log(lengamecategory)
-                commit("SET_LENGAME", lengamecategory);
-              })
-              .catch((err) => console.log('이거안돼', err));
-        },
+                commit("SET_DETAIL", res.data);
+            })
+              .catch((err) => {console.log(err)})
+        }
+        
     }
 }
