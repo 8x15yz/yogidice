@@ -226,7 +226,7 @@ public class UserController {
     public ResponseEntity<?> readHistory(
             @ApiIgnore @LoginUser User user
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryListOfUser(user.getId())));
+        return ResponseEntity.status(HttpStatus.OK).body(HistoryDetailListResponse.of(200, "Success", historyService.readHistoryListOfUser(user.getId())));
     }
 
     @PutMapping("/history/{historyId}")
