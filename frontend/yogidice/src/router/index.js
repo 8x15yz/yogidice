@@ -20,6 +20,7 @@ import GamePlusView from "@/views/GamePlusView.vue"
 import BoardBgLayout from "@/layouts/BoardBgLayout.vue"
 import PickView from "@/views/PickView.vue"
 import PickQuestionView from "@/views/PickQuestionView.vue"
+import FilteringResView from "@/views/FilteringResView.vue"
 
 
 // Vue.use(VueRouter);
@@ -128,6 +129,11 @@ const routes = [
         path: "/question",
         name: "QuestionView",
         component: PickQuestionView
+      },
+      {
+        path:"/result",
+        name: "PickResultView",
+        component: FilteringResView
       }
     ]
 

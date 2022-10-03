@@ -31,6 +31,7 @@ export default {
     sortRating: () => HOST + game + "/rating",
     sortReview: () => HOST + game + "/review",
     sortRecent: () => HOST + game + "/recent",
+    filtering: () => HOST + game + "/recommend",
   },
 
   bggDats: {
