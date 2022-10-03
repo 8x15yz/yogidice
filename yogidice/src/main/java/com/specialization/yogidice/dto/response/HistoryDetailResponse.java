@@ -33,6 +33,8 @@ public class HistoryDetailResponse {
 
     private String gameTitle;
 
+    private String thumbUrl;
+
     private List<MechanismGroupResponse> mechanismGroupResponses;
 
     public static HistoryDetailResponse response(
@@ -47,6 +49,7 @@ public class HistoryDetailResponse {
                 history.getUser().getNickName(),
                 history.getBoardGame().getId(),
                 history.getBoardGame().getTitleKr(),
+                history.getBoardGame().getThumbUrl(),
                 mechanismLists
         );
     }
