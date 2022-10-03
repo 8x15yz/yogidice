@@ -1,13 +1,13 @@
 <template>
   <img class="main-card-img" :src='thumbUrl' alt="">
   <div class="title-rating">
-    <div class="game-title text-subtitle-1">{{ mainGame.title_kr }}</div>
-    <div class="text-subtitle-1 rating">★{{ mainGame.rating }}</div>
+    <div class="game-title text-subtitle-1">{{ titleKr }}</div>
+    <div class="text-subtitle-1 rating">★{{ mainGame.ratingUser }}</div>
   </div>
   <div class="game-chip-container">
-    <div>{{ mainGame.players }}</div>
-    <div>{{ mainGame.times }}분</div>
-    <div>{{ mainGame.level }}</div>
+    <div>{{ `${mainGame.minPlayers.value }~${mainGame.maxPlayers.value}인` }}</div>
+    <div>{{ mainGame.playingTime }}분</div>
+    <div>{{ mainGame.difficulty }}</div>
   </div>
 </template>
 
@@ -20,6 +20,7 @@ export default {
   },
   setup(props) {
     let mainGame = toRefs(props.game)
+    let { titleKr } = toRefs(props.game)
     let thumbUrl = mainGame.thumbUrl
   
     let checkedMark = ref(false)
@@ -35,6 +36,7 @@ export default {
     userSelection,
     checkedMark,
     thumbUrl,
+    titleKr
     
     }}
 

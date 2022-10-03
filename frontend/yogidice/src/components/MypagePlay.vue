@@ -13,7 +13,7 @@
     <!-- 데이터 들어오면 -->
     <div >
         <div class="play-card-case" v-for="game in userplaygames" :key="game.key">
-            <img class="long-img" :src='`https://boardlife.co.kr/${game.thumburl}`'>
+            <img class="long-img" :src='game.thumbUrl'>
             <div class="game-info">
                 <div class="my-game-title">{{ game.gameTitle }}</div>
                 <div v-if="game.rating" class="chip-rating">
@@ -44,6 +44,7 @@ export default {
     ],
   setup(props) {
     const datum = reactive(props.userplaygames)
+    // console.log('sdfsfd', datum)
 
     return {
         datum,

@@ -1,13 +1,35 @@
 <template>
-  <Radar
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-  />
+  <div class="radar-ch">
+    <div class="radar-ch-inner">
+      <Radar
+        :chart-options="chartOptions"
+        :chart-data="chartData"
+        style="height: 300px; width: 340px;"
+      />
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.radar-ch {
+  height: 330px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: yellow; */
+}
+.radar-ch-inner {
+  height: 320px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F3F3F3;
+}
+</style>
 
 <script>
 import { Radar } from "vue-chartjs";
-
+import {reactive} from 'vue'
 import {
   Chart as ChartJS,
   Title,
@@ -36,6 +58,9 @@ export default {
     lengamecategory: Array
   },
   setup(props) {
+    // let lcmax = Math.max(...props.lengamecategory)
+    let lengamecategoryten = reactive(props.lengamecategory)
+    // const lenten = lengamecategoryten.map( x => x/Math.max(...lengamecategoryten)*10)
     const chartData = {
         labels: [
           "추리카드퍼즐",
@@ -49,7 +74,7 @@ export default {
           {
             borderColor: "#71C9CE",
             pointBackgroundColor: "#71C9CE",
-            data: props.lengamecategory,
+            data: lengamecategoryten,
           }
         ],
       }
