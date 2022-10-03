@@ -203,6 +203,19 @@ export default {
         }
       })
     },
+    filteringGames({commit},answers) {
+      commit("RESET_GAMES")
+      axios({
+        url: api.games.filtering(),
+        method: "get",
+        data: answers
+      })
+      console.log(answers)
+      .then((res)=>{
+        commit('SET_MAIN_GAMES',res.data.responses)
+      })
+      .catch((err)=>{console.log(err)})
+    },
     addSelectedGames({commit},gameId) {
       commit("ADD_SELECTED_GAMES",gameId)
     },
