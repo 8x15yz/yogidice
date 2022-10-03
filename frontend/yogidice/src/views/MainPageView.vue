@@ -61,6 +61,9 @@ export default {
   setup() {
     const store = useStore()
     const router = useRouter()
+
+    store.dispatch("user/getBookMark",{root:true})
+
     const moveToCafes = function () {
       router.push({name:"PlaceView"})
     }

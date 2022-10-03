@@ -14,6 +14,7 @@ export default {
     check: () => HOST + user + "/check",
     callback: () => HOST + user + "/callback",
     bookmark: () => HOST + user + "/bookmark",
+    deleteBookMark: (gameId) => HOST + user + `/bookmark/${gameId}`,
     history: () => HOST + user + "/history",
     historyControll: (historyId) => HOST + user + "/history" + `/${historyId}`,
     review: () => HOST + user + "/review",
