@@ -2,6 +2,7 @@
   <Radar
     :chart-options="chartOptions"
     :chart-data="chartData"
+    style="height: 400px; background-color: white;"
   />
 </template>
 
