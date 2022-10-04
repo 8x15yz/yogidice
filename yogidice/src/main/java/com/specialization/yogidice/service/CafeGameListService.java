@@ -87,4 +87,20 @@ public class CafeGameListService {
                 .orElseThrow(() -> new NotFoundException(CAFEGAME_NOT_FOUND));
         cafeGameListRepository.delete(cafeGameList);
     }
+
+    @Transactional
+    public List<CafeGameResponse> readCafeGameListOfBoardGameCafeByAddress(String address) {
+        BoardGameCafe cafe = boardGameCafeRepository.findBoardGameCafeByAddress(address)
+                .orElseThrow(() -> new NotFoundException(BOARDGAMECAFE_NOT_FOUND));
+        List<CafeGameList> cafeGameLists = cafeGameListRepository.findCafeGameListByBoardGameCafe(cafe);
+        if (cafeGameLists.isEmpty()) {
+            throw new NotFoundException(CAFEGAME_LIST_NOT_FOUND);
+        }
+        List<CafeGameResponse> responses = new ArrayList<>();
+        for (CafeGameList cafeGameList : cafeGameLists) {
+            responses.add(CafeGameResponse.response(cafeGameList));
+        }
+        return responses;
+    }
+
 }
