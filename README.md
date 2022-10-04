@@ -35,3 +35,30 @@
 
 ### 📚프로젝트 기술 스택
 
+- 기술 세부 내역
+
+|구분|기술 스택|상세 내용|버전|
+|:---:|:---:|:---:|:---:|
+|공통|형상관리|GitLab|- |
+| |이슈관리|Jira|- |
+| |이슈관리|Notion|- |
+|프론트엔드 |HTML5| | |
+| |CSS| | | 
+| |JavaScript| | | 
+| |chartjS| | | 
+| |Vue| | | 
+| |IDE| Visual Studio Code| | 
+|백엔드|Java|OpenJdk|1.8.0| 
+| |Build|Gradle|7.6.3| 
+| |Spring|Boot|2.7.3|
+| |      |Security|2.7.3|
+| |Pyhton|        |        |  
+| |Django|Security|        |  
+| |API Docs|Swagger|3.0.0|
+| |DB|MySQL||
+| | |Spring-Data-jpa|2.7.3|
+|서버|AWS EC2|Ubuntu Linux||
+||배포|Docker||
+|||jenkins||
+||웹 서버|Nginx||  
+
