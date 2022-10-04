@@ -46,7 +46,7 @@ export default {
         }
 
 
-    onMounted( function () {
+    onMounted(() => {
       const titleBox = document.querySelector(".modal-header")
       const bodyBox = document.querySelector(".modal-body");
       const firstButton = document.querySelector(
@@ -114,6 +114,28 @@ export default {
             }
           })
           secondButton.addEventListener("click", closeModal)
+        }
+        else if (newValue === true && info.value.from === "playGame") {
+          if (info.value.content !== "") {
+            firstButton.addEventListener("click", () => {
+              let playingGameId = computed(()=>store.state.games.selectedGames)
+              store.commit("gamedetail/PLAY_GAME_NAME",info.value.content,{root:true})
+              store.commit("gamedetail/PLAY_GAME_ID",playingGameId,{root:true})
+              store.dispatch("games/resetSelectedGames",{root:true})
+              router.push({name:"GamePlusView"})
+              closeModal()
+            })
+            secondButton.addEventListener("click", closeModal)}    
+          else {
+            firstButton.addEventListener("click", () => {
+              store.dispatch("games/resetSelectedGames",{root:true})
+              store.commit("gamedetail/PLAY_GAME_NAME","",{root:true})
+              store.commit("gamedetail/PLAY_GAME_ID","",{root:true})
+              router.push({name:"GamePlusView"})
+              closeModal()
+            })
+            secondButton.addEventListener("click",closeModal)
+          }
         }
       })
     })

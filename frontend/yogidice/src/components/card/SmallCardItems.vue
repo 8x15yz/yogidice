@@ -40,6 +40,8 @@ export default {
           store.dispatch("games/addSelectedGames",id.value, {root:true})
         }
         emitter.emit("checkOruncheck")
+      } else if (presentPage.value === "플레이게임선택") {
+        emitter.emit("choicePlayGame",{"gameTitle":titleKr.value,"gameId":id.value})
       }
     }
 

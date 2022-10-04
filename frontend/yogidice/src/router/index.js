@@ -21,6 +21,7 @@ import BoardBgLayout from "@/layouts/BoardBgLayout.vue"
 import PickView from "@/views/PickView.vue"
 import PickQuestionView from "@/views/PickQuestionView.vue"
 import FilteringResView from "@/views/FilteringResView.vue"
+import EnterPlusGameView from "@/views/EnterPlusGameView.vue"
 
 
 // Vue.use(VueRouter);
@@ -115,6 +116,17 @@ const routes = [
     path: '/plusgame',
     name: 'GamePlusView',
     component: GamePlusView,
+  },
+  {
+    path: "/plus",
+    component: GreyBgHeadBar,
+    children: [
+      {
+        path: "",
+        name: 'ChoicePlusGame',
+        component: EnterPlusGameView
+      },
+    ],
   },
   {
     path: "/pick",

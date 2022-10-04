@@ -127,7 +127,7 @@ canvas {
   top: 0;
 }
 .dump-area {
-	height: 10vh;
+	height: 5vh;
 }
 .pick-penalty {
 	width: 100vw;
