@@ -11,14 +11,19 @@
       <div id="pagination"></div>
     </div>
   </div>
+  <cafe-game-list v-show="cafeGameList"></cafe-game-list>
 </template>
 
 <script>
-import { onMounted } from "vue"
-
+import { onMounted,ref } from "vue"
+import CafeGameList from "@/components/modal/CafeGameList.vue"
 export default {
+  components: {
+    CafeGameList,
+  },
   setup () {
   let locPosition
+  let cafeGameList = ref(false)
   let showSearchList = function () {
     let searchList = document.querySelector(".search-list-title")
     let mapContainer = document.querySelector("#map")
@@ -221,15 +226,19 @@ export default {
         let detailBtn = document.createElement('div')
         detailBtn.setAttribute("class","cafe-detail-btn")
         let tmp1 = document.createElement('div')
-        tmp1.innerText = "게임상세보기"
+        tmp1.innerText = "카페상세보기"
         tmp1.setAttribute("class","text-button")
         tmp1.setAttribute("class","cafe-detail-link")
         tmp1.addEventListener("click",function(){window.open(places.place_url)})
 
+        const openCafeGameList = function () {
+          cafeGameList.value = true
+        }
         let tmp2 = document.createElement('div')
         tmp2.innerText = "보유게임현황"
         tmp2.setAttribute("class","text-button")
         tmp2.setAttribute("class","cafe-own-game")
+        tmp2.addEventListener("click", openCafeGameList)
 
         detailBtn.append(tmp1,tmp2)
 
@@ -331,10 +340,7 @@ export default {
 </script>
 
 <style>
-.off {
-  
 
-}
 #map {
   width:100vw;
   height:80vh;
@@ -374,6 +380,7 @@ export default {
   justify-content: center;
   gap: 2vw;
   margin-top: 4vh;
+  align-items: baseline;
 }
 .place-title {
   text-align: start;
@@ -384,7 +391,9 @@ a {
 }
 .on {
   text-decoration: underline;
-  color: blue;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;;
 }
 .arrow-icon {
   rotate: 90deg;
@@ -411,6 +420,8 @@ hr {
   background-color: var(--color-bg-base); 
   height: 4vh;
   align-items: center;
+  box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.25);
+
 }
 .cafe-detail-link{
   color: black
