@@ -6,7 +6,6 @@
         v-for="game in subGameLists"
         :key="game.gameId"
         id="main-card"
-        @move-game-detail="showDetail(game)"
         @click="showDetail(game)"
       >
         <main-card-items :game="game"> </main-card-items>
@@ -36,7 +35,7 @@ export default {
     const showDetail = function (n) {
       router.push({
         name: "GameDetail",
-        query: { gameId: n.gameId, title: n.title_kr },
+        query: { gameId: n.id, title: n.titleKr },
       });
     };
     let subGameLists = computed(() => store.state.games.subGames);
