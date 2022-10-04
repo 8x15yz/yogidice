@@ -50,7 +50,7 @@ public class BookmarkService {
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         List<Bookmark> bookmarks = bookmarkRepository.findByUser(user);
         if (bookmarks.isEmpty()) {
-            throw new NotFoundException((BOOKMARK_LIST_NOT_FOUND));
+            return new ArrayList<>();
         }
         List<BookmarkResponse> responses = new ArrayList<>();
         for (Bookmark bookmark : bookmarks) {
