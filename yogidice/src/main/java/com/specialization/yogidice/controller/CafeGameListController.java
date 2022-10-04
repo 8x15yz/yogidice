@@ -70,4 +70,13 @@ public class CafeGameListController {
         cafeGameListService.deleteCafeGameList(gameListId);
         return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "Success"));
     }
+
+
+    @GetMapping("/cafe/address/{address}")
+    @ApiOperation(value = "보드게임 카페를 통한 보드게임 카페 보유 보드게임 목록 조회", notes = "보드게임 카페를 통해 보드게임 카페 보유 보드게임 목록 조회을 조회합니다.")
+    public ResponseEntity<?> readCafeGameListOfBoardGameCafeByAddress(
+            @PathVariable String address
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(CafeGameListResponse.of(200, "Success", cafeGameListService.readCafeGameListOfBoardGameCafeByAddress(address)));
+    }
 }
