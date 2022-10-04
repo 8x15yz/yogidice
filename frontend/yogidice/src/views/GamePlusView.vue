@@ -5,9 +5,57 @@
     </div>
     <!-- navigation bar -->
 
+    <!-- 리뷰받는 모달폼 -->
+    <div class="my-game-review-bg" v-if="reviewformouter">
+        <div class="review-modal-form" v-if="reviewform">
+            <div class="review-modal-form-inner">
+                <div class="review-modal-title">
+                    <span>리뷰</span>
+                    <span style="margin-right: 20px;"><i class="fas fa-times" @click="reviewformouter = false"></i></span>
+                </div>
+                <div class="rmi-displayflex">
+                    <div class="review-modal-inner">
+                        <div>
+                            <div class="rating-comment">플레이하신 {{playnowname}}에 대해 리뷰를 남겨주세요!</div>
+                            <div class="star-rating-wrap">
+                                <div class="star-rating">
+                                    ★★★★★
+                                    <span>★★★★★</span>
+                                    <input type="range" v-model="star" step="1" min="0" max="10">
+                                </div>
+                                <div class="star-rating-point">{{star}}점</div>
+                            </div>
+                            
+                            <textarea class="review-modal-inner-textarea" v-model="gamereviewtext"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="rmi-displayflex">
+                    <div class="review-modal-bottom"> 
+                        <div class="im-not-play-this-game">게임을 플레이하지 않았습니다</div>
+                        <div class="review-modal-btn-wrap">
+                            
+                            <div class="review-submit" @click="submitReview">등록</div>
+                            <div class="review-revoke" @click="reviewformouter = false">취소</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 작성완료 확인모달 -->
+        <div class="modal-review-submitted" v-if="!reviewform">
+            <p style="font-weight: bold;">리뷰가 등록되었습니다 😄</p>
+        </div>
+        <!-- 작성완료 확인모달 -->
+        
+    </div>
+    <!-- 리뷰받는 모달폼 -->
+
     <!-- game 페이지 -->
     <div id="wrap-game-back">
-        <div class="game-ing">{{클루}} 클루 게임중</div>
+        
+        <div class="game-ing"><span style="width: 70vw;">{{playnowname}} 게임중</span>  <span style="width: 5vw;" @click="ExitGame" ><i class="fas fa-times" ></i></span></div>
         <div>
             <game-clock v-if="clock"></game-clock>
             <pick-penalty v-if="bomb"></pick-penalty>
@@ -66,7 +114,9 @@ import GameClock from '@/components/plusgame/GameClock.vue';
 import PickPenalty from '@/components/plusgame/PickPenalty.vue';
 import PickTagger from '@/components/plusgame/PickTagger.vue';
 import RollingDice from '@/components/plusgame/RollingDice.vue';
-import { ref } from '@vue/runtime-core'
+// import gameReviewModal from '@/components/modal/gameReviewModal.vue';
+import { ref, computed, reactive } from '@vue/runtime-core'
+import { useStore } from 'vuex'
 
 export default {
     components: {
@@ -74,9 +124,12 @@ export default {
         GameClock,
         PickPenalty,
         PickTagger,
-        RollingDice
+        RollingDice,
+        // gameReviewModal
     },
     setup() {
+        const store = useStore()
+
         const submenu = ref(false);
         const dice = ref(false);
         const person = ref(false);
@@ -86,6 +139,10 @@ export default {
         const youtub = ref(false);
         const memo = ref(false);
         const file = ref(false);
+        const gamereviewtext = ref('')
+
+        const reviewform = ref(true)
+        const reviewformouter = ref(false)
 
         const subMenuBtn = function(option) { 
             if (option == 'dice') {
@@ -155,6 +212,35 @@ export default {
                 file.value = false
             }
         }
+        let playnoehistoryid = reactive(0)
+        function submitReview() {
+            if (gamereviewtext.value == "") {
+                window.alert('리뷰를 작성하고 제출해주세요')
+            }
+            else {
+                reviewform.value = false
+                // console.log(gamereviewtext.value, star.value, playgame.value, '들꽃')
+                store.dispatch("myuser/SendReview", [{
+                    "rating": star.value,
+                    "review": gamereviewtext.value
+                }, playnoehistoryid.value])
+                setTimeout(() => {
+                    reviewform.value = true
+                    reviewformouter.value = false
+                    }, 1500);
+            }
+        }
+
+        let playnowname = computed(()=>store.state.gamedetail.playnowname)
+
+        function ExitGame() {
+            reviewformouter.value = true
+            store.dispatch("gamedetail/ExitGame")
+            playnoehistoryid = computed(()=>store.state.gamedetail.playnoehistoryid)
+            // console.log(playgame)
+            // store.dispatch("myuser/SendReview")
+        }
+        const star = ref(1)
 
         return {
             submenu,
@@ -167,13 +253,63 @@ export default {
             info,
             youtub,
             memo,
-            file
+            file,
+            playnowname,
+            ExitGame,
+            star,
+            reviewform,
+            submitReview,
+            reviewformouter,
+            gamereviewtext
         }
     }
 }
 </script>
 
 <style>
+.star-rating-wrap {
+    display:flex; 
+    justify-content: center;
+}
+.star-rating-point {
+    margin: 10px;
+    font-size: 6vw;
+    color: rgb(0, 0, 0);
+}
+.star-rating {
+    position: relative;
+    font-size: 8vw;
+    color: #ddd;
+    margin-bottom: 15px; 
+  }
+  
+  .star-rating > input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .star-rating > span {
+    width: calc(v-bind ('star') * 10%);
+    /* width:  50%; */
+    position: absolute; 
+    left: 0;
+    color: rgb(255, 239, 19);
+    overflow: hidden;
+    pointer-events: none;
+  }
+.my-game-review-bg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-bg-modal);
+    display: flex;
+    justify-content: center;
+    z-index: 8;
+}
 .bubble-tip-unsel {
     height: 27px;
     width: 40px;
@@ -245,7 +381,7 @@ export default {
     height: 10vh;
     background-color: rgb(107, 107, 107);
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     font-weight: bold;
     color: white;

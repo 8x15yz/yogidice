@@ -13,10 +13,10 @@
     <!-- 데이터 들어오면 -->
     <div >
         <div v-for="game in userplaygames" :key="game.key">
-          <div class="play-card-case" @click="showDetail(game)">
+          <div class="play-card-case" >
             <img class="long-img" :src='game.thumbUrl'>
             <div class="game-info">
-                <div class="my-game-title">{{ game.gameTitle }}</div>
+                <div class="my-game-title" @click="showDetail(game)">{{ game.gameTitle }}</div>
                 <div v-if="game.rating" class="chip-rating">
                     <span class="play-my-rating-title">내가 준 별점</span>
                     <div class="rating">★{{ game.rating }}</div>
