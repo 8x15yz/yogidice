@@ -15,7 +15,7 @@
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6"> 게임 방식 </div>
       <div v-for="data in gamemec" :key="data.key">
-        <div class="play-type text-body-2" @click="describeType">{{data.mechanismName}}<span class="material-icons-outlined" style="margin-left: 5px; font-size: 17px;">info</span> </div>
+        <div class="play-type text-body-2" @click="describeType">{{data.mechanismName}}<span class="material-icons-outlined" style="margin-left: 5px; font-size: 17px;" @click="$emit('OpenmecModal', data.mechanismId)">info</span> </div>
       </div>
     </div>
     <div class="subdetail-box">
@@ -35,53 +35,50 @@ import BerChart from '../BerChart.vue'
 import ModalDialog from '@/components/modal/ModalDialog.vue'
 import { useStore } from 'vuex'
 import { useRoute } from "vue-router"
-import { computed, reactive } from 'vue'
+import { computed } from 'vue'
 
 export default {
   components: { 
     BerChart,
     ModalDialog
   },
-  setup() {
+  emits:[
+    'OpenmecModal',
+  ],
+  props: {
+    gametheme: Array , 
+    gamemec: Array,
+    detaildatum: Object
+  },
+  setup(props) {
+    console.log('dlrjssm', props.detaildatum)
   const route = useRoute()
   const store = useStore()
-  let showModal = computed(()=>store.state.modal.showModal)
-  let contents = reactive({
-    'modalType':'',
-    'nextPage': '',
-    'header':'',
-    'body':'',
-    'footer1': '',
-    'footer2': '',
-  })
-  const describeType = function (event) {
-    contents.modalType = 'onlyContent'
-    contents.header = event.target.innerText
-    contents.body = "게임 타입에 대한 설명 주룩주룩"
-    store.commit("changeModal") 
-  }
+  // let showModal = computed(()=>store.state.modal.showModal)
+  // let contents = reactive({
+  //   'modalType':'',
+  //   'nextPage': '',
+  //   'header':'',
+  //   'body':'',
+  //   'footer1': '',
+  //   'footer2': '',
+  // })
+  // const describeType = function (event) {
+  //   contents.modalType = 'onlyContent'
+  //   contents.header = event.target.innerText
+  //   contents.body = "게임 타입에 대한 설명 주룩주룩"
+  //   store.commit("changeModal") 
+  // }
   let gameId = route.query.gameId
   store.dispatch("gamedetail/getLengames", gameId)
-  store.dispatch("games/getDetails", gameId)
   let lengamecategory = computed(()=>store.state.gamedetail.lengamecategory)
-  let detail = computed(()=>store.state.games.detail)
 
-  // let yotu = detail.value.youtubeUrl.slice(17)
-  // console.log('https://www.youtube.com/embed/' + yotu)
 
-  let gametheme = detail.value.categoryGroupResponses
-  let gamemec = detail.value.mechanismGroupResponses
-
-  
-  
   return {
-    showModal,
-    contents,
-    describeType,
+    // showModal,
+    // contents,
+    // describeType,
     lengamecategory,
-    gametheme,
-    gamemec,
-    // yotu
   }
   
 }

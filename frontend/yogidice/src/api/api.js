@@ -7,6 +7,7 @@ const game = "/games";
 const bgg = "/bggdatas";
 const cafe = "/cafes";
 const cafeGames = "/cafegamelists";
+const categories = "/categories";
 
 export default {
   users: {
@@ -55,4 +56,9 @@ export default {
     getCafe: (cafeId) => HOST + cafeGames + cafe + `/${cafeId}`,
     getGame: (gameId) => HOST + cafeGames + `/game/${gameId}`,
   },
+
+  gameInfo: {
+    mechanism: (mecId) => HOST + categories + `/mechanism/${mecId}`,
+    userandgame: (gameId) => HOST + game + `/chemi/${gameId}`
+  }
 };

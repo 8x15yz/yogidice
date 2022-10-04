@@ -7,7 +7,9 @@ export default {
     state: () => ({
         lengamecategory: [0, 0, 0, 0, 0, 0],
         detail: {},
-        gamemec: []
+        gamemec: [],
+        mecDisc: '',
+        mecName: ''
     }),
     getters: {},
     mutations: {
@@ -15,7 +17,11 @@ export default {
         LIKE_P_MEC: (state, gid) => (state.lengamecategory[gid] += 1),
         LIKE_P_MEC_RESET: (state) => (state.lengamecategory = [0, 0, 0, 0, 0, 0]),
         GAME_MECHA: (state, gameinfo) => (state.gamemec.push(gameinfo)),
-        GAME_MECHA_RESET: (state) => (state.gamemec = [])
+        GAME_MECHA_RESET: (state) => (state.gamemec = []),
+
+
+        GAME_MEC_DISC: (state, info) => (state.mecDisc = info),
+        GAME_MEC_NAME: (state, info) => (state.mecName = info)
     },
     actions: {
         getLengames({commit}, gameId) {
@@ -36,10 +42,20 @@ export default {
                     else if (mecha.parentsMec== '말') { commit('LIKE_P_MEC',4); pmec[4] += 1}
                     else if (mecha.parentsMec == '전략') { commit('LIKE_P_MEC',5); pmec[5] += 1}
                 }
-                commit("SET_DETAIL", res.data);
             })
               .catch((err) => {console.log(err)})
-        }
+        },
+        getGameMecDetail({commit}, mecId) {
+            axios({
+                url: api.gameInfo.mechanism(mecId),
+                method: "get",
+            })
+            .then((res) => {
+                // console.log(res.data)
+                commit('GAME_MEC_DISC', res.data.description)
+                commit('GAME_MEC_NAME', res.data.name)
+            })
+        },
         
     }
 }
