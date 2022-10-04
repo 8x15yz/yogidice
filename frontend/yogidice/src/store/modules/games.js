@@ -229,14 +229,6 @@ export default {
         url: api.games.detailRecommend(gameId),
         method: "get",
       })
-<<<<<<< HEAD
-        .then((res) => {
-          commit("SET_MAIN_GAMES", res.data.boardGames);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-=======
       .then((res) => {
         commit("SET_MAIN_GAMES",res.data.responses)
       })
@@ -256,7 +248,6 @@ export default {
       .catch((err)=>{
         console.log(err)
       })
->>>>>>> frontend
     },
     addSelectedGames({ commit }, gameId) {
       commit("ADD_SELECTED_GAMES", gameId);
