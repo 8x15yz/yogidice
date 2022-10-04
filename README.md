@@ -80,7 +80,7 @@
 
 
 ### 🌫서비스 플로우
-
+![플로우차트](/uploads/7285235d121c7bf80c6d78e92b87aad1/플로우차트.png)
 ## 프로젝트 관리/운영 
 ### 디렉토리 구조
 |Spring Boot|Django|Vue|
@@ -120,6 +120,7 @@
 #### 🎰게임 상세 정보 제공
 
 #### 🎯취향 저격 추천
+![MainRecommend](/uploads/0388f83139eef9c7517c77e70aad3d9c/MainRecommend.gif)
 
 #### 👍비슷한 게임 추천
 
