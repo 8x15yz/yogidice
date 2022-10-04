@@ -57,7 +57,7 @@ export default {
     changeMainGames({ commit, dispatch, getters }, type) {
       let url;
       if (type === "리뷰많은순") {
-        url = api.games.mostReviewd10();
+        url = api.games.mostReviewed10();
       } else if (type === "평점순") {
         url = api.games.mostRating10();
       } else if (type === "최신게임") {
