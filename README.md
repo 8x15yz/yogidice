@@ -51,7 +51,7 @@
 | |   |Vuex|4.0.2| 
 | |IDE| Visual Studio Code|1.80| 
 |**백엔드**|Java|OpenJdk|1.8.0| 
-| |Build|Gradle|7.6.3| 
+| |Build|Gradle|7.5| 
 | |      |Spring Boot|2.7.3|
 | |      |Spring Security|2.7.3|
 | |      |Pyhton|3.7.9|  
@@ -65,4 +65,67 @@
 ||배포|Docker|20.10.18|
 |||jenkins|2.361.1|
 ||웹 서버|Nginx|1.23.1|  
+
+
+## 🖋기획/설계
+### 📑[기능 요구 명세서](https://www.notion.so/ac00c0280b464f87897662986e957bab)
+ 필요한 기능과 기능에 대한 내용, 기능이 들어갈 페이지, 기능의 완료 여부를 정리하였습니다.
+![기능_명세서900](/uploads/e82ee99f3a17839fdfdcabaff9803dd4/기능_명세서900.png)
+
+### 🎨[와이어 프레임(피그마)](https://www.figma.com/file/x4lH98VHe6W78rUXCxuXUg/%ED%8A%B9%ED%99%94PJT-B206?node-id=175%3A3)
+![피그마900](/uploads/08231fd39f7ce65088f736140ba43ab1/피그마900.png)
+
+### 📁[ERD](https://www.erdcloud.com/d/5CpJdWqcK5Fg8Phaa)
+![erd900](/uploads/997ee460dee2c92ec841335356bfa2ac/erd900.png)
+
+
+### 🌫서비스 플로우
+
+## 프로젝트 관리/운영 
+### 디렉토리 구조
+
+### GitLab
+
+### Jira
+
+### Notion
+
+### 스크럼 미팅
+
+## 🎮 서비스 구현 
+
+### ⚙주요 기능
+
+<hr/>
+
+#### 🎰게임 상세 정보 제공
+
+#### 🎯취향 저격 추천
+
+#### 👍비슷한 게임 추천
+
+#### 🕹필터링 추천
+
+#### 🗺주변 보드게임 카페 추천
+
+#### 📌북마크, 리뷰 기능
+
+#### 🪀게임 도구 
+
+## 🥂프로젝트 회고
+
+### 김현주
+
+### 김동신
+
+### 박정현
+
+### 전병찬
+
+### 최원재
+
+
+
+
+
 
