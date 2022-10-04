@@ -1,7 +1,7 @@
 <template>
   <div class="related-box">
     <div class="related-game-container">
-      <main-card-list></main-card-list>
+      <main-card-list class="related-game-card"></main-card-list>
     </div>
     <div class="related-game-container">
       <sub-card-list></sub-card-list>
@@ -27,5 +27,8 @@ export default {
 }
 .related-box {
   overflow-x: scroll;
+}
+.related-game-card>div.card-more{
+  visibility: hidden;
 }
 </style>

@@ -7,7 +7,7 @@
         <div class="text-subtitle-1 rating">★{{ ratingUser }}</div>
         <div class="game-chip-container">
           <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
-          <div>{{ playingTime }}</div>
+          <div>{{ `${playingTime}분 소요` }}</div>
           <div>{{ difficulty }}</div>
         </div>
       </div>

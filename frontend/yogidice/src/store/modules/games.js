@@ -16,10 +16,15 @@ export default {
     selectedGames:[],
     penalty: ["가","나","다","라","마","바"]
   }),
-  getters: {},
+  getters: {
+    getAuthHeader: (state,getters,rootState,rootGetters) => (
+      rootGetters['user/authHeader']
+    ),
+  },
   mutations: {
     SET_DETAIL: (state, details) => (state.detail = details),
-    SET_MAIN_GAMES: (state, games) => state.mainGames.push(games),
+    ADD_MAIN_GAMES: (state, games) => state.mainGames.push(games),
+    SET_MAIN_GAMES: (state, games) => state.mainGames = games,
     SET_SUB_GAMES: (state, games) => state.subGames.push(games),
     SET_SMALL_GAMES: (state,games) => state.smallGames = games,
     ADD_SMALL_GAMES: (state, games) => state.smallGames.push(...games),
@@ -50,7 +55,7 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    changeMainGames({ commit, dispatch }, type) {
+    changeMainGames({ commit, dispatch, getters }, type) {
       let url;
       if (type === "리뷰많은순") {
         url = api.games.mostReviewd10();
@@ -58,12 +63,16 @@ export default {
         url = api.games.mostRating10();
       } else if (type === "최신게임") {
         url = api.games.mostRecent10();
+      } else if (type ==="추천") {
+        url = api.games.mainRecommend()
       }
       axios({
         url: url,
         method: "get",
+        headers: getters.getAuthHeader,
       })
         .then((res) => {
+          console.log(res.data)
           let tmp = [];
           for (let r of res.data.responses) {
             tmp.push(r.gameId);
@@ -167,7 +176,7 @@ export default {
             difficulty: data.difficulty,
           };
           if (params.kind === "main") {
-            commit("SET_MAIN_GAMES", details);
+            commit("ADD_MAIN_GAMES", details);
           } else if (params.kind ==="long") {
             commit("ADD_LONG_GAMES",details)
           } 
@@ -211,12 +220,26 @@ export default {
         data: answers
       })
       .then((res)=>{
-        for (let r of res.data.responses) {
-          commit('SET_MAIN_GAMES',r)
-        }
+        commit('SET_MAIN_GAMES',res.data.responses)
       })
       .catch((err)=>{console.log(err)})
     },
+    getDetailRecommend({commit},gameId) {
+      axios({
+        url: api.games.detailRecommend(gameId),
+        method: "get",
+      })
+      .then((res) => {
+        commit("SET_MAIN_GAMES",res.data.boardGames)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+  
+
+
+
     addSelectedGames({commit},gameId) {
       commit("ADD_SELECTED_GAMES",gameId)
     },
