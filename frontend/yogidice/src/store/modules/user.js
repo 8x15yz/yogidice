@@ -45,7 +45,7 @@ export default {
         url: api.users.bookmark(),
         method: "post",
         headers: getters.authHeader,
-        data: { gameId: gameId },
+        data: { "gameId": gameId },
       })
         .then(() => {
           dispatch("getBookMark");

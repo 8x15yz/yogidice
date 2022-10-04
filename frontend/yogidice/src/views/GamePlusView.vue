@@ -53,57 +53,59 @@
     <!-- 리뷰받는 모달폼 -->
 
     <!-- game 페이지 -->
-    <div id="wrap-game-back">
-        
+    <div id="wrap-game-back" style="background-color:rgb(107, 107, 107)">
         <div class="game-ing"><span style="width: 70vw;">{{playnowname}} 게임중</span>  <span style="width: 5vw;" @click="ExitGame" ><i class="fas fa-times" ></i></span></div>
-        <div>
+        <div style="padding-top: 4vh;height:80vh; background-color:var(--color-bg-base);">
             <game-clock v-if="clock"></game-clock>
             <pick-penalty v-if="bomb"></pick-penalty>
             <pick-tagger v-if="person"></pick-tagger>
             <rolling-dice v-if="dice"></rolling-dice>
         </div>
-    </div>
+        <div class="bottom-box">
+            <!-- <div style="position:absolute; bottom: 0px;"> -->
+            <div class="speech-bubble" v-if="submenu">
+                <div :class="{'bubble-tip-selected': info == true, 'bubble-tip-unsel': info == false}" @click="subMenuBtn('info')"><i class="fas fa-info-circle"></i></div>
+                <div :class="{'bubble-tip-selected': youtub == true, 'bubble-tip-unsel': youtub == false}" @click="subMenuBtn('youtub')"><i class="fas fa-play-circle"></i></div>
+                <div :class="{'bubble-tip-selected': memo == true, 'bubble-tip-unsel': memo == false}" @click="subMenuBtn('memo')"><i class="fas fa-pencil-alt"></i></div>
+                <div :class="{'bubble-tip-selected': file == true, 'bubble-tip-unsel': file == false}" @click="subMenuBtn('file')"><i class="fas fa-folder"></i></div>
+            </div>
+            <div id="game-menu-circle" @click="submenu = !submenu"><i class="fas fa-plus"></i></div>
+                <div id="game-menu-bottom">
+                    <div  :class="{'game-menu-btn game-menu-selected': dice == true, 'game-menu-btn game-menu-unsel': dice == false}">
+                        <div @click="subMenuBtn('dice')">
+                            <div class="gmb-df ">🎲</div>
+                            <div>주사위</div>
+                        </div>
+                    </div>
+                    <div :class="{'game-menu-btn right-border game-menu-selected': person == true, 'game-menu-btn right-border game-menu-unsel': person == false}">
+                        <div @click="subMenuBtn('person')">
+                            <div class="gmb-df">🎲</div>
+                            <div>술래</div>
+                        </div>
+                    </div>
+                    <div class="game-menu-center"></div>
+                    <div :class="{'game-menu-btn left-border game-menu-selected': clock == true, 'game-menu-btn left-border game-menu-unsel': clock == false}">
+                        <div @click="subMenuBtn('clock')">
+                            <div class="gmb-df">🎲</div>
+                            <div>타이머</div>
+                        </div>
+                    </div>
+                    <div :class="{'game-menu-btn game-menu-selected': bomb == true, 'game-menu-btn game-menu-unsel': bomb == false}">
+                        <div @click="subMenuBtn('bomb')">
+                            <div class="gmb-df">🎲</div>
+                            <div>벌칙</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
     <!-- game 페이지 -->
 
     
     
     <!-- game 메뉴하단바 -->
-    <div style="position:absolute; bottom: 0px;">
-    <div class="speech-bubble" v-if="submenu">
-        <div :class="{'bubble-tip-selected': info == true, 'bubble-tip-unsel': info == false}" @click="subMenuBtn('info')"><i class="fas fa-info-circle"></i></div>
-        <div :class="{'bubble-tip-selected': youtub == true, 'bubble-tip-unsel': youtub == false}" @click="subMenuBtn('youtub')"><i class="fas fa-play-circle"></i></div>
-        <div :class="{'bubble-tip-selected': memo == true, 'bubble-tip-unsel': memo == false}" @click="subMenuBtn('memo')"><i class="fas fa-pencil-alt"></i></div>
-        <div :class="{'bubble-tip-selected': file == true, 'bubble-tip-unsel': file == false}" @click="subMenuBtn('file')"><i class="fas fa-folder"></i></div>
-    </div>
-    <div id="game-menu-circle" @click="submenu = !submenu"><i class="fas fa-plus"></i></div>
-        <div id="game-menu-bottom">
-            <div  :class="{'game-menu-btn game-menu-selected': dice == true, 'game-menu-btn game-menu-unsel': dice == false}">
-                <div @click="subMenuBtn('dice')">
-                    <div class="gmb-df ">🎲</div>
-                    <div>주사위</div>
-                </div>
-            </div>
-            <div :class="{'game-menu-btn right-border game-menu-selected': person == true, 'game-menu-btn right-border game-menu-unsel': person == false}">
-                <div @click="subMenuBtn('person')">
-                    <div class="gmb-df">🎲</div>
-                    <div>술래</div>
-                </div>
-            </div>
-            <div class="game-menu-center"></div>
-            <div :class="{'game-menu-btn left-border game-menu-selected': clock == true, 'game-menu-btn left-border game-menu-unsel': clock == false}">
-                <div @click="subMenuBtn('clock')">
-                    <div class="gmb-df">🎲</div>
-                    <div>타이머</div>
-                </div>
-            </div>
-            <div :class="{'game-menu-btn game-menu-selected': bomb == true, 'game-menu-btn game-menu-unsel': bomb == false}">
-                <div @click="subMenuBtn('bomb')">
-                    <div class="gmb-df">🎲</div>
-                    <div>벌칙</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     
 </template>
@@ -373,7 +375,7 @@ export default {
 }
 #wrap-game-back {
   width: 100vw;
-  height: 83vh;
+  height: 94vh;
   background-color: var(--color-bg-base);
   overflow: scroll;
 }
@@ -396,7 +398,7 @@ export default {
     font-weight: bold;
     color: white;
     font-size: 5vw;
-    position: sticky;
+    position: relative;
 }
 
 .game-menu-center {
@@ -424,7 +426,7 @@ export default {
     z-index: 3;
     position: absolute;
     left: 50%;
-    bottom: 53px;
+    bottom: 20px;
     transform: translate(-50%);
     background-color: rgb(107, 107, 107);
     box-shadow: 0px 2px 1px 2px rgba(0, 0, 0, 0.2);
@@ -436,6 +438,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10vw;
+}
+.bottom-box{    
+    margin-bottom:10vh;
+    position: relative;
 }
 
 </style>

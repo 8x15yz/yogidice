@@ -70,7 +70,7 @@ export default {
       router.push({name:"GamePickHome"})
     }
     const moveToGamePage = function () {
-      router.push({name: "GamePlusView"})
+      router.push({name: "ChoicePlusGame"})
     }
     const moveToCafes = function () {
       router.push({name:"PlaceView"})
@@ -174,6 +174,7 @@ export default {
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--shadow-card);
+  overflow: hidden;
   
 }
 .left-title{
@@ -213,6 +214,7 @@ export default {
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
 .right-bottom{
   display: flex;
@@ -226,6 +228,7 @@ export default {
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
 .search-bar-black-bg {
   position: sticky;
