@@ -4,3 +4,12 @@
 ![로고](/uploads/7e4a2fd00303d1aaf851dababba25275/로고.png)
 
 ## ♟프로젝트 소개
+
+### 🗓프로젝트 일정
+2022.08.22(월) ~ 2022.10.07(금) (총 7주)
+
+### 👊팀
+| 김현주 | 김동신 | 박정현 | 전병찬 | 최원재 |
+|:---:|:---:|:---:|:---:|:--:|
+|||||<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="100" height="100">|
+
