@@ -14,6 +14,7 @@ export default {
     check: () => HOST + user + "/check",
     callback: () => HOST + user + "/callback",
     bookmark: () => HOST + user + "/bookmark",
+    deleteBookMark: (gameId) => HOST + user + `/bookmark/${gameId}`,
     history: () => HOST + user + "/history",
     historyControll: (historyId) => HOST + user + "/history" + `/${historyId}`,
     review: () => HOST + user + "/review",
@@ -30,6 +31,7 @@ export default {
     sortRating: () => HOST + game + "/rating",
     sortReview: () => HOST + game + "/review",
     sortRecent: () => HOST + game + "/recent",
+    filtering: () => HOST + game + "/recommend",
   },
 
   bggDats: {

@@ -3,24 +3,26 @@
 <!-- <button @click="isuser = !isuser" style="position:absolute;">이거</button> -->
 <!-- 이거 나중에 없앨거임 내가쓴댓을인지 확인하기 위함 => 내가쓴댓글이면 수정할 수 있게 -->
     <div>
-        <div v-for="data in datum" :key="data.key" id="review-component-base">
-            <div class="review-title-rating-wrapper">
-                <div class="review-rating review-title " >
-                    {{data.gameTitle}}
-                    {{data.user}}
+        <div v-for="data in datum" :key="data.key">
+            <div v-if="data.review" id="review-component-base">
+                <div class="review-title-rating-wrapper">
+                    <div class="review-rating review-title " @click="showDetail(data)">
+                        {{data.gameTitle}}
+                        {{data.user}}
+                    </div>
+                    <div class="rating review-rating">
+                        ★{{data.rating}} 
+                    </div>
+                    <div v-if="isuser" class="icon-padding" @click="$emit('OpenReviewModal', [data.id, data.gameTitle])">
+                        <i class="far fa-edit review-rating" ></i>
+                    </div>
                 </div>
-                <div class="rating review-rating">
-                    ★{{data.rating}} 
+                <div class="review-create-date">
+                    {{data.createDate}}
                 </div>
-                <div v-if="isuser" class="icon-padding" @click="$emit('OpenReviewModal')">
-                    <i class="far fa-edit review-rating" ></i>
+                <div class="review-content-text-overflow">
+                    {{data.review}}
                 </div>
-            </div>
-            <div class="review-create-date">
-                {{data.createDate}}
-            </div>
-            <div class="review-content-text-overflow">
-                {{data.review}}
             </div>
         </div>
         <div style="height: 100px;"></div>
@@ -29,6 +31,7 @@
 
 <script>
 import { reactive, ref } from 'vue'
+import { useRouter } from "vue-router"
 
 export default{
     props: {
@@ -38,12 +41,18 @@ export default{
         'OpenReviewModal',
     ],
     setup(props) {
+        const router = useRouter()
         const isuser = ref(true)
         const datum = reactive(props.reviewdatum)
+
+        const showDetail = function(n) {
+            router.push({name:"GameDetail", query:{"gameId":n.gameId, "title":n.gameTitle}})
+        }
 
         return {
             isuser,
             datum,
+            showDetail
         }
     },
 }

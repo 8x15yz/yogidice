@@ -13,13 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @ApiModel("BoardGameSimpleListResponse")
 public class BoardGameSimpleListResponse extends BaseResponseBody {
-    private List<BoardGameSimpleResponse> boardGames;
+    private List<BoardGameSimpleResponse> responses;
 
     public static BoardGameSimpleListResponse of(Integer statusCode, String message, List<BoardGameSimpleResponse> responses) {
         BoardGameSimpleListResponse response = new BoardGameSimpleListResponse();
         response.setStatusCode(statusCode);
         response.setMessage(message);
-        response.setBoardGames(responses);
+        response.setResponses(responses);
         return response;
     }
 }

@@ -9,12 +9,13 @@ export default {
     token: localStorage.getItem("token") || "",
     currentUser: {},
     isBookMarkWorking: true,
+    myBookMark: [],
   }),
   getters: {
     isLogginedIn: (state, _, rootState) =>
       !!state.token || !!rootState.company.token,
     authHeader: (state) => ({
-      Authorization: `Bearer ${state.token}`,
+      "Authorization": `Bearer ${state.token}`,
       "Content-type": "Application/JSON",
     }),
   },
@@ -22,6 +23,7 @@ export default {
     SET_TOKEN: (state, token) => (state.token = token),
     SET_CURRENT_USER: (state, user) => (state.currentUser = user),
     BOOKMARK_NOT_WORKING: (state) => state.isBookMarkWorking = false,
+    SET_BOOKMARK: (state, bookmarks) => (state.myBookMark = bookmarks),
   },
   actions: {
     registNickName({ commit, getters }, newNickName) {
@@ -38,17 +40,47 @@ export default {
         })
         .catch(() => alert("닉네임을 변경하지 못했습니다."));
     },
-    registBookMark({ getters, commit }, gameId) {
+    registBookMark({ getters, commit,dispatch }, gameId) {
       return axios({
         url: api.users.bookmark(),
         method: "post",
         headers: getters.authHeader,
         data: {"gameId":gameId},
       })
-      .then(() => {})
+      .then(() => {
+        dispatch("getBookMark")
+      })
         
       .catch(() => {
         commit("BOOKMARK_NOT_WORKING")
+      });
+    },
+    deleteBookMark({ dispatch, getters }, gameId) {
+      return axios({
+        url: api.users.deleteBookMark(gameId),
+        method: "delete",
+        headers: getters.authHeader,
+      })
+      .then(() => {
+        dispatch("getBookMark")
+      })
+        
+      .catch((err) => {
+        console.log(err)
+      });
+    },
+    getBookMark({ getters,commit }) {
+      return axios({
+        url: api.users.bookmark(),
+        method: "get",
+        headers: getters.authHeader,
+      })
+      .then((res) => {
+        commit('SET_BOOKMARK',res.data.responses)
+      })
+        
+      .catch((err) => {
+        console.log(err)
       });
     },
     saveToken({ commit }, token) {

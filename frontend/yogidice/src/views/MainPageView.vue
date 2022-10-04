@@ -20,7 +20,7 @@
     <!-- 부가기능 버튼 3개 -->
     <div class="text-subtitle-1 main-message">요기 다이스의 부가 기능을 살펴보세요!</div>
     <div class="add-ons">
-      <div class="left-one">
+      <div class="left-one" @click="moveToPick">
         <div> 
           <div class="left-title text-subtitle-1">내 취향저격<br> 게임</div>
           <br>
@@ -61,6 +61,15 @@ export default {
   setup() {
     const store = useStore()
     const router = useRouter()
+
+    store.dispatch("user/getBookMark",{root:true})
+
+    const moveToPick = function () {
+      router.push({name:"GamePickHome"})
+    }
+    const moveToGamePage = function () {
+      router.push({name: "GamePlusView"})
+    }
     const moveToCafes = function () {
       router.push({name:"PlaceView"})
     }
@@ -100,11 +109,9 @@ export default {
       store.dispatch("games/changeMainGames",e.target.innerText)
       }
 
-    const moveToGamePage = function () {
-      router.push({name: "GamePlusView"})
-    }
 
     // 유저 부분
+    store.dispatch("myuser/GetUserInfo")
     let nickName = computed(()=>store.state.myuser.nickName)
       
     return {
@@ -113,7 +120,8 @@ export default {
       moveToCafes,
       moveToGamePage,
       nickName,
-      showSearchResult
+      showSearchResult,
+      moveToPick
     }
   }
 }

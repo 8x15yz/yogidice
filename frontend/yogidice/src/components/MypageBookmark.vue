@@ -1,6 +1,6 @@
 <template>
     <div class="my-bookmark-tag">
-        <div v-for="game in games" :key="game.key">
+        <div v-for="game in games" :key="game.key" @click="showDetail(game)">
             <img class="smallImg" @click="selectImg" :src='game.thumbUrl' alt="">
             <p class="text-subtitle-2">{{ game.gameTitle }}</p>
         </div>
@@ -10,15 +10,21 @@
 <script>
 import {computed} from "vue";
 import { useStore } from 'vuex'
+import { useRouter } from "vue-router"
 
 export default {
   
   setup() {
+    const router = useRouter()
     const store = useStore()
     let games = computed(()=>store.state.myuser.bookmark)
-    console.log(games)
+    
+    const showDetail = function(n) {
+        router.push({name:"GameDetail", query:{"gameId":n.gameId, "title":n.gameTitle}})
+    }
     return {
-      games
+      games,
+      showDetail
     }
   }
 
@@ -56,10 +62,10 @@ export default {
   right: 6px;
   font-size: 8vw;
 }
-.text-subtitle-2 {
+/* .text-subtitle-2 {
     width: 28vw;
     overflow: hidden;
-}
+} */
 
 
 </style>
