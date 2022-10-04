@@ -17,6 +17,7 @@ public class MechanismDetailResponse extends BaseResponseBody {
 
     private String parentsMec;
 
+    private String description;
     public static MechanismDetailResponse of(Integer statusCode, String message, MechanismResponse mechanismResponse) {
         MechanismDetailResponse response = new MechanismDetailResponse();
         response.setStatusCode(statusCode);
@@ -24,6 +25,7 @@ public class MechanismDetailResponse extends BaseResponseBody {
         response.setId(mechanismResponse.getId());
         response.setName(mechanismResponse.getName());
         response.setParentsMec(mechanismResponse.getParentsMec());
+        response.setDescription(mechanismResponse.getDescription());
         return response;
     }
 }

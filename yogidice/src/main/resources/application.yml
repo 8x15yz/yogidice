@@ -21,7 +21,6 @@ spring:
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-#      ddl-auto: create
       ddl-auto: none
     properties:
       hibernate:

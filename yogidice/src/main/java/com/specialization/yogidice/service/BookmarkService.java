@@ -8,14 +8,17 @@ import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.domain.repository.BoardGameRepository;
 import com.specialization.yogidice.domain.repository.BookmarkRepository;
 import com.specialization.yogidice.domain.repository.UserRepository;
+import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
 import com.specialization.yogidice.dto.request.BookmarkRequest;
 import com.specialization.yogidice.dto.response.BookmarkResponse;
+import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.specialization.yogidice.common.exception.NotFoundException.*;
 
@@ -26,6 +29,7 @@ public class BookmarkService {
     private final UserRepository userRepository;
     private final BoardGameRepository boardGameRepository;
     private final BookmarkRepository bookmarkRepository;
+    private final MechanismGroupRepository mechanismGroupRepository;
 
     @Transactional
     public Long createBookmark(Long userId, BookmarkRequest request) {
@@ -50,7 +54,10 @@ public class BookmarkService {
         }
         List<BookmarkResponse> responses = new ArrayList<>();
         for (Bookmark bookmark : bookmarks) {
-            responses.add(BookmarkResponse.response(bookmark));
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(bookmark.getBoardGame()).stream()
+                    .map(MechanismGroupResponse::response)
+                    .collect(Collectors.toList());
+            responses.add(BookmarkResponse.response(bookmark, mechanismGroupResponses));
         }
         return responses;
     }

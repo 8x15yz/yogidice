@@ -5,17 +5,20 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.specialization.yogidice.common.config.security.util.JwtUtil;
 import com.specialization.yogidice.common.exception.NotFoundException;
+import com.specialization.yogidice.domain.entity.Bookmark;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.domain.entity.type.Reviewed;
 import com.specialization.yogidice.domain.repository.BookmarkRepository;
 import com.specialization.yogidice.domain.repository.HistoryRepository;
 import com.specialization.yogidice.domain.repository.UserRepository;
+import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
 import com.specialization.yogidice.dto.request.UserCreateRequest;
 import com.specialization.yogidice.dto.request.UserUpdateRequest;
 import com.specialization.yogidice.dto.response.BookmarkResponse;
 import com.specialization.yogidice.dto.response.HistoryResponse;
 import com.specialization.yogidice.dto.response.KakaoUserResponse;
 import com.specialization.yogidice.dto.response.UserResponse;
+import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -28,9 +31,11 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.specialization.yogidice.common.exception.NotFoundException.BOOKMARK_LIST_NOT_FOUND;
 import static com.specialization.yogidice.common.exception.NotFoundException.USER_NOT_FOUND;
 
 @Service
@@ -40,6 +45,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BookmarkRepository bookmarkRepository;
     private final HistoryRepository historyRepository;
+    private final MechanismGroupRepository mechanismGroupRepository;
     private final JwtUtil jwtUtil;
 
     @Value("${api-key.kakao-rest-api}")
@@ -136,9 +142,17 @@ public class UserService {
         List<HistoryResponse> historyResponses = historyRepository.findByUser(user).stream()
                 .map(HistoryResponse::response)
                 .collect(Collectors.toList());
-        List<BookmarkResponse> bookmarkResponses = bookmarkRepository.findByUser(user).stream()
-                .map(BookmarkResponse::response)
-                .collect(Collectors.toList());
+        List<Bookmark> bookmarks = bookmarkRepository.findByUser(user);
+        if (bookmarks.isEmpty()) {
+            throw new NotFoundException((BOOKMARK_LIST_NOT_FOUND));
+        }
+        List<BookmarkResponse> bookmarkResponses = new ArrayList<>();
+        for (Bookmark bookmark : bookmarks) {
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(bookmark.getBoardGame()).stream()
+                    .map(MechanismGroupResponse::response)
+                    .collect(Collectors.toList());
+            bookmarkResponses.add(BookmarkResponse.response(bookmark, mechanismGroupResponses));
+        }
         return UserResponse.response(user, historyResponses, bookmarkResponses);
     }
 
