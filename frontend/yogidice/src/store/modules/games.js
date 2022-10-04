@@ -99,12 +99,8 @@ export default {
           };
           dispatch("registGameDetails", params);
         })
-        .catch(() => {
-          let params = {
-            gameNums: [],
-            kind: "sub",
-          };
-          dispatch("registGameDetails", params);
+        .catch((err) => {
+          console.log(err);
         });
     },
     changeSmallGames({ commit }, payload) {
