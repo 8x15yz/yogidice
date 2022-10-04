@@ -40,10 +40,12 @@ export default {
   setup() {
     const route = useRoute()
     const store = useStore()
+
     
     let detailMenus
     let gameId = route.query.gameId
     let gameTitle = route.query.title
+    store.dispatch("games/getDetailRecommend",gameId)
     store.dispatch("games/getDetails",gameId)
 
     onMounted(()=>{
@@ -143,7 +145,5 @@ export default {
   flex-wrap: nowrap;
   overflow-x: hidden;
   transition: all 0.5s;
-
-  
 }
 </style>

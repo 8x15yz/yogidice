@@ -61,9 +61,10 @@ export default {
   setup() {
     const store = useStore()
     const router = useRouter()
-
+    
+    store.dispatch("games/resetMainGames")
     store.dispatch("user/getBookMark",{root:true})
-    // store.dispatch("games/")
+    store.dispatch("games/changeMainGames","추천",{root:true})
 
     const moveToPick = function () {
       router.push({name:"GamePickHome"})
