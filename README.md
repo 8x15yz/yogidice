@@ -39,26 +39,30 @@
 
 |구분|기술 스택|상세 내용|버전|
 |:---:|:---:|:---:|:---:|
-|공통|형상관리|GitLab|- |
+|**공통**|형상관리|GitLab|- |
 | |이슈관리|Jira|- |
 | |이슈관리|Notion|- |
-|프론트엔드 |HTML5| | |
+|**프론트엔드**|HTML5| | |
 | |CSS| | | 
-| |JavaScript| | | 
-| |chartjS| | | 
-| |Vue| | | 
-| |IDE| Visual Studio Code| | 
-|백엔드|Java|OpenJdk|1.8.0| 
+| |JavaScript(ES6)| | |
+| |node      | | 16.16.0| 
+| |chartjS   | |4.1.1| 
+| |Vue       | |3    |
+| |   |Vuex|4.0.2| 
+| |IDE| Visual Studio Code|1.80| 
+|**백엔드**|Java|OpenJdk|1.8.0| 
 | |Build|Gradle|7.6.3| 
-| |Spring|Boot|2.7.3|
-| |      |Security|2.7.3|
-| |Pyhton|        |        |  
-| |Django|Security|        |  
+| |      |Spring Boot|2.7.3|
+| |      |Spring Security|2.7.3|
+| |      |Pyhton|3.7.9|  
+|**백엔드(추천 알고리즘)**|      |Django|3.2.12|  
+| |IDE| Visual Studio Code|1.70| 
 | |API Docs|Swagger|3.0.0|
-| |DB|MySQL||
+| |DB|MySQL|8.0.29|
 | | |Spring-Data-jpa|2.7.3|
-|서버|AWS EC2|Ubuntu Linux||
-||배포|Docker||
-|||jenkins||
-||웹 서버|Nginx||  
+|**서버**|AWS EC2|GNU/Linux|5.4.0-1018|
+|    |       |Ubuntu   |20.04.5 LTS|
+||배포|Docker|20.10.18|
+|||jenkins|2.361.1|
+||웹 서버|Nginx|1.23.1|  
 
