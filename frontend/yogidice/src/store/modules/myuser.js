@@ -14,7 +14,8 @@ export default {
         likePMec:[0, 0, 0, 0, 0, 0],
         likePMecMax:'보드게임',
         rearrangemeca:[],
-        userreview: 0
+        userreview: 0,
+        bookmarklike: []
     }),
     getters: {
         authHeader: (state) => ({
@@ -34,7 +35,8 @@ export default {
         USER_RIVIEW: (state) => (state.userreview += 1),
         USER_RIVIEW_RESET: (state) => (state.userreview = 0),
         LIKE_P_MEC_MAX: (state, gname) => (state.likePMecMax = gname),
-        LIKE_MECHA_RESET: (state) => (state.likeMecha = [])
+        LIKE_MECHA_RESET: (state) => (state.likeMecha = []),
+        LIKE_BOOK_MECHA: (state, GameMec) => (state.bookmarklike.push(GameMec))
     },
     actions: {
         GetUserInfo({ getters, commit }) {
@@ -90,6 +92,21 @@ export default {
                 console.log(res)
             })
             .catch((err) => {console.log(err)})
+        },
+        GetBookMark({getters, commit}) {
+            axios({
+                url: api.users.bookmarkurl(),
+                method: "get",
+                headers: getters.authHeader
+            })
+            .then((res) => {
+                for (let bookgame of res.data.responses) {
+                    for (let game of bookgame.mechanismGroupResponses) {
+                        commit('LIKE_BOOK_MECHA', [game.mechanismName, game.parentsMec])
+                    }
+                }
+            })
+            .catch((err) => {console.log(err)});
         }
     }
 }

@@ -47,13 +47,12 @@ export default {
     store.dispatch("games/getDetailRecommend",gameId)
     store.dispatch("games/getDetails",gameId)
 
-    store.dispatch("myuser/GetUserHistory")
-    let usermec = computed(()=>store.state.myuser.likeMecha).value  // 사용자 매커니즘
+    store.dispatch("myuser/GetBookMark")
+    let usermec = computed(()=>store.state.myuser.bookmarklike).value  // 사용자 매커니즘
     let gamemec = computed(()=>store.state.gamedetail.gamemec).value // 게임매커니즘
 
     console.log(usermec, gamemec)
     onMounted(()=>{
- 
       detailMenus = document.querySelectorAll(".detail-menu-bar div")
       const detailPage = document.querySelector(".detail-page")
       const coverPage = document.querySelector("#wrap2")

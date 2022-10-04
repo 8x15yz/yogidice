@@ -20,6 +20,8 @@
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6"> 관련 영상 </div>
+      <!-- <iframe width="560" height="315" src="https://youtu.be/NLcdpBr3RgM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+      <!-- <div>{{youtubeUrl}}</div> -->
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6"> 해당 게임 보유 매장 </div>
@@ -63,7 +65,9 @@ export default {
   store.dispatch("games/getDetails", gameId)
   let lengamecategory = computed(()=>store.state.gamedetail.lengamecategory)
   let detail = computed(()=>store.state.games.detail)
-  console.log('이거되냐', detail.value.categoryGroupResponses)
+
+  // let yotu = detail.value.youtubeUrl.slice(17)
+  // console.log('https://www.youtube.com/embed/' + yotu)
 
   let gametheme = detail.value.categoryGroupResponses
   let gamemec = detail.value.mechanismGroupResponses
@@ -76,7 +80,8 @@ export default {
     describeType,
     lengamecategory,
     gametheme,
-    gamemec
+    gamemec,
+    // yotu
   }
   
 }

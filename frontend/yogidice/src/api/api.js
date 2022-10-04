@@ -20,6 +20,7 @@ export default {
     history: () => HOST + user + "/history",
     historyControll: (historyId) => HOST + user + "/history" + `/${historyId}`,
     review: () => HOST + user + "/review",
+    bookmarkurl: () => HOST + user + "/bookmark"
   },
 
   games: {
