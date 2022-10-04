@@ -5,7 +5,6 @@
       <main-card-list class="related-game-card"></main-card-list>
     </div>
     <div class="related-game-container">
-      <h3>확장판 게임 목록</h3>
       <sub-card-list></sub-card-list>
     </div>
   </div>
@@ -30,7 +29,7 @@ export default {
 .related-box {
   overflow-x: scroll;
 }
-.related-game-card>div.card-more{
+.related-game-card > div.card-more {
   visibility: hidden;
 }
 </style>

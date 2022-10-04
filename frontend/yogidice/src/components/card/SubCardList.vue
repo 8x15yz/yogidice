@@ -1,5 +1,6 @@
 <template>
-  <div id="main-game-card-container">
+  <div id="main-game-card-container" v-if="subGameLists.length > 0">
+    <h3>확장판 게임 목록</h3>
     <div
       v-for="game in subGameLists"
       :key="game.gameId"
@@ -34,6 +35,7 @@ export default {
       });
     };
     let subGameLists = computed(() => store.state.games.subGames);
+    console.log(subGameLists);
     let gameId = route.query.gameId;
 
     onMounted(() => {
