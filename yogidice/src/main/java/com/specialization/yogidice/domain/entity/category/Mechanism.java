@@ -29,6 +29,7 @@ public class Mechanism {
     private String parentsMec;
 
     @NotNull
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
 
     @OneToMany(mappedBy = "mechanism", cascade = CascadeType.ALL, orphanRemoval = true)
