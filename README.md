@@ -13,7 +13,7 @@
 
 | 김현주 | 김동신 | 박정현 | 전병찬 |최원재|
 | :---: | :---: | :---: | :---: |  :---: |
-|<img src="images/김현주.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/836ebfa6bd537648164d6a7cac19e123/김똥신.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/c9a7d3e1295e94d5b76c1fd3ef272cd1/빡정현.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/5a444b6e1092dd7c275399ce12cae3f7/쩐병찬.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="120" height="120">|
+|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/1f6d51de3413176e44d5c641d6559cb3/김현주.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/836ebfa6bd537648164d6a7cac19e123/김똥신.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/c9a7d3e1295e94d5b76c1fd3ef272cd1/빡정현.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/5a444b6e1092dd7c275399ce12cae3f7/쩐병찬.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="120" height="120">|
 |팀장,<br/>프론트 구현,<br/>데이터분석서버설계|프론트 핵심 구현,<br/> UI 설계|DB 설계,<br/>데이터 크롤링,<br/>추천 알고리즘 설계|백엔드,<br/>DB 설계,<br/>REST API|백엔드,<br/>인프라,<br/>배포(CI/CD)|
 
 ### 🔔목표
@@ -70,13 +70,13 @@
 ## 🖋기획/설계
 ### 📑[기능 요구 명세서](https://www.notion.so/ac00c0280b464f87897662986e957bab)
  필요한 기능과 기능에 대한 내용, 기능이 들어갈 페이지, 기능의 완료 여부를 정리하였습니다.
-![기능_명세서900](/uploads/e82ee99f3a17839fdfdcabaff9803dd4/기능_명세서900.png)
+![기능_명세서900](/images/기능명세서.png)
 
 ### 🎨[와이어 프레임(피그마)](https://www.figma.com/file/x4lH98VHe6W78rUXCxuXUg/%ED%8A%B9%ED%99%94PJT-B206?node-id=175%3A3)
-![피그마900](/uploads/08231fd39f7ce65088f736140ba43ab1/피그마900.png)
+![피그마900](/images/피그마.png)
 
 ### 📁[ERD](https://www.erdcloud.com/d/5CpJdWqcK5Fg8Phaa)
-![erd900](/uploads/997ee460dee2c92ec841335356bfa2ac/erd900.png)
+![erd900](/images/erd900.png)
 
 
 ### 🌫서비스 플로우
@@ -85,31 +85,31 @@
 ### 디렉토리 구조
 |Spring Boot|Django|Vue|
 |:---:|:---:|:---:|
-|![스프링디렉토리](/uploads/733d627099c8ab9d83d13ad7a527fe86/스프링디렉토리.png)|![장고디렉토리리얼](/uploads/40bef83c5253310ae73f9733051e2a7c/장고디렉토리리얼.png)|![뷰디렉토리](/uploads/c48e6207319d152ab57f5be0342d885e/뷰디렉토리.png)|
+|![스프링디렉토리](/images/스프링디렉토리.png)|![장고디렉토리](/images/장고디렉토리.png)|![뷰디렉토리](/images/뷰디렉토리.png)|
 
 ### GitLab
-![깃1-900](/uploads/58e27a29d13984f47ecba0a3274506e8/깃1-900.png)
-![깃2진-900](/uploads/1f1e33c5bfc60e6566ca00bfd8f5e97c/깃2진-900.png)
+![GitLab1](/images/GitLab1.png)
+![GitLab2](/images/GitLab2.png)
 
 ### Jira
 - **스프린트**
 <br/>
-![지라900](/uploads/0083f894f0669317e3d747906fb501f2/지라900.png)
+![지라](/images/지라.png)
 <br/>
 <br/>
 
 - **번다운 차트**
 <br/>
-![번다운_차트900](/uploads/7eb6173ec3f858c8130e563c9e27466c/번다운_차트900.png)
+![번다운_차트900](/images/번다운.png)
 
 
 ### Notion
-![노션1](/uploads/a3a06b1d50d1d7eb831360d539edde84/노션1.png)
-![노션2](/uploads/b5f2ba9823d6d2fd0e1cb63210a0741f/노션2.png)
+![노션1](/images/노션1.png)
+![노션2](/images/노션2.png)
 
 
 ### 스크럼 미팅
-![스크럼900](/uploads/98e58d35db30a038f7f102049bae0d6e/스크럼900.png)
+![스크럼900](/images/스크럼.png)
 
 ## 🎮 서비스 구현 
 
