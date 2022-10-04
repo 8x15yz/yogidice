@@ -1,10 +1,15 @@
 package com.specialization.yogidice.dto.response;
 
 import com.specialization.yogidice.domain.entity.Bookmark;
+import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
+import com.specialization.yogidice.dto.response.category.MechanismListResponse;
+import com.specialization.yogidice.dto.response.category.MechanismResponse;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,14 +28,17 @@ public class BookmarkResponse {
 
     private String thumbUrl;
 
-    public static BookmarkResponse response(Bookmark bookmark) {
+    private List<MechanismGroupResponse> mechanismGroupResponses;
+
+    public static BookmarkResponse response(Bookmark bookmark, List<MechanismGroupResponse> mechanismLists) {
         return new BookmarkResponse(
                 bookmark.getId(),
                 bookmark.getUser().getId(),
                 bookmark.getUser().getNickName(),
                 bookmark.getBoardGame().getId(),
                 bookmark.getBoardGame().getTitleKr(),
-                bookmark.getBoardGame().getThumbUrl()
+                bookmark.getBoardGame().getThumbUrl(),
+                mechanismLists
         );
     }
 }
