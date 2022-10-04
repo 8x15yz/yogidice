@@ -1,9 +1,11 @@
 <template>
   <div class="related-box">
     <div class="related-game-container">
+      <h3>이 게임이 좋았다면?</h3>
       <main-card-list class="related-game-card"></main-card-list>
     </div>
     <div class="related-game-container">
+      <h3>확장판 게임 목록</h3>
       <sub-card-list></sub-card-list>
     </div>
   </div>

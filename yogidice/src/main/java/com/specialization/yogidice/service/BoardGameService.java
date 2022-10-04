@@ -323,7 +323,7 @@ public class BoardGameService {
     public List<BoardGameSimpleResponse> recommendByBookmark(List<BookmarkResponse> bookmarkResponses) throws JsonProcessingException{
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();
-        //String url = "http://localhost:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();  //로컬에서
+//        String url = "http://localhost:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();  //로컬에서
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);

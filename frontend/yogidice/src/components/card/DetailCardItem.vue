@@ -5,9 +5,9 @@
         <div class="detail-game-chip-container">
           <div>{{`${gameInfo.minPlayers} ~ ${gameInfo.maxPlayers}인`}}</div>
           <div>{{`${gameInfo.playingTime}분 소요`}}</div>
-          <div>{{gameInfo.difficulty}}</div>
+          <div>{{ level }}</div>
         </div>
-        <div class="text-subtitle-1 rating">★{{gameInfo.ratingUser}}</div>
+        <div class="text-subtitle-1 rating">★{{ rate }}</div>
       </div>
       <div class="detail-game-title text-headline-6">{{ gameInfo.titleKr }}</div>
       <hr style="width:100%">
@@ -17,24 +17,48 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { ref, computed, onMounted } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 export default {
 
   setup() {
     const store = useStore()
+    let rate = ref(0)
     let gameInfo = computed(()=>store.state.games.detail)
     let backImgUrl = computed(()=>{
       return {
         "background-image": `url(${gameInfo.value.thumbUrl})`
       }
     })
-
-
+    onMounted(() => {
+      console.log(rate)
+      rate.value = computed(()=>Number(gameInfo.value.ratingUser.toFixed(2)))
+    })
+    
+    let difficulty = gameInfo.value.difficulty
+    let level = computed(()=>{
+      if (difficulty <= 1) {
+        return "매우 쉬움"
+      } 
+      else if (difficulty <= 2) {
+        return "쉬움"
+      } 
+      else if (difficulty <= 3) {
+        return "보통"
+      } 
+      else if (difficulty <= 4) {
+        return "어려움"
+      } 
+      else {
+        return "매우 어려움"
+      } 
+    })
     
     return {
       gameInfo,
-      backImgUrl
+      backImgUrl,
+      level,
+      rate
     }
   }
 

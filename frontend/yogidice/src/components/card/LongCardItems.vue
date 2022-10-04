@@ -4,11 +4,11 @@
     <div class="game-info" @click="showDetail(lg)">
       <div class="game-title text-subtitle-1">{{ titleKr }}</div>
       <div class="chip-rating">
-        <div class="text-subtitle-1 rating">★{{ ratingUser }}</div>
+        <div class="text-subtitle-1 rating">★{{ rate }}</div>
         <div class="game-chip-container">
           <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
           <div>{{ `${playingTime}분 소요` }}</div>
-          <div>{{ difficulty }}</div>
+          <div>{{ level }}</div>
         </div>
       </div>
     </div>
@@ -41,6 +41,24 @@ export default {
     let { playingTime } = toRefs(props.lg)
     let { ratingUser } = toRefs(props.lg)
     let { difficulty } = toRefs(props.lg)
+    let rate = ratingUser.value.toFixed(2)
+    let level = computed(()=>{
+      if (difficulty.value <= 1) {
+        return "매우 쉬움"
+      } 
+      else if (difficulty.value <= 2) {
+        return "쉬움"
+      } 
+      else if (difficulty.value <= 3) {
+        return "보통"
+      } 
+      else if (difficulty.value <= 4) {
+        return "어려움"
+      } 
+      else {
+        return "매우 어려움"
+      } 
+    })
 
     let myBookMarks = computed(()=>(store.state.user.myBookMark).map(mark=>mark.gameId))
     let isGameinBookMark = computed(()=>myBookMarks.value.includes(id.value))
@@ -75,7 +93,9 @@ export default {
     ratingUser,
     difficulty,
     isGameinBookMark,
-    showDetail
+    showDetail,
+    level,
+    rate
     
   }}
 
@@ -119,6 +139,7 @@ export default {
 .rating {
   text-align: start;
   align-self: center;
+  width: 24%;
 }
 .game-chip-container {
   margin: 0px;

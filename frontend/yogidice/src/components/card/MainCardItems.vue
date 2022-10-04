@@ -2,17 +2,17 @@
   <img class="main-card-img" :src='thumbUrl' alt="">
   <div class="title-rating">
     <div class="game-title text-subtitle-1">{{ titleKr }}</div>
-    <div class="text-subtitle-1 rating">★{{ mainGame.ratingUser }}</div>
+    <div class="text-subtitle-1 rating">★{{ rate }}</div>
   </div>
   <div class="game-chip-container">
     <div>{{ `${mainGame.minPlayers.value }~${mainGame.maxPlayers.value}인` }}</div>
     <div>{{ mainGame.playingTime }}분</div>
-    <div>{{ mainGame.difficulty }}</div>
+    <div>{{ level }}</div>
   </div>
 </template>
 
 <script>
-import { toRefs,reactive,ref } from "vue"
+import { toRefs,reactive,ref,computed, onMounted } from "vue"
 
 export default {
   props: {
@@ -22,13 +22,36 @@ export default {
     let mainGame = toRefs(props.game)
     let { titleKr } = toRefs(props.game)
     let thumbUrl = mainGame.thumbUrl
+    let { difficulty } = toRefs(props.game)
+    let rate = ref(0)
+
+    onMounted(()=>{
+      console.log(rate)
+      rate.value = computed(()=>mainGame.ratingUser.value.toFixed(2))
+    })
   
     let checkedMark = ref(false)
 
     const userSelection = reactive([])
-    // const moveGameDetail = function() {
-    //   context.emit("moveGameDetail",mainGame)
-    // }
+
+    let level = computed(()=>{
+      if (difficulty.value <= 1) {
+        return "매우 쉬움"
+      } 
+      else if (difficulty.value <= 2) {
+        return "쉬움"
+      } 
+      else if (difficulty.value <= 3) {
+        return "보통"
+      } 
+      else if (difficulty.value <= 4) {
+        return "어려움"
+      } 
+      else {
+        return "매우 어려움"
+      } 
+    })
+
     
 
   return {
@@ -36,7 +59,9 @@ export default {
     userSelection,
     checkedMark,
     thumbUrl,
-    titleKr
+    titleKr,
+    level,
+    rate
     
     }}
 
