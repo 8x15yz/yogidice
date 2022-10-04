@@ -11,7 +11,7 @@
       </div>
       <div class="detail-game-title text-headline-6">{{ gameInfo.titleKr }}</div>
       <hr style="width:100%">
-      <button class="button-long-blue text-button">게임하러 가기</button>
+      <button class="button-long-blue text-button" @click="gotoPlay">게임하러 가기</button>
     </div>
   </div>
 </template>
@@ -19,10 +19,15 @@
 <script>
 import { ref, computed, onMounted } from '@vue/runtime-core'
 import { useStore } from 'vuex'
+import { useRoute } from "vue-router"
+import { useRouter } from 'vue-router'
+
 export default {
 
   setup() {
     const store = useStore()
+    const route = useRoute()
+    const router = useRouter()
     let rate = ref(0)
     let gameInfo = computed(()=>store.state.games.detail)
     let backImgUrl = computed(()=>{
@@ -34,7 +39,14 @@ export default {
       console.log(rate)
       rate.value = computed(()=>Number(gameInfo.value.ratingUser.toFixed(2)))
     })
-    
+
+    let gameId = route.query.gameId
+    let gameTitle = route.query.title
+    function gotoPlay() {
+      router.push({name:"GamePlusView"})
+      store.dispatch("gamedetail/PlayGame", [gameTitle, gameId])
+      // console.log(gameId)
+    }
     let difficulty = gameInfo.value.difficulty
     let level = computed(()=>{
       if (difficulty <= 1) {
@@ -58,7 +70,8 @@ export default {
       gameInfo,
       backImgUrl,
       level,
-      rate
+      rate,
+      gotoPlay
     }
   }
 
