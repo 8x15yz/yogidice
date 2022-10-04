@@ -60,7 +60,7 @@ public class HistoryService {
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         List<History> histories = historyRepository.findByUser(user);
         if (histories.isEmpty()) {
-            throw new NotFoundException((HISTORY_LIST_NOT_FOUND));
+            return new ArrayList<>();
         }
         List<HistoryDetailResponse> responses = new ArrayList<>();
         for (History history : histories) {
@@ -69,7 +69,6 @@ public class HistoryService {
                     .collect(Collectors.toList());
             responses.add(HistoryDetailResponse.response(history, mechanismGroupResponses));
         }
-
         return responses;
     }
 

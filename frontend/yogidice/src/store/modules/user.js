@@ -15,14 +15,14 @@ export default {
     isLogginedIn: (state, _, rootState) =>
       !!state.token || !!rootState.company.token,
     authHeader: (state) => ({
-      "Authorization": `Bearer ${state.token}`,
+      Authorization: `Bearer ${state.token}`,
       "Content-type": "Application/JSON",
     }),
   },
   mutations: {
     SET_TOKEN: (state, token) => (state.token = token),
     SET_CURRENT_USER: (state, user) => (state.currentUser = user),
-    BOOKMARK_NOT_WORKING: (state) => state.isBookMarkWorking = false,
+    BOOKMARK_NOT_WORKING: (state) => (state.isBookMarkWorking = false),
     SET_BOOKMARK: (state, bookmarks) => (state.myBookMark = bookmarks),
   },
   actions: {
@@ -40,20 +40,20 @@ export default {
         })
         .catch(() => alert("닉네임을 변경하지 못했습니다."));
     },
-    registBookMark({ getters, commit,dispatch }, gameId) {
+    registBookMark({ getters, commit, dispatch }, gameId) {
       return axios({
         url: api.users.bookmark(),
         method: "post",
         headers: getters.authHeader,
-        data: {"gameId":gameId},
+        data: { gameId: gameId },
       })
-      .then(() => {
-        dispatch("getBookMark")
-      })
-        
-      .catch(() => {
-        commit("BOOKMARK_NOT_WORKING")
-      });
+        .then(() => {
+          dispatch("getBookMark");
+        })
+
+        .catch(() => {
+          commit("BOOKMARK_NOT_WORKING");
+        });
     },
     deleteBookMark({ dispatch, getters }, gameId) {
       return axios({
@@ -61,27 +61,29 @@ export default {
         method: "delete",
         headers: getters.authHeader,
       })
-      .then(() => {
-        dispatch("getBookMark")
-      })
-        
-      .catch((err) => {
-        console.log(err)
-      });
+        .then(() => {
+          dispatch("getBookMark");
+        })
+
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    getBookMark({ getters,commit }) {
+    getBookMark({ getters, commit }) {
       return axios({
         url: api.users.bookmark(),
         method: "get",
         headers: getters.authHeader,
       })
-      .then((res) => {
-        commit('SET_BOOKMARK',res.data.responses)
-      })
-        
-      .catch((err) => {
-        console.log(err)
-      });
+        .then((res) => {
+          commit("SET_BOOKMARK", res.data.responses);
+        })
+
+        .catch((err) => {
+          if (err.response.status === 400) {
+            commit("SET_BOOKMARK", []);
+          }
+        });
     },
     saveToken({ commit }, token) {
       commit("SET_TOKEN", token);
@@ -136,7 +138,10 @@ export default {
           } else {
             router.push({
               name: "RegistNickName",
-              params: { nickName: userInfo.nickName, kakaoId: userInfo.kakaoId },
+              params: {
+                nickName: userInfo.nickName,
+                kakaoId: userInfo.kakaoId,
+              },
             });
           }
         })
@@ -155,7 +160,7 @@ export default {
           const token = res.headers["authorization"];
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
-          dispatch("modal/closeModal",null,{ root:true });
+          dispatch("modal/closeModal", null, { root: true });
           router.push({ name: "InitChoice" });
         })
         .catch((err) => {

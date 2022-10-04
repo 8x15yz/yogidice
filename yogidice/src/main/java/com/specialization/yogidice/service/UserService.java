@@ -61,7 +61,7 @@ public class UserService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", kakaoRestApiKey);
-        body.add("redirect_uri", "http://localhost:8077/kakaologin");
+        body.add("redirect_uri", "https://yogidice.site/kakaologin");
         body.add("code", code);
 
         // HTTP 요청 보내기
@@ -144,7 +144,7 @@ public class UserService {
                 .collect(Collectors.toList());
         List<Bookmark> bookmarks = bookmarkRepository.findByUser(user);
         if (bookmarks.isEmpty()) {
-            throw new NotFoundException((BOOKMARK_LIST_NOT_FOUND));
+            return UserResponse.response(user, historyResponses, new ArrayList<>());
         }
         List<BookmarkResponse> bookmarkResponses = new ArrayList<>();
         for (Bookmark bookmark : bookmarks) {

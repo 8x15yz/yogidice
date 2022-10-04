@@ -1,7 +1,6 @@
 // const HOST = "http://localhost:8081/api";
 const HOST = "https://yogidice.site/api";
 
-
 const user = "/users";
 const game = "/games";
 const bgg = "/bggdatas";
@@ -29,7 +28,7 @@ export default {
     searchGame: (gameTitle) => HOST + game + "/search" + `/${gameTitle}`,
     detailEdit: (gameId) => HOST + game + `/${gameId}`,
     extendedGames: (gameId) => HOST + game + "/extend" + `/${gameId}`,
-    mostReviewd10: () => HOST + game + "/top10/review",
+    mostReviewed10: () => HOST + game + "/top10/review",
     mostRecent10: () => HOST + game + "/top10/recent",
     mostRating10: () => HOST + game + "/top10/rating",
     sortRating: () => HOST + game + "/rating",
@@ -37,7 +36,8 @@ export default {
     sortRecent: () => HOST + game + "/recent",
     filtering: () => HOST + game + "/recommend",
     mainRecommend: () => HOST + game + "/recommend/main",
-    detailRecommend: (gameId) => HOST + game + "/recommend/detail" + `/${gameId}`
+    detailRecommend: (gameId) =>
+      HOST + game + "/recommend/detail" + `/${gameId}`,
   },
 
   bggDats: {

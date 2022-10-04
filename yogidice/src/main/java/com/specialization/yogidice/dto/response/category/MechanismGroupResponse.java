@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,11 +19,14 @@ public class MechanismGroupResponse {
 
     private String parentsMec;
 
+    private String description;
+
     public static MechanismGroupResponse response(MechanismGroup mechanismGroup) {
         return new MechanismGroupResponse(
                 mechanismGroup.getMechanism().getId(),
                 mechanismGroup.getMechanism().getName(),
-                mechanismGroup.getMechanism().getParentsMec()
+                mechanismGroup.getMechanism().getParentsMec(),
+                mechanismGroup.getMechanism().getDescription()
         );
     }
 }
