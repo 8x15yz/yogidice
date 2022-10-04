@@ -204,7 +204,7 @@ public class BoardGameService {
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         List<BoardGame> games = boardGameRepository.findByBggCodeAndPublishYearNotLikeAndTitleKrNotLike(boardGame.getBggCode(), boardGame.getPublishYear(), boardGame.getTitleKr());
         if (games.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<BoardGameResponse> responses = new ArrayList<>();
         for (BoardGame game : games) {
