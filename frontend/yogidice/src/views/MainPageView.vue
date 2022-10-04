@@ -113,6 +113,7 @@ export default {
 
 
     // 유저 부분
+    store.dispatch("myuser/GetUserInfo")
     let nickName = computed(()=>store.state.myuser.nickName)
       
     return {

@@ -245,7 +245,9 @@ public class BoardGameService {
             if (!MechanismClassifier.checkMechanism(request.getQuestion3(), responses.get(i))) {
                 responses.remove(i);
             }
-            System.out.println(responses.size());
+        }
+        if(responses.isEmpty()){
+            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
         }
         return responses;
     }
