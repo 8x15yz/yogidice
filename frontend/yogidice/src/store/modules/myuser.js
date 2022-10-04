@@ -34,6 +34,7 @@ export default {
         USER_RIVIEW: (state) => (state.userreview += 1),
         USER_RIVIEW_RESET: (state) => (state.userreview = 0),
         LIKE_P_MEC_MAX: (state, gname) => (state.likePMecMax = gname),
+        LIKE_MECHA_RESET: (state) => (state.likeMecha = [])
     },
     actions: {
         GetUserInfo({ getters, commit }) {
@@ -58,6 +59,7 @@ export default {
             })
             .then((res) => {
                 commit("SET_HISTORY", res.data.responses); 
+                // commit("LIKE_MECHA_RESET"); 
                 // console.log('dspd', res.data.responses) 
                 let pmec = [0, 0, 0, 0, 0, 0]
                 const pmecmax = ['추리카드퍼즐', '경제', '파티', '조건', '말', '전략']

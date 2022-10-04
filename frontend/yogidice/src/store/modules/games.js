@@ -14,7 +14,7 @@ export default {
     searchResult: [],
     presentType: "",
     selectedGames:[],
-    penalty: ["가","나","다","라","마","바"]
+    penalty: ["가","나","다","라","마","바"],
   }),
   getters: {
     getAuthHeader: (state,getters,rootState,rootGetters) => (

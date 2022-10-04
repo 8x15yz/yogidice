@@ -7,14 +7,16 @@
       </ber-chart>
     </div>
     <div class="subdetail-box">
-      <div class="subdetail-title text-headline-6"> 게임 설명 </div>
-      <div class="game-description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, iure! </div>
+      <div class="subdetail-title text-headline-6" style="margin-bottom: 10px;"> 게임 테마 </div>
+      <span v-for="data in gametheme" :key="data.key">
+        <span class="game-description">{{data.categoryName}}</span>
+      </span>
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6"> 게임 방식 </div>
-      <ul>
-        <li class="play-type text-body-2" @click="describeType"> Roll/Spin and Move <span class="material-icons-outlined">info</span> </li>
-      </ul>
+      <div v-for="data in gamemec" :key="data.key">
+        <div class="play-type text-body-2" @click="describeType">{{data.mechanismName}}<span class="material-icons-outlined" style="margin-left: 5px; font-size: 17px;">info</span> </div>
+      </div>
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6"> 관련 영상 </div>
@@ -58,7 +60,14 @@ export default {
   }
   let gameId = route.query.gameId
   store.dispatch("gamedetail/getLengames", gameId)
+  store.dispatch("games/getDetails", gameId)
   let lengamecategory = computed(()=>store.state.gamedetail.lengamecategory)
+  let detail = computed(()=>store.state.games.detail)
+  console.log('이거되냐', detail.value.categoryGroupResponses)
+
+  let gametheme = detail.value.categoryGroupResponses
+  let gamemec = detail.value.mechanismGroupResponses
+
   
   
   return {
@@ -66,6 +75,8 @@ export default {
     contents,
     describeType,
     lengamecategory,
+    gametheme,
+    gamemec
   }
   
 }
@@ -75,8 +86,9 @@ export default {
 
 <style>
 .play-type {
-  height: 20px;;
-  text-align: left;
+  height: 20px;
+  font-size: 17px;
+  margin-top: 10px;
 }
 .introduce-box div {
   width: 90vw;
@@ -91,7 +103,7 @@ export default {
 }
 .game-description {
   margin-top: 2vh;
-  padding-left: 3vw;
+  margin-right: 1vh;
 }
 
 </style>

@@ -7,13 +7,15 @@ export default {
     state: () => ({
         lengamecategory: [0, 0, 0, 0, 0, 0],
         detail: {},
+        gamemec: []
     }),
     getters: {},
     mutations: {
         SET_DETAIL: (state, details) => (state.detail = details),
         LIKE_P_MEC: (state, gid) => (state.lengamecategory[gid] += 1),
         LIKE_P_MEC_RESET: (state) => (state.lengamecategory = [0, 0, 0, 0, 0, 0]),
-
+        GAME_MECHA: (state, gameinfo) => (state.gamemec.push(gameinfo)),
+        GAME_MECHA_RESET: (state) => (state.gamemec = [])
     },
     actions: {
         getLengames({commit}, gameId) {
@@ -24,7 +26,9 @@ export default {
             })
               .then((res) => {
                 let pmec = [0, 0, 0, 0, 0, 0]
+                commit('GAME_MECHA_RESET')
                 for (let mecha of res.data.mechanismGroupResponses) {
+                    commit('GAME_MECHA', [mecha.mechanismName, mecha.parentsMec])
                     if (mecha.parentsMec == '추리카드퍼즐') { commit('LIKE_P_MEC',0 ); pmec[0] += 1}
                     else if (mecha.parentsMec == '경제') { commit('LIKE_P_MEC',1); pmec[1] += 1}
                     else if (mecha.parentsMec == '파티') { commit('LIKE_P_MEC',2); pmec[2] += 1}
