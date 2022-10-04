@@ -11,6 +11,9 @@
       <main-card-items :game="game"> </main-card-items>
     </div>
   </div>
+  <div id="main-game-card-container" v-else>
+    <h3>확장판 게임이 없습니다</h3>
+  </div>
 </template>
 
 <script>

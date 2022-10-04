@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { toRefs, reactive, ref, computed, onMounted } from "vue";
+import { toRefs, reactive, ref, computed } from "vue";
 
 export default {
   props: {
@@ -25,11 +25,7 @@ export default {
     let { titleKr } = toRefs(props.game);
     let thumbUrl = mainGame.thumbUrl;
     let { difficulty } = toRefs(props.game);
-    let rate = ref(0);
-
-    onMounted(() => {
-      rate.value = computed(() => mainGame.ratingUser.value.toFixed(2));
-    });
+    let rate = computed(() => mainGame.ratingUser.value.toFixed(2));
 
     let checkedMark = ref(false);
 
