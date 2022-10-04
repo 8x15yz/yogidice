@@ -12,7 +12,8 @@
 
     <!-- 데이터 들어오면 -->
     <div >
-        <div class="play-card-case" v-for="game in userplaygames" :key="game.key">
+        <div v-for="game in userplaygames" :key="game.key">
+          <div class="play-card-case" @click="showDetail(game)">
             <img class="long-img" :src='game.thumbUrl'>
             <div class="game-info">
                 <div class="my-game-title">{{ game.gameTitle }}</div>
@@ -25,6 +26,7 @@
                     <i class="far fa-edit play-my-icon" @click="$emit('OpenReviewModal', [game.id, game.gameTitle])"></i>
                 </div>
             </div>
+          </div>
         </div>
         <div style="height: 100px;"></div>
     </div>
@@ -34,6 +36,7 @@
 
 <script>
 import { reactive} from '@vue/runtime-core'
+import { useRouter } from "vue-router"
 
 export default {
   props: {
@@ -43,11 +46,17 @@ export default {
     'OpenReviewModal',
     ],
   setup(props) {
+    const router = useRouter()
     const datum = reactive(props.userplaygames)
     // console.log('sdfsfd', datum)
 
+    const showDetail = function(n) {
+      router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.gameTitle}})
+    }
+
     return {
         datum,
+        showDetail
     }
   }
 

@@ -10,7 +10,6 @@ export default {
     }),
     getters: {},
     mutations: {
-        // SET_LENGAME: (state, lengamecategory) => (state.lengamecategory = lengamecategory),
         SET_DETAIL: (state, details) => (state.detail = details),
         LIKE_P_MEC: (state, gid) => (state.lengamecategory[gid] += 1),
         LIKE_P_MEC_RESET: (state) => (state.lengamecategory = [0, 0, 0, 0, 0, 0]),
@@ -24,18 +23,14 @@ export default {
               method: "get",
             })
               .then((res) => {
-                console.log("성공");
-                console.log(res.data.mechanismGroupResponses)
                 let pmec = [0, 0, 0, 0, 0, 0]
                 for (let mecha of res.data.mechanismGroupResponses) {
-                    console.log(mecha.parentsMec)
                     if (mecha.parentsMec == '추리카드퍼즐') { commit('LIKE_P_MEC',0 ); pmec[0] += 1}
                     else if (mecha.parentsMec == '경제') { commit('LIKE_P_MEC',1); pmec[1] += 1}
                     else if (mecha.parentsMec == '파티') { commit('LIKE_P_MEC',2); pmec[2] += 1}
                     else if (mecha.parentsMec == '조건') { commit('LIKE_P_MEC',3); pmec[3] += 1}
                     else if (mecha.parentsMec== '말') { commit('LIKE_P_MEC',4); pmec[4] += 1}
                     else if (mecha.parentsMec == '전략') { commit('LIKE_P_MEC',5); pmec[5] += 1}
-                    console.log(pmec)
                 }
                 commit("SET_DETAIL", res.data);
             })
