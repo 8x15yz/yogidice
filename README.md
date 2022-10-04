@@ -71,7 +71,10 @@
 ### 📑기능 요구 명세서
 
 ### 📁[ERD](https://www.erdcloud.com/d/5CpJdWqcK5Fg8Phaa)
-<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/9da69966bbe6eafcfc0100083abcbe6f/ERD.png" width="900" height="500">
+![erd900](/uploads/997ee460dee2c92ec841335356bfa2ac/erd900.png)
+
+### 🎨[와이어 프레임(피그마)](https://www.figma.com/file/x4lH98VHe6W78rUXCxuXUg/%ED%8A%B9%ED%99%94PJT-B206?node-id=175%3A3)
+![피그마900](/uploads/08231fd39f7ce65088f736140ba43ab1/피그마900.png)
 
 
 
