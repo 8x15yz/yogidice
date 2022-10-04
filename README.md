@@ -80,7 +80,7 @@
 
 
 ### 🌫서비스 플로우
-
+![플로우차트](/uploads/7285235d121c7bf80c6d78e92b87aad1/플로우차트.png)
 ## 프로젝트 관리/운영 
 ### 디렉토리 구조
 |Spring Boot|Django|Vue|
