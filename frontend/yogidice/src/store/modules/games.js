@@ -58,6 +58,8 @@ export default {
         url = api.games.mostRating10();
       } else if (type === "최신게임") {
         url = api.games.mostRecent10();
+      } else if (type ==="추천") {
+        url = api.games.mainRecommend()
       }
       axios({
         url: url,
