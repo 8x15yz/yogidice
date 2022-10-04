@@ -90,8 +90,21 @@
 ### GitLab
 
 ### Jira
+- **스프린트**
+<br/>
+![지라900](/uploads/0083f894f0669317e3d747906fb501f2/지라900.png)
+<br/>
+<br/>
+
+- **번다운 차트**
+<br/>
+![번다운_차트900](/uploads/7eb6173ec3f858c8130e563c9e27466c/번다운_차트900.png)
+
 
 ### Notion
+![노션1](/uploads/a3a06b1d50d1d7eb831360d539edde84/노션1.png)
+![노션2](/uploads/b5f2ba9823d6d2fd0e1cb63210a0741f/노션2.png)
+
 
 ### 스크럼 미팅
 
