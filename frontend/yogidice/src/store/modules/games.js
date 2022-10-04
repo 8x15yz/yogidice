@@ -178,7 +178,7 @@ export default {
               difficulty: data.difficulty,
             };
             if (params.kind === "main") {
-              commit("SET_MAIN_GAMES", details);
+              commit("ADD_MAIN_GAMES", details);
             } else if (params.kind === "long") {
               commit("ADD_LONG_GAMES", details);
             } else {
