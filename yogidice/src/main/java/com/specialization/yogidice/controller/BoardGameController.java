@@ -7,8 +7,6 @@ import com.specialization.yogidice.common.config.web.LoginUser;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.domain.entity.type.Reviewed;
-import com.specialization.yogidice.domain.repository.BookmarkRepository;
-import com.specialization.yogidice.domain.repository.HistoryRepository;
 import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.dto.request.BoardGameRequest;
 import com.specialization.yogidice.dto.request.NumOfReviewRequest;
@@ -269,5 +267,15 @@ public class BoardGameController {
             @PathVariable Long gameId
     ){
         return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryListById(gameId)));
+    }
+
+    @GetMapping("/chemi/{gameId}")
+    @ApiOperation(value = "사용자와 게임의 케미 조사", notes = "메카니즘을 기반으로 사용자가 이 게임을 얼마나 좋아할 지 계산해줍니다.")
+    public ResponseEntity<?> anlayzeChemi(
+            @ApiIgnore @LoginUser User user,
+            @PathVariable Long gameId
+    ){
+
+        return ResponseEntity.status(HttpStatus.OK).body(ChemiResponse.of(200, "success", boardGameService.analyzeChemi(user, gameId)));
     }
 }
