@@ -144,7 +144,7 @@ public class UserService {
                 .collect(Collectors.toList());
         List<Bookmark> bookmarks = bookmarkRepository.findByUser(user);
         if (bookmarks.isEmpty()) {
-            throw new NotFoundException((BOOKMARK_LIST_NOT_FOUND));
+            return UserResponse.response(user, historyResponses, new ArrayList<>());
         }
         List<BookmarkResponse> bookmarkResponses = new ArrayList<>();
         for (Bookmark bookmark : bookmarks) {
