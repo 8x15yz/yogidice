@@ -7,12 +7,12 @@ import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.common.util.DeduplicationUtils;
 import com.specialization.yogidice.common.util.MechanismClassifier;
 import com.specialization.yogidice.domain.entity.BoardGame;
+import com.specialization.yogidice.domain.entity.Bookmark;
 import com.specialization.yogidice.domain.entity.Recommend;
 import com.specialization.yogidice.domain.entity.User;
-import com.specialization.yogidice.domain.repository.BoardGameRepository;
-import com.specialization.yogidice.domain.repository.BoardGameRepositorySupport;
-import com.specialization.yogidice.domain.repository.RecommendRepository;
-import com.specialization.yogidice.domain.repository.UserRepository;
+import com.specialization.yogidice.domain.entity.category.Mechanism;
+import com.specialization.yogidice.domain.entity.category.MechanismGroup;
+import com.specialization.yogidice.domain.repository.*;
 import com.specialization.yogidice.domain.repository.category.CategoryGroupRepository;
 import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
 import com.specialization.yogidice.domain.repository.category.TypeGroupRepository;
@@ -33,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,6 +51,7 @@ public class BoardGameService {
     private final BoardGameRepositorySupport boardGameRepositorySupport;
     private final RecommendRepository recommendRepository;
     private final UserRepository userRepository;
+    private final BookmarkRepository bookmarkRepository;
 
     @Transactional
     public Long createBoardGame(BoardGameRequest request) {
@@ -354,5 +356,54 @@ public class BoardGameService {
 
 
         return boardGames;
+    }
+
+    public int analyzeChemi(User user, Long gameId) {
+        //유저를 유저가 북마크한 보드게임 불러오기
+        List<Bookmark> bookmarkList = bookmarkRepository.findByUser(user);
+        BoardGame boardGame = boardGameRepository.findById(gameId)
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
+        double[] userArr = new double[6];
+
+        double[] gameArr = new double[6];
+
+        for (Bookmark bookmark : bookmarkList) {
+            mechanismGroupRepository.findByBoardGame(bookmark.getBoardGame()).stream()
+                    .forEach(m ->countMechanism(userArr, m.getMechanism()));
+        }
+        mechanismGroupRepository.findByBoardGame(boardGame).stream().
+                forEach(m->countMechanism(gameArr, m.getMechanism()));
+        double userSum = Arrays.stream(userArr).sum();
+        double gameSum = Arrays.stream(gameArr).sum();
+        for(int i=0; i<6; i++){
+            userArr[i] = (userArr[i]*100)/userSum;
+        }
+        for(int i=0; i<6; i++){
+            gameArr[i] = (gameArr[i]*100)/gameSum;
+        }
+
+        //gameid를 통해 게임 불러오기
+        double result = 100.0;
+        for(int i=0; i<6 ; i++){
+            result -= Math.abs(gameArr[i]-userArr[i]);
+        }
+        return (int)(0.5+result);
+    }
+
+    public void countMechanism(double[] mechamismArr, Mechanism mechanism) {
+        String parentMechanism = mechanism.getParentsMec();
+        if(parentMechanism.equals("조건")){
+            mechamismArr[0]++;
+        }else if(parentMechanism.equals("말")){
+            mechamismArr[1]++;
+        }else if(parentMechanism.equals("파티")){
+            mechamismArr[2]++;
+        }else if(parentMechanism.equals("경제")){
+            mechamismArr[3]++;
+        }else if(parentMechanism.equals("전략")){
+            mechamismArr[4]++;
+        }else {
+            mechamismArr[5]++;
+        }
     }
 }
