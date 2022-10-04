@@ -6,7 +6,7 @@
         <div v-for="data in datum" :key="data.key">
             <div v-if="data.review" id="review-component-base">
                 <div class="review-title-rating-wrapper">
-                    <div class="review-rating review-title " >
+                    <div class="review-rating review-title " @click="showDetail(data)">
                         {{data.gameTitle}}
                         {{data.user}}
                     </div>
@@ -31,6 +31,7 @@
 
 <script>
 import { reactive, ref } from 'vue'
+import { useRouter } from "vue-router"
 
 export default{
     props: {
@@ -40,12 +41,18 @@ export default{
         'OpenReviewModal',
     ],
     setup(props) {
+        const router = useRouter()
         const isuser = ref(true)
         const datum = reactive(props.reviewdatum)
 
+        const showDetail = function(n) {
+            router.push({name:"GameDetail", query:{"gameId":n.gameId, "title":n.gameTitle}})
+        }
+
         return {
             isuser,
-            datum
+            datum,
+            showDetail
         }
     },
 }
