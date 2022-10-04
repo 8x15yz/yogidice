@@ -1,7 +1,7 @@
 # 🎲 요기다이스(YOGIDICE)
 **YOGIDICE**는 총 15000건의 게임과 2500만 여개의 유저 평가 데이터를 활용하여 사용자의 취향에 꼭 알맞는 게임을 추천해주는 서비스입니다. <br/>**YOGIDICE**는 사용자의 평가 내용을 기반으로 **KNN 알고리즘**을 활용하여 비슷한 취향을 가진 다른 사용자들이 좋아하는 게임을 추천하고,<br/> **Jaccard Similarity 알고리즘**을 활용하여 플레이한 게임과 비슷한 다른 게임을 추천합니다. 
 <hr>
-![로고](/uploads/7e4a2fd00303d1aaf851dababba25275/로고.png)
+![로고](images/로고.png)
 
 ## ♟프로젝트 소개
 
@@ -13,7 +13,7 @@
 
 | 김현주 | 김동신 | 박정현 | 전병찬 |최원재|
 | :---: | :---: | :---: | :---: |  :---: |
-|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/29e8a97f6b79fae410834d405fd69c8a/현주킴.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/836ebfa6bd537648164d6a7cac19e123/김똥신.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/c9a7d3e1295e94d5b76c1fd3ef272cd1/빡정현.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/5a444b6e1092dd7c275399ce12cae3f7/쩐병찬.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="120" height="120">|
+|<img src="images/김현주.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/836ebfa6bd537648164d6a7cac19e123/김똥신.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/c9a7d3e1295e94d5b76c1fd3ef272cd1/빡정현.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/5a444b6e1092dd7c275399ce12cae3f7/쩐병찬.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="120" height="120">|
 |팀장,<br/>프론트 구현,<br/>데이터분석서버설계|프론트 핵심 구현,<br/> UI 설계|DB 설계,<br/>데이터 크롤링,<br/>추천 알고리즘 설계|백엔드,<br/>DB 설계,<br/>REST API|백엔드,<br/>인프라,<br/>배포(CI/CD)|
 
 ### 🔔목표
