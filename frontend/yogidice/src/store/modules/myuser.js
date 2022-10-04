@@ -14,6 +14,7 @@ export default {
         likePMec:[0, 0, 0, 0, 0, 0],
         likePMecMax:'보드게임',
         rearrangemeca:[],
+        userreview: 0
     }),
     getters: {
         authHeader: (state) => ({
@@ -30,7 +31,8 @@ export default {
         LIKE_MECHA: (state, GameMec) => (state.likeMecha.push(GameMec)),
         LIKE_P_MEC: (state, gid) => (state.likePMec[gid] += 1),
         LIKE_P_MEC_RESET: (state) => (state.likePMec = [0, 0, 0, 0, 0, 0]),
-
+        USER_RIVIEW: (state) => (state.userreview += 1),
+        USER_RIVIEW_RESET: (state) => (state.userreview = 0),
         LIKE_P_MEC_MAX: (state, gname) => (state.likePMecMax = gname),
     },
     actions: {
@@ -48,16 +50,19 @@ export default {
         },
         GetUserHistory({ getters, commit }) {
             commit('LIKE_P_MEC_RESET')
+            commit('USER_RIVIEW_RESET')
             axios({
                 url: api.users.history(),
                 method: "get",
                 headers: getters.authHeader
             })
             .then((res) => {
-                commit("SET_HISTORY", res.data.responses);  
+                commit("SET_HISTORY", res.data.responses); 
+                // console.log('dspd', res.data.responses) 
                 let pmec = [0, 0, 0, 0, 0, 0]
                 const pmecmax = ['추리카드퍼즐', '경제', '파티', '조건', '말', '전략']
                 for (let hisgame of res.data.responses) {
+                    if (hisgame.review != null) {commit('USER_RIVIEW')}
                     for (let mecha of hisgame.mechanismGroupResponses) {
                         commit('LIKE_MECHA', [mecha.mechanismName, mecha.parentsMec])
                         if (mecha.parentsMec == '추리카드퍼즐') { commit('LIKE_P_MEC',0 ); pmec[0] += 1}
@@ -71,6 +76,18 @@ export default {
                 commit('LIKE_P_MEC_MAX', pmecmax[pmec.indexOf(Math.max(...pmec))])
             })
             .catch((err) => {console.log(err)});
+        },
+        SendReview({ getters }, reviewdata) {
+            axios({
+                url: `https://yogidice.site/api/users/history/${reviewdata[1]}`,
+                method: "put",
+                headers: getters.authHeader,
+                data: reviewdata[0]
+            })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {console.log(err)})
         }
     }
 }
