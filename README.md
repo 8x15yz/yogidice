@@ -66,3 +66,13 @@
 |||jenkins|2.361.1|
 ||웹 서버|Nginx|1.23.1|  
 
+
+## 🖋기획/설계
+### 📑기능 요구 명세서
+
+### 📁[ERD](https://www.erdcloud.com/d/5CpJdWqcK5Fg8Phaa)
+<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/9da69966bbe6eafcfc0100083abcbe6f/ERD.png" width="900" height="500">
+
+
+
+
