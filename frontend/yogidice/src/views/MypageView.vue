@@ -321,7 +321,7 @@ export default {
     margin-top: 0px;
     width: 70vw;
     height: 300px;
-    background-color: pink;
+    /* background-color: pink; */
 }
 .info-modal-bg {
     width: 80vw;

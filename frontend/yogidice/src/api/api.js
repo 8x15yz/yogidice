@@ -6,6 +6,7 @@ const game = "/games";
 const bgg = "/bggdatas";
 const cafe = "/cafes";
 const cafeGames = "/cafegamelists";
+const categories = "/categories";
 
 export default {
   users: {
@@ -19,6 +20,7 @@ export default {
     history: () => HOST + user + "/history",
     historyControll: (historyId) => HOST + user + "/history" + `/${historyId}`,
     review: () => HOST + user + "/review",
+    bookmarkurl: () => HOST + user + "/bookmark"
   },
 
   games: {
@@ -54,4 +56,9 @@ export default {
     getCafe: (cafeId) => HOST + cafeGames + cafe + `/${cafeId}`,
     getGame: (gameId) => HOST + cafeGames + `/game/${gameId}`,
   },
+
+  gameInfo: {
+    mechanism: (mecId) => HOST + categories + `/mechanism/${mecId}`,
+    userandgame: (gameId) => HOST + game + `/chemi/${gameId}`
+  }
 };

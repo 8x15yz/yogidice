@@ -11,7 +11,6 @@ import com.specialization.yogidice.domain.entity.Bookmark;
 import com.specialization.yogidice.domain.entity.Recommend;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.domain.entity.category.Mechanism;
-import com.specialization.yogidice.domain.entity.category.MechanismGroup;
 import com.specialization.yogidice.domain.repository.*;
 import com.specialization.yogidice.domain.repository.category.CategoryGroupRepository;
 import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
@@ -208,7 +207,8 @@ public class BoardGameService {
     public List<BoardGameResponse> readExtendedEditionGameList(Long boardGameId) {
         BoardGame boardGame = boardGameRepository.findById(boardGameId)
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
-        List<BoardGame> games = boardGameRepository.findByBggCodeAndPublishYearNotLikeAndTitleKrNotLike(boardGame.getBggCode(), boardGame.getPublishYear(), boardGame.getTitleKr());
+        List<BoardGame> games = boardGameRepository.findByBggCode(boardGame.getBggCode());
+        games.remove(boardGame);
         if (games.isEmpty()) {
             return new ArrayList<>();
         }
@@ -369,41 +369,41 @@ public class BoardGameService {
 
         for (Bookmark bookmark : bookmarkList) {
             mechanismGroupRepository.findByBoardGame(bookmark.getBoardGame()).stream()
-                    .forEach(m ->countMechanism(userArr, m.getMechanism()));
+                    .forEach(m -> countMechanism(userArr, m.getMechanism()));
         }
         mechanismGroupRepository.findByBoardGame(boardGame).stream().
-                forEach(m->countMechanism(gameArr, m.getMechanism()));
+                forEach(m -> countMechanism(gameArr, m.getMechanism()));
         double userSum = Arrays.stream(userArr).sum();
         double gameSum = Arrays.stream(gameArr).sum();
-        for(int i=0; i<6; i++){
-            userArr[i] = (userArr[i]*100)/userSum;
+        for (int i = 0; i < 6; i++) {
+            userArr[i] = (userArr[i] * 100) / userSum;
         }
-        for(int i=0; i<6; i++){
-            gameArr[i] = (gameArr[i]*100)/gameSum;
+        for (int i = 0; i < 6; i++) {
+            gameArr[i] = (gameArr[i] * 100) / gameSum;
         }
 
         //gameid를 통해 게임 불러오기
         double result = 200.0;
-        for(int i=0; i<6 ; i++){
-            result -= Math.abs(gameArr[i]-userArr[i]);
+        for (int i = 0; i < 6; i++) {
+            result -= Math.abs(gameArr[i] - userArr[i]);
         }
-        result/=2;
-        return (int)(0.5+result);
+        result /= 2;
+        return (int) (0.5 + result);
     }
 
     public void countMechanism(double[] mechamismArr, Mechanism mechanism) {
         String parentMechanism = mechanism.getParentsMec();
-        if(parentMechanism.equals("조건")){
+        if (parentMechanism.equals("조건")) {
             mechamismArr[0]++;
-        }else if(parentMechanism.equals("말")){
+        } else if (parentMechanism.equals("말")) {
             mechamismArr[1]++;
-        }else if(parentMechanism.equals("파티")){
+        } else if (parentMechanism.equals("파티")) {
             mechamismArr[2]++;
-        }else if(parentMechanism.equals("경제")){
+        } else if (parentMechanism.equals("경제")) {
             mechamismArr[3]++;
-        }else if(parentMechanism.equals("전략")){
+        } else if (parentMechanism.equals("전략")) {
             mechamismArr[4]++;
-        }else {
+        } else {
             mechamismArr[5]++;
         }
     }
