@@ -19,7 +19,7 @@
 
 <script>
 import MainCardItems from "@/components/card/MainCardItems.vue"
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from "vuex"
 
@@ -30,16 +30,21 @@ export default {
   setup() {
     const store = useStore()
     const router = useRouter()
+    let page = ref(1)
     const showDetail = function(n) {
-      router.push({name:"GameDetail", query:{"gameId":n.gameId, "title":n.title_kr}})
+      router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.titleKr}})
     }
     let gameLists = computed(()=>store.state.games.mainGames)
     let gameType = computed(()=>store.state.games.presentType)
 
     onMounted(()=>{
       const moreBtn = document.querySelector(".card-more")
-      moreBtn.addEventListener("click", () =>
+      moreBtn.addEventListener("click", () => {
+      //gameType에 맞는 리스트 만들기
+      store.dispatch("games/resetLongGames")
+      store.dispatch("games/changeLongGames",{"type":gameType.value,"page":page.value})
       router.push({name:"MoreList", params:{"type":gameType.value}})
+      }
     )})
     
   return {

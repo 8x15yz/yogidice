@@ -1,7 +1,8 @@
 <template>
   <div class='search-bar'>
     <span class="material-icons">search</span>
-    <input type="text" @input="inputValue" v-model="searchInput" placeholder="보드게임을 검색해보세요!">
+    <input type="text" @keyup.enter="inputValue" v-model="searchInput" placeholder="보드게임을 검색해보세요!">
+    <span class="material-icons" @click="eraser">close</span>
   </div>
 </template>
 
@@ -17,10 +18,15 @@ export default {
     const inputValue = function () {
       emitter.emit('inputValue',searchInput.value)
     }
+    const eraser = function () {
+      searchInput.value = ""
+      inputValue()
+    }
 
     return {
       searchInput,
-      inputValue
+      inputValue,
+      eraser
     }
   }
 

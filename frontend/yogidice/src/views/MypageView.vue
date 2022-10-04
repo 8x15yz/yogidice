@@ -12,10 +12,24 @@
         <!-- 헤더있는곳 -->
 
 
+        <!-- 추천 도움말 모달 -->
+        <div class="my-review-bg" v-if="infomodal">
+            <div>
+                <div style="height: 150px;"></div>
+                <div class="info-modal-bg">
+                    <div style="display: flex; justify-content: end;"><i @click="infomodal = false" class="far fa-times-circle" style=" margin: 10px; font-size: 30px;"></i></div>
+                    <div class="info-modal-inner"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 추천 도움말 모달 -->
+
+
         <!-- 리뷰받는 모달폼 -->
         <div class="my-review-bg" v-if="reviewmodalview">
             <review-modal 
             @CloseReviewModal="CloseReviewModal"
+            :reviewId="reviewId"
             ></review-modal>
         </div>
         <!-- 리뷰받는 모달폼 -->
@@ -50,7 +64,7 @@
                         <div><i class="fas fa-pencil-alt"></i></div>
                         <div class="displayFlex">
                             <p class="mp-btn-p">리뷰</p>
-                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;">{{userplaygames.length}}</p>
+                            <p class="mp-btn-p" style="color: var(--color-mint); margin-left: 3px;">{{userreview}}</p>
                         </div>
                     </div>
                 </div>
@@ -75,10 +89,10 @@
                 <!-- mainview : 보드게임 성향 알려주는곳 -->
                 <div v-if="mainview">
                     <div class="mp-bg-s-inner">
-                        <span>{{nickName}}</span><span>님은</span>
+                        <span>{{nickName}}</span><span>님은 </span>
                     </div>
                     <div class="mp-bg-s-inner">
-                        <span id="mypage-cate-result">경제</span><span id="mypage-cate-result">마니아</span><span> 입니다</span><span>❓</span>
+                        <span id="mypage-cate-result">{{toponemec}}</span><span id="mypage-cate-result">마니아</span><span> 입니다 </span><span  @click="infomodal = true"><i class="far fa-question-circle"></i></span>
                     </div>
                 </div>
                 <!-- mainview : 보드게임 성향 알려주는곳 -->
@@ -87,7 +101,7 @@
                 <!-- play : 플레이한 보드게임 알려주는곳-->
                 <div v-if="playview">
                     <div class="mp-bg-s-inner">
-                        <span>내가 플레이한 게임</span><span>(23)</span>
+                        <span>내가 플레이한 게임</span><span> ({{userplaygames.length}})</span>
                     </div>
                 </div>
                 <!-- play : 플레이한 보드게임 알려주는곳-->
@@ -95,7 +109,7 @@
                 <!-- play : 북마크한 보드게임 알려주는곳-->
                 <div v-if="bookmarkview">
                     <div class="mp-bg-s-inner">
-                        <span>내가 북마크한 게임</span><span>(12)</span>
+                        <span>내가 북마크한 게임</span><span> ({{userbookgames.length}})</span>
                     </div>
                 </div>
                 <!-- play : 북마크한 보드게임 알려주는곳-->
@@ -104,7 +118,7 @@
                 <!-- reviewview : 리뷰한 보드게임 보여주는곳 -->
                 <div v-if="reviewview">
                     <div class="mp-bg-s-inner">
-                        <span>내가 남긴 리뷰</span><span>(40)</span>
+                        <span>내가 남긴 리뷰</span><span> ({{userreview}})</span>
                     </div>
                 </div>
                 <!-- reviewview : 리뷰한 보드게임 보여주는곳 -->
@@ -116,7 +130,14 @@
 
         <!-- 워드클라우드 / 플레이 / 리뷰 / 북마크 상세 들어갈 곳 -->
         <div class="mypage-bottom-container">
-            <word-cloud v-if="mainview"></word-cloud>
+            <div v-if="mainview">
+                <div style="height: 500px;"></div>
+                <ber-chart :lengamecategory="lengamecategory" ></ber-chart>
+                <!-- <div style="height: 100px;">
+                    {{nickName}} 님이 요즘 하고있는 
+                </div> -->
+                <word-cloud></word-cloud>
+            </div>
             <mypage-play 
             :userplaygames="userplaygames" 
             v-if="playview"
@@ -130,6 +151,7 @@
                 <mypage-review 
                 v-if="reviewview"
                 :reviewdatum='reviewdatum'
+                :reviewId='reviewId'
                 @OpenReviewModal="OpenReviewModal"
                 ></mypage-review>
             </div>
@@ -142,12 +164,13 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed} from 'vue'
 
 import axios from 'axios'
 import { useStore } from 'vuex'
 
 import WordCloud from '../components/WordCloud.vue';
+import BerChart from '../components/BerChart.vue';
 import MypageReview from '../components/MypageReview.vue';
 import MypageBookmark from '../components/MypageBookmark.vue';
 import MypagePlay from '../components/MypagePlay.vue';
@@ -162,7 +185,8 @@ export default {
     MypageBookmark,
     MypagePlay,
     GreyBgHeadBar,
-    ReviewModal
+    ReviewModal,
+    BerChart
   },
   
   setup() {
@@ -172,20 +196,28 @@ export default {
         const playview = ref(false);
         const reviewview = ref(false);
         const bookmarkview = ref(false);
-        const reviewmodalview = ref(false)
+        const reviewmodalview = ref(false);
+        const infomodal = ref(false);
+        // const ParentMechanism = ['추카퍼', '경제', '파티', '조건', '말', '전략']
+        
+        store.dispatch("myuser/GetUserInfo")
+        store.dispatch("myuser/GetUserHistory")
 
         
-        onMounted(()=>{
-            store.dispatch("myuser/GetUserInfo")
-            store.dispatch("myuser/GetLikeMec")
-        })
         let nickName = computed(()=>store.state.myuser.nickName)
         let kakaoId = computed(()=>store.state.myuser.kakaoId)
         let userplaygames = computed(()=>store.state.myuser.history)
+        let userreview = computed(()=>store.state.myuser.userreview)
+        
+        // let userreview = ref(userplaygames.value.length)
         let userbookgames = computed(()=>store.state.myuser.bookmark)
-        let likePMec = computed(()=>store.state.myuser.likePMec)
-        let likeGameId = computed(()=>store.state.myuser.likeGameId)
 
+        // let likeMecha = computed(()=>store.state.myuser.likeMecha)
+        let lengamecategory = computed(()=>store.state.myuser.likePMec)
+        let toponemec = computed(()=>store.state.myuser.likePMecMax)
+        
+
+        
         const myPageBtn = function(option) { // eslint-disable-line no-unused-vars
             if (option == 'play') {
                 playview.value = true
@@ -216,9 +248,13 @@ export default {
         const CloseReviewModal = function() { 
             reviewmodalview.value = false
         }
-        const OpenReviewModal = function() { 
+        let reviewId = ref(0)
+        const OpenReviewModal = function(data) { 
             reviewmodalview.value = true
+            reviewId.value = data
         }
+        
+
 
         // 곧없앨거
         function testlogin() {
@@ -226,8 +262,8 @@ export default {
                 url: 'https://j7b206.p.ssafy.io/api/users/login',
                 method: 'post',
                 data: {
-                    kakaoId: 'test1',
-                    nickName: 'test1'
+                    kakaoId: 'test2',
+                    nickName: 'test2'
                 }
             })
             .then(function a(response) { 
@@ -242,11 +278,14 @@ export default {
             localStorage.removeItem("token")
         }
         function viewUserInfo() {
-            console.log('가라가')
-            console.log('익서', userplaygames.value)
-            console.log('dlrj', likePMec.value)
-            console.log('dlsdfdfrj', likeGameId.value)
+            for (let g of userplaygames.value) {
+            console.log(g.review)
+            if (g.review == null){
+                console.log('rmfgjgw')
+            }
         }
+        }
+        
         // 곧없앨거
 
         return {
@@ -264,7 +303,12 @@ export default {
             viewUserInfo,
             nickName,
             userbookgames,
-            kakaoId
+            kakaoId,
+            lengamecategory,
+            toponemec,
+            reviewId,
+            userreview,
+            infomodal
         }
     }
   }
@@ -272,6 +316,19 @@ export default {
 </script>
 
 <style>
+.info-modal-inner {
+    margin: 20px;
+    margin-top: 0px;
+    width: 70vw;
+    height: 300px;
+    background-color: pink;
+}
+.info-modal-bg {
+    width: 80vw;
+    height: 400px;
+    background-color: whitesmoke;
+    border-radius: 20px;
+}
 .my-review-bg {
     position: absolute;
     width: 100vw;
@@ -390,7 +447,7 @@ export default {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.493);
     height: 50vh;
-    overflow: hidden;
+    overflow: auto;
     /* background-color: brown; */
 }
 </style>

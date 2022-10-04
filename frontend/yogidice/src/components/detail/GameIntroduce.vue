@@ -30,6 +30,7 @@
 import BerChart from '../BerChart.vue'
 import ModalDialog from '@/components/modal/ModalDialog.vue'
 import { useStore } from 'vuex'
+import { useRoute } from "vue-router"
 import { computed, reactive } from 'vue'
 
 export default {
@@ -38,6 +39,7 @@ export default {
     ModalDialog
   },
   setup() {
+  const route = useRoute()
   const store = useStore()
   let showModal = computed(()=>store.state.modal.showModal)
   let contents = reactive({
@@ -54,31 +56,10 @@ export default {
     contents.body = "게임 타입에 대한 설명 주룩주룩"
     store.commit("changeModal") 
   }
-  let lengamecategory = reactive([0, 0, 0, 0, 0, 0])
-  // onMounted(() => {
-    // console.log('이거', gamedetail.value.mechanismGroupResponses)
-      async function gamedetailfunc() {
-      let gamedetail = computed(()=>store.state.games.detail)
-      return gamedetail;
-    }
-      gamedetailfunc().then( (gamedetail) => {
-      for (let mgr of gamedetail.value.mechanismGroupResponses) {
-        console.log(mgr.parentsMec)
-        if (mgr.parentsMec == '추리카드퍼즐') { lengamecategory[0] += 1}
-        else if (mgr.parentsMec == '경제') { lengamecategory[1] += 1}
-        else if (mgr.parentsMec == '파티') { lengamecategory[2] += 1}
-        else if (mgr.parentsMec == '조건') { lengamecategory[3] += 1}
-        else if (mgr.parentsMec == '말') { lengamecategory[4] += 1}
-        else if (mgr.parentsMec == '전략') { lengamecategory[5] += 1}
-      }
-      console.log(lengamecategory)
-    }
-      
-    )
-  // })
+  let gameId = route.query.gameId
+  store.dispatch("gamedetail/getLengames", gameId)
+  let lengamecategory = computed(()=>store.state.gamedetail.lengamecategory)
   
-  
-
   
   return {
     showModal,

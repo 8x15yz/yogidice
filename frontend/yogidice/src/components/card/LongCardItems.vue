@@ -1,69 +1,82 @@
 <template>
-  <img class="long-img" :src='imgUrl' alt="">
-  <div class="game-info">
-    <div class="game-title text-subtitle-1">{{ oneGame.title_kr }}</div>
-    <div class="chip-rating">
-      <div class="text-subtitle-1 rating">★{{ oneGame.rating }}</div>
-      <div class="game-chip-container">
-        <div>{{ `${oneGame.minPlayers}~${oneGame.maxPlayers}인` }}</div>
-        <div>{{ oneGame.playTimes }}</div>
-        <div>{{ oneGame.playLevel }}</div>
+  <div id="long-card">
+    <img class="long-img" :src='thumbUrl' alt="" @click="showDetail(lg)">
+    <div class="game-info" @click="showDetail(lg)">
+      <div class="game-title text-subtitle-1">{{ titleKr }}</div>
+      <div class="chip-rating">
+        <div class="text-subtitle-1 rating">★{{ ratingUser }}</div>
+        <div class="game-chip-container">
+          <div>{{ `${minPlayers}~${maxPlayers}인` }}</div>
+          <div>{{ playingTime }}</div>
+          <div>{{ difficulty }}</div>
+        </div>
       </div>
     </div>
+    <div class="bookmark-alert text-subtitle-1" v-show="showRegister">
+      북마크가 등록되었습니다!<span class="material-icons">check_circle</span>
+    </div>
+    <span class="material-icons bookmark-icon" v-show="!isGameinBookMark" @click="registerBookMark">bookmark_border</span>
+    <span class="material-icons bookmark-icon bookmarked" v-show="isGameinBookMark" @click="registerBookMark">bookmark</span>
   </div>
-  <div class="bookmark-alert text-subtitle-1" v-show="showRegister">
-    북마크가 등록되었습니다!<span class="material-icons">check_circle</span>
-  </div>
-  <span class="material-icons bookmark-icon" v-show="bookmarkBorder" @click="registerBookMark">bookmark_border</span>
-  <span class="material-icons bookmark-icon bookmarked" v-show="bookmarkFilled" @click="registerBookMark">bookmark</span>
 </template>
 
 <script>
-import { computed,toRefs,ref } from "vue"
-
+import { toRefs,ref,computed } from "vue"
+import { useStore } from "vuex"
+import { useRouter } from "vue-router"
 export default {
   props: {
-    game: Object
+    lg: Object
   },
   setup(props) {
-    let oneGame = toRefs(props.game)
-
+    const store = useStore()
+    const router = useRouter()
     let checkedMark = ref(false)
+  
+    let { titleKr } = toRefs(props.lg)
+    let { thumbUrl } = toRefs(props.lg)
+    let { id } = toRefs(props.lg)
+    let { maxPlayers } = toRefs(props.lg)
+    let { minPlayers } = toRefs(props.lg)
+    let { playingTime } = toRefs(props.lg)
+    let { ratingUser } = toRefs(props.lg)
+    let { difficulty } = toRefs(props.lg)
 
-    let bookmarkBorder = ref(true)
-    let bookmarkFilled = ref(false)
-
-    let imgUrl = computed(() => `https://boardlife.co.kr/${oneGame.thumburl.value}`)
+    let myBookMarks = computed(()=>(store.state.user.myBookMark).map(mark=>mark.gameId))
+    let isGameinBookMark = computed(()=>myBookMarks.value.includes(id.value))
+  
+    const showDetail = function(n) {
+      router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.titleKr}})
+    }
 
     let showRegister = ref(false)
     const registerBookMark = function () {
-      if (bookmarkBorder.value === false) {
-        bookmarkBorder.value = true
-        bookmarkFilled.value = false
+      if (isGameinBookMark.value === true) {
+        store.dispatch("user/deleteBookMark",id.value)
+
       } else {
-        bookmarkBorder.value = false
-        bookmarkFilled.value = true
-        
         showRegister.value = true
+        //북마크 등록 api
+        store.dispatch("user/registBookMark",id.value)
         setTimeout(()=>showRegister.value=false,3000)        
       }      
     }
 
   return {
-    oneGame,
-    // key,
-    // title_kr,
-    imgUrl,
+    titleKr,
+    id,
+    thumbUrl,
     checkedMark,
-    // maxPlayers,
-    // minPlayers,
-    // playTimes,
-    // playLevel,
-    // rating,
     registerBookMark,
-    bookmarkBorder,
-    bookmarkFilled,
-    showRegister
+    showRegister,
+    maxPlayers,
+    minPlayers,
+    playingTime,
+    ratingUser,
+    difficulty,
+    isGameinBookMark,
+    showDetail
+    
   }}
 
 
@@ -117,6 +130,16 @@ export default {
   top:-8px;
   right: 8px;
   font-size: 8vw;
+}
+#long-card {
+  position: relative;
+  display: flex;
+  width: 90vw;
+  height: 20vw;
+  box-shadow: var(--shadow-card);
+  border-radius: 4px;
+  background-color: white;
+  overflow: hidden;
 }
 
 </style>

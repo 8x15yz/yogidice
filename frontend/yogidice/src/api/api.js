@@ -14,6 +14,7 @@ export default {
     check: () => HOST + user + "/check",
     callback: () => HOST + user + "/callback",
     bookmark: () => HOST + user + "/bookmark",
+    deleteBookMark: (gameId) => HOST + user + `/bookmark/${gameId}`,
     history: () => HOST + user + "/history",
     historyControll: (historyId) => HOST + user + "/history" + `/${historyId}`,
     review: () => HOST + user + "/review",
@@ -21,11 +22,16 @@ export default {
 
   games: {
     getCreate: () => HOST + game,
+    searchGame: (gameTitle) => HOST + game + "/search" + `/${gameTitle}`,
     detailEdit: (gameId) => HOST + game + `/${gameId}`,
     extendedGames: (gameId) => HOST + game + "/extend" + `/${gameId}`,
     mostReviewd10: () => HOST + game + "/top10/review",
     mostRecent10: () => HOST + game + "/top10/recent",
     mostRating10: () => HOST + game + "/top10/rating",
+    sortRating: () => HOST + game + "/rating",
+    sortReview: () => HOST + game + "/review",
+    sortRecent: () => HOST + game + "/recent",
+    filtering: () => HOST + game + "/recommend",
   },
 
   bggDats: {

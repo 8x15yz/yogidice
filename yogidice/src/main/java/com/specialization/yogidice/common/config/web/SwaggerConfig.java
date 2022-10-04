@@ -67,7 +67,7 @@ public class SwaggerConfig {
     public Docket restAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .useDefaultResponseMessages(true)
-                .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Pageable.class), typeResolver.resolve(MyPagable.class)))
+                .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Pageable.class), typeResolver.resolve(MyPageable.class)))
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.specialization.yogidice.controller"))
@@ -103,11 +103,11 @@ public class SwaggerConfig {
 
     @Data
     @ApiModel
-    static class MyPagable {
-        @ApiModelProperty(value = "페이지 번호(0..N")
+    static class MyPageable {
+        @ApiModelProperty(value = "페이지 번호(0..N)")
         private Integer page;
 
-        @ApiModelProperty(value = "페이지 크기(0..100)")
+        @ApiModelProperty(value = "페이지 크기(0..100)", allowableValues = "range[0, 100]")
         private Integer size;
 
         @ApiModelProperty(value = "정렬 (사용법: 컬럼명, ASC or DESC)")

@@ -20,11 +20,13 @@
 <script>
 import { onMounted, computed, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router"
 
 export default {
 
   setup() {
     const store = useStore();
+    const router = useRouter()
 
     let isShowModal = computed(() => store.state.modal.showModal)
 
@@ -36,12 +38,13 @@ export default {
     const registerToInit = function () {
           store.dispatch("user/kakaoRegist", {'kakaoId':info.value.content.kakaoId, "nickName":info.value.content.nickName});
         }
-    const registBookMark = function () {
-          store.dispatch("user/registBookMark", {'gameList':info.value.content});
+    const registBookMark = function (gameId) {
+          store.dispatch("user/registBookMark", gameId)
         }
     const closeModal = function () { 
           store.dispatch("modal/closeModal")
         }
+
 
     onMounted( function () {
       const titleBox = document.querySelector(".modal-header")
@@ -60,8 +63,56 @@ export default {
         if (newValue === true && info.value.from === "registNickName") {
           firstButton.addEventListener("click", registerToInit);
           secondButton.addEventListener("click", closeModal)    
-        } else if (newValue === true && info.value.from === "initChoice") {
-          firstButton.addEventListener("click", registBookMark)
+        } 
+        // 선호도 조사에서 넘어온 모달인 경우
+        else if (newValue === true && info.value.from === "initChoice") {
+          firstButton.addEventListener("click", () => {
+            // 고른 게임들 확인
+            let isBookMarkWorking = computed(() => store.state.isBookMarkWorking)
+            let selectGames = computed(()=>store.state.games.selectedGames)
+            for (let i=0; i<selectGames.value.length; i++) {
+              // 각 게임을 북마크에 등록
+              registBookMark(selectGames[i])
+              if (!isBookMarkWorking.value) {
+                break
+              } else {
+                continue
+              }
+            }
+            if (!isBookMarkWorking.value) {
+                store.dispatch("modal/registModal",
+                  {
+                    info: {},
+                    from: "",
+                    header: "",
+                    body: "등록에 실패하였습니다!",
+                    footer1: "",
+                    footer2: "",
+                  },
+                  { root: true },
+                );
+                store.dispatch("modal/openModal",null,{root:true})
+                setTimeout(function () {
+                  store.dispatch("modal/closeModal", null, { root: true });
+                }, 2000);
+            }
+            else {
+              store.dispatch("modal/registModal",{
+                info: {},
+                from: "",
+                header: "",
+                body: "성공적으로 등록되었습니다!",
+                footer1: "",
+                footer2: "",
+              },{ root: true })
+              
+              setTimeout(function () {
+                router.push({
+                  name: "MainPage",
+                });
+              }, 2000);
+            }
+          })
           secondButton.addEventListener("click", closeModal)
         }
       })

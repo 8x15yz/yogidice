@@ -4,13 +4,14 @@
   </div>
   <div class="search-res-bg" v-show="showSearchResult">
     <long-card-list></long-card-list>
+    <div class="block-search-result"></div>
   </div>
   <div id="wrap2-back">
     <div class="text-headline-6 main-message">{{nickName}}님에게 맞는 <br> 보드게임을 추천해드려요</div>
     <!-- 추천 게임 타입 선택 -->
     <div class="cardlist-type">
       <div @click="changeActive" class="text-body-1 isactive">추천</div>
-      <div @click="changeActive" class="text-body-1">TOP10</div>
+      <div @click="changeActive" class="text-body-1">평점순</div>
       <div @click="changeActive" class="text-body-1">최신게임</div>
       <div @click="changeActive" class="text-body-1">리뷰많은순</div>
     </div>
@@ -19,7 +20,7 @@
     <!-- 부가기능 버튼 3개 -->
     <div class="text-subtitle-1 main-message">요기 다이스의 부가 기능을 살펴보세요!</div>
     <div class="add-ons">
-      <div class="left-one">
+      <div class="left-one" @click="moveToPick">
         <div> 
           <div class="left-title text-subtitle-1">내 취향저격<br> 게임</div>
           <br>
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-import { onMounted,getCurrentInstance,ref,computed,watch } from '@vue/runtime-core'
+import { onMounted,getCurrentInstance,ref,computed } from '@vue/runtime-core'
 import MainCardList from '@/components/card/MainCardList.vue'
 import LongCardList from '@/components/card/LongCardList.vue'
 import SearchBar from '@/components/SearchBar.vue'
@@ -60,33 +61,34 @@ export default {
   setup() {
     const store = useStore()
     const router = useRouter()
+
+    store.dispatch("user/getBookMark",{root:true})
+
+    const moveToPick = function () {
+      router.push({name:"GamePickHome"})
+    }
+    const moveToGamePage = function () {
+      router.push({name: "GamePlusView"})
+    }
     const moveToCafes = function () {
       router.push({name:"PlaceView"})
     }
-
     // mitt 쓰기
     const internalInstance = getCurrentInstance()
     const emitter = internalInstance.appContext.config.globalProperties.emitter
 
     let showSearchResult = ref(false)
-    let inputValue = ref("")
-    // 데이터 받기 (SearchBar로부터 받음)
-    emitter.on('inputValue', (data) => { 
-      inputValue.value = data
-    })
 
-    watch(() => inputValue.value, (newValue) => {
-      if (newValue !== '') {
-        showSearchResult.value = true
-      } else {
+    // 데이터 받기 (SearchBar로부터 받음)
+    emitter.on('inputValue', (data) => {
+      if (data === "") {
         showSearchResult.value = false
+      } else {
+        showSearchResult.value = true
       }
     })
 
-    // 전체게임
-    let games = []
-    // 받은 검색결과로 필터링
-    let filteredGames = computed(()=>games.filter(eachGame => eachGame.title_kr.includes(inputValue.value)))
+
 
     let cardListTypes
     onMounted(()=>{
@@ -107,9 +109,6 @@ export default {
       store.dispatch("games/changeMainGames",e.target.innerText)
       }
 
-    const moveToGamePage = function () {
-      router.push({name: "GamePlusView"})
-    }
 
     // 유저 부분
     let nickName = computed(()=>store.state.myuser.nickName)
@@ -117,11 +116,11 @@ export default {
     return {
       changeActive,
       searchMain,
-      filteredGames,
-      showSearchResult,
       moveToCafes,
       moveToGamePage,
-      nickName
+      nickName,
+      showSearchResult,
+      moveToPick
     }
   }
 }
@@ -236,7 +235,12 @@ export default {
   position: absolute;
   width: 100vw;
   height: 90vh;
-  background-color: var(--color-bg-modal)
+  background-color: var(--color-bg-modal);
+  overflow: scroll;
+}
+.block-search-result {
+  width: 100vw;
+  height: 10vh;
 }
 
 </style>
