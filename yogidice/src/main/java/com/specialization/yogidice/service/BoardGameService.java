@@ -383,10 +383,11 @@ public class BoardGameService {
         }
 
         //gameid를 통해 게임 불러오기
-        double result = 100.0;
+        double result = 200.0;
         for(int i=0; i<6 ; i++){
             result -= Math.abs(gameArr[i]-userArr[i]);
         }
+        result/=2;
         return (int)(0.5+result);
     }
 
