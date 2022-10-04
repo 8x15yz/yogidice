@@ -83,6 +83,9 @@
 
 ## 프로젝트 관리/운영 
 ### 디렉토리 구조
+|Spring Boot|Django|Vue|
+|:---:|:---:|:---:|
+|![스프링디렉토리](/uploads/733d627099c8ab9d83d13ad7a527fe86/스프링디렉토리.png)|![장고디렉토리](/uploads/df0d253dc82be70fd02e66b972339e60/장고디렉토리.png)|![뷰디렉토리](/uploads/c48e6207319d152ab57f5be0342d885e/뷰디렉토리.png)|
 
 ### GitLab
 
