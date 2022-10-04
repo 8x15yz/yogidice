@@ -49,7 +49,7 @@ export default {
         method: "get",
       })
         .then((res) => {
-          console.log("성공",res.data);
+          console.log("성공", res.data);
           commit("SET_DETAIL", res.data);
         })
         .catch((err) => console.log(err));
@@ -99,12 +99,8 @@ export default {
           };
           dispatch("registGameDetails", params);
         })
-        .catch(() => {
-          let params = {
-            gameNums: [],
-            kind: "sub",
-          };
-          dispatch("registGameDetails", params);
+        .catch((err) => {
+          console.log(err);
         });
     },
     changeSmallGames({ commit }, payload) {
@@ -229,25 +225,25 @@ export default {
         url: api.games.detailRecommend(gameId),
         method: "get",
       })
-      .then((res) => {
-        commit("SET_MAIN_GAMES",res.data.responses)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
+        .then((res) => {
+          commit("SET_MAIN_GAMES", res.data.responses);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    getMainRecommend({commit,getters}) {
+    getMainRecommend({ commit, getters }) {
       axios({
         url: api.games.mainRecommend(),
         method: "get",
-        headers: getters.getAuthHeader
+        headers: getters.getAuthHeader,
       })
-      .then((res) => {
-        commit("SET_MAIN_GAMES",res.data.responses)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
+        .then((res) => {
+          commit("SET_MAIN_GAMES", res.data.responses);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     addSelectedGames({ commit }, gameId) {
       commit("ADD_SELECTED_GAMES", gameId);

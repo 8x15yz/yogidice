@@ -33,8 +33,8 @@ export default {
     LIKE_MECHA: (state, GameMec) => state.likeMecha.push(GameMec),
     LIKE_P_MEC: (state, gid) => (state.likePMec[gid] += 1),
     LIKE_P_MEC_RESET: (state) => (state.likePMec = [0, 0, 0, 0, 0, 0]),
-    USER_RIVIEW: (state) => (state.userreview += 1),
-    USER_RIVIEW_RESET: (state) => (state.userreview = 0),
+    USER_REVIEW: (state) => (state.userreview += 1),
+    USER_REVIEW_RESET: (state) => (state.userreview = 0),
     LIKE_P_MEC_MAX: (state, gname) => (state.likePMecMax = gname),
   },
   actions: {
@@ -55,7 +55,7 @@ export default {
     },
     GetUserHistory({ getters, commit }) {
       commit("LIKE_P_MEC_RESET");
-      commit("USER_RIVIEW_RESET");
+      commit("USER_REVIEW_RESET");
       axios({
         url: api.users.history(),
         method: "get",
@@ -75,7 +75,7 @@ export default {
           ];
           for (let hisgame of res.data.responses) {
             if (hisgame.review != null) {
-              commit("USER_RIVIEW");
+              commit("USER_REVIEW");
             }
             for (let mecha of hisgame.mechanismGroupResponses) {
               commit("LIKE_MECHA", [mecha.mechanismName, mecha.parentsMec]);

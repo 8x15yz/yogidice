@@ -65,7 +65,6 @@ export default {
         const playgame = reactive(props.reviewId[1])
         const gamereviewtext = ref('')
         const reviewform = ref(true)
-        // console.log('이거ㄴㅇㄹㄴㅇㄹ', props.reviewId)
         const submitReview = function() {
             if (gamereviewtext.value == "") {
                 window.alert('리뷰를 작성하고 제출해주세요')
