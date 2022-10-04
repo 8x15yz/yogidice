@@ -1,8 +1,26 @@
 <template>
   <div>
+
+    <!-- 추천 도움말 모달 -->
+    <div class="my-review-bg" style="position: absolute; z-index: 3;" v-if="infomodal">
+        <div>
+            <div style="height: 150px;"></div>
+            <div class="info-modal-bg">
+                <div style="display: flex; justify-content: end;"><i @click="infomodal = false" class="far fa-times-circle" style=" margin: 10px; font-size: 30px;"></i></div>
+                <div class="info-modal-inner-hd">
+                  {{mecName}}
+                </div>
+                <div class="info-modal-inner">
+                  {{mecDisc}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 추천 도움말 모달 -->
+
     <detail-card-item></detail-card-item>
     <div class="game-chemi">
-      <div class="text-subtitle-1" style="line-height: 30px;"><span style="font-size:20px; color:green;">{{nickName}}</span>님과 <br> <span style="font-size:18px; color:blue;">{{gameTitle}}</span>의 <br> 케미는 <span style="font-size:20px; color:red">70점</span>입니다 </div>
+      <div class="text-subtitle-1" style="line-height: 30px;"><span style="font-size:20px; color:green;">{{nickName}}</span>님과 <br> <span style="font-size:18px; color:blue;">{{gameTitle}}</span>의 <br> 케미는 <span style="font-size:20px; color:red">{{userAndGame}}</span>입니다 </div>
       <div class="progress">
         <div class="progress-value"></div>
       </div>
@@ -13,17 +31,22 @@
       <div id="game-related" class="text-subtitle-2"> 연관게임 </div>
     </div>
     <div class="detail-page">
-      <game-introduce></game-introduce>
+      <game-introduce 
+      @OpenmecModal="OpenmecModal"
+      :gamemec="gamemec"
+      :gametheme="gametheme"
+      ></game-introduce> 
       <game-review></game-review>
       <game-related></game-related>
     </div>
     <div id="footer"></div>
+
   </div>
 </template>
 
 <script>
 import DetailCardItem from "@/components/card/DetailCardItem.vue"
-import { onMounted, computed } from '@vue/runtime-core'
+import { onMounted, computed, ref} from '@vue/runtime-core'
 import { useRoute } from "vue-router"
 import { useStore } from "vuex"
 import GameIntroduce from '@/components/detail/GameIntroduce.vue'
@@ -41,15 +64,41 @@ export default {
     const route = useRoute()
     const store = useStore()
 
-    
     let detailMenus
     let gameId = route.query.gameId
     let gameTitle = route.query.title
     store.dispatch("games/getDetailRecommend",gameId)
     store.dispatch("games/getDetails",gameId)
 
+  // 모달로직
+    const infomodal = ref(false);
+    let detaildatum = computed(()=>store.state.games.detail)
+    const mecDisc = ref('')
+    const mecName = ref('')
+    function OpenmecModal(mecId) {
+      infomodal.value = true
+      for (let mec of detaildatum.value.mechanismGroupResponses) {
+        console.log(mecId, mec, detaildatum.value.id)
+        if (mec.mechanismId == mecId) {
+          mecDisc.value = mec.description
+          mecName.value = mec.mechanismName
+        }
+      }
+    }
+  // 모달로직
+
+  let gamemec = detaildatum.value.mechanismGroupResponses
+  let gametheme = detaildatum.value.categoryGroupResponses
+  console.log('dlrj', detaildatum)
+
+
+  // 케미로직
+    store.dispatch("myuser/userAndGame",gameId)
+    let userAndGame = computed(()=>store.state.myuser.chemi)
+  // 케미로직
+
+
     onMounted(()=>{
- 
       detailMenus = document.querySelectorAll(".detail-menu-bar div")
       const detailPage = document.querySelector(".detail-page")
       const coverPage = document.querySelector("#wrap2")
@@ -80,8 +129,16 @@ export default {
     // 유저 부분
     let nickName = computed(()=>store.state.myuser.nickName)
     return {
+      gamemec, 
+      gametheme, 
       gameTitle,
-      nickName
+      nickName,
+      infomodal,
+      OpenmecModal,
+      mecDisc,
+      mecName,
+      userAndGame,
+      detaildatum
     }
   }
 
@@ -89,6 +146,38 @@ export default {
 </script>
 
 <style>
+.info-modal-inner {
+    margin: 20px;
+    margin-top: 0px;
+    width: 70vw;
+    height: 270px;
+    /* background-color: pink; */
+    overflow: auto;
+}
+.info-modal-inner-hd {
+  margin: 20px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  height: auto;
+  width: 70vw;
+  font-size: 25px;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  /* background-color: yellow; */
+}
+.info-modal-bg {
+    width: 80vw;
+    height: 400px;
+    background-color: whitesmoke;
+    border-radius: 20px;
+}
+.my-review-bg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-bg-modal);
+    display: flex;
+    justify-content: center;
+}
 .game-chemi {
   margin: 3vh 4vw 3vh 4vw;
   white-space: wrap;
