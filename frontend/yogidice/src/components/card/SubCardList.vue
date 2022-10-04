@@ -1,6 +1,5 @@
 <template>
   <div id="main-game-card-container">
-    <h3>확장판 게임 목록</h3>
     <div
       v-for="game in subGameLists"
       :key="game.gameId"
