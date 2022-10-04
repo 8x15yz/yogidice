@@ -50,7 +50,7 @@ export default {
         method: "get",
       })
         .then((res) => {
-          console.log("성공");
+          console.log("성공",res.data);
           commit("SET_DETAIL", res.data);
         })
         .catch((err) => console.log(err));
@@ -63,8 +63,6 @@ export default {
         url = api.games.mostRating10();
       } else if (type === "최신게임") {
         url = api.games.mostRecent10();
-      } else if (type ==="추천") {
-        url = api.games.mainRecommend()
       }
       axios({
         url: url,
@@ -230,7 +228,20 @@ export default {
         method: "get",
       })
       .then((res) => {
-        commit("SET_MAIN_GAMES",res.data.boardGames)
+        commit("SET_MAIN_GAMES",res.data.responses)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    },
+    getMainRecommend({commit,getters}) {
+      axios({
+        url: api.games.mainRecommend(),
+        method: "get",
+        headers: getters.getAuthHeader
+      })
+      .then((res) => {
+        commit("SET_MAIN_GAMES",res.data.responses)
       })
       .catch((err)=>{
         console.log(err)

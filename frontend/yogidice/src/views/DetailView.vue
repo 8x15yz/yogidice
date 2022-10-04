@@ -1,6 +1,6 @@
 <template>
   <div>
-    <detail-card-item :game="game"></detail-card-item>
+    <detail-card-item></detail-card-item>
     <div class="game-chemi">
       <div class="text-subtitle-1" style="line-height: 30px;"><span style="font-size:20px; color:green;">{{nickName}}</span>님과 <br> <span style="font-size:18px; color:blue;">{{gameTitle}}</span>의 <br> 케미는 <span style="font-size:20px; color:red">70점</span>입니다 </div>
       <div class="progress">
