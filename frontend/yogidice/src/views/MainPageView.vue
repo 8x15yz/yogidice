@@ -61,8 +61,10 @@ export default {
   setup() {
     const store = useStore()
     const router = useRouter()
-
+    
+    store.dispatch("games/resetMainGames")
     store.dispatch("user/getBookMark",{root:true})
+    store.dispatch("games/changeMainGames","추천",{root:true})
 
     const moveToPick = function () {
       router.push({name:"GamePickHome"})
@@ -105,6 +107,7 @@ export default {
         }}
       e.target.classList.add("isactive")
       store.dispatch("games/resetMainGames")
+      console.log(e.target.innerText)
       // 여기서 해당하는 게임 받아와서 state에 저장해주기
       store.dispatch("games/changeMainGames",e.target.innerText)
       }

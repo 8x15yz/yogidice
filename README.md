@@ -9,7 +9,29 @@
 2022.08.22(월) ~ 2022.10.07(금) (총 7주)
 
 ### 👊팀
-| 김현주 | 김동신 | 박정현 | 전병찬 | 최원재 |
-|:---:|:---:|:---:|:---:|:--:|
-|||||<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="100" height="100">|
+
+
+| 김현주 | 김동신 | 박정현 | 전병찬 |최원재|
+| :---: | :---: | :---: | :---: |  :---: |
+|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/29e8a97f6b79fae410834d405fd69c8a/현주킴.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/836ebfa6bd537648164d6a7cac19e123/김똥신.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/c9a7d3e1295e94d5b76c1fd3ef272cd1/빡정현.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/5a444b6e1092dd7c275399ce12cae3f7/쩐병찬.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="120" height="120">|
+|팀장,<br/>프론트 구현,<br/>데이터분석서버설계|프론트 핵심 구현,<br/> UI 설계|DB 설계,<br/>데이터 크롤링,<br/>추천 알고리즘 설계|백엔드,<br/>DB 설계,<br/>REST API|백엔드,<br/>인프라,<br/>배포(CI/CD)|
+
+### 🔔목표
+기획의도와 일치하는 기능을 효율적인 구조로 구현하고 CI/CD 개념을 적용한 배포까지 완료하기! 
+
+### 🔍기획의도 
+보드게임 카페에 가면 마주치는 수많은 보드게임들... 많은 게임들 중 내가 좋아할 만한 게임인지 알 수 없어서<br/> 항상 하던 게임만 하게 되는 상황을 해결하고자 **사용자의 취향을 분석하여 게임을 추천하는 서비스** 개발을 기획하게 되었습니다.
+
+### 🕹프로젝트 주요 기능 및 특징
+- KNN 알고리즘을 활용한 사용자 취향 저격 게임 추천 기능
+- Jaccard Similarity 알고리즘을 활용한 게임과 비슷한 다른 게임 추천 기능
+- 플레이한 게임에 대한 리뷰 남기는 기능
+- 자주 플레이한 게임을 쉽게 찾기 위한 북마크 기능
+- 보드게임에 필요한 도구 제공 기능
+
+### 🛠주요 기술
+
+### 🖥배포 환경
+
+### 📚프로젝트 기술 스택
 
