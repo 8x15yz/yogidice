@@ -379,7 +379,7 @@ export default {
   padding: 0vh;
   margin: 0vh;
   overflow: scroll;
-  height:40vh;
+  height:35vh;
 }
 
 #wrap2.map-wrap {
@@ -449,6 +449,5 @@ hr {
 }
 .item {
   height: 20vh;
-  overflow: hidden;
 }
 </style>
