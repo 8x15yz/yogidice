@@ -81,6 +81,7 @@
         padding-top: 4vh;
         height: 60vh;
         background-color: var(--color-bg-base);
+        overflow:scroll;
       "
     >
       <game-clock v-if="clock"></game-clock>

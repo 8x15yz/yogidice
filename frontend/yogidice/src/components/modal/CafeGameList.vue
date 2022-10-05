@@ -28,7 +28,7 @@ export default {
     name: String
   },
   setup(props,{emit}){
-    let cafeName = toRef(props.name)
+    let cafeName = toRef(props).name
     const closeCafeGame = function () {
       emit("closeCafeModal")
     }

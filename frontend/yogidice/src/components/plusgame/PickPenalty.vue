@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<div class="dump-area"></div>
 		<canvas>
 		</canvas>
 	</div>
