@@ -1,4 +1,7 @@
 <template>
+<div>
+    <grey-bg-head-bar></grey-bg-head-bar>
+</div>
   <div class="home-cover">
     <div class="pick-intro-title text-huge">당신의 겜성은?</div>
     <br>
@@ -26,14 +29,23 @@
 
 <script>
 import { useRouter } from "vue-router"
+import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue';
 export default {
+  components: {
+    GreyBgHeadBar
+  },
   setup() {
     const router = useRouter()
     const startPick = function () {
       router.push({"name":"QuestionView"})
     }
+    const gomain = function () {
+      router.push({"name":"MainPage"})
+    }
+
     return {
-      startPick
+      startPick,
+      gomain
     }
   }
 
