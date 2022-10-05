@@ -1,25 +1,4 @@
 <template>
-  <div class="timer-component">
-    <div class="timer-group">
-      <div class="timer hour">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
-      </div>
-      <div class="timer second">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
-      </div>
-      <div class="timer-screen">
-          <p id="timer-time" class="text-headline-6">{{baseTime}}</p>  
-      </div>
-    </div>
-    <div id="timer-buttons">
-      <button id="start-button" class="text-button">START</button>
-      <button id="stop-button" class="text-button">STOP</button>
-      <button id="reset-button" class="text-button">RESET</button>
-    </div>
-  </div>
-  <br>
   <div id="input-box">
     <div>
       <input type="number" min="0" max="99" v-model="startHour">
@@ -35,6 +14,28 @@
     </div>
     <button id="set-time-button" type="submit">설정</button>
   </div>
+  <div class="timer-component">
+    <div class="timer-group">
+      <div class="timer hour">
+          <div class="hand"><span></span></div>
+          <div class="hand"><span></span></div>
+      </div>
+      <div class="timer second">
+          <div class="hand"><span></span></div>
+          <div class="hand"><span></span></div>
+      </div>
+      <div class="timer-screen">
+          <p id="timer-time" class="text-headline-6">{{baseTime}}</p>  
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div id="timer-buttons">
+    <button id="start-button" class="text-button">START</button>
+    <button id="stop-button" class="text-button">STOP</button>
+    <button id="reset-button" class="text-button">RESET</button>
+  </div>
 </template>
 
 <script>
@@ -47,8 +48,15 @@ export default {
     let startSec = ref(0)
     let baseTime = ref('00:00:00')
     // let total = ref(0)
+    let isWriting = function () {
+      let box = document.querySelector(".bottom-box")
+      box.style.display = 'none'
+      console.log("음")
+    }
+
   
     onMounted(()=>{
+
       let timer_down_start
 
       let animationTarget1 = document.querySelectorAll(".timer .hand:first-child span")
@@ -149,7 +157,8 @@ export default {
       startHour,
       startMin,
       startSec,
-      baseTime
+      baseTime,
+      isWriting
     }
   }
 }
@@ -321,6 +330,7 @@ export default {
 }
 
 #timer-buttons {
+  margin-top: -4vh;
   display: flex;
   justify-content: center;
   z-index: 1;
@@ -340,6 +350,8 @@ export default {
   display: flex;
   justify-content: center;
   gap: 2vw;
+  margin-top: 4vh;
+  margin-bottom: 2vh;
 }
 
 
