@@ -175,12 +175,21 @@ export default {
                 // setTimeout(() => document.querySelector("#container").className = "", 4000);
                 // setTimeout(() => document.querySelector("#diceBg").className = "", 4600);
             // }
+            play("http://soundbible.com/mp3/Shake And Roll Dice-SoundBible.com-591494296.mp3")
         }
+        function play(sound) {
+            if (sound) {
+                var audio = new Audio(sound);
+                audio.play();
+            } 
+    }
+        
         return {
             dicenum,
             dicenum2,
             clickDiceInfo,
-            diceview
+            diceview,
+            play,
         }
     }
 }
