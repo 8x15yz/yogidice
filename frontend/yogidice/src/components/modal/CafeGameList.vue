@@ -1,10 +1,13 @@
 <template>
   <div class="cafe-games-box">
     <div @click="closeCafeGame" class="close-button"><span class="material-icons-outlined">close</span></div>
-    <div>의 보유 게임</div>
+    <div class="cafe-games-title text-headeline-6">의 보유 게임</div>
     <hr>
-    <search-bar></search-bar>
-    <div>총 개의 게임</div>
+    <div class="search-box">
+      <search-bar></search-bar>
+    </div>
+    <br>
+    <div class="cafe-games-count text-body-1">총 개의 게임</div>
     <div>
       <small-card-list></small-card-list>
     </div>
@@ -38,10 +41,23 @@ export default {
 .cafe-games-box {
   display: flex;
   flex-direction: column;
-  width: 90vw;
-  height: 90vw;
+  width: 94vw;
+  height: 80vh;
   z-index: 999;
-  background-color: var(--color-point);
+  background-color: var(--color-bg-modal);
   position: absolute;
+  top: 12vh;
+  left: 3vw;
 }
+.search-box{
+  width: 94vw;
+  padding: 2vh 2vw;
+}
+.cafe-games-title{
+  color:white
+}
+.cafe-games-count{
+  color: white
+}
+
 </style>

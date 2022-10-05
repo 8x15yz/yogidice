@@ -251,16 +251,36 @@ export default {
         });
     },
     getCafeGames({commit},address) {
+      commit("RESET_SMALL_GAMES")
       axios({
         url: api.cafes.getCafeGames(address),
         method: "get",
       })
       .then((res) => {
-        commit('SET_SMALL_GAMES',res.data.responses)
+        let result = res.data.responses
+        for (let i=0; i<result.length; i++){
+          axios({
+            url: api.games.detailEdit(result[i].gameId),
+            method: "get",
+          })
+          .then((res) => {
+            let data = res.data;
+            let details = {
+              id: data.id,
+              titleKr: data.titleKr,
+              thumbUrl: data.thumbUrl,
+              ratingUser: data.ratingUser,
+              minPlayers: data.minPlayers,
+              maxPlayers: data.maxPlayers,
+              playingTime: data.playingTime,
+              difficulty: data.difficulty,
+            };
+            commit("ADD_SMALL_GAMES",details)
+          })
+          .catch((err)=>console.log(err))
+        }
       })
-      .catch((err) => {
-        console.log(err)
-      })
+
 
     },
     addSelectedGames({ commit }, gameId) {
