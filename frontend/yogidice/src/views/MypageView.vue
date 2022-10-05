@@ -160,7 +160,6 @@
 <script>
 import { ref, computed} from 'vue'
 
-import axios from 'axios'
 import { useStore } from 'vuex'
 
 import BerChart from '../components/BerChart.vue';
