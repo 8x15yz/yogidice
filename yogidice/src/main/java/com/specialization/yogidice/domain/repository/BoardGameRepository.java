@@ -13,6 +13,8 @@ public interface BoardGameRepository extends JpaRepository<BoardGame, Long> {
 
     Optional<BoardGame> findByTitleKr(String titleKr);
 
+    List<BoardGame> findTop10ByOrderById();
+
     List<BoardGame> findTop10ByOrderByRatingUserDesc();
 
     Page<BoardGame> findAllByOrderByRatingUserDesc(Pageable pageable);

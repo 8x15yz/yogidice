@@ -2,9 +2,7 @@ package com.specialization.yogidice.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.specialization.yogidice.common.config.web.LoginUser;
-import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.User;
 import com.specialization.yogidice.domain.entity.type.Reviewed;
 import com.specialization.yogidice.dto.request.BoardGamePickRequest;
@@ -27,14 +25,10 @@ import org.springframework.web.client.RestTemplate;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
-import java.lang.reflect.Type;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.google.gson.reflect.TypeToken;
 
 @RestController
 @RequestMapping("/games")
@@ -158,7 +152,8 @@ public class BoardGameController {
     @ApiOperation(value = "게임이 끝난 후 다음 게임 추천", notes = "게임이 끝난 후 연관된 다음 게임을 추천합니다.")
     public ResponseEntity<?> nextRecommend(
             @ApiIgnore @LoginUser User user,
-            @PathVariable Long gameId) {
+            @PathVariable Long gameId
+    ) {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:8000/analyze/recommend/play";
 
@@ -181,36 +176,36 @@ public class BoardGameController {
             @ApiIgnore @LoginUser User user
     ) {
         //리뷰를 했다면
-        if(user.getReviewed()== Reviewed.T) {
-            if(boardGameService.mainRecommend(user.getId()).size()==0){
-                List<BookmarkResponse> bookmarkResponses= bookmarkService.readBookmarkListOfUser(user.getId());
-                if(!bookmarkResponses.isEmpty()){
+        if (user.getReviewed() == Reviewed.T) {
+            if (boardGameService.mainRecommend(user.getId()).size() == 0) {
+                List<BookmarkResponse> bookmarkResponses = bookmarkService.readBookmarkListOfUser(user.getId());
+                if (!bookmarkResponses.isEmpty()) {
                     System.out.println("리뷰 했지만 메인 추천이 0개 북마크 남김");
-                    try{
+                    try {
                         List<BoardGameSimpleResponse> boardGames = boardGameService.recommendByBookmark(bookmarkResponses);
                         return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
-                    }catch (JsonProcessingException e) {
+                    } catch (JsonProcessingException e) {
                         return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
                     }
-                }else{
+                } else {
                     return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
                 }
             }
             System.out.println("리뷰를 3개 이상 남겨서 메인 추천이 0개가 아니다.");
             return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
-        }else{
-        //리뷰를 하지 않았다면
-            List<BookmarkResponse> bookmarkResponses= bookmarkService.readBookmarkListOfUser(user.getId());
-            if(!bookmarkResponses.isEmpty()){
+        } else {
+            //리뷰를 하지 않았다면
+            List<BookmarkResponse> bookmarkResponses = bookmarkService.readBookmarkListOfUser(user.getId());
+            if (!bookmarkResponses.isEmpty()) {
                 System.out.println("리뷰를 남기지 않았지만 북마크 남김");
-                try{
+                try {
                     List<BoardGameSimpleResponse> boardGames = boardGameService.recommendByBookmark(bookmarkResponses);
                     return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
-                }catch (JsonProcessingException e) {
+                } catch (JsonProcessingException e) {
                     return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
                 }
-            }else{
-                return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readTop10ListByBoardGameLife()));
             }
         }
 
@@ -220,9 +215,9 @@ public class BoardGameController {
     @GetMapping("/recommend/detail/{gameId}")
     @ApiOperation(value = "보드게임 상세 페이지 하단 추천", notes = "보드게임 상세 페이지 하단에서 보드게임을 추천합니다.")
     public ResponseEntity<?> detailRecommend(
-            @PathVariable Long gameId)  {
+            @PathVariable Long gameId) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://172.18.0.1:8000/analyze/recommend/detail/"+gameId;
+        String url = "http://172.18.0.1:8000/analyze/recommend/detail/" + gameId;
 //        String url = "http://localhost:8000/analyze/recommend/detail/"+gameId;  //로컬에서
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -233,22 +228,22 @@ public class BoardGameController {
         jsonObject.put("gameId", gameId);
 
         HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
-        String boardGameList = restTemplate.getForObject(url,String.class);
+        String boardGameList = restTemplate.getForObject(url, String.class);
         try {
             Map<String, Object> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
             Map<Integer, Long> boardMap = new HashMap<>();
             for (String key : mapping.keySet()) {
-                boardMap.put(Integer.parseInt(key), Long.parseLong((String)mapping.get(key)));
+                boardMap.put(Integer.parseInt(key), Long.parseLong((String) mapping.get(key)));
             }
             List<Long> boardGameIds = new ArrayList<>(boardMap.values());
-            for(Integer key : boardMap.keySet()){
+            for (Integer key : boardMap.keySet()) {
                 boardGameIds.add(boardMap.get(key));
             }
-            List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
+            List<BoardGameSimpleResponse> boardGames = boardGameService.detailRecommend(boardGameIds);
 
 //            for(BoardGame b : boardGames) System.out.println(b.getTitleKr());
             return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
-        }catch (JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));
         }
     }
@@ -265,7 +260,7 @@ public class BoardGameController {
     @ApiOperation(value = "보드게임 리뷰 조회", notes = "보드게임 아이디로 리뷰를 조회합니다")
     public ResponseEntity<?> readReviewAll(
             @PathVariable Long gameId
-    ){
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryListById(gameId)));
     }
 
@@ -274,7 +269,7 @@ public class BoardGameController {
     public ResponseEntity<?> anlayzeChemi(
             @ApiIgnore @LoginUser User user,
             @PathVariable Long gameId
-    ){
+    ) {
 
         return ResponseEntity.status(HttpStatus.OK).body(ChemiResponse.of(200, "success", boardGameService.analyzeChemi(user, gameId)));
     }
