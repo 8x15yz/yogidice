@@ -1,9 +1,4 @@
 <template>
-<div style="position: absolute; z-index: 3;">
-    <button @click="testlogin">임시로그인</button>
-    <button @click="logOut">임시로그아웃</button>
-    <button @click="viewUserInfo">회원정보보기</button>
-</div>
     <div class="mypage-container">
         <!-- 헤더있는곳 -->
         <div>
@@ -250,40 +245,6 @@ export default {
             reviewmodalview.value = true
             reviewId.value = data
         }
-        
-
-
-        // 곧없앨거
-        function testlogin() {
-            axios({
-                url: 'https://j7b206.p.ssafy.io/api/users/login',
-                method: 'post',
-                data: {
-                    kakaoId: 'test2',
-                    nickName: 'test2'
-                }
-            })
-            .then(function a(response) { 
-                console.log(response.headers.authorization) 
-                localStorage.setItem("token", response.headers.authorization);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        }
-        function logOut() {
-            localStorage.removeItem("token")
-        }
-        function viewUserInfo() {
-            for (let g of userplaygames.value) {
-            console.log(g.review)
-            if (g.review == null){
-                console.log('rmfgjgw')
-            }
-        }
-        }
-        
-        // 곧없앨거
 
         return {
             myPageBtn,
@@ -295,9 +256,6 @@ export default {
             reviewmodalview,
             CloseReviewModal,
             OpenReviewModal,
-            testlogin,
-            logOut,
-            viewUserInfo,
             nickName,
             userbookgames,
             kakaoId,
