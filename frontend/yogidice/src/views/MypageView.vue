@@ -87,7 +87,7 @@
                         <span>{{nickName}}</span><span>님은 </span>
                     </div>
                     <div class="mp-bg-s-inner">
-                        <span id="mypage-cate-result">{{toponemec}}</span><span id="mypage-cate-result">마니아</span><span> 입니다 </span><span  @click="infomodal = true"><i class="far fa-question-circle"></i></span>
+                        <span id="mypage-cate-result">"{{toponemec}}"</span><span id="mypage-cate-result">마니아</span><span> 입니다 </span><span  @click="infomodal = true"><i class="far fa-question-circle"></i></span>
                     </div>
                 </div>
                 <!-- mainview : 보드게임 성향 알려주는곳 -->
