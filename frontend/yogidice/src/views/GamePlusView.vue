@@ -335,7 +335,7 @@ export default {
         setTimeout(() => {
           reviewform.value = true;
           reviewformouter.value = false;
-          router.push({name:"GamePlusView"})
+          router.push({name:"MainPage"})
         }, 1500);
       }
     }
