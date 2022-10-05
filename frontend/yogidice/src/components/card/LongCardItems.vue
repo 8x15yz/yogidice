@@ -65,6 +65,7 @@ export default {
   
     const showDetail = function(n) {
       router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.titleKr}})
+      store.dispatch("games/getDetails",n.id,)
     }
 
     let showRegister = ref(false)
