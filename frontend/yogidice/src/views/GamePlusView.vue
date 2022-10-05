@@ -70,41 +70,50 @@
                 <div :class="{'bubble-tip-selected': file == true, 'bubble-tip-unsel': file == false}" @click="subMenuBtn('file')"><i class="fas fa-folder"></i></div>
             </div>
             <div id="game-menu-circle" @click="submenu = !submenu"><i class="fas fa-plus"></i></div>
-                <div id="game-menu-bottom">
-                    <div  :class="{'game-menu-btn game-menu-selected': dice == true, 'game-menu-btn game-menu-unsel': dice == false}">
-                        <div @click="subMenuBtn('dice')">
-                            <div class="gmb-df ">🎲</div>
-                            <div>주사위</div>
-                        </div>
+            <div id="game-menu-bottom">
+                <div  :class="{'game-menu-btn game-menu-selected': dice == true, 'game-menu-btn game-menu-unsel': dice == false}">
+                    <div @click="subMenuBtn('dice')">
+                        <div class="gmb-df ">🎲</div>
+                        <div>주사위</div>
                     </div>
-                    <div :class="{'game-menu-btn right-border game-menu-selected': person == true, 'game-menu-btn right-border game-menu-unsel': person == false}">
-                        <div @click="subMenuBtn('person')">
-                            <div class="gmb-df">🎲</div>
-                            <div>술래</div>
-                        </div>
+                </div>
+                <div :class="{'game-menu-btn right-border game-menu-selected': person == true, 'game-menu-btn right-border game-menu-unsel': person == false}">
+                    <div @click="subMenuBtn('person')">
+                        <div class="gmb-df">🎲</div>
+                        <div>술래</div>
                     </div>
-                    <div class="game-menu-center"></div>
-                    <div :class="{'game-menu-btn left-border game-menu-selected': clock == true, 'game-menu-btn left-border game-menu-unsel': clock == false}">
-                        <div @click="subMenuBtn('clock')">
-                            <div class="gmb-df">🎲</div>
-                            <div>타이머</div>
-                        </div>
+                </div>
+                <div class="game-menu-center"></div>
+                <div :class="{'game-menu-btn left-border game-menu-selected': clock == true, 'game-menu-btn left-border game-menu-unsel': clock == false}">
+                    <div @click="subMenuBtn('clock')">
+                        <div class="gmb-df">🎲</div>
+                        <div>타이머</div>
                     </div>
-                    <div :class="{'game-menu-btn game-menu-selected': bomb == true, 'game-menu-btn game-menu-unsel': bomb == false}">
-                        <div @click="subMenuBtn('bomb')">
-                            <div class="gmb-df">🎲</div>
-                            <div>벌칙</div>
-                        </div>
+                </div>
+                <div :class="{'game-menu-btn game-menu-selected': bomb == true, 'game-menu-btn game-menu-unsel': bomb == false}">
+                    <div @click="subMenuBtn('bomb')">
+                        <div class="gmb-df">🎲</div>
+                        <div>벌칙</div>
                     </div>
                 </div>
             </div>
         </div>
-    <!-- </div> -->
-    <!-- game 페이지 -->
+        <div class="alpha-box alpha-box-info" v-show="info">
+            <div class="text-headline-6">{{playnowname}} 설명서</div>
+        </div>
+        <div class="alpha-box alpha-box-youtub" v-show="youtub">
+            <related-videos></related-videos>
+        </div>
+        <div class="alpha-box alpha-box-memo" v-show="memo">
+            <div>메모장</div>
+            <br>
+            <textarea name="playing-memo" placeholder="메모할 내용을 입력하세요" id="" rows="10"></textarea>
+        </div>
+        <div class="alpha-box alpha-box-file" v-show="file">
+            아니뭐
+        </div>
+    </div>
 
-    
-    
-    <!-- game 메뉴하단바 -->
     
 
     
@@ -116,7 +125,9 @@ import GameClock from '@/components/plusgame/GameClock.vue';
 import PickPenalty from '@/components/plusgame/PickPenalty.vue';
 import PickTagger from '@/components/plusgame/PickTagger.vue';
 import RollingDice from '@/components/plusgame/RollingDice.vue';
+import RelatedVideos from '@/components/plusgame/RelatedVideos.vue'
 // import gameReviewModal from '@/components/modal/gameReviewModal.vue';
+
 import { ref, computed, reactive } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 
@@ -127,6 +138,7 @@ export default {
         PickPenalty,
         PickTagger,
         RollingDice,
+        RelatedVideos
         // gameReviewModal
     },
     setup() {
@@ -243,6 +255,8 @@ export default {
             // store.dispatch("myuser/SendReview")
         }
         const star = ref(1)
+
+
 
         return {
             submenu,
@@ -444,5 +458,23 @@ export default {
     margin-bottom:10vh;
     position: relative;
 }
+.alpha-box {
+    width: 80vw;
+    height: 60vh;
+    background-color: var(--color-white);
+    position: absolute;
+    top:20vh;
+    margin-left: 5vw;
+    padding: 5vh 5vw;
+    border-radius: 10px;
+    box-shadow: 0px 24px 16px rgba(0, 0, 0, 0.15);
+    overflow: scroll;
+}
+  textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+  }
+
 
 </style>
