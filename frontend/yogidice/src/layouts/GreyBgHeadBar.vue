@@ -10,15 +10,18 @@
       </div>
     </div>
   </header>
-  <router-view id="wrap2"></router-view>
+  <router-view :key="path" id="wrap2"></router-view>
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   setup() { 
     const router = useRouter()
+    const route = useRoute()
+    let path = route.fullPath
+
     const moveToMain = function () {
       router.push({name: "MainPage"})
     }
@@ -27,7 +30,8 @@ export default {
     }
     return {
       moveToMain,
-      moveToMypage
+      moveToMypage,
+      path
     }
   }
 
