@@ -5,16 +5,16 @@ export default {
     namespaced: true,
 
     state: () => ({
+        detail:{},
         token: localStorage.getItem("token"),
         lengamecategory: [0, 0, 0, 0, 0, 0],
-        detail: {},
         gamemec: [],
         mecDisc: '',
         mecName: '',
         playnowname: '',
         playnowid: '',
         playnoehistoryid: '',
-        notting:0
+        notting:0,
     }),
     getters: {
         authHeader: (state) => ({
@@ -24,6 +24,7 @@ export default {
         playnowid: (state) => state.playnowid,
     },
     mutations: {
+        DETAIL_RESET: (state) => (state.detail = {}),
         SET_DETAIL: (state, details) => (state.detail = details),
         LIKE_P_MEC: (state, gid) => (state.lengamecategory[gid] += 1),
         LIKE_P_MEC_RESET: (state) => (state.lengamecategory = [0, 0, 0, 0, 0, 0]),
@@ -31,7 +32,6 @@ export default {
         GAME_MECHA_RESET: (state) => (state.gamemec = []),
 
         NOTTING: (state) => (state.notting = 0),
-
 
         GAME_MEC_DISC: (state, info) => (state.mecDisc = info),
         GAME_MEC_NAME: (state, info) => (state.mecName = info),
@@ -94,6 +94,18 @@ export default {
         ExitGame({commit, getters}) {
             console.log(getters.playnowid)
             commit('NOTTING')
-        }
+        },
+        getDetails({ commit }, gameId) {
+            
+            axios({
+              url: api.games.detailEdit(gameId),
+              method: "get",
+            })
+              .then((res) => {
+                console.log("성공", res.data);
+                commit("SET_DETAIL", res.data);
+              })
+              .catch((err) => console.log(err));
+          },
     }
 }

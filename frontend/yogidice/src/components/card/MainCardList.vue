@@ -33,6 +33,8 @@ export default {
     let page = ref(1)
     const showDetail = function(n) {
       router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.titleKr}})
+      store.dispatch("games/getDetails",n.id,)
+      console.log('이거이고이거', n.id)
     }
     let gameLists = computed(()=>store.state.games.mainGames)
     let gameType = computed(()=>store.state.games.presentType)
