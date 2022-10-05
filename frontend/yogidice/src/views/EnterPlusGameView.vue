@@ -30,7 +30,7 @@ import SearchBar from "@/components/SearchBar.vue"
 import ModalDialog from "@/components/modal/ModalDialog.vue";
 import PlayGameCardList from "@/components/card/PlayGameCardList.vue"
 import { useStore } from "vuex"
-import { getCurrentInstance, onMounted, reactive,computed } from "vue"
+import { getCurrentInstance, onMounted, reactive,computed, ref } from "vue"
 export default {
   components: {
     SearchBar,
@@ -49,6 +49,9 @@ export default {
       'footer1': '',
       'footer2': '',
     })
+
+    const nowplaytitle = ref('')
+    const nowplayid = ref(0)
      // 버튼 클릭시
     const choicePlayGame = function (e) {
       // 아무것도 선택하지 않으면 버튼이 검은색
@@ -59,6 +62,8 @@ export default {
         contents.footer1 = '시작'
         contents.footer2 = '취소'
       }  
+      console.log(nowplaytitle.value, nowplayid.value)
+      store.dispatch("gamedetail/PlayGame", [nowplaytitle.value, nowplayid.value])
       store.dispatch("modal/registModal",contents)
       store.dispatch("modal/openModal")
     }
@@ -84,6 +89,9 @@ export default {
         playGameBtn.setAttribute("class","button-long-blue init-select-btn text-button")
         playGameBtn.innerText = "게임 선택"
         choiceGameTitle = data.gameTitle
+        console.log(data)
+        nowplaytitle.value = data.gameTitle
+        nowplayid.value = data.gameId
     })
 
     })
