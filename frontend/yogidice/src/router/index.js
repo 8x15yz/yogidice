@@ -7,7 +7,6 @@ import SignupView from "@/views/SignupView.vue";
 import KakaoLoginView from "@/views/KakaoLoginView.vue";
 import BerChart from "@/components/BerChart.vue";
 import RegistNickName from "@/components/intro/RegistNickName.vue";
-import WordCloud from "../components/WordCloud.vue";
 import InitChoice from "@/views/InitChoice.vue";
 import MypageView from "@/views/MypageView.vue";
 import MainPageView from "@/views/MainPageView.vue";
@@ -36,11 +35,6 @@ const routes = [
     path: "/BerChart",
     name: "BerChart",
     component: BerChart,
-  },
-  {
-    path: "/WordCloud",
-    name: "WordCloud",
-    component: WordCloud,
   },
   {
     path: "/MyPage",
