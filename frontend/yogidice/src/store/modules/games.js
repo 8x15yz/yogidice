@@ -250,6 +250,20 @@ export default {
           console.log(err);
         });
     },
+    getCafeGames({commit},address) {
+      axios({
+        url: api.cafes.getCafeGames(address),
+        method: "get",
+      })
+      .then((res) => {
+        commit('SET_SMALL_GAMES',res.data.responses)
+        console.log(res.data.responses)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    },
     addSelectedGames({ commit }, gameId) {
       commit("ADD_SELECTED_GAMES", gameId);
     },
