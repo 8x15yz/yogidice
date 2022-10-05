@@ -44,7 +44,6 @@ export default {
       store.dispatch("games/resetLongGames")
       store.dispatch("games/changeLongGames",{"type":gameType.value,"page":page.value})
       router.push({name:"MoreList", params:{"type":gameType.value}})
-      router.go(0)
       }
     )})
     

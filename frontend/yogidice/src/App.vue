@@ -1,14 +1,20 @@
 <template>
-  <router-view/>
+  <router-view :key="route.fullPath"/>
 </template>
 
 <script>
+import { useRoute } from "vue-router"
 export default {
   name: 'App',
   components: {
 
   },
   setup() {
+    const route = useRoute()
+
+    return {
+      route,
+    }
 
   }
 }

@@ -99,18 +99,21 @@
             </div>
         </div>
         <div class="alpha-box alpha-box-info" v-show="info">
+            <div @click="closeSubMenuBtn('sub')" class="close-button"><span class="material-icons-outlined">close</span></div>
             <div class="text-headline-6">{{playnowname}} 설명서</div>
         </div>
         <div class="alpha-box alpha-box-youtub" v-show="youtub">
-            <related-videos></related-videos>
+            <related-videos :videoIds="videoIds" @close-video="closeSubMenuBtn('sub')"></related-videos>
         </div>
         <div class="alpha-box alpha-box-memo" v-show="memo">
+            <div @click="closeSubMenuBtn('sub')" class="close-button"><span class="material-icons-outlined">close</span></div>
             <div>메모장</div>
             <br>
             <textarea name="playing-memo" placeholder="메모할 내용을 입력하세요" id="" rows="10"></textarea>
         </div>
         <div class="alpha-box alpha-box-file" v-show="file">
-            아니뭐
+            <div @click="closeSubMenuBtn('sub')" class="close-button"><span class="material-icons-outlined">close</span></div>
+            <h3> 관련 파일이 없습니다 </h3>
         </div>
     </div>
 
@@ -128,6 +131,7 @@ import RollingDice from '@/components/plusgame/RollingDice.vue';
 import RelatedVideos from '@/components/plusgame/RelatedVideos.vue'
 // import gameReviewModal from '@/components/modal/gameReviewModal.vue';
 
+import axios from "axios";
 import { ref, computed, reactive } from '@vue/runtime-core'
 import { useStore } from 'vuex'
 
@@ -196,6 +200,8 @@ export default {
                 memo.value = false
                 file.value = false
                 submenu.value = !submenu.value
+                callVideos()
+                
             }
             else if (option == 'memo') {
                 info.value = false
@@ -244,9 +250,39 @@ export default {
                     }, 1500);
             }
         }
+        let videoIds = reactive([])
+        const callVideos = function () {
+            if (playnowname.value !== ""){
+                axios({
+                url: "https://www.googleapis.com/youtube/v3/search",
+                method: "get",
+                params: {
+                    key:"AIzaSyDfN3PYabbgHgso6PPs9j7gEzPSNfK6AO8",
+                    part:"snippet",
+                    q:`${playnowname.value}설명`,
+                }})
+                .then((res)=>{
+                    for (let i=0; i<5; i++) {
+                    let tmp = `https://www.youtube.com/embed/${res.data.items[i].id.videoId}`
+                    videoIds.push(tmp)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+                }
+            else {
+                videoIds = reactive([])
+            }
+            }
 
-        let playnowname = computed(()=>store.state.gamedetail.playnowname)
-
+        let playnowname = computed(()=>{
+            if (store.state.gamedetail.playnowname==="게임미선택") {
+                return ""
+            } else {
+                return store.state.gamedetail.playnowname
+            }
+        })
         function ExitGame() {
             reviewformouter.value = true
             store.dispatch("gamedetail/ExitGame")
@@ -276,7 +312,8 @@ export default {
             reviewform,
             submitReview,
             reviewformouter,
-            gamereviewtext
+            gamereviewtext,
+            videoIds
         }
     }
 }
@@ -372,6 +409,7 @@ export default {
     padding-bottom: 10px;
     display: flex;
     justify-content: space-evenly;
+    z-index: 100;
 }
 .speech-bubble:after {
 	content: '';

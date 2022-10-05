@@ -10,7 +10,7 @@
       </div>
     </div>
   </header>
-  <router-view :key="path" id="wrap2"></router-view>
+  <router-view id="wrap2"></router-view>
 </template>
 
 <script>

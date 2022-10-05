@@ -1,5 +1,7 @@
 <template>
-  <div @click="test">{{playnowname}} 관련 영상</div>
+  <div @click="closeYoutube" class="close-button"><span class="material-icons-outlined">close</span></div>
+  <div class="text-headline-6">{{playnowname}} 관련 영상</div>
+    <br>
     <div
       v-for="videoId in videoIds"
       :key="videoId"
@@ -7,48 +9,39 @@
       <iframe id="ytplayer" type="text/html" width="300" height="180"
       :src="videoId"
       frameborder="0"></iframe>
+      <br>
     </div>
 
   
 </template>
 
 <script>
-import axios from "axios";
-import { reactive,computed } from 'vue';
+import { toRefs,computed } from 'vue';
 import { useStore } from "vuex";
-export default {
-  setup(){
-    const store = useStore()
-    let playnowname = computed(()=>store.state.gamedetail.playnowname)
 
-    let videoIds = reactive([])
-    const test = function () {
-      if (playnowname.value !== ""){
-        axios({
-          url: "https://www.googleapis.com/youtube/v3/search",
-          method: "get",
-          params: {
-            key:"AIzaSyDfN3PYabbgHgso6PPs9j7gEzPSNfK6AO8",
-            part:"snippet",
-            q:`${playnowname.value}설명`,
-          }})
-          .then((res)=>{
-            for (let i of res.data.items) {
-              let tmp = `https://www.youtube.com/embed/${i.id.videoId}`
-              videoIds.push(tmp)
-              console.log(videoIds)
-            }
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-        }
+export default {
+  props: {
+    videoIds: Array,
+  },
+  emits: ["close-video"],
+  setup(props,{emit}){
+    const store = useStore()
+    let playnowname = computed(()=>{
+      if (store.state.gamedetail.playnowname==="게임미선택") {
+        return ""
+      } else {
+        return store.state.gamedetail.playnowname
       }
+  })
+    let ids = toRefs(props).videoIds
+    const closeYoutube = function () {
+      emit("close-video")
+    }
 
     return {
-      test,
-      videoIds,
-      playnowname
+      playnowname,
+      ids,
+      closeYoutube
     }
   }
 
@@ -56,5 +49,8 @@ export default {
 </script>
 
 <style>
+.close-button {
+  text-align: end;
+}
 
 </style>
