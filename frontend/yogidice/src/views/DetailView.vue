@@ -67,6 +67,7 @@ export default {
     let detailMenus
     let gameId = route.query.gameId
     let gameTitle = route.query.title
+    store.dispatch("games/resetMainGames")
     store.dispatch("games/getDetailRecommend",gameId)
     store.dispatch("games/getDetails",gameId)
 
