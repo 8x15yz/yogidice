@@ -225,14 +225,14 @@ export default {
         if (places.road_address_name) {
             itemStr += '    <div class="place-address">' + places.road_address_name + '</div>'+'</div>' 
         } else {
-            itemStr += '    <div class="place-address">' +  places.address_name  + '</div>'+'</div>'; 
+            itemStr += '    <div class="place-address">' +  places.address_name  + '</div>'; 
         }
-          itemStr += '<div class="tel">' + places.phone  + '</div></div>'
+          itemStr += '<div class="tel">' + places.phone  + '</div></div>'+'</div>'
         
         let detailBtn = document.createElement('div')
         detailBtn.setAttribute("class","cafe-detail-btn")
-        let tmp1 = document.createElement('div')
-        tmp1.innerText = "카페상세보기"
+        let tmp1 = document.createElement('<span class="material-symbols-outlined">info</span>')
+        // tmp1.innerText = "카페상세보기"
         tmp1.setAttribute("class","text-button")
         tmp1.setAttribute("class","cafe-detail-link")
         tmp1.addEventListener("click",function(){window.open(places.place_url)})
