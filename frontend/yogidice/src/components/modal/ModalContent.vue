@@ -58,30 +58,23 @@ export default {
       bodyBox.classList.add("text-subtitle-2");
       bodyBox.style.color = "var(--color-grey-5)";
 
-      watch(isShowModal, (newValue) => {
-        if (newValue === true && info.value.from === "registNickName") {
-          firstButton.addEventListener("click", registerToInit);
-          secondButton.addEventListener("click", closeModal);
-        }
-        // 선호도 조사에서 넘어온 모달인 경우
-        else if (newValue === true && info.value.from === "initChoice") {
-          firstButton.addEventListener("click", () => {
+      let registInit = function () {
+        {
             // 고른 게임들 확인
-            let isBookMarkWorking = computed(
-              () => store.state.isBookMarkWorking,
-            );
-            console.log(isBookMarkWorking.value)
+            let isBookMarkWorking = computed(() => store.state.user.isBookMarkWorking);
+            console.log("이새끼뭐야",isBookMarkWorking.value)
             let selectGames = computed(() => store.state.games.selectedGames);
+              console.log("여기요여기",selectGames)
             for (let i = 0; i < selectGames.value.length; i++) {
               // 각 게임을 북마크에 등록
-              registBookMark(selectGames[i]);
-              if (!isBookMarkWorking.value) {
+              registBookMark(selectGames.value[i]);
+              if (isBookMarkWorking.value === false) {
                 break;
               } else {
                 continue;
               }
             }
-            if (!isBookMarkWorking.value) {
+            if (isBookMarkWorking.value === false ) {
               store.dispatch(
                 "modal/registModal",
                 {
@@ -95,6 +88,7 @@ export default {
                 { root: true },
               );
               store.dispatch("modal/openModal", null, { root: true });
+              store.commit("user/BOOKMARK_WORKING")
               setTimeout(function () {
                 store.dispatch("modal/closeModal", null, { root: true });
               }, 2000);
@@ -111,6 +105,7 @@ export default {
                 },
                 { root: true },
               );
+              store.commit("user/BOOKMARK_WORKING")
 
               setTimeout(function () {
                 router.push({
@@ -118,7 +113,17 @@ export default {
                 });
               }, 2000);
             }
-          });
+          }
+      }
+
+      watch(isShowModal, (newValue) => {
+        if (newValue === true && info.value.from === "registNickName") {
+          firstButton.addEventListener("click", registerToInit);
+          secondButton.addEventListener("click", closeModal);
+        }
+        // 선호도 조사에서 넘어온 모달인 경우
+        else if (newValue === true && info.value.from === "initChoice") {
+          firstButton.addEventListener("click", registInit);
           secondButton.addEventListener("click", closeModal);
         } else if (newValue === true && info.value.from === "playGame") {
           if (info.value.content !== "") {
