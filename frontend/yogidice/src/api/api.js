@@ -48,6 +48,7 @@ export default {
   cafes: {
     getCreate: () => HOST + cafe,
     detailEdit: (cafeId) => HOST + cafe + `/${cafeId}`,
+    getCafeGames: (address) => HOST + cafeGames + cafe + `/address/${address}` 
   },
 
   cafeGames: {
