@@ -5,6 +5,7 @@
       <ber-chart
       :lengamecategory="lengamecategory" >
       </ber-chart>
+      <div>{{contents}}</div>
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6" style="margin-bottom: 10px;"> 게임 테마 </div>
@@ -17,11 +18,12 @@
       <div v-for="data in gamemec" :key="data.key">
         <div class="play-type text-body-2" @click="describeType">{{data.mechanismName}}<span class="material-icons-outlined" style="margin-left: 5px; font-size: 17px;" @click="$emit('OpenmecModal', data.mechanismId)">info</span> </div>
       </div>
+      <div class="subdetail-title text-headline-6"> 게임 설명 </div>
+      <img :src="contentsImgUrl" alt="">
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6"> 관련 영상 </div>
-      <!-- <iframe width="560" height="315" src="https://youtu.be/NLcdpBr3RgM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-      <!-- <div>{{youtubeUrl}}</div> -->
+      <iframe width="560" height="315" :src="youtubeUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6"> 해당 게임 보유 매장 </div>
@@ -68,8 +70,11 @@ export default {
   })
 
   store.dispatch("gamedetail/getLengames", gameId)
+  store.dispatch("gamedetail/getDetails", gameId)
   let lengamecategory = computed(()=>store.state.gamedetail.lengamecategory)
-
+  let contents = computed(()=>store.state.gamedetail.detail.contents)
+  let youtubeUrl = computed(()=>store.state.gamedetail.detail.youtubeUrl)
+  let contentsImgUrl = computed(()=>store.state.gamedetail.detail.contentsImgUrl)
 
   return {
     // showModal,
@@ -77,7 +82,10 @@ export default {
     // describeType,
     lengamecategory,
     gametheme,
-    gamemec
+    gamemec,
+    youtubeUrl,
+    contents,
+    contentsImgUrl
   }
   
 }
