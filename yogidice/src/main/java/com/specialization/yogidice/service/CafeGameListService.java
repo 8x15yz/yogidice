@@ -90,7 +90,7 @@ public class CafeGameListService {
 
     @Transactional
     public List<CafeGameResponse> readCafeGameListOfBoardGameCafeByAddress(String address) {
-        BoardGameCafe cafe = boardGameCafeRepository.findBoardGameCafeByAddress(address)
+        BoardGameCafe cafe = boardGameCafeRepository.findBoardGameCafeByAddressContaining(address)
                 .orElseThrow(() -> new NotFoundException(BOARDGAMECAFE_NOT_FOUND));
         List<CafeGameList> cafeGameLists = cafeGameListRepository.findCafeGameListByBoardGameCafe(cafe);
         if (cafeGameLists.isEmpty()) {
