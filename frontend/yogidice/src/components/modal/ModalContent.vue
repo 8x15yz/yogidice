@@ -70,6 +70,7 @@ export default {
             let isBookMarkWorking = computed(
               () => store.state.isBookMarkWorking,
             );
+            console.log(isBookMarkWorking.value)
             let selectGames = computed(() => store.state.games.selectedGames);
             for (let i = 0; i < selectGames.value.length; i++) {
               // 각 게임을 북마크에 등록
