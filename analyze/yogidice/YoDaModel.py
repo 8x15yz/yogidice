@@ -102,7 +102,7 @@ def search(list, score):
     if value[0] not in final_temp:
         final_temp.append(value[0])
         final_set.append(value)
-  final_set = sorted(final_set, key =lambda item: item[1], reverse=True)[0:10]
+  final_set = sorted(final_set, key =lambda item: item[1], reverse=True)[0:20]
   final_result = []
   for f in final_set:
     final_result.append(f[0])
