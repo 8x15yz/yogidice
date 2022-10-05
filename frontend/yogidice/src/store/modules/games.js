@@ -258,7 +258,6 @@ export default {
       })
       .then((res) => {
         let result = res.data.responses
-        let dump = []
         for (let i=0; i<result.length; i++){
           axios({
             url: api.games.detailEdit(result[i].gameId),
@@ -276,12 +275,10 @@ export default {
               playingTime: data.playingTime,
               difficulty: data.difficulty,
             };
-            dump.push(details)
+            commit("ADD_SMALL_GAMES",details)
           })
           .catch((err)=>console.log(err))
-        }
-        console.log(dump)
-        commit("SET_SMALL_GAMES",dump)
+          }
         })
         .catch((err)=>console.log(err))
       },
