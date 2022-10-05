@@ -31,6 +31,8 @@ export default {
     const store = useStore()
     const route = useRoute()
     const router = useRouter()
+    let gameId = route.query.gameId
+    let gameTitle = route.query.title
 
     let rate = ref(0)
     let gameInfo = computed(()=>store.state.games.detail)
@@ -42,19 +44,19 @@ export default {
   
     let myBookMarks = computed(()=>(store.state.user.myBookMark).map(mark=>mark.gameId))
     let isGameinBookMark = computed(()=>myBookMarks.value.includes(gameInfo.value.id))
-    let detailId = gameInfo.value.id
   
 
     let showRegister = ref(false)
     const registerBookMark = function () {
       if (isGameinBookMark.value === true) {
-        store.dispatch("user/deleteBookMark",detailId)
+        store.dispatch("user/deleteBookMark",gameInfo.value.id)
+        console.log("삭제",gameInfo.value.id,gameId)
 
       } else {
         showRegister.value = true
         //북마크 등록 api
-        store.dispatch("user/registBookMark",detailId)
-        console.log(detailId)
+        store.dispatch("user/registBookMark",gameInfo.value.id)
+        console.log("등록",gameInfo.value.id,gameId)
         setTimeout(()=>showRegister.value=false,3000)        
       }      
     }
@@ -62,8 +64,7 @@ export default {
       rate.value = computed(()=>Number(gameInfo.value.ratingUser.toFixed(2)))
     })
 
-    let gameId = route.query.gameId
-    let gameTitle = route.query.title
+
     function gotoPlay() {
       router.push({name:"GamePlusView"})
       store.dispatch("gamedetail/PlayGame", [gameTitle, gameId])
