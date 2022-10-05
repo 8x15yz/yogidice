@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="overflow:scroll">
   <div class="plus-backwall">
     <div class="before-card-list">
       <div class="choice-sentence text-headline-6"> 
@@ -107,6 +107,7 @@ export default {
 
 <style scoped>
 .plus-backwall {
+  height: 100vh;
   padding: 5vh 3vw;
 }
 .choice-sentence {
