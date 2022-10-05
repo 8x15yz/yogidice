@@ -27,6 +27,7 @@ export default {
     SET_SUB_GAMES: (state, games) => state.subGames.push(games),
     SET_SMALL_GAMES: (state, games) => (state.smallGames = games),
     ADD_SMALL_GAMES: (state, games) => state.smallGames.push(...games),
+    APPEND_SMALL_GAMES: (state, games) => state.smallGames.push(games),
     SET_SEARCH_RESULT: (state, result) => {
       state.searchResult = result;
     },
@@ -275,7 +276,7 @@ export default {
               playingTime: data.playingTime,
               difficulty: data.difficulty,
             };
-            commit("ADD_SMALL_GAMES",details)
+            commit("APPEND_SMALL_GAMES",details)
           })
           .catch((err)=>console.log(err))
           }
