@@ -59,7 +59,6 @@ export default {
       }      
     }
     onMounted(() => {
-      console.log(rate)
       rate.value = computed(()=>Number(gameInfo.value.ratingUser.toFixed(2)))
     })
 

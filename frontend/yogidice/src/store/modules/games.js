@@ -257,7 +257,6 @@ export default {
       })
       .then((res) => {
         commit('SET_SMALL_GAMES',res.data.responses)
-        console.log(res.data.responses)
       })
       .catch((err) => {
         console.log(err)

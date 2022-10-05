@@ -13,7 +13,6 @@
 
 <script>
 import { computed,getCurrentInstance } from 'vue'
-import { useRouter } from 'vue-router'
 import LongCardItems from "@/components/card/LongCardItems.vue"
 import { useStore } from 'vuex'
 
@@ -23,10 +22,7 @@ export default {
   },
   setup() {
     const store = useStore()
-    const router = useRouter()
-    const showDetail = function(game) {
-      router.push({name:"GameDetail", query:{"gameId":game.id, "title":game.titleKr}})
-    }
+
     
     let longGameLists = computed(()=>store.state.games.longGames)
     let showFailMsg = computed(()=>longGameLists.value.length===0)
@@ -55,7 +51,6 @@ export default {
     return {
       longGameLists,
       showFailMsg,
-      showDetail
     }
   }
 
