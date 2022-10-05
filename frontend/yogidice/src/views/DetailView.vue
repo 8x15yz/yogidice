@@ -205,7 +205,7 @@ export default {
 
 @keyframes load {
   0% { width: 0; }
-  100% { width: 68%; }
+  100% { width:  calc(v-bind ('userAndGame') * 1%); }
 }
 
 .detail-menu-bar {
