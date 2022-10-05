@@ -11,7 +11,7 @@
       <div id="pagination"></div>
     </div>
   </div>
-  <cafe-game-list v-show="showCafeGameList" @close-cafe-modal="clsoeCafeGameList"></cafe-game-list>
+  <cafe-game-list v-show="showCafeGameList" :name="cafeName" @close-cafe-modal="clsoeCafeGameList"></cafe-game-list>
 </template>
 
 <script>
@@ -25,6 +25,7 @@ export default {
   setup () {
   const store = useStore()
   let locPosition
+  let cafeName = ref('')
   let showCafeGameList = ref(false)
   let showSearchList = function () {
     let searchList = document.querySelector(".search-list-title")
@@ -237,6 +238,7 @@ export default {
         tmp1.addEventListener("click",function(){window.open(places.place_url)})
 
         const openCafeGameList = function () {
+          cafeName.value = places.place_name
           showCafeGameList.value = !showCafeGameList.value
           let address = places.road_address_name ? places.road_address_name : places.address_name
           console.log(address,typeof(address))

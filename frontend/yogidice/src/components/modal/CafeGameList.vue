@@ -1,7 +1,7 @@
 <template>
   <div class="cafe-games-box">
     <div @click="closeCafeGame" class="close-button"><span class="material-icons-outlined">close</span></div>
-    <div class="cafe-games-title text-headeline-6">의 보유 게임</div>
+    <div class="cafe-games-title text-headeline-6">{{ cafeName }}의 보유 게임</div>
     <hr>
     <div class="search-box">
       <search-bar></search-bar>
@@ -17,14 +17,18 @@
 <script>
 import SearchBar from '../SearchBar.vue'
 import SmallCardList from '@/components/card/SmallCardList.vue'
+import { toRef } from '@vue/reactivity'
 
 export default {
   components: { 
     SearchBar,
     SmallCardList
   },
+  props: {
+    name: String
+  },
   setup(props,{emit}){
-    let cafeName = ''
+    let cafeName = toRef(props.name)
     const closeCafeGame = function () {
       emit("closeCafeModal")
     }

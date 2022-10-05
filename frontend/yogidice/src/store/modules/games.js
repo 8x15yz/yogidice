@@ -260,6 +260,8 @@ export default {
         let result = res.data.responses
         let dump = []
         for (let i=0; i<result.length; i++){
+          console.log(result[i].gameId)
+          console.log(result,"오메")
           axios({
             url: api.games.detailEdit(result[i].gameId),
             method: "get",
