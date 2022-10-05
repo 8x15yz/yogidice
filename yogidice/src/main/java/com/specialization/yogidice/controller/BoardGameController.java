@@ -180,7 +180,6 @@ public class BoardGameController {
             if (boardGameService.mainRecommend(user.getId()).size() == 0) {
                 List<BookmarkResponse> bookmarkResponses = bookmarkService.readBookmarkListOfUser(user.getId());
                 if (!bookmarkResponses.isEmpty()) {
-                    System.out.println("리뷰 했지만 메인 추천이 0개 북마크 남김");
                     try {
                         List<BoardGameSimpleResponse> boardGames = boardGameService.recommendByBookmark(bookmarkResponses);
                         return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
@@ -191,13 +190,11 @@ public class BoardGameController {
                     return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
                 }
             }
-            System.out.println("리뷰를 3개 이상 남겨서 메인 추천이 0개가 아니다.");
             return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.mainRecommend(user.getId())));
         } else {
             //리뷰를 하지 않았다면
             List<BookmarkResponse> bookmarkResponses = bookmarkService.readBookmarkListOfUser(user.getId());
             if (!bookmarkResponses.isEmpty()) {
-                System.out.println("리뷰를 남기지 않았지만 북마크 남김");
                 try {
                     List<BoardGameSimpleResponse> boardGames = boardGameService.recommendByBookmark(bookmarkResponses);
                     return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
@@ -239,7 +236,6 @@ public class BoardGameController {
             }
             List<BoardGameSimpleResponse> boardGames = boardGameService.detailRecommend(boardGameIds);
 
-//            for(BoardGame b : boardGames) System.out.println(b.getTitleKr());
             return ResponseEntity.status(HttpStatus.OK).body(BoardGameSimpleListResponse.of(200, "Success", boardGames));
         } catch (JsonProcessingException e) {
             return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));

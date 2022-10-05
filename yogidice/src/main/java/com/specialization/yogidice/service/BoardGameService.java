@@ -270,7 +270,6 @@ public class BoardGameService {
 
         //여기서 메카니즘 대분류 필터링
         for (int i = responses.size() - 1; i >= 0; i--) {
-            System.out.println(responses.size());
             if (!MechanismClassifier.checkMechanism(request.getQuestion3(), responses.get(i))) {
                 responses.remove(i);
             }
@@ -312,9 +311,6 @@ public class BoardGameService {
                     break;
                 }
             }
-        }
-        for (BoardGame board : boardGames) {
-            System.out.println(board.getTitleKr());
         }
         if (boardGames.isEmpty()) {
             throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
