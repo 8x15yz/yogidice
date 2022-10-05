@@ -4,7 +4,7 @@
       <Radar
         :chart-options="chartOptions"
         :chart-data="chartData"
-        style="height: 300px; width: 340px;"
+        style="height: 300px; width: 300px;"
       />
     </div>
   </div>
