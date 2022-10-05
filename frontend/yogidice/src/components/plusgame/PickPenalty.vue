@@ -23,13 +23,6 @@ export default {
 		let charMap
 		let breaks
 		let endSpeed
-	
-		function play(sound) {
-            if (sound) {
-                var audio = new Audio(sound);
-                audio.play();
-            } 
-    }
 
 		onMounted(()=>{
 
@@ -115,12 +108,10 @@ export default {
 				btn.addEventListener("click",function (){
 					setInit()
 					loop()
-					play("http://soundbible.com/mp3/Maniacal Witches Laugh-SoundBible.com-262127569.mp3")
 				
 			})
 			});
 		return {
-			play
 		}
 	}
 

@@ -11,13 +11,6 @@ import { onMounted,ref } from '@vue/runtime-core'
 export default {
   setup(){
     let test = ref(false)
-    function play(sound) {
-            if (sound) {
-                var audio = new Audio(sound);
-                audio.play();
-            } 
-    }
-
     onMounted(()=>{
       const board = document.querySelector(".tab-container")
       const choiceFirstPlayer = function () {
@@ -34,7 +27,6 @@ export default {
 
             if (navigator.vibrate) {
               navigator.vibrate(500); // 진동을 울리게 한다. 1000ms = 1s 이다.
-              play("http://soundbible.com/mp3/Ta Da-SoundBible.com-1884170640.mp3")
             } 
           }
         }
@@ -87,7 +79,6 @@ export default {
    })
    return {
     test,
-    play
    }
   }
 
