@@ -131,12 +131,11 @@
         <!-- 워드클라우드 / 플레이 / 리뷰 / 북마크 상세 들어갈 곳 -->
         <div class="mypage-bottom-container">
             <div v-if="mainview">
-                <div style="height: 500px;"></div>
+                <!-- <div style="height: 500px;"></div> -->
                 <ber-chart :lengamecategory="lengamecategory" ></ber-chart>
                 <!-- <div style="height: 100px;">
                     {{nickName}} 님이 요즘 하고있는 
                 </div> -->
-                <word-cloud></word-cloud>
             </div>
             <mypage-play 
             :userplaygames="userplaygames" 
@@ -169,7 +168,6 @@ import { ref, computed} from 'vue'
 import axios from 'axios'
 import { useStore } from 'vuex'
 
-import WordCloud from '../components/WordCloud.vue';
 import BerChart from '../components/BerChart.vue';
 import MypageReview from '../components/MypageReview.vue';
 import MypageBookmark from '../components/MypageBookmark.vue';
@@ -180,7 +178,6 @@ import ReviewModal from '@/components/modal/ReviewModal.vue';
 
 export default {
     components: {
-    WordCloud,
     MypageReview,
     MypageBookmark,
     MypagePlay,

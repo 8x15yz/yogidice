@@ -33,8 +33,6 @@
     <div class="detail-page">
       <game-introduce 
       @OpenmecModal="OpenmecModal"
-      :gamemec="gamemec"
-      :gametheme="gametheme"
       ></game-introduce> 
       <game-review></game-review>
       <game-related></game-related>
@@ -69,17 +67,21 @@ export default {
     let gameTitle = route.query.title
     store.dispatch("games/resetMainGames")
     store.dispatch("games/getDetailRecommend",gameId)
-    store.dispatch("games/getDetails",gameId)
+    
 
   // 모달로직
     const infomodal = ref(false);
-    let detaildatum = computed(()=>store.state.games.detail)
+    
+    
+
     const mecDisc = ref('')
     const mecName = ref('')
     function OpenmecModal(mecId) {
       infomodal.value = true
+      let detaildatum = computed(()=>store.state.games.detail)
+      console.log('이거', detaildatum.value.id, gameId)
       for (let mec of detaildatum.value.mechanismGroupResponses) {
-        console.log(mecId, mec, detaildatum.value.id)
+        // console.log(mecId, mec, detaildatum.value.id)
         if (mec.mechanismId == mecId) {
           mecDisc.value = mec.description
           mecName.value = mec.mechanismName
@@ -88,9 +90,7 @@ export default {
     }
   // 모달로직
 
-  let gamemec = detaildatum.value.mechanismGroupResponses
-  let gametheme = detaildatum.value.categoryGroupResponses
-  console.log('dlrj', detaildatum)
+  
 
 
   // 케미로직
@@ -130,8 +130,6 @@ export default {
     // 유저 부분
     let nickName = computed(()=>store.state.myuser.nickName)
     return {
-      gamemec, 
-      gametheme, 
       gameTitle,
       nickName,
       infomodal,
@@ -139,7 +137,6 @@ export default {
       mecDisc,
       mecName,
       userAndGame,
-      detaildatum
     }
   }
 
