@@ -26,12 +26,12 @@
     <div class="each-question">
       <div class="question-sentence">원하는 게임 타입을골라주세요!</div>
       <div class="answer answer-three">
-        <div>조건이 뭐시당가</div>
-        <div>말을<br>이동하며<br>플레이</div>
-        <div>팀을<br>꾸려서<br>플레이</div>
-        <div>전략을<br>통한<br>플레이</div>
-        <div>경매,경영<br>등의<br>자산관리</div>
-        <div>추리, 카드, 퍼즐 게임</div>
+        <div>특이한 <br>규칙을 가진<br> 게임</div>
+        <div>말을 <br>움직이는<br> 게임</div>
+        <div>팀을 이루어 <br>협동하는<br>게임</div>
+        <div>치밀한 <br>전략을 세워<br>승리하는<br> 게임</div>
+        <div>경제 지식을<br>활용하는 <br>게임</div>
+        <div>단서를 통해<br> 정답을<br> 찾아가는<br> 게임</div>
       </div>
       <div class="go-to-back"> 뒤로가기 </div>
     </div>
