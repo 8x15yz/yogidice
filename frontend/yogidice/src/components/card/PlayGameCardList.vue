@@ -78,7 +78,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #small-game-card-container {
   display: flex;
   justify-content: flex-start;
@@ -107,6 +107,7 @@ export default {
 #last-card-line {
   width: 90vw;
   border-width: 0px;
+  margin-top:-2vh
 }
 
 </style>
