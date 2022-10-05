@@ -55,7 +55,7 @@
     <!-- game 페이지 -->
     <div id="wrap-game-back" style="background-color:rgb(107, 107, 107)">
         <div class="game-ing"><span style="width: 70vw;">{{playnowname}} 게임중</span>  <span style="width: 5vw;" @click="ExitGame" ><i class="fas fa-times" ></i></span></div>
-        <div style="padding-top: 4vh;height:80vh; background-color:var(--color-bg-base);">
+        <div style="padding-top: 4vh;height:70vh; background-color:var(--color-bg-base);">
             <game-clock v-if="clock"></game-clock>
             <pick-penalty v-if="bomb"></pick-penalty>
             <pick-tagger v-if="person"></pick-tagger>

@@ -15,6 +15,7 @@ export default {
     likePMecMax: "보드게임",
     rearrangemeca: [],
     userreview: 0,
+    chemi: 0
   }),
   getters: {
     authHeader: (state) => ({
@@ -36,6 +37,7 @@ export default {
     USER_REVIEW: (state) => (state.userreview += 1),
     USER_REVIEW_RESET: (state) => (state.userreview = 0),
     LIKE_P_MEC_MAX: (state, gname) => (state.likePMecMax = gname),
+    CHEMI: (state, chemi) => (state.chemi = chemi),
   },
   actions: {
     GetUserInfo({ getters, commit }) {
@@ -120,5 +122,18 @@ export default {
           console.log(err);
         });
     },
+    userAndGame({commit, getters}, gameId) {
+        axios({
+            url: api.gameInfo.userandgame(gameId),
+            method: "get",
+            headers: getters.authHeader
+        })
+        .then((res) => {
+            console.log(res.data)
+            commit('CHEMI', res.data.response)
+        })
+        .catch((err) => {console.log(err)});
+    }
+
   },
 };

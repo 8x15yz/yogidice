@@ -2,7 +2,7 @@
     <div class="my-bookmark-tag">
         <div v-for="game in games" :key="game.key" @click="showDetail(game)">
             <img class="smallImg" @click="selectImg" :src='game.thumbUrl' alt="">
-            <p class="text-subtitle-2">{{ game.gameTitle }}</p>
+            <p class="text-subtitle-2" style="width: 25vw;">{{ game.gameTitle }}</p>
         </div>
     </div>
 </template>
