@@ -33,13 +33,18 @@ export default {
     SET_LONG_GAMES: (state, games) => (state.longGames = games),
     ADD_LONG_GAMES: (state, games) => state.longGames.push(games),
     SET_TYPE: (state, type) => (state.presentType = type),
+    RESET_SELECTED_GAMES: (state) => (state.selectedGames = []),
     RESET_GAMES: (state) => (state.mainGames = []),
     RESET_SUB_GAMES: (state) => (state.subGames = []),
     RESET_SMALL_GAMES: (state) => (state.smallGames = []),
     RESET_LONG_GAMES: (state) => (state.longGames = []),
-    ADD_SELECTED_GAMES: (state, gameId) => state.selectedGames.push(gameId),
+    ADD_SELECTED_GAMES: (state, gameId) => (state.selectedGames.push(gameId)),
+    SET_SELECTED_GAMES: (state, gameId) => (state.selectedGames = [gameId]),
     REMOVE_SELECTED_GAMES: (state, gameId) => {
-      state.selectedGames.splice(state.selectedGames.indexOf(gameId), 1);
+      if (state.selectedGames.indexOf(gameId) !== -1 ) {
+        console.log("으엑")
+        state.selectedGames.splice(state.selectedGames.indexOf(gameId), 1);
+      }
     },
   },
   actions: {
@@ -248,8 +253,14 @@ export default {
     addSelectedGames({ commit }, gameId) {
       commit("ADD_SELECTED_GAMES", gameId);
     },
+    setSelectedGames({ commit }, gameId) {
+      commit("SET_SELECTED_GAMES", gameId);
+    },
     removeSelectedGames({ commit }, gameId) {
       commit("REMOVE_SELECTED_GAMES", gameId);
+    },
+    resetSelectedGames({ commit }, gameId) {
+      commit("RESET_SELECTED_GAMES", gameId);
     },
     resetMainGames({ commit }) {
       commit("RESET_GAMES");

@@ -12,13 +12,13 @@
                     <div class="review-modal-inner">
                         <div>
                             <div class="rating-comment">플레이하신 {{playgame}}에 대해 리뷰를 남겨주세요!</div>
-                            <div class="star-rating-wrap">
-                                <div class="star-rating">
+                            <div class="stars-rating-wrap">
+                                <div class="stars-rating">
                                     ★★★★★
                                     <span>★★★★★</span>
-                                    <input type="range" v-model="star" step="1" min="0" max="10">
+                                    <input type="range" v-model="stars" step="1" min="0" max="10">
                                 </div>
-                                <div class="star-rating-point">{{star}}점</div>
+                                <div class="stars-rating-point">{{stars}}점</div>
                             </div>
                             
                             <textarea class="review-modal-inner-textarea" v-model="gamereviewtext"></textarea>
@@ -61,7 +61,7 @@ export default {
     setup(props) {
         const { emit } = getCurrentInstance();
         const store = useStore()
-        const star = ref(1)
+        const stars = ref(1)
         const playgame = reactive(props.reviewId[1])
         const gamereviewtext = ref('')
         const reviewform = ref(true)
@@ -73,10 +73,10 @@ export default {
                 reviewform.value = false
                 
                 store.dispatch("myuser/SendReview", [{
-                        "rating": star.value,
+                        "rating": stars.value,
                         "review": gamereviewtext.value
                     }, props.reviewId[0]])
-                // console.log(gamereviewtext.value, star.value) // 리뷰 데이터 받아왔음
+                // console.log(gamereviewtext.value, stars.value) // 리뷰 데이터 받아왔음
                 setTimeout(() => {
                     emit('CloseReviewModal')
                     reviewform.value = true
@@ -84,7 +84,7 @@ export default {
             }
         }
         return {
-            star,
+            stars,
             playgame,
             gamereviewtext,
             submitReview,
@@ -110,23 +110,23 @@ export default {
     margin-bottom: 5px; 
     font-size: 4vw;
 }
-.star-rating-wrap {
+.stars-rating-wrap {
     display:flex; 
     justify-content: center;
 }
-.star-rating-point {
+.stars-rating-point {
     margin: 10px;
     font-size: 6vw;
     color: rgb(0, 0, 0);
 }
-.star-rating {
+.stars-rating {
     position: relative;
     font-size: 8vw;
     color: #ddd;
     margin-bottom: 15px; 
   }
   
-  .star-rating > input {
+  .stars-rating > input {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -135,8 +135,8 @@ export default {
     cursor: pointer;
   }
   
-  .star-rating > span {
-    width: calc(v-bind ('star') * 10%);
+  .stars-rating > span {
+    width: calc(v-bind ('stars') * 10%);
     /* width:  50%; */
     position: absolute; 
     left: 0;

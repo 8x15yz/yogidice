@@ -7,7 +7,6 @@ import SignupView from "@/views/SignupView.vue";
 import KakaoLoginView from "@/views/KakaoLoginView.vue";
 import BerChart from "@/components/BerChart.vue";
 import RegistNickName from "@/components/intro/RegistNickName.vue";
-import WordCloud from "../components/WordCloud.vue";
 import InitChoice from "@/views/InitChoice.vue";
 import MypageView from "@/views/MypageView.vue";
 import MainPageView from "@/views/MainPageView.vue";
@@ -21,6 +20,7 @@ import BoardBgLayout from "@/layouts/BoardBgLayout.vue"
 import PickView from "@/views/PickView.vue"
 import PickQuestionView from "@/views/PickQuestionView.vue"
 import FilteringResView from "@/views/FilteringResView.vue"
+import EnterPlusGameView from "@/views/EnterPlusGameView.vue"
 
 
 // Vue.use(VueRouter);
@@ -35,11 +35,6 @@ const routes = [
     path: "/BerChart",
     name: "BerChart",
     component: BerChart,
-  },
-  {
-    path: "/WordCloud",
-    name: "WordCloud",
-    component: WordCloud,
   },
   {
     path: "/MyPage",
@@ -115,6 +110,17 @@ const routes = [
     path: '/plusgame',
     name: 'GamePlusView',
     component: GamePlusView,
+  },
+  {
+    path: "/plus",
+    component: GreyBgHeadBar,
+    children: [
+      {
+        path: "",
+        name: 'ChoicePlusGame',
+        component: EnterPlusGameView
+      },
+    ],
   },
   {
     path: "/pick",

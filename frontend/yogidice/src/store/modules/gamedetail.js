@@ -5,23 +5,40 @@ export default {
     namespaced: true,
 
     state: () => ({
+        detail:{},
+        token: localStorage.getItem("token"),
         lengamecategory: [0, 0, 0, 0, 0, 0],
-        detail: {},
         gamemec: [],
         mecDisc: '',
-        mecName: ''
+        mecName: '',
+        playnowname: '',
+        playnowid: '',
+        playnoehistoryid: '',
+        notting:0,
     }),
-    getters: {},
+    getters: {
+        authHeader: (state) => ({
+            Authorization: `Bearer ${state.token}`,
+            "Content-type": "Application/JSON",
+            }),
+        playnowid: (state) => state.playnowid,
+    },
     mutations: {
+        DETAIL_RESET: (state) => (state.detail = {}),
         SET_DETAIL: (state, details) => (state.detail = details),
         LIKE_P_MEC: (state, gid) => (state.lengamecategory[gid] += 1),
         LIKE_P_MEC_RESET: (state) => (state.lengamecategory = [0, 0, 0, 0, 0, 0]),
         GAME_MECHA: (state, gameinfo) => (state.gamemec.push(gameinfo)),
         GAME_MECHA_RESET: (state) => (state.gamemec = []),
 
+        NOTTING: (state) => (state.notting = 0),
 
         GAME_MEC_DISC: (state, info) => (state.mecDisc = info),
-        GAME_MEC_NAME: (state, info) => (state.mecName = info)
+        GAME_MEC_NAME: (state, info) => (state.mecName = info),
+
+        PLAY_GAME_NAME: (state, game) => (state.playnowname = game),
+        PLAY_GAME_ID: (state, game) => (state.playnowid = game),
+        PLAY_GAME_HIS_ID: (state, game) => (state.playnoehistoryid = game),
     },
     actions: {
         getLengames({commit}, gameId) {
@@ -55,7 +72,40 @@ export default {
                 commit('GAME_MEC_DISC', res.data.description)
                 commit('GAME_MEC_NAME', res.data.name)
             })
+            .catch((err) => {console.log(err)})
         },
-        
+        PlayGame({commit, getters}, GData) {
+            commit('PLAY_GAME_NAME', GData[0])
+            commit('PLAY_GAME_ID', GData[1])
+            axios({
+                url: api.users.history(),
+                method: "post",
+                headers: getters.authHeader,
+                data: {
+                    "gameId": GData[1]
+                  }
+              })
+              .then((res) => {
+                console.log(res.data.id)
+                commit('PLAY_GAME_HIS_ID', res.data.id)
+            })
+              .catch((err) => {console.log(err)})
+        },
+        ExitGame({commit, getters}) {
+            console.log(getters.playnowid)
+            commit('NOTTING')
+        },
+        getDetails({ commit }, gameId) {
+            
+            axios({
+              url: api.games.detailEdit(gameId),
+              method: "get",
+            })
+              .then((res) => {
+                console.log("성공", res.data);
+                commit("SET_DETAIL", res.data);
+              })
+              .catch((err) => console.log(err));
+          },
     }
 }

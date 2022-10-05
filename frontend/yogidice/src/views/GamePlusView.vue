@@ -5,57 +5,119 @@
     </div>
     <!-- navigation bar -->
 
+    <!-- 리뷰받는 모달폼 -->
+    <div class="my-game-review-bg" v-if="reviewformouter">
+        <div class="review-modal-form" v-if="reviewform">
+            <div class="review-modal-form-inner">
+                <div class="review-modal-title">
+                    <span>리뷰</span>
+                    <span style="margin-right: 20px;"><i class="fas fa-times" @click="reviewformouter = false"></i></span>
+                </div>
+                <div class="rmi-displayflex">
+                    <div class="review-modal-inner">
+                        <div>
+                            <div class="rating-comment">플레이하신 {{playnowname}}에 대해 리뷰를 남겨주세요!</div>
+                            <div class="star-rating-wrap">
+                                <div class="star-rating">
+                                    ★★★★★
+                                    <span>★★★★★</span>
+                                    <input type="range" v-model="star" step="1" min="0" max="10">
+                                </div>
+                                <div class="star-rating-point">{{star}}점</div>
+                            </div>
+                            
+                            <textarea class="review-modal-inner-textarea" v-model="gamereviewtext"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="rmi-displayflex">
+                    <div class="review-modal-bottom"> 
+                        <div class="im-not-play-this-game">게임을 플레이하지 않았습니다</div>
+                        <div class="review-modal-btn-wrap">
+                            
+                            <div class="review-submit" @click="submitReview">등록</div>
+                            <div class="review-revoke" @click="reviewformouter = false">취소</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 작성완료 확인모달 -->
+        <div class="modal-review-submitted" v-if="!reviewform">
+            <p style="font-weight: bold;">리뷰가 등록되었습니다 😄</p>
+        </div>
+        <!-- 작성완료 확인모달 -->
+        
+    </div>
+    <!-- 리뷰받는 모달폼 -->
+
     <!-- game 페이지 -->
-    <div id="wrap-game-back">
-        <div class="game-ing">{{클루}} 클루 게임중</div>
-        <div>
+    <div id="wrap-game-back" style="background-color:rgb(107, 107, 107)">
+        <div class="game-ing"><span style="width: 70vw;">{{playnowname}} 게임중</span>  <span style="width: 5vw;" @click="ExitGame" ><i class="fas fa-times" ></i></span></div>
+        <div style="padding-top: 4vh;height:60vh; background-color:var(--color-bg-base);">
             <game-clock v-if="clock"></game-clock>
             <pick-penalty v-if="bomb"></pick-penalty>
             <pick-tagger v-if="person"></pick-tagger>
             <rolling-dice v-if="dice"></rolling-dice>
         </div>
-    </div>
-    <!-- game 페이지 -->
-
-    
-    
-    <!-- game 메뉴하단바 -->
-    <div style="position:absolute; bottom: 0px;">
-    <div class="speech-bubble" v-if="submenu">
-        <div :class="{'bubble-tip-selected': info == true, 'bubble-tip-unsel': info == false}" @click="subMenuBtn('info')"><i class="fas fa-info-circle"></i></div>
-        <div :class="{'bubble-tip-selected': youtub == true, 'bubble-tip-unsel': youtub == false}" @click="subMenuBtn('youtub')"><i class="fas fa-play-circle"></i></div>
-        <div :class="{'bubble-tip-selected': memo == true, 'bubble-tip-unsel': memo == false}" @click="subMenuBtn('memo')"><i class="fas fa-pencil-alt"></i></div>
-        <div :class="{'bubble-tip-selected': file == true, 'bubble-tip-unsel': file == false}" @click="subMenuBtn('file')"><i class="fas fa-folder"></i></div>
-    </div>
-    <div id="game-menu-circle" @click="submenu = !submenu"><i class="fas fa-plus"></i></div>
-        <div id="game-menu-bottom">
-            <div  :class="{'game-menu-btn game-menu-selected': dice == true, 'game-menu-btn game-menu-unsel': dice == false}">
-                <div @click="subMenuBtn('dice')">
-                    <div class="gmb-df ">🎲</div>
-                    <div>주사위</div>
-                </div>
+        <div class="bottom-box">
+            <!-- <div style="position:absolute; bottom: 0px;"> -->
+            <div class="speech-bubble" v-if="submenu">
+                <div :class="{'bubble-tip-selected': info == true, 'bubble-tip-unsel': info == false}" @click="subMenuBtn('info')"><i class="fas fa-info-circle"></i></div>
+                <div :class="{'bubble-tip-selected': youtub == true, 'bubble-tip-unsel': youtub == false}" @click="subMenuBtn('youtub')"><i class="fas fa-play-circle"></i></div>
+                <div :class="{'bubble-tip-selected': memo == true, 'bubble-tip-unsel': memo == false}" @click="subMenuBtn('memo')"><i class="fas fa-pencil-alt"></i></div>
+                <div :class="{'bubble-tip-selected': file == true, 'bubble-tip-unsel': file == false}" @click="subMenuBtn('file')"><i class="fas fa-folder"></i></div>
             </div>
-            <div :class="{'game-menu-btn right-border game-menu-selected': person == true, 'game-menu-btn right-border game-menu-unsel': person == false}">
-                <div @click="subMenuBtn('person')">
-                    <div class="gmb-df">🎲</div>
-                    <div>술래</div>
+            <div id="game-menu-circle" @click="submenu = !submenu"><i class="fas fa-plus"></i></div>
+            <div id="game-menu-bottom">
+                <div  :class="{'game-menu-btn game-menu-selected': dice == true, 'game-menu-btn game-menu-unsel': dice == false}">
+                    <div @click="subMenuBtn('dice')">
+                        <div class="gmb-df ">🎲</div>
+                        <div>주사위</div>
+                    </div>
                 </div>
-            </div>
-            <div class="game-menu-center"></div>
-            <div :class="{'game-menu-btn left-border game-menu-selected': clock == true, 'game-menu-btn left-border game-menu-unsel': clock == false}">
-                <div @click="subMenuBtn('clock')">
-                    <div class="gmb-df">🎲</div>
-                    <div>타이머</div>
+                <div :class="{'game-menu-btn right-border game-menu-selected': person == true, 'game-menu-btn right-border game-menu-unsel': person == false}">
+                    <div @click="subMenuBtn('person')">
+                        <div class="gmb-df">🎲</div>
+                        <div>술래</div>
+                    </div>
                 </div>
-            </div>
-            <div :class="{'game-menu-btn game-menu-selected': bomb == true, 'game-menu-btn game-menu-unsel': bomb == false}">
-                <div @click="subMenuBtn('bomb')">
-                    <div class="gmb-df">🎲</div>
-                    <div>벌칙</div>
+                <div class="game-menu-center"></div>
+                <div :class="{'game-menu-btn left-border game-menu-selected': clock == true, 'game-menu-btn left-border game-menu-unsel': clock == false}">
+                    <div @click="subMenuBtn('clock')">
+                        <div class="gmb-df">🎲</div>
+                        <div>타이머</div>
+                    </div>
+                </div>
+                <div :class="{'game-menu-btn game-menu-selected': bomb == true, 'game-menu-btn game-menu-unsel': bomb == false}">
+                    <div @click="subMenuBtn('bomb')">
+                        <div class="gmb-df">🎲</div>
+                        <div>벌칙</div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="alpha-box alpha-box-info" v-show="info">
+            <div @click="closeSubMenuBtn('sub')" class="close-button"><span class="material-icons-outlined">close</span></div>
+            <div class="text-headline-6">{{playnowname}} 설명서</div>
+        </div>
+        <div class="alpha-box alpha-box-youtub" v-show="youtub">
+            <related-videos :videoIds="videoIds" @close-video="closeSubMenuBtn('sub')"></related-videos>
+        </div>
+        <div class="alpha-box alpha-box-memo" v-show="memo">
+            <div @click="closeSubMenuBtn('sub')" class="close-button"><span class="material-icons-outlined">close</span></div>
+            <div>메모장</div>
+            <br>
+            <textarea name="playing-memo" placeholder="메모할 내용을 입력하세요" id="" rows="10"></textarea>
+        </div>
+        <div class="alpha-box alpha-box-file" v-show="file">
+            <div @click="closeSubMenuBtn('sub')" class="close-button"><span class="material-icons-outlined">close</span></div>
+            <h3> 관련 파일이 없습니다 </h3>
+        </div>
     </div>
+
+    
 
     
 </template>
@@ -66,7 +128,12 @@ import GameClock from '@/components/plusgame/GameClock.vue';
 import PickPenalty from '@/components/plusgame/PickPenalty.vue';
 import PickTagger from '@/components/plusgame/PickTagger.vue';
 import RollingDice from '@/components/plusgame/RollingDice.vue';
-import { ref } from '@vue/runtime-core'
+import RelatedVideos from '@/components/plusgame/RelatedVideos.vue'
+// import gameReviewModal from '@/components/modal/gameReviewModal.vue';
+
+import axios from "axios";
+import { ref, computed, reactive } from '@vue/runtime-core'
+import { useStore } from 'vuex'
 
 export default {
     components: {
@@ -74,9 +141,13 @@ export default {
         GameClock,
         PickPenalty,
         PickTagger,
-        RollingDice
+        RollingDice,
+        RelatedVideos
+        // gameReviewModal
     },
     setup() {
+        const store = useStore()
+
         const submenu = ref(false);
         const dice = ref(false);
         const person = ref(false);
@@ -86,6 +157,10 @@ export default {
         const youtub = ref(false);
         const memo = ref(false);
         const file = ref(false);
+        const gamereviewtext = ref('')
+
+        const reviewform = ref(true)
+        const reviewformouter = ref(false)
 
         const subMenuBtn = function(option) { 
             if (option == 'dice') {
@@ -125,6 +200,8 @@ export default {
                 memo.value = false
                 file.value = false
                 submenu.value = !submenu.value
+                callVideos()
+                
             }
             else if (option == 'memo') {
                 info.value = false
@@ -155,6 +232,67 @@ export default {
                 file.value = false
             }
         }
+        let playnoehistoryid = reactive(0)
+        function submitReview() {
+            if (gamereviewtext.value == "") {
+                window.alert('리뷰를 작성하고 제출해주세요')
+            }
+            else {
+                reviewform.value = false
+                // console.log(gamereviewtext.value, star.value, playgame.value, '들꽃')
+                store.dispatch("myuser/SendReview", [{
+                    "rating": star.value,
+                    "review": gamereviewtext.value
+                }, playnoehistoryid.value])
+                setTimeout(() => {
+                    reviewform.value = true
+                    reviewformouter.value = false
+                    }, 1500);
+            }
+        }
+        let videoIds = reactive([])
+        const callVideos = function () {
+            if (playnowname.value !== ""){
+                axios({
+                url: "https://www.googleapis.com/youtube/v3/search",
+                method: "get",
+                params: {
+                    key:"AIzaSyDfN3PYabbgHgso6PPs9j7gEzPSNfK6AO8",
+                    part:"snippet",
+                    q:`${playnowname.value}설명`,
+                }})
+                .then((res)=>{
+                    for (let i=0; i<5; i++) {
+                    let tmp = `https://www.youtube.com/embed/${res.data.items[i].id.videoId}`
+                    videoIds.push(tmp)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+                }
+            else {
+                videoIds = reactive([])
+            }
+            }
+
+        let playnowname = computed(()=>{
+            if (store.state.gamedetail.playnowname==="게임미선택") {
+                return ""
+            } else {
+                return store.state.gamedetail.playnowname
+            }
+        })
+        function ExitGame() {
+            reviewformouter.value = true
+            store.dispatch("gamedetail/ExitGame")
+            playnoehistoryid = computed(()=>store.state.gamedetail.playnoehistoryid)
+            // console.log(playgame)
+            // store.dispatch("myuser/SendReview")
+        }
+        const star = ref(1)
+
+
 
         return {
             submenu,
@@ -167,13 +305,64 @@ export default {
             info,
             youtub,
             memo,
-            file
+            file,
+            playnowname,
+            ExitGame,
+            star,
+            reviewform,
+            submitReview,
+            reviewformouter,
+            gamereviewtext,
+            videoIds
         }
     }
 }
 </script>
 
 <style>
+.star-rating-wrap {
+    display:flex; 
+    justify-content: center;
+}
+.star-rating-point {
+    margin: 10px;
+    font-size: 6vw;
+    color: rgb(0, 0, 0);
+}
+.star-rating {
+    position: relative;
+    font-size: 8vw;
+    color: #ddd;
+    margin-bottom: 15px; 
+  }
+  
+  .star-rating > input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .star-rating > span {
+    width: calc(v-bind ('star') * 10%);
+    /* width:  50%; */
+    position: absolute; 
+    left: 0;
+    color: rgb(255, 239, 19);
+    overflow: hidden;
+    pointer-events: none;
+  }
+.my-game-review-bg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-bg-modal);
+    display: flex;
+    justify-content: center;
+    z-index: 8;
+}
 .bubble-tip-unsel {
     height: 27px;
     width: 40px;
@@ -220,6 +409,7 @@ export default {
     padding-bottom: 10px;
     display: flex;
     justify-content: space-evenly;
+    z-index: 100;
 }
 .speech-bubble:after {
 	content: '';
@@ -237,7 +427,7 @@ export default {
 }
 #wrap-game-back {
   width: 100vw;
-  height: 83vh;
+  height: 94vh;
   background-color: var(--color-bg-base);
   overflow: scroll;
 }
@@ -245,7 +435,7 @@ export default {
     height: 10vh;
     background-color: rgb(107, 107, 107);
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     font-weight: bold;
     color: white;
@@ -260,7 +450,7 @@ export default {
     font-weight: bold;
     color: white;
     font-size: 5vw;
-    position: sticky;
+    position: relative;
 }
 
 .game-menu-center {
@@ -288,7 +478,7 @@ export default {
     z-index: 3;
     position: absolute;
     left: 50%;
-    bottom: 53px;
+    bottom: 20px;
     transform: translate(-50%);
     background-color: rgb(107, 107, 107);
     box-shadow: 0px 2px 1px 2px rgba(0, 0, 0, 0.2);
@@ -300,6 +490,29 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10vw;
 }
+.bottom-box{    
+    margin-bottom:10vh;
+    position: relative;
+}
+.alpha-box {
+    width: 80vw;
+    height: 60vh;
+    background-color: var(--color-white);
+    position: absolute;
+    top:20vh;
+    margin-left: 5vw;
+    padding: 5vh 5vw;
+    border-radius: 10px;
+    box-shadow: 0px 24px 16px rgba(0, 0, 0, 0.15);
+    overflow: scroll;
+}
+  textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+  }
+
 
 </style>

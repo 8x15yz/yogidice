@@ -31,11 +31,12 @@
 </template>
 
 <script>
+import axios from 'axios'
 import BerChart from '../BerChart.vue'
 import ModalDialog from '@/components/modal/ModalDialog.vue'
 import { useStore } from 'vuex'
 import { useRoute } from "vue-router"
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 export default {
   components: { 
@@ -45,31 +46,27 @@ export default {
   emits:[
     'OpenmecModal',
   ],
-  props: {
-    gametheme: Array , 
-    gamemec: Array,
-    detaildatum: Object
-  },
-  setup(props) {
-    console.log('dlrjssm', props.detaildatum)
+  setup() {
   const route = useRoute()
   const store = useStore()
-  // let showModal = computed(()=>store.state.modal.showModal)
-  // let contents = reactive({
-  //   'modalType':'',
-  //   'nextPage': '',
-  //   'header':'',
-  //   'body':'',
-  //   'footer1': '',
-  //   'footer2': '',
-  // })
-  // const describeType = function (event) {
-  //   contents.modalType = 'onlyContent'
-  //   contents.header = event.target.innerText
-  //   contents.body = "게임 타입에 대한 설명 주룩주룩"
-  //   store.commit("changeModal") 
-  // }
+
+  const gametheme = ref([])
+  const gamemec = ref([])
+
+
   let gameId = route.query.gameId
+  onMounted(() => {
+    axios({
+              url: `https://yogidice.site/api/games/${gameId}`,
+              method: "get",
+            })
+              .then((res) => {
+                gamemec.value = res.data.mechanismGroupResponses
+                gametheme.value = res.data.categoryGroupResponses
+              })
+    
+  })
+
   store.dispatch("gamedetail/getLengames", gameId)
   let lengamecategory = computed(()=>store.state.gamedetail.lengamecategory)
 
@@ -79,6 +76,8 @@ export default {
     // contents,
     // describeType,
     lengamecategory,
+    gametheme,
+    gamemec
   }
   
 }

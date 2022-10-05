@@ -1,6 +1,8 @@
 <template>
   <div class="detail-card-container" :style="backImgUrl">
     <div class="detail-game-info">
+      <span class="material-icons bookmark-icon" v-show="!isGameinBookMark" @click="registerBookMark">bookmark_border</span>
+      <span class="material-icons bookmark-icon bookmarked" v-show="isGameinBookMark" @click="registerBookMark">bookmark</span>
       <div class="chip-rating">
         <div class="detail-game-chip-container">
           <div>{{`${gameInfo.minPlayers} ~ ${gameInfo.maxPlayers}인`}}</div>
@@ -11,18 +13,25 @@
       </div>
       <div class="detail-game-title text-headline-6">{{ gameInfo.titleKr }}</div>
       <hr style="width:100%">
-      <button class="button-long-blue text-button">게임하러 가기</button>
+      <button class="button-long-blue text-button" @click="gotoPlay">게임하러 가기</button>
     </div>
+    
   </div>
 </template>
 
 <script>
 import { ref, computed, onMounted } from '@vue/runtime-core'
 import { useStore } from 'vuex'
+import { useRoute } from "vue-router"
+import { useRouter } from 'vue-router'
+
 export default {
 
   setup() {
     const store = useStore()
+    const route = useRoute()
+    const router = useRouter()
+
     let rate = ref(0)
     let gameInfo = computed(()=>store.state.games.detail)
     let backImgUrl = computed(()=>{
@@ -30,11 +39,37 @@ export default {
         "background-image": `url(${gameInfo.value.thumbUrl})`
       }
     })
+  
+    let myBookMarks = computed(()=>(store.state.user.myBookMark).map(mark=>mark.gameId))
+    let isGameinBookMark = computed(()=>myBookMarks.value.includes(gameInfo.value.id))
+    let detailId = gameInfo.value.id
+  
+
+    let showRegister = ref(false)
+    const registerBookMark = function () {
+      if (isGameinBookMark.value === true) {
+        store.dispatch("user/deleteBookMark",detailId)
+
+      } else {
+        showRegister.value = true
+        //북마크 등록 api
+        store.dispatch("user/registBookMark",detailId)
+        console.log(detailId)
+        setTimeout(()=>showRegister.value=false,3000)        
+      }      
+    }
     onMounted(() => {
       console.log(rate)
       rate.value = computed(()=>Number(gameInfo.value.ratingUser.toFixed(2)))
     })
-    
+
+    let gameId = route.query.gameId
+    let gameTitle = route.query.title
+    function gotoPlay() {
+      router.push({name:"GamePlusView"})
+      store.dispatch("gamedetail/PlayGame", [gameTitle, gameId])
+      // console.log(gameId)
+    }
     let difficulty = gameInfo.value.difficulty
     let level = computed(()=>{
       if (difficulty <= 1) {
@@ -58,7 +93,11 @@ export default {
       gameInfo,
       backImgUrl,
       level,
-      rate
+      rate,
+      gotoPlay,
+      showRegister,
+      registerBookMark,
+      isGameinBookMark
     }
   }
 
@@ -112,6 +151,8 @@ button {
   padding: 3vw;
   color: white;
   box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
 }
 .detail-game-chip-container {
   display: flex;
@@ -140,5 +181,14 @@ button {
 hr {
   margin: 2vh 0vw;
 }
-
+.bookmark-icon {
+  position: absolute;
+  top:-0.8vh;
+  right: 8px;
+  font-size: 8vw;
+  color: black;
+}
+.bookmark-icon.bookmarked {
+  color: var(--color-bookmark)
+}
 </style>

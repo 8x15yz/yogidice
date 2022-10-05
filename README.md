@@ -1,7 +1,7 @@
 # 🎲 요기다이스(YOGIDICE)
 **YOGIDICE**는 총 15000건의 게임과 2500만 여개의 유저 평가 데이터를 활용하여 사용자의 취향에 꼭 알맞는 게임을 추천해주는 서비스입니다. <br/>**YOGIDICE**는 사용자의 평가 내용을 기반으로 **KNN 알고리즘**을 활용하여 비슷한 취향을 가진 다른 사용자들이 좋아하는 게임을 추천하고,<br/> **Jaccard Similarity 알고리즘**을 활용하여 플레이한 게임과 비슷한 다른 게임을 추천합니다. 
 <hr>
-![로고](/uploads/7e4a2fd00303d1aaf851dababba25275/로고.png)
+![로고](images/로고.png)
 
 ## ♟프로젝트 소개
 
@@ -13,7 +13,7 @@
 
 | 김현주 | 김동신 | 박정현 | 전병찬 |최원재|
 | :---: | :---: | :---: | :---: |  :---: |
-|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/29e8a97f6b79fae410834d405fd69c8a/현주킴.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/836ebfa6bd537648164d6a7cac19e123/김똥신.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/c9a7d3e1295e94d5b76c1fd3ef272cd1/빡정현.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/5a444b6e1092dd7c275399ce12cae3f7/쩐병찬.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="120" height="120">|
+|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/1f6d51de3413176e44d5c641d6559cb3/김현주.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/836ebfa6bd537648164d6a7cac19e123/김똥신.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/c9a7d3e1295e94d5b76c1fd3ef272cd1/빡정현.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/5a444b6e1092dd7c275399ce12cae3f7/쩐병찬.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="120" height="120">|
 |팀장,<br/>프론트 구현,<br/>데이터분석서버설계|프론트 핵심 구현,<br/> UI 설계|DB 설계,<br/>데이터 크롤링,<br/>추천 알고리즘 설계|백엔드,<br/>DB 설계,<br/>REST API|백엔드,<br/>인프라,<br/>배포(CI/CD)|
 
 ### 🔔목표
@@ -23,13 +23,24 @@
 보드게임 카페에 가면 마주치는 수많은 보드게임들... 많은 게임들 중 내가 좋아할 만한 게임인지 알 수 없어서<br/> 항상 하던 게임만 하게 되는 상황을 해결하고자 **사용자의 취향을 분석하여 게임을 추천하는 서비스** 개발을 기획하게 되었습니다.
 
 ### 🕹프로젝트 주요 기능 및 특징
+- 게임 상세 정보 제공
 - KNN 알고리즘을 활용한 사용자 취향 저격 게임 추천 기능
 - Jaccard Similarity 알고리즘을 활용한 게임과 비슷한 다른 게임 추천 기능
 - 플레이한 게임에 대한 리뷰 남기는 기능
-- 자주 플레이한 게임을 쉽게 찾기 위한 북마크 기능
+- 플레이 기록/북마크/리뷰 기능
 - 보드게임에 필요한 도구 제공 기능
+- 주변 보드 게임 카페 정보 안내
+
 
 ### 🛠주요 기술
+- 🚀 **백엔드**
+    - KNN 알고리즘
+    - Jaccard Similarity 알고리즘
+    - BoardGameGeek API
+    - selenium 활용 크롤링
+- 🚪 **프론트엔드**
+    - 진동, 멀티 터치
+    - 구글 머티리얼 디자인
 
 ### 🖥배포 환경
 
@@ -70,46 +81,46 @@
 ## 🖋기획/설계
 ### 📑[기능 요구 명세서](https://www.notion.so/ac00c0280b464f87897662986e957bab)
  필요한 기능과 기능에 대한 내용, 기능이 들어갈 페이지, 기능의 완료 여부를 정리하였습니다.
-![기능_명세서900](/uploads/e82ee99f3a17839fdfdcabaff9803dd4/기능_명세서900.png)
+![기능_명세서900](/images/기능명세서.png)
 
 ### 🎨[와이어 프레임(피그마)](https://www.figma.com/file/x4lH98VHe6W78rUXCxuXUg/%ED%8A%B9%ED%99%94PJT-B206?node-id=175%3A3)
-![피그마900](/uploads/08231fd39f7ce65088f736140ba43ab1/피그마900.png)
+![피그마900](/images/피그마.png)
 
 ### 📁[ERD](https://www.erdcloud.com/d/5CpJdWqcK5Fg8Phaa)
-![erd900](/uploads/997ee460dee2c92ec841335356bfa2ac/erd900.png)
+![erd900](/images/erd900.png)
 
 
 ### 🌫서비스 플로우
-
+![플로우차트](/uploads/7285235d121c7bf80c6d78e92b87aad1/플로우차트.png)
 ## 프로젝트 관리/운영 
 ### 디렉토리 구조
 |Spring Boot|Django|Vue|
 |:---:|:---:|:---:|
-|![스프링디렉토리](/uploads/733d627099c8ab9d83d13ad7a527fe86/스프링디렉토리.png)|![장고디렉토리리얼](/uploads/40bef83c5253310ae73f9733051e2a7c/장고디렉토리리얼.png)|![뷰디렉토리](/uploads/c48e6207319d152ab57f5be0342d885e/뷰디렉토리.png)|
+|![스프링디렉토리](/images/스프링디렉토리.png)|![장고디렉토리](/images/장고디렉토리.png)|![뷰디렉토리](/images/뷰디렉토리.png)|
 
 ### GitLab
-![깃1-900](/uploads/58e27a29d13984f47ecba0a3274506e8/깃1-900.png)
-![깃2진-900](/uploads/1f1e33c5bfc60e6566ca00bfd8f5e97c/깃2진-900.png)
+![GitLab1](/images/GitLab1.png)
+![GitLab2](/images/GitLab2.png)
 
 ### Jira
 - **스프린트**
 <br/>
-![지라900](/uploads/0083f894f0669317e3d747906fb501f2/지라900.png)
+![지라](/images/지라.png)
 <br/>
 <br/>
 
 - **번다운 차트**
 <br/>
-![번다운_차트900](/uploads/7eb6173ec3f858c8130e563c9e27466c/번다운_차트900.png)
+![번다운_차트900](/images/번다운.png)
 
 
 ### Notion
-![노션1](/uploads/a3a06b1d50d1d7eb831360d539edde84/노션1.png)
-![노션2](/uploads/b5f2ba9823d6d2fd0e1cb63210a0741f/노션2.png)
+![노션1](/images/노션1.png)
+![노션2](/images/노션2.png)
 
 
 ### 스크럼 미팅
-![스크럼900](/uploads/98e58d35db30a038f7f102049bae0d6e/스크럼900.png)
+![스크럼900](/images/스크럼.png)
 
 ## 🎮 서비스 구현 
 
@@ -120,12 +131,13 @@
 #### 🎰게임 상세 정보 제공
 
 #### 🎯취향 저격 추천
+![MainRecommend](/uploads/0388f83139eef9c7517c77e70aad3d9c/MainRecommend.gif)
 
 #### 👍비슷한 게임 추천
 
 #### 🕹필터링 추천
 
-#### 🗺주변 보드게임 카페 추천
+#### 🗺주변 보드 게임 카페 정보 안내
 
 #### 📌북마크, 리뷰 기능
 |북마크|리뷰|
@@ -135,6 +147,7 @@
 
 |주사위|타이머|술래 정하기|벌칙 정하기|
 |:---:|:---:|:---:|:---:|
+|![주사위](/uploads/39cf398a0764584d9638cbed4d18aac9/주사위.gif)|![타이머](/uploads/e46e958661ba5bb5cc12f5b9e05840c7/타이머.gif)|![술래](/uploads/82aa3c46c1e599de9a1271efbdb530f2/술래.gif)|![벌칙](/uploads/bc765d4c1e7a1b96205185873197da34/벌칙.gif)|
 
 ## 🥂프로젝트 회고
 

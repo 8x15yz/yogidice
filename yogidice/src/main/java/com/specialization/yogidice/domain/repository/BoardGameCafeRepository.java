@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface BoardGameCafeRepository extends JpaRepository<BoardGameCafe, Long> {
     Optional<BoardGameCafe> findBoardGameCafeByNameAndAddress(String name, String address);
+
+    Optional<BoardGameCafe> findBoardGameCafeByAddress(String address);
 }

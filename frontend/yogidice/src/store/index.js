@@ -5,6 +5,8 @@ import user from "@/store/modules/user.js";
 import games from "@/store/modules/games.js"
 import myuser from "@/store/modules/myuser.js"
 import gamedetail from "@/store/modules/gamedetail.js"
+import createPersistedState from 'vuex-persistedstate'
+
 
 export default createStore({
   modules: {
@@ -15,4 +17,7 @@ export default createStore({
     myuser,
     gamedetail
   },
+  plugins:[
+    createPersistedState()
+],
 });
