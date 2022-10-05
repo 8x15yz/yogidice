@@ -1,7 +1,4 @@
 <template>
-<!-- 이거 나중에 없앨거임 내가쓴댓을인지 확인하기 위함 => 내가쓴댓글이면 수정할 수 있게 -->
-<!-- <button @click="isuser = !isuser" style="position:absolute;">이거</button> -->
-<!-- 이거 나중에 없앨거임 내가쓴댓을인지 확인하기 위함 => 내가쓴댓글이면 수정할 수 있게 -->
     <div>
         <div v-for="data in datum" :key="data.key">
             <div v-if="data.review" id="review-component-base">

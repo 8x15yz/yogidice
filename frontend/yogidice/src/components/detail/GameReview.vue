@@ -42,25 +42,63 @@
 
     <!-- 리뷰 컴포넌트 들어갈 곳 -->
     <div class="game-review-bottom-container">
-      <review-components :reviewdatum='reviewdatum'></review-components>
+      <div>
+          <div v-for="data in datum" :key="data.key">
+              <div v-if="data.review" id="review-component-base">
+                  <div class="review-title-rating-wrapper">
+                      <div class="review-rating review-title " @click="showDetail(data)">
+                          {{data.nickName}}
+                      </div>
+                      <div class="rating review-rating">
+                          ★{{data.rating}} 
+                      </div>
+                      <div v-if="isuser" class="icon-padding" @click="$emit('OpenReviewModal', [data.id, data.gameTitle])">
+                          <i class="far fa-edit review-rating" ></i>
+                      </div>
+                  </div>
+                  <div class="review-create-date">
+                      {{data.createDate}}
+                  </div>
+                  <div class="review-content-text-overflow">
+                      {{data.review}}
+                  </div>
+              </div>
+          </div>
+          <div style="height: 100px;"></div>
+      </div>
     </div>
     <!-- 리뷰 컴포넌트 들어갈 곳 -->
   </div>
 </template>
 
 <script>
-import { onMounted } from "@vue/runtime-core";
-import ReviewComponents from '../card/ReviewComponents.vue';
+import axios from 'axios'
+import { onMounted, ref } from "@vue/runtime-core";
+// import ReviewComponents from '../card/ReviewComponents.vue';
+import { useRoute } from "vue-router"
 
 export default {
   components: {
-    ReviewComponents
+    // ReviewComponents
   },
   setup() {
-        onMounted(() => console.log("안녕"));
-        const reviewdatum =  [{'user': '아기공룡둘째', 'rating': 4, 'review' : '깔끔한 룰과 적당한 메커니즘 요소들의 조화로 어느정도의 재미는 누구에게나 보편적으로 보장되는듯 하다. 그러나 그 이상의 특별함이나 테마가 확 와닿는건 없었다', 'create_date' : '2022-09-18'}, {'user': '토리', 'rating': 6, 'review' : '덱게임을 좋아하는 분이라면 추천. 도미니언 이후로 최고임', 'create_date' : '2022-09-13' }, {'user': '아빠와아들' ,'rating': 4, 'review' : '벌써 3주째 주말마다 하고 있습니다. 꿀잼', 'create_date' : '2022-05-07'}, {'user': '행성파괴범' ,'rating': 7, 'review' :  '그냥 테마와 메커니즘의 결합도가 정말 아름다운 게임입니다. 호텔에 손님 받고 보너스 콤보 효과를 받는 점이 너무 좋고요! 적절한 운요소도 게임을 가볍게 해서 좋습니다 +_+ 그리고 가볍고 캐릭터들의 뽕맛도 너무 마음에 듭니다. 2인 베스트인게 아쉽지만 왈츠 확장으로 해결 되었다니 너무 기대 됩니다! 커플 유로 게임으로 가장 추천드리고 싶습니다.', 'create_date' : '2022-04-07' }]
+    const route = useRoute()
+    let gameId = route.query.gameId
+    const datum =  ref([])
+        onMounted(() => {
+          axios({
+                    url: `https://yogidice.site/api/games/reviewAll/${gameId}`,
+                    method: "get",
+                  })
+                  .then((res) => {
+                    console.log(res.data.responses)
+                    datum.value = res.data.responses
+                  })
+                  .catch((err) => {console.log(err)})
+        });
+          
         return {
-            reviewdatum
+            datum
         }
     },
 }
