@@ -107,7 +107,7 @@ export default {
 
 <style scoped>
 .plus-backwall {
-  height: 100vh;
+  /* height: 70vh; */
   padding: 5vh 3vw;
 }
 .choice-sentence {
@@ -128,9 +128,9 @@ export default {
   color: var(--color-grey-5);
 }
 .card-area {
-  height: 60vh;
+  height: 53vh;
   margin-bottom: 2vh;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   overflow-x: hidden;
 }
 

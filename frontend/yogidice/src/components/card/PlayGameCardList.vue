@@ -87,7 +87,7 @@ export default {
   overflow: scroll;
   gap: 2vw;
   width: 94vw;
-  height: 70vh;
+  height: 53vh;
   padding-left: 4vw;
 }
 
