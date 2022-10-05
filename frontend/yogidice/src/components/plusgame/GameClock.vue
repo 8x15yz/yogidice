@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="clock-box">
+    <div class="timer-choice">
+      <div @click="toStopWatch" class="button-small-blue text-button">스톱워치</div>
+      <div @click="toTimer" class="button-small-blue text-button">타이머</div>
+    </div>
     <div v-show="showStopWatch">
       <stop-watch ></stop-watch>
     </div>
     <div v-show="showTimer">
       <game-timer></game-timer>
-    </div>
-    <div class="timer-choice">
-      <div @click="toStopWatch" class="button-small-blue text-button">스톱워치</div>
-      <div @click="toTimer" class="button-small-blue text-button">타이머</div>
     </div>
   </div>
 </template>
@@ -55,6 +55,9 @@ export default {
   justify-content: center;
   gap: 2vw;
   margin-top: 4vh;
+}
+.clock-box {
+  height: 90vh;;
 }
 
 </style>

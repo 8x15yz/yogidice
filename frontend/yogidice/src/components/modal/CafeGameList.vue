@@ -11,17 +11,16 @@
 </template>
 
 <script>
-// import SearchBar from '../SearchBar.vue'
-// import SmallCardLists from '@/components/card/SmallCardList.vue'
+import SearchBar from '../SearchBar.vue'
+import SmallCardList from '@/components/card/SmallCardList.vue'
 
 export default {
   components: { 
-    // SearchBar,
-    // SmallCardLists
+    SearchBar,
+    SmallCardList
   },
   setup(){
     let cafeName = ''
-
     return {
       cafeName
     }
@@ -34,7 +33,7 @@ export default {
 .cafe-games-box {
   width: 90vw;
   height: 90vw;
-  z-index: 1;
-  background-color: var(--color-bg-base);
+  z-index: 999;
+  background-color: var(--color-point);
 }
 </style>
