@@ -7,7 +7,10 @@
     <div class="block-search-result"></div>
   </div>
   <div id="wrap2-back">
-    <div class="text-headline-6 main-message">{{nickName}}님에게 맞는 <br> 보드게임을 추천해드려요</div>
+    <div class="text-headline-6 main-message">
+      {{ nickName }}님에게 맞는 <br />
+      보드게임을 추천해드려요
+    </div>
     <!-- 추천 게임 타입 선택 -->
     <div class="cardlist-type">
       <div @click="changeActive" class="text-body-1 isactive">추천</div>
@@ -18,106 +21,117 @@
     <!-- 추천 게임 목록 -->
     <main-card-list></main-card-list>
     <!-- 부가기능 버튼 3개 -->
-    <div class="text-subtitle-1 main-message">요기 다이스의 부가 기능을 살펴보세요!</div>
+    <div class="text-subtitle-1 main-message">
+      요기 다이스의 부가 기능을 살펴보세요!
+    </div>
     <div class="add-ons">
       <div class="left-one" @click="moveToPick">
-        <div> 
-          <div class="left-title text-subtitle-1">내 취향저격<br> 게임</div>
-          <br>
-          <div class="left-content text-body-1">지금 내가 할 수 있는<br> 최고의 게임 찾기!</div>
+        <div>
+          <div class="left-title text-subtitle-1">
+            내 취향저격<br />
+            게임
+          </div>
+          <br />
+          <div class="left-content text-body-1">
+            지금 내가 할 수 있는<br />
+            최고의 게임 찾기!
+          </div>
         </div>
-        <img class="left-img" src="../static/Checklist.png" alt="">
+        <img class="left-img" src="../static/Checklist.png" alt="" />
       </div>
       <div class="right-two">
-        <div class="right-top"  @click="moveToGamePage">
+        <div class="right-top" @click="moveToGamePage">
           <div class="left-title text-subtitle-1">아이템 창고</div>
-          <img src="../static/Slot_machine.png" alt="">
+          <img src="../static/Slot_machine.png" alt="" />
         </div>
         <div class="right-bottom" @click="moveToCafes">
           <div class="left-title text-subtitle-1">근처 보드카페 찾기</div>
-          <img src="../static/Map.png" alt="">
+          <img src="../static/Map.png" alt="" />
         </div>
       </div>
     </div>
     <div id="footer"></div>
-
   </div>
 </template>
 
 <script>
-import { onMounted,getCurrentInstance,ref,computed } from '@vue/runtime-core'
-import MainCardList from '@/components/card/MainCardList.vue'
-import LongCardList from '@/components/card/LongCardList.vue'
-import SearchBar from '@/components/SearchBar.vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+import {
+  onMounted,
+  getCurrentInstance,
+  ref,
+  computed,
+} from "@vue/runtime-core";
+import MainCardList from "@/components/card/MainCardList.vue";
+import LongCardList from "@/components/card/LongCardList.vue";
+import SearchBar from "@/components/SearchBar.vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
   components: {
     MainCardList,
     LongCardList,
-    SearchBar
+    SearchBar,
   },
   setup() {
-    const store = useStore()
-    const router = useRouter()
-    
-    store.dispatch("games/resetMainGames")
-    store.dispatch("user/getBookMark",{root:true})
-    store.dispatch("games/getMainRecommend",{root:true})
+    const store = useStore();
+    const router = useRouter();
+
+    store.dispatch("games/resetMainGames");
+    store.dispatch("user/getBookMark", { root: true });
+    store.dispatch("games/getMainRecommend", { root: true });
 
     const moveToPick = function () {
-      router.push({name:"GamePickHome"})
-    }
+      router.push({ name: "GamePickHome" });
+    };
     const moveToGamePage = function () {
-      router.push({name: "ChoicePlusGame"})
-    }
+      router.push({ name: "ChoicePlusGame" });
+    };
     const moveToCafes = function () {
-      router.push({name:"PlaceView"})
-    }
+      router.push({ name: "PlaceView" });
+    };
     // mitt 쓰기
-    const internalInstance = getCurrentInstance()
-    const emitter = internalInstance.appContext.config.globalProperties.emitter
+    const internalInstance = getCurrentInstance();
+    const emitter = internalInstance.appContext.config.globalProperties.emitter;
 
-    let showSearchResult = ref(false)
+    let showSearchResult = ref(false);
 
     // 데이터 받기 (SearchBar로부터 받음)
-    emitter.on('inputValue', (data) => {
+    emitter.on("inputValue", (data) => {
       if (data === "") {
-        showSearchResult.value = false
+        showSearchResult.value = false;
       } else {
-        showSearchResult.value = true
+        showSearchResult.value = true;
       }
-    })
+    });
 
-
-
-    let cardListTypes
-    onMounted(()=>{
-      cardListTypes = document.querySelectorAll('.cardlist-type div')
-    })
+    let cardListTypes;
+    onMounted(() => {
+      cardListTypes = document.querySelectorAll(".cardlist-type div");
+    });
     const searchMain = (e) => {
-      console.log(e.target.value)
-    }
+      console.log(e.target.value);
+    };
 
     const changeActive = (e) => {
       for (let cardListType of cardListTypes) {
         if (cardListType.classList.contains("isactive")) {
-          cardListType.classList.remove("isactive")
-        }}
-      e.target.classList.add("isactive")
-      store.dispatch("games/resetMainGames")
-      if (e.target.innerText === "추천") {
-        store.dispatch("games/getMainRecommend")
-      } else {
-        store.dispatch("games/changeMainGames",e.target.innerText)
+          cardListType.classList.remove("isactive");
+        }
       }
-    }
+      e.target.classList.add("isactive");
+      store.dispatch("games/resetMainGames");
+      if (e.target.innerText === "추천") {
+        store.dispatch("games/getMainRecommend");
+      } else {
+        store.dispatch("games/changeMainGames", e.target.innerText);
+      }
+    };
 
     // 유저 부분
-    store.dispatch("myuser/GetUserInfo")
-    let nickName = computed(()=>store.state.myuser.nickName)
-      
+    store.dispatch("myuser/GetUserInfo");
+    let nickName = computed(() => store.state.myuser.nickName);
+
     return {
       changeActive,
       searchMain,
@@ -125,10 +139,10 @@ export default {
       moveToGamePage,
       nickName,
       showSearchResult,
-      moveToPick
-    }
-  }
-}
+      moveToPick,
+    };
+  },
+};
 </script>
 
 <style>
@@ -153,32 +167,31 @@ export default {
 .cardlist-type .isactive {
   font-weight: bold;
 }
-.add-ons{
+.add-ons {
   display: flex;
   justify-content: space-between;
   margin-top: 2vh;
   margin-bottom: 10vh;
-  gap:4vw;
+  gap: 4vw;
 }
 .add-ons img {
   width: 100%;
 }
-.left-one{
+.left-one {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width:40vw;
+  width: 40vw;
   height: 36vh;
   padding: 2vh 0 0 2vh;
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--shadow-card);
   overflow: hidden;
-  
 }
-.left-title{
-  font-family: 'Pretendard';
+.left-title {
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: bolder;
   font-size: 16px;
@@ -186,13 +199,13 @@ export default {
   text-align: left;
 }
 .left-content {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
   line-height: 12px;
   text-align: left;
-  color: var(--color-grey-5)
+  color: var(--color-grey-5);
 }
 .left-img {
   align-self: flex-end;
@@ -202,7 +215,7 @@ export default {
   flex-direction: column;
   gap: 4vw;
 }
-.right-top{
+.right-top {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -216,7 +229,7 @@ export default {
   box-shadow: var(--shadow-card);
   overflow: hidden;
 }
-.right-bottom{
+.right-bottom {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -250,5 +263,4 @@ export default {
   width: 100vw;
   height: 10vh;
 }
-
 </style>
