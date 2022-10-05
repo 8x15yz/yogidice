@@ -208,9 +208,7 @@ public class BoardGameController {
                 return ResponseEntity.status(HttpStatus.OK).body(BoardGameListResponse.of(200, "Success", boardGameService.readTop10ListByBoardGameLife()));
             }
         }
-
     }
-
 
     @GetMapping("/recommend/detail/{gameId}")
     @ApiOperation(value = "보드게임 상세 페이지 하단 추천", notes = "보드게임 상세 페이지 하단에서 보드게임을 추천합니다.")
