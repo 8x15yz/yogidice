@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="review-create-date">
-                    {{data.createDate}}
+                    {{data.createDate.slice(0, 10)}}
                 </div>
                 <div class="review-content-text-overflow">
                     {{data.review}}

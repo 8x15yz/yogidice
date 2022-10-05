@@ -17,11 +17,13 @@
 <script>
 import { onMounted,ref } from "vue"
 import CafeGameList from "@/components/modal/CafeGameList.vue"
+import { useStore } from 'vuex'
 export default {
   components: {
     CafeGameList,
   },
   setup () {
+  const store = useStore()
   let locPosition
   let cafeGameList = ref(false)
   let showSearchList = function () {
@@ -232,7 +234,10 @@ export default {
         tmp1.addEventListener("click",function(){window.open(places.place_url)})
 
         const openCafeGameList = function () {
-          cafeGameList.value = true
+          cafeGameList.value = !cafeGameList.value
+          let address = places.road_address_name ? places.road_address_name : places.address_name
+          console.log(address,typeof(address))
+          store.dispatch("games/getCafeGames",address)
         }
         let tmp2 = document.createElement('div')
         tmp2.innerText = "보유게임현황"
@@ -351,7 +356,7 @@ export default {
   background-color: white;
   border-radius: 20px;
   position: relative;
-  height: 50vh;
+  height: 60vh;
 }
 .search-list-title {
   text-align: left;
@@ -360,11 +365,13 @@ export default {
   z-index: 10;
 }
 #place-list {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-start; */
   padding: 0vh;
   margin: 0vh;
+  overflow: scroll;
+  height:30vh;
 }
 
 #wrap2.map-wrap {
@@ -432,7 +439,7 @@ hr {
   
 }
 .item {
-  height: 9vh;
+  height: 12vh;
   overflow: hidden;
 }
 </style>

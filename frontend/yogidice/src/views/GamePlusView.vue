@@ -604,8 +604,9 @@ export default {
   margin-bottom: 10vw;
 }
 .bottom-box {
-  margin-bottom: 10vh;
+  /* margin-bottom:10vh; */
   position: relative;
+  /* overflow: hidden; */
 }
 .alpha-box {
   width: 80vw;
@@ -623,5 +624,11 @@ textarea {
   width: 100%;
   border: none;
   resize: none;
+}
+.play-area {
+  padding-top: 4vh;
+  height: 70vh;
+  overflow: scroll;
+  background-color: var(--color-bg-base);
 }
 </style>
