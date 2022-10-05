@@ -42,5 +42,6 @@ export default {
   height: 90vw;
   z-index: 999;
   background-color: var(--color-point);
+  position: absolute;
 }
 </style>
