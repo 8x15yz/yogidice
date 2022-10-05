@@ -18,10 +18,11 @@ export default {
     const router = useRouter()
     const store = useStore()
     let games = computed(()=>store.state.myuser.bookmark)
-    
     const showDetail = function(n) {
-        router.push({name:"GameDetail", query:{"gameId":n.gameId, "title":n.gameTitle}})
+      router.push({name:"GameDetail", query:{"gameId":n.gameId, "title":n.gameTitle}})
+      store.dispatch("games/getDetails",n.gameId,)
     }
+
     return {
       games,
       showDetail
