@@ -23,6 +23,7 @@ export default {
     SET_TOKEN: (state, token) => (state.token = token),
     SET_CURRENT_USER: (state, user) => (state.currentUser = user),
     BOOKMARK_NOT_WORKING: (state) => (state.isBookMarkWorking = false),
+    BOOKMARK_WORKING: (state) => (state.isBookMarkWorking = true),    
     SET_BOOKMARK: (state, bookmarks) => (state.myBookMark = bookmarks),
   },
   actions: {
