@@ -20,34 +20,33 @@
 <script>
 import { onMounted, computed, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
 
 export default {
-
   setup() {
     const store = useStore();
-    const router = useRouter()
+    const router = useRouter();
 
-    let isShowModal = computed(() => store.state.modal.showModal)
+    let isShowModal = computed(() => store.state.modal.showModal);
 
-    let info = computed(() => store.state.modal.contents.info)
-
-
+    let info = computed(() => store.state.modal.contents.info);
 
     // 이벤트 리스너 중복 방지를 위한 함수 정의
     const registerToInit = function () {
-          store.dispatch("user/kakaoRegist", {'kakaoId':info.value.content.kakaoId, "nickName":info.value.content.nickName});
-        }
+      store.dispatch("user/kakaoRegist", {
+        kakaoId: info.value.content.kakaoId,
+        nickName: info.value.content.nickName,
+      });
+    };
     const registBookMark = function (gameId) {
-          store.dispatch("user/registBookMark", gameId)
-        }
-    const closeModal = function () { 
-          store.dispatch("modal/closeModal")
-        }
-
+      store.dispatch("user/registBookMark", gameId);
+    };
+    const closeModal = function () {
+      store.dispatch("modal/closeModal");
+    };
 
     onMounted(() => {
-      const titleBox = document.querySelector(".modal-header")
+      const titleBox = document.querySelector(".modal-header");
       const bodyBox = document.querySelector(".modal-body");
       const firstButton = document.querySelector(
         ".modal-footer button:nth-child(1)",
@@ -55,93 +54,109 @@ export default {
       const secondButton = document.querySelector(
         ".modal-footer button:nth-child(2)",
       );
-      titleBox.classList.add("text-subtitle-1")
+      titleBox.classList.add("text-subtitle-1");
       bodyBox.classList.add("text-subtitle-2");
       bodyBox.style.color = "var(--color-grey-5)";
 
       watch(isShowModal, (newValue) => {
         if (newValue === true && info.value.from === "registNickName") {
           firstButton.addEventListener("click", registerToInit);
-          secondButton.addEventListener("click", closeModal)    
-        } 
+          secondButton.addEventListener("click", closeModal);
+        }
         // 선호도 조사에서 넘어온 모달인 경우
         else if (newValue === true && info.value.from === "initChoice") {
           firstButton.addEventListener("click", () => {
             // 고른 게임들 확인
-            let isBookMarkWorking = computed(() => store.state.isBookMarkWorking)
-            let selectGames = computed(()=>store.state.games.selectedGames)
-            for (let i=0; i<selectGames.value.length; i++) {
+            let isBookMarkWorking = computed(
+              () => store.state.isBookMarkWorking,
+            );
+            let selectGames = computed(() => store.state.games.selectedGames);
+            for (let i = 0; i < selectGames.value.length; i++) {
               // 각 게임을 북마크에 등록
-              registBookMark(selectGames[i])
+              registBookMark(selectGames[i]);
               if (!isBookMarkWorking.value) {
-                break
+                break;
               } else {
-                continue
+                continue;
               }
             }
             if (!isBookMarkWorking.value) {
-                store.dispatch("modal/registModal",
-                  {
-                    info: {},
-                    from: "",
-                    header: "",
-                    body: "등록에 실패하였습니다!",
-                    footer1: "",
-                    footer2: "",
-                  },
-                  { root: true },
-                );
-                store.dispatch("modal/openModal",null,{root:true})
-                setTimeout(function () {
-                  store.dispatch("modal/closeModal", null, { root: true });
-                }, 2000);
-            }
-            else {
-              store.dispatch("modal/registModal",{
-                info: {},
-                from: "",
-                header: "",
-                body: "성공적으로 등록되었습니다!",
-                footer1: "",
-                footer2: "",
-              },{ root: true })
-              
+              store.dispatch(
+                "modal/registModal",
+                {
+                  info: {},
+                  from: "",
+                  header: "",
+                  body: "등록에 실패하였습니다!",
+                  footer1: "",
+                  footer2: "",
+                },
+                { root: true },
+              );
+              store.dispatch("modal/openModal", null, { root: true });
+              setTimeout(function () {
+                store.dispatch("modal/closeModal", null, { root: true });
+              }, 2000);
+            } else {
+              store.dispatch(
+                "modal/registModal",
+                {
+                  info: {},
+                  from: "",
+                  header: "",
+                  body: "성공적으로 등록되었습니다!",
+                  footer1: "",
+                  footer2: "",
+                },
+                { root: true },
+              );
+
               setTimeout(function () {
                 router.push({
                   name: "MainPage",
                 });
               }, 2000);
             }
-          })
-          secondButton.addEventListener("click", closeModal)
-        }
-        else if (newValue === true && info.value.from === "playGame") {
+          });
+          secondButton.addEventListener("click", closeModal);
+        } else if (newValue === true && info.value.from === "playGame") {
           if (info.value.content !== "") {
             firstButton.addEventListener("click", () => {
-              let playingGameId = computed(()=>store.state.games.selectedGames)
-              store.commit("gamedetail/PLAY_GAME_NAME",info.value.content,{root:true})
-              store.commit("gamedetail/PLAY_GAME_ID",playingGameId,{root:true})
-              store.dispatch("games/resetSelectedGames",{root:true})
-              router.push({name:"GamePlusView"})
-              closeModal()
-            })
-            secondButton.addEventListener("click", closeModal)}    
-          else {
+              let playingGameId = computed(
+                () => store.state.games.selectedGames,
+              );
+              store.commit("gamedetail/PLAY_GAME_NAME", info.value.content, {
+                root: true,
+              });
+              store.commit("gamedetail/PLAY_GAME_ID", playingGameId, {
+                root: true,
+              });
+              store.dispatch("games/resetSelectedGames", { root: true });
+              router.push({ name: "GamePlusView" });
+              closeModal();
+            });
+            secondButton.addEventListener("click", closeModal);
+          } else {
             firstButton.addEventListener("click", () => {
-              store.dispatch("games/resetSelectedGames",{root:true})
-              store.commit("gamedetail/PLAY_GAME_NAME","",{root:true})
-              store.commit("gamedetail/PLAY_GAME_ID","",{root:true})
-              router.push({name:"GamePlusView"})
-              closeModal()
-            })
-            secondButton.addEventListener("click",closeModal)
+              store.dispatch("games/resetSelectedGames", { root: true });
+              store.commit("gamedetail/PLAY_GAME_NAME", "", { root: true });
+              store.commit("gamedetail/PLAY_GAME_ID", "", { root: true });
+              router.push({ name: "GamePlusView" });
+              closeModal();
+            });
+            secondButton.addEventListener("click", closeModal);
           }
+        } else if (newValue === true && info.value.from === "gamePlusView") {
+          firstButton.addEventListener("click", function () {
+            closeModal();
+            router.push({ name: "MainPage" });
+          });
+          secondButton.addEventListener("click", closeModal);
         }
-      })
-    })
-  }
- }
-
+      });
+    });
+  },
+};
 </script>
 
 <style>
