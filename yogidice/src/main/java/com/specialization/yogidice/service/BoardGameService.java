@@ -152,6 +152,29 @@ public class BoardGameService {
     }
 
     @Transactional
+    public List<BoardGameResponse> readTop10ListByBoardGameLife() {
+        List<BoardGame> boardGames = boardGameRepository.findTop10ByOrderById();
+        if (boardGames.isEmpty()) {
+            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+        }
+        List<BoardGameResponse> responses = new ArrayList<>();
+        for (BoardGame boardGame : boardGames) {
+            List<CategoryGroupResponse> categoryGroupResponses = categoryGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(CategoryGroupResponse::response)
+                    .collect(Collectors.toList());
+            List<TypeGroupResponse> typeGroupResponses = typeGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(TypeGroupResponse::response)
+                    .collect(Collectors.toList());
+            List<MechanismGroupResponse> mechanismGroupResponses = mechanismGroupRepository.findByBoardGame(boardGame).stream()
+                    .map(MechanismGroupResponse::response)
+                    .collect(Collectors.toList());
+            responses.add(BoardGameResponse.response(boardGame, categoryGroupResponses, typeGroupResponses, mechanismGroupResponses));
+        }
+        responses = DeduplicationUtils.deduplication(responses, BoardGameResponse::getBggCode);
+        return responses;
+    }
+
+    @Transactional
     public List<RatingGameResponse> readTop10ListByRatingUser() {
         List<BoardGame> games = boardGameRepository.findTop10ByOrderByRatingUserDesc();
         if (games.isEmpty()) {
