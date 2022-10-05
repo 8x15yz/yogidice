@@ -36,7 +36,7 @@ export default {
         searchList.classList.remove("showing-list")
       
       } else {
-        mapContainer.style.height = "40vh"
+        mapContainer.style.height = "35vh"
         arrowIcon.style.rotate = "270deg"
         searchList.classList.add("showing-list")
     }
@@ -255,9 +255,9 @@ export default {
 
         el.className = 'item';
         el.addEventListener("click",function () {
-          if (el.style.height === "16vh") {
-            el.style.height = "12vh"
-          } else { el.style.height = "16vh" }
+          if (el.style.height === "32vh") {
+            el.style.height = "20vh"
+          } else { el.style.height = "32vh" }
         })
 
         return el;
@@ -358,10 +358,13 @@ export default {
   overflow:hidden;
 }
 #search-result-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
   background-color: white;
   border-radius: 20px;
   position: relative;
-  height: 60vh;
+  height: 80vh;
 }
 .search-list-title {
   text-align: left;
@@ -376,7 +379,7 @@ export default {
   padding: 0vh;
   margin: 0vh;
   overflow: scroll;
-  height:30vh;
+  height:40vh;
 }
 
 #wrap2.map-wrap {
@@ -391,7 +394,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 2vw;
-  margin-top: 2vh;
+  margin-top: 1vh;
   align-items: baseline;
 }
 .place-title {
@@ -419,12 +422,13 @@ hr {
 .li-container {
   display: flex;    
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   list-style:none;
   margin: 1vh 2vw;
   gap: 4vw;
   padding: 1vh 4vw;
-  height: calc((25vh - 44px)/3);
+  height: 10vh;
 }
 .cafe-detail-btn {
   display: flex;
@@ -444,7 +448,7 @@ hr {
   
 }
 .item {
-  height: 12vh;
+  height: 20vh;
   overflow: hidden;
 }
 </style>

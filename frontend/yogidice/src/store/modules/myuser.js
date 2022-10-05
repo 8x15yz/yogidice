@@ -15,7 +15,7 @@ export default {
     likePMecMax: "보드게임",
     rearrangemeca: [],
     userreview: 0,
-    chemi: 0
+    
   }),
   getters: {
     authHeader: (state) => ({
@@ -23,6 +23,7 @@ export default {
       "Content-type": "Application/JSON",
     }),
     likemec: (state) => state.bookmark,
+    token: (state) => state.token
   },
   mutations: {
     SET_NICKNAME: (state, nickName) => (state.nickName = nickName),
@@ -41,6 +42,7 @@ export default {
   },
   actions: {
     GetUserInfo({ getters, commit }) {
+      console.log('??', getters.authHeader, getters.token)
       axios({
         url: api.users.get(),
         method: "get",
