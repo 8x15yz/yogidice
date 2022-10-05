@@ -235,8 +235,8 @@ export default {
 
         const openCafeGameList = function () {
           cafeGameList.value = !cafeGameList.value
-          console.log("ㅇㅁ")
           let address = places.road_address_name ? places.road_address_name : places.address_name
+          console.log(address,typeof(address))
           store.dispatch("games/getCafeGames",address)
         }
         let tmp2 = document.createElement('div')
