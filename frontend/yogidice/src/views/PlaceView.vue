@@ -11,7 +11,7 @@
       <div id="pagination"></div>
     </div>
   </div>
-  <cafe-game-list v-show="cafeGameList"></cafe-game-list>
+  <cafe-game-list v-show="showCafeGameList" @close-cafe-modal="clsoeCafeGameList"></cafe-game-list>
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
   setup () {
   const store = useStore()
   let locPosition
-  let cafeGameList = ref(false)
+  let showCafeGameList = ref(false)
   let showSearchList = function () {
     let searchList = document.querySelector(".search-list-title")
     let mapContainer = document.querySelector("#map")
@@ -40,6 +40,9 @@ export default {
         arrowIcon.style.rotate = "270deg"
         searchList.classList.add("showing-list")
     }
+  }
+  const clsoeCafeGameList = function () {
+    showCafeGameList.value = false
   }
 
   onMounted (() => {
@@ -234,7 +237,7 @@ export default {
         tmp1.addEventListener("click",function(){window.open(places.place_url)})
 
         const openCafeGameList = function () {
-          cafeGameList.value = !cafeGameList.value
+          showCafeGameList.value = !showCafeGameList.value
           let address = places.road_address_name ? places.road_address_name : places.address_name
           console.log(address,typeof(address))
           store.dispatch("games/getCafeGames",address)
@@ -252,9 +255,9 @@ export default {
 
         el.className = 'item';
         el.addEventListener("click",function () {
-          if (el.style.height === "13vh") {
-            el.style.height = "9vh"
-          } else { el.style.height = "13vh" }
+          if (el.style.height === "16vh") {
+            el.style.height = "12vh"
+          } else { el.style.height = "16vh" }
         })
 
         return el;
@@ -339,6 +342,8 @@ export default {
     }
     return {
       showSearchList,
+      showCafeGameList,
+      clsoeCafeGameList
     }
   }
 }
@@ -365,9 +370,9 @@ export default {
   z-index: 10;
 }
 #place-list {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start; */
+  justify-content: flex-start;
   padding: 0vh;
   margin: 0vh;
   overflow: scroll;
@@ -386,7 +391,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 2vw;
-  margin-top: 4vh;
+  margin-top: 2vh;
   align-items: baseline;
 }
 .place-title {
@@ -418,7 +423,7 @@ hr {
   list-style:none;
   margin: 1vh 2vw;
   gap: 4vw;
-  padding: 0vh 4vw;
+  padding: 1vh 4vw;
   height: calc((25vh - 44px)/3);
 }
 .cafe-detail-btn {

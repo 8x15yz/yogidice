@@ -1,5 +1,6 @@
 <template>
   <div class="cafe-games-box">
+    <div @click="closeCafeGame" class="close-button"><span class="material-icons-outlined">close</span></div>
     <div>의 보유 게임</div>
     <hr>
     <search-bar></search-bar>
@@ -19,10 +20,14 @@ export default {
     SearchBar,
     SmallCardList
   },
-  setup(){
+  setup(props,{emit}){
     let cafeName = ''
+    const closeCafeGame = function () {
+      emit("closeCafeModal")
+    }
     return {
-      cafeName
+      cafeName,
+      closeCafeGame
     }
   }
 
@@ -31,6 +36,8 @@ export default {
 
 <style>
 .cafe-games-box {
+  display: flex;
+  flex-direction: column;
   width: 90vw;
   height: 90vw;
   z-index: 999;
