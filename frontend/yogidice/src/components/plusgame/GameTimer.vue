@@ -116,8 +116,8 @@ export default {
 
       timer_down = function () {
         let time =
-          Number(baseTime.value.substr(0, 2)) +
-          Number(baseTime.value.substr(3, 2)) +
+          Number(baseTime.value.substr(0, 2))*3600 +
+          Number(baseTime.value.substr(3, 2))*60 +
           Number(baseTime.value.substr(6, 2)); //기준시간 작성
         let hour = ""; //시
         let min = ""; //분
@@ -137,7 +137,7 @@ export default {
           time--;
           //parseInt() : 정수를 반환
           hour = "" + parseInt(time / 3600);
-          min = "" + parseInt(time / 60); //몫을 계산
+          min = "" + parseInt((time % 3600) / 60); //몫을 계산
           sec = "" + (time % 60); //나머지를 계산
           let parts = [];
 
