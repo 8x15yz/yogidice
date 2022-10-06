@@ -108,6 +108,7 @@ export default {
             store.commit("user/BOOKMARK_WORKING");
 
             setTimeout(function () {
+              store.dispatch("modal/closeModal", null, { root: true })
               router.push({
                 name: "MainPage",
               });

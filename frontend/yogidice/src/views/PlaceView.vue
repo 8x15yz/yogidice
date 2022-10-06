@@ -39,7 +39,7 @@ export default {
       let mapContainer = document.querySelector("#map");
       let arrowIcon = document.querySelector(".arrow-icon");
       if (searchList.classList.contains("showing-list")) {
-        mapContainer.style.height = "80vh";
+        mapContainer.style.height = "70vh";
         arrowIcon.style.rotate = "90deg";
         searchList.classList.remove("showing-list");
       } else {
@@ -135,7 +135,7 @@ export default {
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         ps.keywordSearch(keyword, placesSearchCB, {
           location: center,
-          sort: kakao.maps.services.SortBy.ACCURACY,
+          sort: kakao.maps.services.SortBy.DISTANCE,
           size: 3,
         });
       }
@@ -368,7 +368,7 @@ export default {
 <style>
 #map {
   width: 100vw;
-  height: 80vh;
+  height: 70vh;
   position: relative;
   overflow: hidden;
 }
@@ -378,8 +378,9 @@ export default {
   justify-self: flex-start;
   background-color: white;
   border-radius: 20px;
-  position: relative;
+  position: fixed;
   height: 80vh;
+  width: 100vw;
 }
 .search-list-title {
   text-align: left;
