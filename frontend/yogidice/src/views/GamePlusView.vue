@@ -226,7 +226,7 @@ import ModalDialog from "@/components/modal/ModalDialog.vue";
 import axios from "axios";
 import { ref, computed, reactive } from "@vue/runtime-core";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 
 export default {
   components: {
@@ -241,7 +241,7 @@ export default {
   },
   setup() {
     const store = useStore();
-    const router = useRouter();
+    // const router = useRouter();
     let showModal = computed(() => store.state.modal.showModal);
 
     const submenu = ref(false);
@@ -391,7 +391,7 @@ export default {
         playnowhistoryid = computed(
           () => store.state.gamedetail.playnowhistoryid,
         );
-        router.push({ name: "MainPage" });
+        // router.push({ name: "MainPage" });
       }
       // console.log(playgame)
       // store.dispatch("myuser/SendReview")
