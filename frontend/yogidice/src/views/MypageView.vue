@@ -13,7 +13,7 @@
                 <div style="height: 150px;"></div>
                 <div class="info-modal-bg">
                     <div style="display: flex; justify-content: end;"><i @click="infomodal = false" class="far fa-times-circle" style=" margin: 10px; font-size: 30px;"></i></div>
-                    <div class="info-my-modal-inner" style="width: 250px; overflow:auto; flex-wrap:wrap;" >
+                    <div class="info-my-modal-inner" style=" overflow:auto; flex-wrap:wrap;" >
                         <div style="margin-bottom: 20px;">요기다이스의 게임 성격 대분류는 총 6가지입니다.</div>
                         <div>
                             <div>
@@ -301,7 +301,7 @@ export default {
 .info-my-modal-inner {
     margin: 20px;
     margin-top: 0px;
-    width: 70vw;
+    width: 73vw;
     height: 330px;
     /* background-color: pink; */
 }
