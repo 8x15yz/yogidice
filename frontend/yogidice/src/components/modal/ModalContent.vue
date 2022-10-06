@@ -60,61 +60,61 @@ export default {
 
       let registInit = function () {
         {
-            // 고른 게임들 확인
-            let isBookMarkWorking = computed(() => store.state.user.isBookMarkWorking);
-            console.log("이새끼뭐야",isBookMarkWorking.value)
-            let selectGames = computed(() => store.state.games.selectedGames);
-              console.log("여기요여기",selectGames)
-            for (let i = 0; i < selectGames.value.length; i++) {
-              // 각 게임을 북마크에 등록
-              registBookMark(selectGames.value[i]);
-              if (isBookMarkWorking.value === false) {
-                break;
-              } else {
-                continue;
-              }
-            }
-            if (isBookMarkWorking.value === false ) {
-              store.dispatch(
-                "modal/registModal",
-                {
-                  info: {},
-                  from: "",
-                  header: "",
-                  body: "등록에 실패하였습니다!",
-                  footer1: "",
-                  footer2: "",
-                },
-                { root: true },
-              );
-              store.dispatch("modal/openModal", null, { root: true });
-              store.commit("user/BOOKMARK_WORKING")
-              setTimeout(function () {
-                store.dispatch("modal/closeModal", null, { root: true });
-              }, 2000);
+          // 고른 게임들 확인
+          let isBookMarkWorking = computed(
+            () => store.state.user.isBookMarkWorking,
+          );
+          let selectGames = computed(() => store.state.games.selectedGames);
+          for (let i = 0; i < selectGames.value.length; i++) {
+            // 각 게임을 북마크에 등록
+            registBookMark(selectGames.value[i]);
+            if (isBookMarkWorking.value === false) {
+              break;
             } else {
-              store.dispatch(
-                "modal/registModal",
-                {
-                  info: {},
-                  from: "",
-                  header: "",
-                  body: "성공적으로 등록되었습니다!",
-                  footer1: "",
-                  footer2: "",
-                },
-                { root: true },
-              );
-              store.commit("user/BOOKMARK_WORKING")
-
-              setTimeout(function () {
-                router.push({
-                  name: "MainPage",
-                });
-              }, 2000);
+              continue;
             }
           }
-      }
+          if (isBookMarkWorking.value === false) {
+            store.dispatch(
+              "modal/registModal",
+              {
+                info: {},
+                from: "",
+                header: "",
+                body: "등록에 실패하였습니다!",
+                footer1: "",
+                footer2: "",
+              },
+              { root: true },
+            );
+            store.dispatch("modal/openModal", null, { root: true });
+            store.commit("user/BOOKMARK_WORKING");
+            setTimeout(function () {
+              store.dispatch("modal/closeModal", null, { root: true });
+            }, 2000);
+          } else {
+            store.dispatch(
+              "modal/registModal",
+              {
+                info: {},
+                from: "",
+                header: "",
+                body: "성공적으로 등록되었습니다!",
+                footer1: "",
+                footer2: "",
+              },
+              { root: true },
+            );
+            store.commit("user/BOOKMARK_WORKING");
+
+            setTimeout(function () {
+              router.push({
+                name: "MainPage",
+              });
+            }, 2000);
+          }
+        }
+      };
 
       watch(isShowModal, (newValue) => {
         if (newValue === true && info.value.from === "registNickName") {

@@ -1,8 +1,6 @@
 package com.specialization.yogidice.dto.response;
 
 import com.specialization.yogidice.domain.entity.History;
-import com.specialization.yogidice.domain.entity.category.Mechanism;
-import com.specialization.yogidice.domain.entity.category.MechanismGroup;
 import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;

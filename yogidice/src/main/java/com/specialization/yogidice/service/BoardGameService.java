@@ -24,7 +24,6 @@ import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
 import lombok.RequiredArgsConstructor;
 import net.minidev.json.JSONObject;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -354,7 +353,6 @@ public class BoardGameService {
     public List<BoardGameSimpleResponse> recommendByBookmark(List<BookmarkResponse> bookmarkResponses) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://172.18.0.1:8000/analyze/recommend/detail/" + bookmarkResponses.get(0).getGameId();
-//        String url = "http://localhost:8000/analyze/recommend/detail/"+bookmarkResponses.get(0).getGameId();  //로컬에서
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -363,7 +361,6 @@ public class BoardGameService {
 
         jsonObject.put("gameId", bookmarkResponses.get(0).getGameId());
 
-        HttpEntity<String> request = new HttpEntity<>(jsonObject.toString(), httpHeaders);
         String boardGameList = restTemplate.getForObject(url, String.class);
 
         HashMap<String, Object> mapping = new ObjectMapper().readValue(boardGameList, HashMap.class);
@@ -375,10 +372,8 @@ public class BoardGameService {
         for (Integer key : boardMap.keySet()) {
             boardGameIds.add(boardMap.get(key));
         }
-        List<BoardGameSimpleResponse> boardGames = detailRecommend(boardGameIds);
 
-
-        return boardGames;
+        return detailRecommend(boardGameIds);
     }
 
     public int analyzeChemi(User user, Long gameId) {
@@ -391,10 +386,10 @@ public class BoardGameService {
         double[] gameArr = new double[6];
 
         for (Bookmark bookmark : bookmarkList) {
-            mechanismGroupRepository.findByBoardGame(bookmark.getBoardGame()).stream()
+            mechanismGroupRepository.findByBoardGame(bookmark.getBoardGame())
                     .forEach(m -> countMechanism(userArr, m.getMechanism()));
         }
-        mechanismGroupRepository.findByBoardGame(boardGame).stream().
+        mechanismGroupRepository.findByBoardGame(boardGame).
                 forEach(m -> countMechanism(gameArr, m.getMechanism()));
         double userSum = Arrays.stream(userArr).sum();
         double gameSum = Arrays.stream(gameArr).sum();
@@ -416,18 +411,25 @@ public class BoardGameService {
 
     public void countMechanism(double[] mechamismArr, Mechanism mechanism) {
         String parentMechanism = mechanism.getParentsMec();
-        if (parentMechanism.equals("조건")) {
-            mechamismArr[0]++;
-        } else if (parentMechanism.equals("말")) {
-            mechamismArr[1]++;
-        } else if (parentMechanism.equals("파티")) {
-            mechamismArr[2]++;
-        } else if (parentMechanism.equals("경제")) {
-            mechamismArr[3]++;
-        } else if (parentMechanism.equals("전략")) {
-            mechamismArr[4]++;
-        } else {
-            mechamismArr[5]++;
+        switch (parentMechanism) {
+            case "조건":
+                mechamismArr[0]++;
+                break;
+            case "말":
+                mechamismArr[1]++;
+                break;
+            case "파티":
+                mechamismArr[2]++;
+                break;
+            case "경제":
+                mechamismArr[3]++;
+                break;
+            case "전략":
+                mechamismArr[4]++;
+                break;
+            default:
+                mechamismArr[5]++;
+                break;
         }
     }
 }

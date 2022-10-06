@@ -26,7 +26,7 @@ public class RecommendService {
     private final BoardGameRepository boardGameRepository;
 
     @Transactional
-    public List<Recommend> updateRecommend(Long userId,List<Long> boardGameIds){
+    public void updateRecommend(Long userId, List<Long> boardGameIds){
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 
@@ -40,9 +40,5 @@ public class RecommendService {
             recommends.add(Recommend.create(user, boardGame));
         }
         recommendRepository.saveAll(recommends);
-
-
-        return null;
     }
-
 }
