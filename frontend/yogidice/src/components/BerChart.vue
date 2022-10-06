@@ -62,7 +62,7 @@ export default {
     let lengamecategoryten = reactive(props.lengamecategory);
     // const lenten = lengamecategoryten.map( x => x/Math.max(...lengamecategoryten)*10)
     const chartData = {
-      labels: ["추리카드퍼즐", "경제", "파티", "조건", "말", "전략"],
+      labels: ["논리", "경제", "파티", "룰", "말", "전략"],
       datasets: [
         {
           borderColor: "#71C9CE",

@@ -241,7 +241,7 @@ export default {
         tmp1.innerText = "info";
         tmp1.setAttribute(
           "class",
-          "material-symbols-outlined text-button cafe-detail-link",
+          "material-icons-outlined text-button cafe-detail-link",
         );
         tmp1.addEventListener("click", function () {
           window.open(places.place_url);
@@ -255,10 +255,13 @@ export default {
             : places.address_name;
           store.dispatch("games/getCafeGames", address);
         };
-        let tmp2 = document.createElement("div");
-        tmp2.innerText = "보유게임현황";
-        tmp2.setAttribute("class", "text-button");
-        tmp2.setAttribute("class", "cafe-own-game");
+        let tmp2 = document.createElement("span");
+        // tmp2.innerText = "보유게임현황"
+        tmp2.innerText = "format_list_bulleted";
+        tmp2.setAttribute(
+          "class",
+          "material-icons-outlined text-button cafe-own-game",
+        );
         tmp2.addEventListener("click", openCafeGameList);
 
         detailBtn.append(tmp1, tmp2);
@@ -267,14 +270,6 @@ export default {
         el.append(detailBtn);
 
         el.className = "item";
-        el.addEventListener("click", function () {
-          if (el.style.height === "32vh") {
-            el.style.height = "20vh";
-          } else {
-            el.style.height = "32vh";
-          }
-        });
-
         return el;
       }
 
@@ -364,6 +359,7 @@ export default {
       showSearchList,
       showCafeGameList,
       clsoeCafeGameList,
+      cafeName,
     };
   },
 };
@@ -405,9 +401,8 @@ export default {
   overflow: hidden;
 }
 .tel {
-  align-self: center;
   width: 30vw;
-  text-align: end;
+  text-align: start;
 }
 #pagination {
   display: flex;
@@ -448,14 +443,15 @@ hr {
   gap: 4vw;
   padding: 1vh 4vw;
   height: 10vh;
+  width: 70vw;
 }
 .cafe-detail-btn {
   display: flex;
   justify-content: space-around;
-  background-color: var(--color-bg-base);
   height: 4vh;
-  align-items: center;
-  box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.25);
+  align-self: center;
+  gap: 2vw;
+  margin-right: 4vw;
 }
 .cafe-detail-link {
   color: black;
@@ -464,6 +460,7 @@ hr {
   color: black;
 }
 .item {
-  height: 20vh;
+  display: flex;
+  justify-content: space-around;
 }
 </style>
