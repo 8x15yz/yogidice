@@ -1,16 +1,7 @@
-<template>
-  <header>
-    <div class="header-box">
-      <div class="header-1">
-        <img id="head-logo" @click="moveToMain" src="../static/logo_white.png" alt="">
-      </div>
-      <div id="head-title" class="text-headline-6">여기 Dice</div>
-      <div class="header-2">
-        <span id="head-profile" @click="moveToMypage" class="material-icons">person</span>
-      </div>
-    </div>
-  </header>
-  
+<template>  
+<div>
+    <grey-bg-head-bar></grey-bg-head-bar>
+</div>
   <div class="res-cover">
     <div class="text-headline-6">지금 나에게 맞는 게임</div>
     <main-card-list id="res-list"></main-card-list>
@@ -19,12 +10,26 @@
 
 <script>
 import MainCardList from "@/components/card/MainCardList.vue"
+import { useRouter } from 'vue-router'
 
 export default {
   components:{
     MainCardList
-  }
+  },
+  setup(){
+    const router = useRouter()
 
+    const moveToMain = function () {
+      router.push({name: "MainPage"})
+    }
+    const moveToMypage = function () {
+      router.push({name: "MypageView"})
+    }
+    return {
+      moveToMain,
+      moveToMypage,
+    }
+  }
 }
 </script>
 

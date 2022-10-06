@@ -18,6 +18,8 @@ export default createStore({
     gamedetail
   },
   plugins:[
-    createPersistedState()
+    createPersistedState({
+      paths: ['modal', 'page', 'user', 'games'],
+    })
 ],
 });

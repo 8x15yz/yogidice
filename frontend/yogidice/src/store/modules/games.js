@@ -17,8 +17,8 @@ export default {
     penalty: ["가", "나", "다", "라", "마", "바"],
   }),
   getters: {
-    getAuthHeader: (state, getters, rootState, rootGetters) =>
-      rootGetters["user/authHeader"],
+    getAuthHeader: (state, getters, rootState, rootGetters) => rootGetters["user/authHeader"],
+    getCountSmallGames: (state) => state.smallGames.length
   },
   mutations: {
     SET_DETAIL: (state, details) => (state.detail = details),
@@ -27,6 +27,7 @@ export default {
     SET_SUB_GAMES: (state, games) => state.subGames.push(games),
     SET_SMALL_GAMES: (state, games) => (state.smallGames = games),
     ADD_SMALL_GAMES: (state, games) => state.smallGames.push(...games),
+    APPEND_SMALL_GAMES: (state, games) => state.smallGames.push(games),
     SET_SEARCH_RESULT: (state, result) => {
       state.searchResult = result;
     },
@@ -251,18 +252,38 @@ export default {
         });
     },
     getCafeGames({commit},address) {
+      commit("RESET_SMALL_GAMES")
       axios({
         url: api.cafes.getCafeGames(address),
         method: "get",
       })
       .then((res) => {
-        commit('SET_SMALL_GAMES',res.data.responses)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        let result = res.data.responses
+        for (let i=0; i<result.length; i++){
+          axios({
+            url: api.games.detailEdit(result[i].gameId),
+            method: "get",
+          })
+          .then((res) => {
+            let data = res.data;
+            let details = {
+              id: data.id,
+              titleKr: data.titleKr,
+              thumbUrl: data.thumbUrl,
+              ratingUser: data.ratingUser,
+              minPlayers: data.minPlayers,
+              maxPlayers: data.maxPlayers,
+              playingTime: data.playingTime,
+              difficulty: data.difficulty,
+            };
+            commit("APPEND_SMALL_GAMES",details)
+          })
+          .catch((err)=>console.log(err))
+          }
+        })
+        .catch((err)=>console.log(err))
+      },
 
-    },
     addSelectedGames({ commit }, gameId) {
       commit("ADD_SELECTED_GAMES", gameId);
     },

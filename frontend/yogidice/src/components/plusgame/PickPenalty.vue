@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<div class="dump-area"></div>
 		<canvas>
 		</canvas>
 	</div>
@@ -23,8 +22,6 @@ export default {
 		let charMap
 		let breaks
 		let endSpeed
-	
-		
 
 		onMounted(()=>{
 
@@ -110,6 +107,7 @@ export default {
 				btn.addEventListener("click",function (){
 					setInit()
 					loop()
+				
 			})
 			});
 		return {

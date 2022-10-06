@@ -11,7 +11,7 @@
       <div id="pagination"></div>
     </div>
   </div>
-  <cafe-game-list v-show="cafeGameList"></cafe-game-list>
+  <cafe-game-list v-show="showCafeGameList" :name="cafeName" @close-cafe-modal="clsoeCafeGameList"></cafe-game-list>
 </template>
 
 <script>
@@ -25,7 +25,8 @@ export default {
   setup () {
   const store = useStore()
   let locPosition
-  let cafeGameList = ref(false)
+  let cafeName = ref('')
+  let showCafeGameList = ref(false)
   let showSearchList = function () {
     let searchList = document.querySelector(".search-list-title")
     let mapContainer = document.querySelector("#map")
@@ -36,10 +37,13 @@ export default {
         searchList.classList.remove("showing-list")
       
       } else {
-        mapContainer.style.height = "40vh"
+        mapContainer.style.height = "35vh"
         arrowIcon.style.rotate = "270deg"
         searchList.classList.add("showing-list")
     }
+  }
+  const clsoeCafeGameList = function () {
+    showCafeGameList.value = false
   }
 
   onMounted (() => {
@@ -219,22 +223,23 @@ export default {
                     '   <div class="place-title text-subtitle-1">' + places.place_name + '</div>';
 
         if (places.road_address_name) {
-            itemStr += '    <div class="place-address">' + places.road_address_name + '</div>'+'</div>' 
+            itemStr += '    <div class="place-address">' + places.road_address_name + '</div>' 
         } else {
-            itemStr += '    <div class="place-address">' +  places.address_name  + '</div>'+'</div>'; 
+            itemStr += '    <div class="place-address">' +  places.address_name  + '</div>'; 
         }
-          itemStr += '<div class="tel">' + places.phone  + '</div></div>'
+          itemStr += '<div class="tel">' + places.phone  + '</div></div>'+'</div>'
         
         let detailBtn = document.createElement('div')
         detailBtn.setAttribute("class","cafe-detail-btn")
-        let tmp1 = document.createElement('div')
-        tmp1.innerText = "카페상세보기"
-        tmp1.setAttribute("class","text-button")
-        tmp1.setAttribute("class","cafe-detail-link")
+        let tmp1 = document.createElement('span')
+        // tmp1.innerText = "카페상세보기"
+        tmp1.innerText= "info"
+        tmp1.setAttribute("class","material-symbols-outlined text-button cafe-detail-link")
         tmp1.addEventListener("click",function(){window.open(places.place_url)})
 
         const openCafeGameList = function () {
-          cafeGameList.value = !cafeGameList.value
+          cafeName.value = places.place_name
+          showCafeGameList.value = !showCafeGameList.value
           let address = places.road_address_name ? places.road_address_name : places.address_name
           console.log(address,typeof(address))
           store.dispatch("games/getCafeGames",address)
@@ -252,9 +257,9 @@ export default {
 
         el.className = 'item';
         el.addEventListener("click",function () {
-          if (el.style.height === "13vh") {
-            el.style.height = "9vh"
-          } else { el.style.height = "13vh" }
+          if (el.style.height === "32vh") {
+            el.style.height = "20vh"
+          } else { el.style.height = "32vh" }
         })
 
         return el;
@@ -339,6 +344,8 @@ export default {
     }
     return {
       showSearchList,
+      showCafeGameList,
+      clsoeCafeGameList
     }
   }
 }
@@ -353,10 +360,13 @@ export default {
   overflow:hidden;
 }
 #search-result-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
   background-color: white;
   border-radius: 20px;
   position: relative;
-  height: 60vh;
+  height: 80vh;
 }
 .search-list-title {
   text-align: left;
@@ -365,13 +375,13 @@ export default {
   z-index: 10;
 }
 #place-list {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start; */
+  justify-content: flex-start;
   padding: 0vh;
   margin: 0vh;
   overflow: scroll;
-  height:30vh;
+  height:35vh;
 }
 
 #wrap2.map-wrap {
@@ -386,7 +396,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 2vw;
-  margin-top: 4vh;
+  margin-top: 1vh;
   align-items: baseline;
 }
 .place-title {
@@ -414,12 +424,13 @@ hr {
 .li-container {
   display: flex;    
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   list-style:none;
   margin: 1vh 2vw;
   gap: 4vw;
-  padding: 0vh 4vw;
-  height: calc((25vh - 44px)/3);
+  padding: 1vh 4vw;
+  height: 10vh;
 }
 .cafe-detail-btn {
   display: flex;
@@ -439,7 +450,6 @@ hr {
   
 }
 .item {
-  height: 12vh;
-  overflow: hidden;
+  height: 20vh;
 }
 </style>

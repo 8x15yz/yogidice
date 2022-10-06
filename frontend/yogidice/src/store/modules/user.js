@@ -23,6 +23,7 @@ export default {
     SET_TOKEN: (state, token) => (state.token = token),
     SET_CURRENT_USER: (state, user) => (state.currentUser = user),
     BOOKMARK_NOT_WORKING: (state) => (state.isBookMarkWorking = false),
+    BOOKMARK_WORKING: (state) => (state.isBookMarkWorking = true),    
     SET_BOOKMARK: (state, bookmarks) => (state.myBookMark = bookmarks),
   },
   actions: {
@@ -36,7 +37,8 @@ export default {
         .then(() => {
           commit("SET_CURRENT_USER", newNickName);
           alert("닉네임이 성공적으로 변경되었습니다!");
-          router.push({ name: "InitChoice" });
+          router.push({ name: "InitChoice" }); //(22.10.06 - 튕김이슈발생 : 잠깐 메인으로 바로 가게 함)
+          //router.push({ name: "MainPage" });
         })
         .catch(() => alert("닉네임을 변경하지 못했습니다."));
     },
@@ -161,7 +163,8 @@ export default {
           dispatch("saveToken", token);
           dispatch("fetchCurrentUser");
           dispatch("modal/closeModal", null, { root: true });
-          router.push({ name: "InitChoice" });
+          router.push({ name: "InitChoice" }); //(22.10.06 - 튕김이슈발생 : 잠깐 메인으로 바로 가게 함)
+          // router.push({ name: "MainPage" });
         })
         .catch((err) => {
           console.log(err);

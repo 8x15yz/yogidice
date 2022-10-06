@@ -1,9 +1,13 @@
 <template>
   <div class="cafe-games-box">
-    <div>의 보유 게임</div>
-    <hr>
-    <search-bar></search-bar>
-    <div>총 개의 게임</div>
+    <div @click="closeCafeGame" class="close-button"><span class="material-icons-outlined">close</span></div>
+    <div class="cafe-games-title text-headline-6">{{ name }}의 보유 게임</div>
+    <hr class="line-cafe-game">
+    <div class="search-box">
+      <search-bar></search-bar>
+    </div>
+    <br>
+    <div class="cafe-games-count text-body-1">총 {{ count }}개의 게임</div>
     <div>
       <small-card-list></small-card-list>
     </div>
@@ -13,16 +17,26 @@
 <script>
 import SearchBar from '../SearchBar.vue'
 import SmallCardList from '@/components/card/SmallCardList.vue'
+import { useStore } from "vuex"
+import { computed } from '@vue/runtime-core'
 
 export default {
   components: { 
     SearchBar,
     SmallCardList
   },
-  setup(){
-    let cafeName = ''
+  props: {
+    name: String
+  },
+  setup(props,{emit}){
+    const store = useStore()
+    let count = computed(()=>store.getters.getCountSmallGames)
+    const closeCafeGame = function () {
+      emit("closeCafeModal")
+    }
     return {
-      cafeName
+      closeCafeGame,
+      count
     }
   }
 
@@ -31,9 +45,36 @@ export default {
 
 <style>
 .cafe-games-box {
-  width: 90vw;
-  height: 90vw;
+  display: flex;
+  flex-direction: column;
+  width: 94vw;
+  height: 90vh;
   z-index: 999;
-  background-color: var(--color-point);
+  background-color: white;
+  position: absolute;
+  top: 5vh;
+  left: 3vw;
+  border-radius: 4px;
+  padding-top: 4vh;
 }
+.search-box{
+  width: 94vw;
+  padding: 2vh 2vw;
+}
+.cafe-games-title{
+  color:black
+}
+.cafe-games-count{
+  color: black;
+  text-align: start;
+}
+.line-cafe-game{
+  width:88vw; 
+  background-color:white;
+  margin: 2vh 3vw;
+}
+.close-button {
+  margin-right: 4vw;
+}
+
 </style>

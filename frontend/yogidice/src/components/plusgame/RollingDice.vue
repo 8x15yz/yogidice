@@ -166,6 +166,7 @@ export default {
             dicenum2.value = Math.floor(Math.random()*(6-1)+1)
         }
         function clickDiceInfo() {
+            play("http://soundbible.com/mp3/Roll Dice 2-SoundBible.com-1635338454.mp3")
             // if (num == 2) {
                 for (let i = 1 ; i < 14; i ++) {
                     setTimeout(() => clickDice(), 190*i);
@@ -175,12 +176,22 @@ export default {
                 // setTimeout(() => document.querySelector("#container").className = "", 4000);
                 // setTimeout(() => document.querySelector("#diceBg").className = "", 4600);
             // }
+            // play("http://soundbible.com/mp3/Shake And Roll Dice-SoundBible.com-591494296.mp3")
+            
         }
+        function play(sound) {
+            if (sound) {
+                var audio = new Audio(sound);
+                audio.play();
+            } 
+    }
+        
         return {
             dicenum,
             dicenum2,
             clickDiceInfo,
-            diceview
+            diceview,
+            play,
         }
     }
 }

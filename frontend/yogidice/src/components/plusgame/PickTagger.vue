@@ -11,8 +11,6 @@ import { onMounted,ref } from '@vue/runtime-core'
 export default {
   setup(){
     let test = ref(false)
-    
-
     onMounted(()=>{
       const board = document.querySelector(".tab-container")
       const choiceFirstPlayer = function () {
@@ -81,7 +79,6 @@ export default {
    })
    return {
     test,
-
    }
   }
 

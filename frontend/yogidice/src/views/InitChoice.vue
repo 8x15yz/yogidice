@@ -68,6 +68,7 @@ export default {
       store.dispatch("games/resetSmallGames",{root:true})
       store.dispatch("games/changeSmallGames",{"type":"선호도조사", "page":page}, { root:true })
       store.dispatch("page/registPresentPage","선호도조사", { root:true })
+      store.commit("user/BOOKMARK_WORKING")
       
       // 선택의 개수에 따라 버튼 색깔 바꿔주기
       const initBtn = document.querySelector(".init-select-btn")
