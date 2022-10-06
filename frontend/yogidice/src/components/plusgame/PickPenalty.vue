@@ -127,9 +127,7 @@ export default {
       let btn = document.querySelector("#starter");
       btn.addEventListener("click", function () {
         setInit();
-        play(
-          "http://soundbible.com/mp3/Game Show Wheel Spin-SoundBible.com-1305738466.mp3",
-        );
+        play("../../static/Wheel_Spin_Sound.mp3");
         loop();
       });
     });
