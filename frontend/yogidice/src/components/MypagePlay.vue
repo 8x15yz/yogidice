@@ -43,6 +43,7 @@
 <script>
 import { reactive } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex"
 
 export default {
   props: {
@@ -51,12 +52,15 @@ export default {
   emits: ["OpenReviewModal"],
   setup(props) {
     const router = useRouter();
+    const store = useStore();
     const datum = reactive(props.userplaygames);
     const showDetail = function (n) {
       router.push({
         name: "GameDetail",
         query: { gameId: n.id, title: n.gameTitle },
       });
+      store.dispatch("games/getDetails", n.gameId);
+
     };
 
     return {

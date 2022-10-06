@@ -74,7 +74,6 @@ export default {
           center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
         };
-
       // 지도를 생성합니다
       var map = new kakao.maps.Map(mapContainer, mapOption);
 
@@ -126,7 +125,7 @@ export default {
       var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
       // 키워드로 장소를 검색합니다
-      searchPlaces();
+      setTimeout(searchPlaces,3000)
 
       // 키워드 검색을 요청하는 함수입니다
       function searchPlaces() {
