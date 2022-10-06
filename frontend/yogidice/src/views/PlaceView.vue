@@ -124,8 +124,7 @@ export default {
       // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-      // 키워드로 장소를 검색합니다
-      setTimeout(searchPlaces,3000)
+
 
       // 키워드 검색을 요청하는 함수입니다
       function searchPlaces() {
@@ -354,6 +353,8 @@ export default {
           el.removeChild(el.lastChild);
         }
       }
+      // 키워드로 장소를 검색합니다
+      searchPlaces();
     };
     return {
       showSearchList,
