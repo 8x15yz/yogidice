@@ -78,17 +78,11 @@ export default {
           })
       }
 
-      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-        mapOption = {
+      var mapContainer = document.getElementById("map") // 지도를 표시할 div
+      var mapOption = {
           center: new kakao.maps.LatLng(newLat, newLon), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
         };
-      displayMarker(locPosition, "현재위치");
-      map.setCenter(locPosition);
-
-      // 지도를 생성합니다
-      var map = new kakao.maps.Map(mapContainer, mapOption);
-
 
 
       const displayMarker = function (locPosition, message) {
@@ -120,6 +114,14 @@ export default {
         // 인포윈도우를 마커위에 표시합니다
         infowindow.open(map, marker);
       };
+
+
+      // 지도를 생성합니다
+      var map = new kakao.maps.Map(mapContainer, mapOption);
+
+      displayMarker(locPosition, "현재위치");
+      map.setCenter(locPosition);
+
 
       // 장소 검색 객체를 생성합니다
       var ps = new kakao.maps.services.Places();
