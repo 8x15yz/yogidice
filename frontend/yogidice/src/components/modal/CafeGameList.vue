@@ -1,7 +1,7 @@
 <template>
   <div class="cafe-games-box">
     <div @click="closeCafeGame" class="close-button"><span class="material-icons-outlined">close</span></div>
-    <div class="cafe-games-title text-headline-6">{{ cafeName }}의 보유 게임</div>
+    <div class="cafe-games-title text-headline-6">{{ name }}의 보유 게임</div>
     <hr class="line-cafe-game">
     <div class="search-box">
       <search-bar></search-bar>
@@ -17,7 +17,6 @@
 <script>
 import SearchBar from '../SearchBar.vue'
 import SmallCardList from '@/components/card/SmallCardList.vue'
-import { toRefs } from '@vue/reactivity'
 import { useStore } from "vuex"
 import { computed } from '@vue/runtime-core'
 
@@ -31,13 +30,11 @@ export default {
   },
   setup(props,{emit}){
     const store = useStore()
-    let cafeName = toRefs(props).name
-    let count = computed(()=>store.getters.games.getCountSmallGames)
+    let count = computed(()=>store.getters.getCountSmallGames)
     const closeCafeGame = function () {
       emit("closeCafeModal")
     }
     return {
-      cafeName,
       closeCafeGame,
       count
     }
@@ -67,7 +64,8 @@ export default {
   color:white
 }
 .cafe-games-count{
-  color: white
+  color: white;
+  text-align: start;
 }
 .line-cafe-game{
   width:88vw; 
