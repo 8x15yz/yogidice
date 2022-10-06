@@ -274,6 +274,7 @@ export default {
 
     store.dispatch("myuser/GetUserInfo");
     store.dispatch("myuser/GetUserHistory");
+    store.dispatch("myuser/GetUserBookmarkmark");
 
     let nickName = computed(() => store.state.myuser.nickName);
     let kakaoId = computed(() => store.state.myuser.kakaoId);

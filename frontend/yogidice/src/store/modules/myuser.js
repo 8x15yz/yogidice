@@ -55,6 +55,37 @@ export default {
           console.log(err);
         });
     },
+    GetUserBookmarkmark({ getters, commit }) {
+      commit("USER_REVIEW_RESET")
+      axios({
+        url: api.users.bookmark(),
+        method: "get",
+        headers: getters.authHeader,
+      })
+        .then((res) => {
+          for( let book of res.data.responses){
+            console.log(book)
+            for(let mecha of book.mechanismGroupResponses) {
+              if (mecha.parentsMec == "추리카드퍼즐") {
+                commit("LIKE_P_MEC", 0);
+              } else if (mecha.parentsMec == "경제") {
+                commit("LIKE_P_MEC", 1);
+              } else if (mecha.parentsMec == "파티") {
+                commit("LIKE_P_MEC", 2);
+              } else if (mecha.parentsMec == "조건") {
+                commit("LIKE_P_MEC", 3);
+              } else if (mecha.parentsMec == "말") {
+                commit("LIKE_P_MEC", 4);
+              } else if (mecha.parentsMec == "전략") {
+                commit("LIKE_P_MEC", 5);
+              }
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     GetUserHistory({ getters, commit }) {
       commit("LIKE_P_MEC_RESET");
       commit("USER_REVIEW_RESET");
