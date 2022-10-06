@@ -86,6 +86,8 @@ export default {
           displayMarker(locPosition, "현재위치");
           map.setCenter(locPosition);
           console.log(locPosition,"센터지정")
+          // 키워드로 장소를 검색합니다
+          searchPlaces();
         });
       }
 
@@ -354,8 +356,7 @@ export default {
           el.removeChild(el.lastChild);
         }
       }
-      // 키워드로 장소를 검색합니다
-      searchPlaces();
+
     };
     return {
       showSearchList,
