@@ -223,7 +223,7 @@ export default {
                     '   <div class="place-title text-subtitle-1">' + places.place_name + '</div>';
 
         if (places.road_address_name) {
-            itemStr += '    <div class="place-address">' + places.road_address_name + '</div>'+'</div>' 
+            itemStr += '    <div class="place-address">' + places.road_address_name + '</div>' 
         } else {
             itemStr += '    <div class="place-address">' +  places.address_name  + '</div>'; 
         }
