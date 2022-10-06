@@ -241,7 +241,6 @@
 
 <script>
 import { ref, computed } from "vue";
-
 import { useStore } from "vuex";
 
 import BerChart from "../components/BerChart.vue";
@@ -338,6 +337,7 @@ export default {
       reviewId,
       userreview,
       infomodal,
+      
     };
   },
 };

@@ -1,7 +1,6 @@
 <template>
   <div class="radar-ch">
     <div class="radar-ch-inner">
-      <div class="rader-cover" v-if="true">데이터가 없어요 😥</div>
       <Radar
         :chart-options="chartOptions"
         :chart-data="chartData"
@@ -12,6 +11,9 @@
 </template>
 
 <style scoped>
+.displaynone {
+  display : none
+}
 .radar-ch {
   height: 330px;
   display: flex;
@@ -26,7 +28,6 @@
   background-color: #f3f3f3;
 }
 .rader-cover {
-  position: absolute;
   width: 85vw;
   height: 330px;
   background-color: rgba(118, 118, 118, 0.563);
@@ -40,7 +41,7 @@
 
 <script>
 import { Radar } from "vue-chartjs";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import {
   Chart as ChartJS,
   Title,
@@ -69,15 +70,9 @@ export default {
     lengamecategory: Array,
   },
   setup(props) {
+    const ifradar = ref(false)
     // let lcmax = Math.max(...props.lengamecategory)
     let lengamecategoryten = reactive(props.lengamecategory);
-    if (Math.max(...lengamecategoryten) == 0) {
-      console.log('아')
-    }
-    else {
-      console.log('아니')
-    }
-    // const lenten = lengamecategoryten.map( x => x/Math.max(...lengamecategoryten)*10)
     const chartData = {
       labels: ["논리", "경제", "파티", "룰", "말", "전략"],
       datasets: [
@@ -96,6 +91,7 @@ export default {
     return {
       chartData,
       chartOptions,
+      ifradar
     };
   },
 };
