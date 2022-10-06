@@ -32,7 +32,7 @@ export default {
   setup(props,{emit}){
     const store = useStore()
     let cafeName = toRefs(props).name
-    let count = computed(()=>store.getters("games/getCountSmallGames"))
+    let count = computed(()=>store.getters.games.getCountSmallGames)
     const closeCafeGame = function () {
       emit("closeCafeModal")
     }
