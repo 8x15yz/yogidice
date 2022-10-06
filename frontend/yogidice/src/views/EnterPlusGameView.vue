@@ -81,10 +81,7 @@ export default {
         "게임을 선택하지 않을 경우, 게임별로 제공되는 정보를 이용할 수 없고, 취향 분석의 정확도가 낮아질 수 있습니다. 그래도 게임 선택 없이 진행하시겠습니까?";
       contents.footer1 = "계속";
       contents.footer2 = "취소";
-      store.dispatch("gamedetail/setPlayGame", [
-        contents.info.content,
-        choiceGameID,
-      ]);
+      store.dispatch("gamedetail/setPlayGame", [contents.info.content, 0]);
       store.dispatch("modal/registModal", contents);
       store.dispatch("modal/openModal");
     };
