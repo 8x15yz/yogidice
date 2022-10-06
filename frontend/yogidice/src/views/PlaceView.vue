@@ -85,6 +85,7 @@ export default {
           locPosition = new kakao.maps.LatLng(newLat, newLon);
           displayMarker(locPosition, "현재위치");
           map.setCenter(locPosition);
+          console.log(locPosition,"센터지정")
         });
       }
 
