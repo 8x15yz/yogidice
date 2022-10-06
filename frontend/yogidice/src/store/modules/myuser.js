@@ -13,6 +13,7 @@ export default {
     likeMecha: [],
     likePMec: [0, 0, 0, 0, 0, 0],
     likePMecMax: "보드게임",
+    pmec:[0, 0, 0, 0, 0, 0],
     rearrangemeca: [],
     userreview: 0,
   }),
@@ -22,6 +23,7 @@ export default {
       "Content-type": "Application/JSON",
     }),
     likemec: (state) => state.bookmark,
+    pmec: (state) => state.pmec,
     token: (state) => state.token,
   },
   mutations: {
@@ -38,6 +40,9 @@ export default {
     USER_REVIEW_RESET: (state) => (state.userreview = 0),
     LIKE_P_MEC_MAX: (state, gname) => (state.likePMecMax = gname),
     CHEMI: (state, chemi) => (state.chemi = chemi),
+    RESET_P_MAX: (state) => (state.likePMecMax = "보드게임"),
+    PMEC: (state, pmec) => (state.pmec = pmec),
+    RESET_PMEC: (state) => (state.pmec = [0, 0, 0, 0, 0, 0]),
   },
   actions: {
     GetUserInfo({ getters, commit }) {
@@ -64,20 +69,42 @@ export default {
       })
         .then((res) => {
           for( let book of res.data.responses){
-            console.log(book)
+            // console.log(book)
+            let pmec = getters.pmec;
+            const pmecmax = [
+              "논리",
+              "경제",
+              "파티",
+              "룰",
+              "말",
+              "전략",
+            ];
             for(let mecha of book.mechanismGroupResponses) {
               if (mecha.parentsMec == "추리카드퍼즐") {
                 commit("LIKE_P_MEC", 0);
+                pmec[0] += 1;
               } else if (mecha.parentsMec == "경제") {
                 commit("LIKE_P_MEC", 1);
+                pmec[1] += 1;
               } else if (mecha.parentsMec == "파티") {
                 commit("LIKE_P_MEC", 2);
+                pmec[2] += 1;
               } else if (mecha.parentsMec == "조건") {
                 commit("LIKE_P_MEC", 3);
+                pmec[3] += 1;
               } else if (mecha.parentsMec == "말") {
                 commit("LIKE_P_MEC", 4);
+                pmec[4] += 1;
               } else if (mecha.parentsMec == "전략") {
                 commit("LIKE_P_MEC", 5);
+                pmec[5] += 1;
+              }
+
+              if (Math.max(...pmec) == 0) {
+                commit("RESET_P_MAX");
+              }
+              else {
+                commit("LIKE_P_MEC_MAX", pmecmax[pmec.indexOf(Math.max(...pmec))]);
               }
             }
           }
@@ -97,7 +124,7 @@ export default {
         .then((res) => {
           commit("SET_HISTORY", res.data.responses);
           // console.log('dspd', res.data.responses)
-          let pmec = [0, 0, 0, 0, 0, 0];
+          let pmec = getters.pmec;
           const pmecmax = [
             "논리",
             "경제",
@@ -133,7 +160,13 @@ export default {
               }
             }
           }
-          commit("LIKE_P_MEC_MAX", pmecmax[pmec.indexOf(Math.max(...pmec))]);
+          if (Math.max(...pmec) == 0) {
+            commit("RESET_P_MAX");
+          }
+          else {
+            commit("LIKE_P_MEC_MAX", pmecmax[pmec.indexOf(Math.max(...pmec))]);
+          }
+          
         })
         .catch((err) => {
           console.log(err);
