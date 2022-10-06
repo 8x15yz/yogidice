@@ -271,7 +271,6 @@ export default {
     const reviewmodalview = ref(false);
     const infomodal = ref(false);
     // const ParentMechanism = ['추카퍼', '경제', '파티', '조건', '말', '전략']
-
     store.dispatch("myuser/GetUserInfo");
     store.dispatch("myuser/GetUserHistory");
     store.dispatch("myuser/GetUserBookmarkmark");

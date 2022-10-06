@@ -17,7 +17,7 @@
 
 <script>
 import MainCardItems from "@/components/card/MainCardItems.vue";
-import { onMounted, computed, ref } from "vue";
+import { onMounted, computed, ref, getCurrentInstance } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
@@ -25,7 +25,9 @@ export default {
   components: {
     MainCardItems,
   },
+  emits: ["resArray"],
   setup() {
+    const { emit } = getCurrentInstance();
     const store = useStore();
     const router = useRouter();
     let page = ref(1);
@@ -39,6 +41,8 @@ export default {
     };
     let gameLists = computed(() => store.state.games.mainGames);
     let gameType = computed(() => store.state.games.presentType);
+    console.log()
+    emit("resArray", gameLists)
 
     onMounted(() => {
       const moreBtn = document.querySelector(".card-more");
