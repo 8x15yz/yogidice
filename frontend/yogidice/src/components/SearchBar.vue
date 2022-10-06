@@ -1,36 +1,40 @@
 <template>
-  <div class='search-bar'>
+  <div class="search-bar">
     <span class="material-icons">search</span>
-    <input type="text" @keyup.enter="inputValue" v-model="searchInput" placeholder="보드게임을 검색해보세요!">
+    <input
+      type="text"
+      @keyup.enter="inputValue"
+      v-model="searchInput"
+      placeholder="보드게임을 검색해보세요!"
+    />
     <span class="material-icons" @click="eraser">close</span>
   </div>
 </template>
 
 <script>
-import { getCurrentInstance, ref } from 'vue'
+import { getCurrentInstance, ref } from "vue";
 export default {
   setup() {
-    const internalInstance = getCurrentInstance()
+    const internalInstance = getCurrentInstance();
     // 전역변수로 선언해놓은 mitt 가져오기
-    const emitter = internalInstance.appContext.config.globalProperties.emitter
-    let searchInput = ref('')
-    
+    const emitter = internalInstance.appContext.config.globalProperties.emitter;
+    let searchInput = ref("");
+
     const inputValue = function () {
-      emitter.emit('inputValue',searchInput.value)
-    }
+      emitter.emit("inputValue", searchInput.value);
+    };
     const eraser = function () {
-      searchInput.value = ""
-      inputValue()
-    }
+      searchInput.value = "";
+      inputValue();
+    };
 
     return {
       searchInput,
       inputValue,
-      eraser
-    }
-  }
-
-}
+      eraser,
+    };
+  },
+};
 </script>
 
 <style>
@@ -51,16 +55,14 @@ export default {
 
   /* white */
 
-  background: #FFFFFF;
+  background: #ffffff;
   /* black */
 
   border: 1px solid #000000;
   border-radius: 8px;
 }
 .search-bar input {
-  width:100%;
+  width: 100%;
   border-width: 0ch;
 }
-
-
 </style>

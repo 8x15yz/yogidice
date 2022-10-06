@@ -15,7 +15,6 @@ export default {
     likePMecMax: "보드게임",
     rearrangemeca: [],
     userreview: 0,
-    
   }),
   getters: {
     authHeader: (state) => ({
@@ -23,7 +22,7 @@ export default {
       "Content-type": "Application/JSON",
     }),
     likemec: (state) => state.bookmark,
-    token: (state) => state.token
+    token: (state) => state.token,
   },
   mutations: {
     SET_NICKNAME: (state, nickName) => (state.nickName = nickName),
@@ -42,7 +41,6 @@ export default {
   },
   actions: {
     GetUserInfo({ getters, commit }) {
-      console.log('??', getters.authHeader, getters.token)
       axios({
         url: api.users.get(),
         method: "get",
@@ -124,18 +122,18 @@ export default {
           console.log(err);
         });
     },
-    userAndGame({commit, getters}, gameId) {
-        axios({
-            url: api.gameInfo.userandgame(gameId),
-            method: "get",
-            headers: getters.authHeader
-        })
+    userAndGame({ commit, getters }, gameId) {
+      axios({
+        url: api.gameInfo.userandgame(gameId),
+        method: "get",
+        headers: getters.authHeader,
+      })
         .then((res) => {
-            console.log(res.data)
-            commit('CHEMI', res.data.response)
+          commit("CHEMI", res.data.response);
         })
-        .catch((err) => {console.log(err)});
-    }
-
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };

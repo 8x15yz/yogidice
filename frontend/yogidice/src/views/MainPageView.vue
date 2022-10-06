@@ -109,9 +109,6 @@ export default {
     onMounted(() => {
       cardListTypes = document.querySelectorAll(".cardlist-type div");
     });
-    const searchMain = (e) => {
-      console.log(e.target.value);
-    };
 
     const changeActive = (e) => {
       for (let cardListType of cardListTypes) {
@@ -134,7 +131,6 @@ export default {
 
     return {
       changeActive,
-      searchMain,
       moveToCafes,
       moveToGamePage,
       nickName,

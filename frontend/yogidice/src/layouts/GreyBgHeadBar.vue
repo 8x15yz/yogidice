@@ -1,12 +1,19 @@
-<template> 
+<template>
   <header>
     <div class="header-box">
       <div class="header-1">
-        <img id="head-logo" @click="moveToMain" src="../static/logo_white.png" alt="">
+        <img
+          id="head-logo"
+          @click="moveToMain"
+          src="../static/logo_white.png"
+          alt=""
+        />
       </div>
       <div id="head-title" class="text-headline-6">여기 Dice</div>
       <div class="header-2">
-        <span id="head-profile" @click="moveToMypage" class="material-icons">person</span>
+        <span id="head-profile" @click="moveToMypage" class="material-icons"
+          >person</span
+        >
       </div>
     </div>
   </header>
@@ -14,28 +21,27 @@
 </template>
 
 <script>
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from "vue-router";
 
 export default {
-  setup() { 
-    const router = useRouter()
-    const route = useRoute()
-    let path = route.fullPath
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    let path = route.fullPath;
 
     const moveToMain = function () {
-      router.push({name: "MainPage"})
-    }
+      router.push({ name: "MainPage" });
+    };
     const moveToMypage = function () {
-      router.push({name: "MypageView"})
-    }
+      router.push({ name: "MypageView" });
+    };
     return {
       moveToMain,
       moveToMypage,
-      path
-    }
-  }
-
-}
+      path,
+    };
+  },
+};
 </script>
 
 <style>
@@ -54,7 +60,7 @@ header {
   height: 6vh;
   padding: 3vw 4vw 0vw 4vw;
   gap: 4vw;
-  background: black
+  background: black;
 }
 .header-1 {
   display: flex;
@@ -74,7 +80,7 @@ header {
   align-items: center;
   width: 60vw;
   font-size: 5vw;
-  color: white
+  color: white;
 }
 #head-profile {
   font-size: 8vw;

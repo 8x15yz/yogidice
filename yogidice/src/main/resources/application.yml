@@ -47,7 +47,7 @@ spring:
 token:
   # 하루
   expiration_time: 1296000000
-  secret: secretcode
+  secret: yogidiceSecretCode
 
 api-key:
   kakao-rest-api: fdf8fb4eb465a2089f30d579060f8ed7

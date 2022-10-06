@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import { reactive,  computed, ref } from "vue";
+import { reactive, computed, ref } from "vue";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router"
+import { useRoute } from "vue-router";
 import ModalDialog from "@/components/modal/ModalDialog.vue";
 
 export default {
@@ -27,15 +27,18 @@ export default {
   },
 
   setup() {
-    const route = useRoute()
+    const route = useRoute();
     const store = useStore();
 
-    let userNickName = ref(route.params.nickName)
-    const userId = route.params.kakaoId
+    let userNickName = ref(route.params.nickName);
+    const userId = route.params.kakaoId;
 
     let showModal = computed(() => store.state.modal.showModal);
     let contents = reactive({
-      info: { from: "registNickName", content: {"nickName":userNickName.value, "kakaoId":userId} },
+      info: {
+        from: "registNickName",
+        content: { nickName: userNickName.value, kakaoId: userId },
+      },
       header: "",
       body: "",
       footer1: "",
@@ -46,7 +49,7 @@ export default {
       contents.body = `${userNickName.value} 으로 등록하시겠습니까?`;
       contents.footer1 = "계속";
       contents.footer2 = "취소";
-      contents.info.content = { "nickName":userNickName.value, "kakaoId":userId};
+      contents.info.content = { nickName: userNickName.value, kakaoId: userId };
       store.dispatch("modal/registModal", contents);
       store.dispatch("modal/openModal");
     };
@@ -55,7 +58,7 @@ export default {
       // nickNameValue,
       registNickname,
       contents,
-      userNickName
+      userNickName,
     };
   },
 };
