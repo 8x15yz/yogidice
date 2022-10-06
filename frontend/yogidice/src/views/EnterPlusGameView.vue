@@ -21,7 +21,7 @@
           @click="choicePlayGame"
           class="button-long-dark init-select-btn text-button"
         >
-          게임을 선택해주세요?
+          게임을 선택해주세요♡
         </button>
       </div>
     </div>

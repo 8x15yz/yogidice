@@ -1,15 +1,10 @@
 <template>
-  <div @click="closeYoutube" class="close-button">
-    <span class="material-icons-outlined">close</span>
-  </div>
-  <div class="text-headline-6">{{ playnowname }} 관련 영상</div>
+  <div class="play-header text-headline-6">{{ playnowname }} 관련 영상 <span @click="closeYoutube" class="close-button-cafe material-icons-outlined">close</span></div>
   <br />
   <div v-for="videoId in videoIds" :key="videoId">
     <iframe
       id="ytplayer"
       type="text/html"
-      width="300"
-      height="180"
       :src="videoId"
       frameborder="0"
     ></iframe>
@@ -50,7 +45,15 @@ export default {
 </script>
 
 <style>
-.close-button {
-  text-align: end;
+
+#ytplayer {
+  width: 80vw;
+  height: 25vh;
+  margin-bottom: 2vh;;
 }
+.play-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 </style>
