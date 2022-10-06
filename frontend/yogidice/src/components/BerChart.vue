@@ -11,12 +11,14 @@
 </template>
 
 <style scoped>
+.displaynone {
+  display : none
+}
 .radar-ch {
   height: 330px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: yellow; */
 }
 .radar-ch-inner {
   height: 320px;
@@ -25,11 +27,21 @@
   align-items: center;
   background-color: #f3f3f3;
 }
+.rader-cover {
+  width: 85vw;
+  height: 330px;
+  background-color: rgba(118, 118, 118, 0.563);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
 </style>
 
 <script>
 import { Radar } from "vue-chartjs";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import {
   Chart as ChartJS,
   Title,
@@ -58,9 +70,9 @@ export default {
     lengamecategory: Array,
   },
   setup(props) {
+    const ifradar = ref(false)
     // let lcmax = Math.max(...props.lengamecategory)
     let lengamecategoryten = reactive(props.lengamecategory);
-    // const lenten = lengamecategoryten.map( x => x/Math.max(...lengamecategoryten)*10)
     const chartData = {
       labels: ["논리", "경제", "파티", "룰", "말", "전략"],
       datasets: [
@@ -79,6 +91,7 @@ export default {
     return {
       chartData,
       chartOptions,
+      ifradar
     };
   },
 };
