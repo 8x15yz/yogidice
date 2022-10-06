@@ -1,6 +1,6 @@
 <template>
   <div id="long-card">
-    <img class="long-img" :src='thumbUrl' alt="" @click="showDetail(lg)">
+    <img class="long-img" :src="thumbUrl" alt="" @click="showDetail(lg)" />
     <div class="game-info" @click="showDetail(lg)">
       <div class="game-title text-subtitle-1">{{ titleKr }}</div>
       <div class="chip-rating">
@@ -15,98 +15,105 @@
     <div class="bookmark-alert text-subtitle-1" v-show="showRegister">
       북마크가 등록되었습니다!<span class="material-icons">check_circle</span>
     </div>
-    <span class="material-icons bookmark-icon" v-show="!isGameinBookMark" @click="registerBookMark">bookmark_border</span>
-    <span class="material-icons bookmark-icon bookmarked" v-show="isGameinBookMark" @click="registerBookMark">bookmark</span>
+    <span
+      class="material-icons bookmark-icon"
+      v-show="!isGameinBookMark"
+      @click="registerBookMark"
+      >bookmark_border</span
+    >
+    <span
+      class="material-icons bookmark-icon bookmarked"
+      v-show="isGameinBookMark"
+      @click="registerBookMark"
+      >bookmark</span
+    >
   </div>
 </template>
 
 <script>
-import { toRefs,ref,computed } from "vue"
-import { useStore } from "vuex"
-import { useRouter } from "vue-router"
+import { toRefs, ref, computed } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default {
   props: {
-    lg: Object
+    lg: Object,
   },
   setup(props) {
-    const store = useStore()
-    const router = useRouter()
-    let checkedMark = ref(false)
-  
-    let { titleKr } = toRefs(props.lg)
-    let { thumbUrl } = toRefs(props.lg)
-    let { id } = toRefs(props.lg)
-    let { maxPlayers } = toRefs(props.lg)
-    let { minPlayers } = toRefs(props.lg)
-    let { playingTime } = toRefs(props.lg)
-    let { ratingUser } = toRefs(props.lg)
-    let { difficulty } = toRefs(props.lg)
-    let rate = ratingUser.value.toFixed(2)
-    let level = computed(()=>{
+    const store = useStore();
+    const router = useRouter();
+    let checkedMark = ref(false);
+
+    let { titleKr } = toRefs(props.lg);
+    let { thumbUrl } = toRefs(props.lg);
+    let { id } = toRefs(props.lg);
+    let { maxPlayers } = toRefs(props.lg);
+    let { minPlayers } = toRefs(props.lg);
+    let { playingTime } = toRefs(props.lg);
+    let { ratingUser } = toRefs(props.lg);
+    let { difficulty } = toRefs(props.lg);
+    let rate = ratingUser.value.toFixed(2);
+    let level = computed(() => {
       if (difficulty.value <= 1) {
-        return "매우 쉬움"
-      } 
-      else if (difficulty.value <= 2) {
-        return "쉬움"
-      } 
-      else if (difficulty.value <= 3) {
-        return "보통"
-      } 
-      else if (difficulty.value <= 4) {
-        return "어려움"
-      } 
-      else {
-        return "매우 어려움"
-      } 
-    })
+        return "매우 쉬움";
+      } else if (difficulty.value <= 2) {
+        return "쉬움";
+      } else if (difficulty.value <= 3) {
+        return "보통";
+      } else if (difficulty.value <= 4) {
+        return "어려움";
+      } else {
+        return "매우 어려움";
+      }
+    });
 
-    let myBookMarks = computed(()=>(store.state.user.myBookMark).map(mark=>mark.gameId))
-    let isGameinBookMark = computed(()=>myBookMarks.value.includes(id.value))
-  
-    const showDetail = function(n) {
-      router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.titleKr}})
-      store.dispatch("games/getDetails",n.id,)
-    }
+    let myBookMarks = computed(() =>
+      store.state.user.myBookMark.map((mark) => mark.gameId),
+    );
+    let isGameinBookMark = computed(() => myBookMarks.value.includes(id.value));
 
-    let showRegister = ref(false)
+    const showDetail = function (n) {
+      router.push({
+        name: "GameDetail",
+        query: { gameId: n.id, title: n.titleKr },
+      });
+      store.dispatch("games/getDetails", n.id);
+    };
+
+    let showRegister = ref(false);
     const registerBookMark = function () {
       if (isGameinBookMark.value === true) {
-        store.dispatch("user/deleteBookMark",id.value)
-
+        store.dispatch("user/deleteBookMark", id.value);
       } else {
-        showRegister.value = true
+        showRegister.value = true;
         //북마크 등록 api
-        store.dispatch("user/registBookMark",id.value)
-        setTimeout(()=>showRegister.value=false,3000)        
-      }      
-    }
+        store.dispatch("user/registBookMark", id.value);
+        setTimeout(() => (showRegister.value = false), 3000);
+      }
+    };
 
-  return {
-    titleKr,
-    id,
-    thumbUrl,
-    checkedMark,
-    registerBookMark,
-    showRegister,
-    maxPlayers,
-    minPlayers,
-    playingTime,
-    ratingUser,
-    difficulty,
-    isGameinBookMark,
-    showDetail,
-    level,
-    rate
-    
-  }}
-
-
-}
+    return {
+      titleKr,
+      id,
+      thumbUrl,
+      checkedMark,
+      registerBookMark,
+      showRegister,
+      maxPlayers,
+      minPlayers,
+      playingTime,
+      ratingUser,
+      difficulty,
+      isGameinBookMark,
+      showDetail,
+      level,
+      rate,
+    };
+  },
+};
 </script>
 
 <style scoped>
-
-.bookmark-alert{
+.bookmark-alert {
   width: 92vw;
   height: 20vw;
   background-color: var(--color-bg-modal);
@@ -117,7 +124,7 @@ export default {
 }
 .game-title {
   width: 80%;
-  text-align:left;
+  text-align: left;
 }
 .long-img {
   width: 20vw;
@@ -144,12 +151,12 @@ export default {
 }
 .game-chip-container {
   margin: 0px;
-  align-self:center
+  align-self: center;
 }
 
 .bookmark-icon {
   position: absolute;
-  top:-8px;
+  top: -8px;
   right: 8px;
   font-size: 8vw;
 }
@@ -163,5 +170,4 @@ export default {
   background-color: white;
   overflow: hidden;
 }
-
 </style>

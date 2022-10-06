@@ -4,7 +4,7 @@
       <Radar
         :chart-options="chartOptions"
         :chart-data="chartData"
-        style="height: 300px; width: 300px;"
+        style="height: 300px; width: 300px"
       />
     </div>
   </div>
@@ -13,23 +13,23 @@
 <style scoped>
 .radar-ch {
   height: 330px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   /* background-color: yellow; */
 }
 .radar-ch-inner {
   height: 320px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
 }
 </style>
 
 <script>
 import { Radar } from "vue-chartjs";
-import {reactive} from 'vue'
+import { reactive } from "vue";
 import {
   Chart as ChartJS,
   Title,
@@ -46,7 +46,7 @@ ChartJS.register(
   Legend,
   PointElement,
   RadialLinearScale,
-  LineElement
+  LineElement,
 );
 
 export default {
@@ -55,38 +55,31 @@ export default {
     Radar,
   },
   props: {
-    lengamecategory: Array
+    lengamecategory: Array,
   },
   setup(props) {
     // let lcmax = Math.max(...props.lengamecategory)
-    let lengamecategoryten = reactive(props.lengamecategory)
+    let lengamecategoryten = reactive(props.lengamecategory);
     // const lenten = lengamecategoryten.map( x => x/Math.max(...lengamecategoryten)*10)
     const chartData = {
-        labels: [
-          "추리카드퍼즐",
-          "경제",
-          "파티",
-          "조건",
-          "말",
-          "전략",
-        ],
-        datasets: [
-          {
-            borderColor: "#71C9CE",
-            pointBackgroundColor: "#71C9CE",
-            data: lengamecategoryten,
-          }
-        ],
-      }
-      const chartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins:{ legend: { display: false }}
-      }
+      labels: ["추리카드퍼즐", "경제", "파티", "조건", "말", "전략"],
+      datasets: [
+        {
+          borderColor: "#71C9CE",
+          pointBackgroundColor: "#71C9CE",
+          data: lengamecategoryten,
+        },
+      ],
+    };
+    const chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+    };
     return {
-      chartData, 
-      chartOptions
-    }
-  }
+      chartData,
+      chartOptions,
+    };
+  },
 };
 </script>

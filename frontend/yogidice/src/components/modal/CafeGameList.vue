@@ -1,12 +1,14 @@
 <template>
   <div class="cafe-games-box">
-    <div @click="closeCafeGame" class="close-button"><span class="material-icons-outlined">close</span></div>
+    <div @click="closeCafeGame" class="close-button">
+      <span class="material-icons-outlined">close</span>
+    </div>
     <div class="cafe-games-title text-headline-6">{{ name }}의 보유 게임</div>
-    <hr class="line-cafe-game">
+    <hr class="line-cafe-game" />
     <div class="search-box">
       <search-bar></search-bar>
     </div>
-    <br>
+    <br />
     <div class="cafe-games-count text-body-1">총 {{ count }}개의 게임</div>
     <div>
       <small-card-list></small-card-list>
@@ -15,32 +17,31 @@
 </template>
 
 <script>
-import SearchBar from '../SearchBar.vue'
-import SmallCardList from '@/components/card/SmallCardList.vue'
-import { useStore } from "vuex"
-import { computed } from '@vue/runtime-core'
+import SearchBar from "../SearchBar.vue";
+import SmallCardList from "@/components/card/SmallCardList.vue";
+import { useStore } from "vuex";
+import { computed } from "@vue/runtime-core";
 
 export default {
-  components: { 
+  components: {
     SearchBar,
-    SmallCardList
+    SmallCardList,
   },
   props: {
-    name: String
+    name: String,
   },
-  setup(props,{emit}){
-    const store = useStore()
-    let count = computed(()=>store.getters.getCountSmallGames)
+  setup(props, { emit }) {
+    const store = useStore();
+    let count = computed(() => store.getters.getCountSmallGames);
     const closeCafeGame = function () {
-      emit("closeCafeModal")
-    }
+      emit("closeCafeModal");
+    };
     return {
       closeCafeGame,
-      count
-    }
-  }
-
-}
+      count,
+    };
+  },
+};
 </script>
 
 <style>
@@ -57,24 +58,23 @@ export default {
   border-radius: 4px;
   padding-top: 4vh;
 }
-.search-box{
+.search-box {
   width: 94vw;
   padding: 2vh 2vw;
 }
-.cafe-games-title{
-  color:black
+.cafe-games-title {
+  color: black;
 }
-.cafe-games-count{
+.cafe-games-count {
   color: black;
   text-align: start;
 }
-.line-cafe-game{
-  width:88vw; 
-  background-color:white;
+.line-cafe-game {
+  width: 88vw;
+  background-color: white;
   margin: 2vh 3vw;
 }
 .close-button {
   margin-right: 4vw;
 }
-
 </style>

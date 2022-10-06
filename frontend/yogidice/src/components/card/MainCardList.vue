@@ -6,9 +6,7 @@
       id="main-card"
       @click="showDetail(game)"
     >
-      <main-card-items
-      :game="game">
-      </main-card-items>
+      <main-card-items :game="game"> </main-card-items>
     </div>
     <div class="card-more">
       <span class="material-icons">arrow_forward_ios</span>
@@ -18,44 +16,48 @@
 </template>
 
 <script>
-import MainCardItems from "@/components/card/MainCardItems.vue"
-import { onMounted, computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from "vuex"
+import MainCardItems from "@/components/card/MainCardItems.vue";
+import { onMounted, computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default {
   components: {
-    MainCardItems
+    MainCardItems,
   },
   setup() {
-    const store = useStore()
-    const router = useRouter()
-    let page = ref(1)
-    const showDetail = function(n) {
-      router.push({name:"GameDetail", query:{"gameId":n.id, "title":n.titleKr}})
-      store.dispatch("games/getDetails",n.id,)
-    }
-    let gameLists = computed(()=>store.state.games.mainGames)
-    let gameType = computed(()=>store.state.games.presentType)
+    const store = useStore();
+    const router = useRouter();
+    let page = ref(1);
+    const showDetail = function (n) {
+      router.push({
+        name: "GameDetail",
+        query: { gameId: n.id, title: n.titleKr },
+      });
+      store.dispatch("games/getDetails", n.id);
+    };
+    let gameLists = computed(() => store.state.games.mainGames);
+    let gameType = computed(() => store.state.games.presentType);
 
-    onMounted(()=>{
-      const moreBtn = document.querySelector(".card-more")
+    onMounted(() => {
+      const moreBtn = document.querySelector(".card-more");
       moreBtn.addEventListener("click", () => {
-      //gameType에 맞는 리스트 만들기
-      store.dispatch("games/resetLongGames")
-      store.dispatch("games/changeLongGames",{"type":gameType.value,"page":page.value})
-      router.push({name:"MoreList", params:{"type":gameType.value}})
-      }
-    )})
-    
-  return {
-    gameLists,
-    showDetail
-  }
-}
+        //gameType에 맞는 리스트 만들기
+        store.dispatch("games/resetLongGames");
+        store.dispatch("games/changeLongGames", {
+          type: gameType.value,
+          page: page.value,
+        });
+        router.push({ name: "MoreList", params: { type: gameType.value } });
+      });
+    });
 
-
-}
+    return {
+      gameLists,
+      showDetail,
+    };
+  },
+};
 </script>
 
 <style>
@@ -90,7 +92,7 @@ export default {
   justify-content: center;
   font-size: 30px;
 }
-.card-more>div {
+.card-more > div {
   width: 20vw;
   margin-top: 10px;
   text-align: center;

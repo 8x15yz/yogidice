@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.specialization.yogidice.common.exception.NotFoundException.BOOKMARK_LIST_NOT_FOUND;
 import static com.specialization.yogidice.common.exception.NotFoundException.USER_NOT_FOUND;
 
 @Service

@@ -14,7 +14,6 @@ import com.specialization.yogidice.domain.repository.UserRepository;
 import com.specialization.yogidice.domain.repository.category.MechanismGroupRepository;
 import com.specialization.yogidice.dto.request.HistoryCreateRequest;
 import com.specialization.yogidice.dto.request.HistoryUpdateRequest;
-import com.specialization.yogidice.dto.response.BoardGameResponse;
 import com.specialization.yogidice.dto.response.HistoryDetailResponse;
 import com.specialization.yogidice.dto.response.HistoryResponse;
 import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
@@ -96,7 +95,7 @@ public class HistoryService {
                 request.getRating(),
                 request.getReview()
         );
-        if(user.getReviewed()==Reviewed.F){
+        if (user.getReviewed() == Reviewed.F) {
             user.completeReview();
         }
         userRepository.save(user);
@@ -140,7 +139,7 @@ public class HistoryService {
     @Transactional
     public List<HistoryResponse> readHistoryListById(Long gameId) {
         BoardGame boardGame = boardGameRepository.findById(gameId)
-                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));;
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         List<History> histories = historyRepository.findAllByBoardGame(boardGame);
         if (histories.isEmpty()) {
             throw new NotFoundException((HISTORY_LIST_NOT_FOUND));

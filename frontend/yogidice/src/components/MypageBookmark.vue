@@ -1,36 +1,36 @@
 <template>
-    <div class="my-bookmark-tag">
-        <div v-for="game in games" :key="game.key" @click="showDetail(game)">
-            <img class="smallImg" @click="selectImg" :src='game.thumbUrl' alt="">
-            <p class="text-subtitle-2" style="width: 25vw;">{{ game.gameTitle }}</p>
-        </div>
+  <div class="my-bookmark-tag">
+    <div v-for="game in games" :key="game.key" @click="showDetail(game)">
+      <img class="smallImg" @click="selectImg" :src="game.thumbUrl" alt="" />
+      <p class="text-subtitle-2" style="width: 25vw">{{ game.gameTitle }}</p>
     </div>
+  </div>
 </template>
 
 <script>
-import {computed} from "vue";
-import { useStore } from 'vuex'
-import { useRouter } from "vue-router"
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
-  
   setup() {
-    const router = useRouter()
-    const store = useStore()
-    let games = computed(()=>store.state.myuser.bookmark)
-    const showDetail = function(n) {
-      router.push({name:"GameDetail", query:{"gameId":n.gameId, "title":n.gameTitle}})
-      store.dispatch("games/getDetails",n.gameId,)
-    }
+    const router = useRouter();
+    const store = useStore();
+    let games = computed(() => store.state.myuser.bookmark);
+    const showDetail = function (n) {
+      router.push({
+        name: "GameDetail",
+        query: { gameId: n.gameId, title: n.gameTitle },
+      });
+      store.dispatch("games/getDetails", n.gameId);
+    };
 
     return {
       games,
-      showDetail
-    }
-  }
-
-
-}
+      showDetail,
+    };
+  },
+};
 </script>
 
 <style>
@@ -50,9 +50,9 @@ export default {
   height: 28vw;
   object-fit: cover;
 }
-.smallImg + p{
+.smallImg + p {
   white-space: nowrap;
-  overflow:hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 0px;
 }
@@ -67,6 +67,4 @@ export default {
     width: 28vw;
     overflow: hidden;
 } */
-
-
 </style>

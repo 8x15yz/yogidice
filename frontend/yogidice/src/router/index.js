@@ -1,5 +1,3 @@
-// import Vue from "vue";
-// import VueRouter from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
 
 import HomeView from "@/views/HomeView.vue";
@@ -11,19 +9,16 @@ import InitChoice from "@/views/InitChoice.vue";
 import MypageView from "@/views/MypageView.vue";
 import MainPageView from "@/views/MainPageView.vue";
 import MoreGameView from "@/views/MoreGameView.vue";
-import DiceBgLayout from '@/layouts/DiceBgLayout.vue'
-import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue'
-import DetailView from '@/views/DetailView.vue'
-import PlaceView from "@/views/PlaceView.vue"
-import GamePlusView from "@/views/GamePlusView.vue"
-import BoardBgLayout from "@/layouts/BoardBgLayout.vue"
-import PickView from "@/views/PickView.vue"
-import PickQuestionView from "@/views/PickQuestionView.vue"
-import FilteringResView from "@/views/FilteringResView.vue"
-import EnterPlusGameView from "@/views/EnterPlusGameView.vue"
-
-
-// Vue.use(VueRouter);
+import DiceBgLayout from "@/layouts/DiceBgLayout.vue";
+import GreyBgHeadBar from "@/layouts/GreyBgHeadBar.vue";
+import DetailView from "@/views/DetailView.vue";
+import PlaceView from "@/views/PlaceView.vue";
+import GamePlusView from "@/views/GamePlusView.vue";
+import BoardBgLayout from "@/layouts/BoardBgLayout.vue";
+import PickView from "@/views/PickView.vue";
+import PickQuestionView from "@/views/PickQuestionView.vue";
+import FilteringResView from "@/views/FilteringResView.vue";
+import EnterPlusGameView from "@/views/EnterPlusGameView.vue";
 
 const routes = [
   {
@@ -107,8 +102,8 @@ const routes = [
     ],
   },
   {
-    path: '/plusgame',
-    name: 'GamePlusView',
+    path: "/plusgame",
+    name: "GamePlusView",
     component: GamePlusView,
   },
   {
@@ -117,8 +112,8 @@ const routes = [
     children: [
       {
         path: "",
-        name: 'ChoicePlusGame',
-        component: EnterPlusGameView
+        name: "ChoicePlusGame",
+        component: EnterPlusGameView,
       },
     ],
   },
@@ -129,21 +124,20 @@ const routes = [
       {
         path: "",
         name: "GamePickHome",
-        component: PickView
+        component: PickView,
       },
       {
         path: "question",
         name: "QuestionView",
-        component: PickQuestionView
+        component: PickQuestionView,
       },
       {
-        path:"result",
+        path: "result",
         name: "PickResultView",
-        component: FilteringResView
-      }
-    ]
-
-  }
+        component: FilteringResView,
+      },
+    ],
+  },
 ];
 
 const router = createRouter({

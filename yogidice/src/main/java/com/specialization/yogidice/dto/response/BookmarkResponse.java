@@ -2,8 +2,6 @@ package com.specialization.yogidice.dto.response;
 
 import com.specialization.yogidice.domain.entity.Bookmark;
 import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
-import com.specialization.yogidice.dto.response.category.MechanismListResponse;
-import com.specialization.yogidice.dto.response.category.MechanismResponse;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

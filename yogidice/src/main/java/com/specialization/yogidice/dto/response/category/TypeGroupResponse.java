@@ -1,7 +1,6 @@
 package com.specialization.yogidice.dto.response.category;
 
 import com.specialization.yogidice.domain.entity.category.TypeGroup;
-import com.specialization.yogidice.dto.response.BaseResponseBody;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
