@@ -253,6 +253,8 @@ export default {
         detailBtn.append(tmp1,tmp2)
 
         el.innerHTML = itemStr;
+        console.log(el)
+        console.log(itemStr,"아놔")
         el.append(detailBtn)
 
         el.className = 'item';
