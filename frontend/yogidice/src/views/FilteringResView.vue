@@ -3,7 +3,16 @@
     <grey-bg-head-bar></grey-bg-head-bar>
   </div>
   <div class="res-cover">
-    <div class="text-headline-6">지금 나에게 맞는 게임</div>
+    <div class="text-headline-6">
+      <div>
+        <div class="displayflex" style="margin-top: 20px;">
+          지금 나에게 맞는 게임
+        </div>
+        <div class="displayflex">
+          <div class="again" @click="returnpick">다시하기</div>
+        </div>
+      </div>
+    </div>
     <main-card-list id="res-list"></main-card-list>
   </div>
 </template>
@@ -27,15 +36,34 @@ export default {
     const moveToMypage = function () {
       router.push({ name: "MypageView" });
     };
+    const returnpick = function () {
+      router.push({ name: "GamePickHome" });
+    };
     return {
       moveToMain,
       moveToMypage,
+      returnpick
     };
   },
 };
 </script>
 
 <style>
+.displayflex {
+  display: flex;
+  justify-content: center;
+}
+.again {
+  margin-top: 20px;
+  width: 90px;
+  height: 35px;
+  border: 3px solid rgb(49, 49, 49);
+  color: rgb(49, 49, 49);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px 40px;
+}
 .res-cover {
   width: 90vw;
   height: 90vh;
