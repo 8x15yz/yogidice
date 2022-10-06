@@ -5,9 +5,6 @@
     </div>
     <div class="cafe-games-title text-headline-6">{{ name }}의 보유 게임</div>
     <hr class="line-cafe-game" />
-    <div class="search-box">
-      <search-bar></search-bar>
-    </div>
     <br />
     <div class="cafe-games-count text-body-1">총 {{ count }}개의 게임</div>
     <div>
@@ -17,14 +14,12 @@
 </template>
 
 <script>
-import SearchBar from "../SearchBar.vue";
 import SmallCardList from "@/components/card/SmallCardList.vue";
 import { useStore } from "vuex";
 import { computed } from "@vue/runtime-core";
 
 export default {
   components: {
-    SearchBar,
     SmallCardList,
   },
   props: {

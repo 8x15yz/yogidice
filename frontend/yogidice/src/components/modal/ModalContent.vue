@@ -173,7 +173,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
-  padding: 0px 16px 0px 16px;
+  padding: 12px 16px 0px 16px;
   /* Inside auto layout */
 }
 .modal-body {
