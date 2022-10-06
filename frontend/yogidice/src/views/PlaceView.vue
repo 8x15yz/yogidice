@@ -137,7 +137,7 @@ export default {
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         ps.keywordSearch(keyword, placesSearchCB, {
           location: center,
-          radius:1000,
+          radius:2000,
           sort: kakao.maps.services.SortBy.ACCURACY,
           size: 3,
         });
@@ -406,7 +406,7 @@ export default {
   overflow: hidden;
 }
 .tel {
-  width: 30vw;
+  width: 40vw;
   text-align: start;
 }
 #pagination {
