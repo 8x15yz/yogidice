@@ -17,8 +17,8 @@ export default {
     penalty: ["가", "나", "다", "라", "마", "바"],
   }),
   getters: {
-    getAuthHeader: (state, getters, rootState, rootGetters) =>
-      rootGetters["user/authHeader"],
+    getAuthHeader: (state, getters, rootState, rootGetters) => rootGetters["user/authHeader"],
+    getCountSmallGames: (state) => state.smallGames.length
   },
   mutations: {
     SET_DETAIL: (state, details) => (state.detail = details),
