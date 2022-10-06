@@ -10,11 +10,13 @@
 
 <script>
 import MainCardList from "@/components/card/MainCardList.vue"
+import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue';
 import { useRouter } from 'vue-router'
 
 export default {
   components:{
-    MainCardList
+    MainCardList,
+    GreyBgHeadBar
   },
   setup(){
     const router = useRouter()

@@ -1,9 +1,5 @@
 <template>
-<div>
-    <grey-bg-head-bar></grey-bg-head-bar>
-</div>
-<i @click="gomain" class="fas fa-long-arrow-alt-left" style="position: absolute; font-size: 30px; color: #6C757D; margin: 10px;"></i>
-  <div class="question-cover">
+<div class="question-cover">
     <div class="question-page">
       <div class="progress-bar"></div>
       <img class="dice-dice" src="../static/dice.png" alt="">
@@ -23,11 +19,10 @@
 import QuestionList from '@/components/QuestionList.vue'
 import { getCurrentInstance, onMounted } from '@vue/runtime-core'
 import { useRouter } from "vue-router"
-import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue';
+
 export default {
   components: {
-     QuestionList ,
-     GreyBgHeadBar
+     QuestionList 
   },
   setup(){
     const router = useRouter()

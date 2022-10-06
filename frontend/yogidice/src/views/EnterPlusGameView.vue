@@ -41,6 +41,7 @@ export default {
     const store = useStore()
     store.dispatch("page/registPresentPage","플레이게임선택",{root:true})
     let choiceGameTitle = ''
+    let choiceGameID = 0
     let showModal = computed(()=>store.state.modal.showModal)
     let contents = reactive({
       'info':{'from':'playGame','content':''},
@@ -59,6 +60,8 @@ export default {
         contents.footer1 = '시작'
         contents.footer2 = '취소'
       }  
+      console.log(choiceGameTitle)
+      store.dispatch("gamedetail/PlayGame", [choiceGameTitle, choiceGameID])
       store.dispatch("modal/registModal",contents)
       store.dispatch("modal/openModal")
     }
@@ -84,6 +87,8 @@ export default {
         playGameBtn.setAttribute("class","button-long-blue init-select-btn text-button")
         playGameBtn.innerText = "게임 선택"
         choiceGameTitle = data.gameTitle
+        console.log(data, choiceGameID)
+        choiceGameID = data.gameId
     })
 
     })
