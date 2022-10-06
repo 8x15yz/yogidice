@@ -1,10 +1,18 @@
 <template>
-  <router-view id="wrap1"></router-view>
+  <router-view :key="route.fullPath" id="wrap1"></router-view>
 </template>
 
 <script>
-export default {};
-</script>
+import { useRoute } from "vue-router"
+export default {
+  setup() {
+    const route = useRoute();
+
+    return {
+      route,
+    };
+  },
+};</script>
 
 <style>
 #wrap1 {
