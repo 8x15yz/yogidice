@@ -15,6 +15,7 @@ export default {
     presentType: "",
     selectedGames: [],
     penalty: ["가", "나", "다", "라", "마", "바"],
+    smallGamesLen: 0
   }),
   getters: {
     getAuthHeader: (state, getters, rootState, rootGetters) =>
@@ -47,6 +48,8 @@ export default {
         state.selectedGames.splice(state.selectedGames.indexOf(gameId), 1);
       }
     },
+    SMALL_GAMES_LEN: (state) => (state.smallGamesLen = state.smallGames.length),
+    SMALL_GAMES_LEN_RESET: (state) => (state.smallGamesLen = 0)
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -126,7 +129,7 @@ export default {
           });
       }
     },
-    changeLongGames({ dispatch }, payload) {
+    changeLongGames({ dispatch,getters,commit }, payload) {
       let url;
       if (payload.type === "리뷰많은순") {
         url = api.games.sortReview();
@@ -134,6 +137,17 @@ export default {
         url = api.games.sortRating();
       } else if (payload.type === "최신게임") {
         url = api.games.sortRecent();
+      } else {
+        axios({
+          url: api.games.mainRecommend(),
+          method: "get",
+          headers: getters.getAuthHeader,
+        })
+        .then((res) => {
+          commit("SET_LONG_GAMES", res.data.responses)
+          return
+        })
+        
       }
       axios({
         url: url,
@@ -244,6 +258,7 @@ export default {
       })
         .then((res) => {
           commit("SET_MAIN_GAMES", res.data.responses);
+          commit("SET_TYPE","추천")
         })
         .catch((err) => {
           console.log(err);
@@ -275,8 +290,12 @@ export default {
                   difficulty: data.difficulty,
                 };
                 commit("APPEND_SMALL_GAMES", details);
+                commit("SMALL_GAMES_LEN");
               })
-              .catch((err) => console.log(err));
+              .catch((err) => {
+                console.log(err)
+              }
+              );
           }
         })
         .catch((err) => console.log(err));
@@ -306,5 +325,8 @@ export default {
     resetLongGames({ commit }) {
       commit("RESET_LONG_GAMES");
     },
+    resetSmallLenGames({commit}) {
+      commit("SMALL_GAMES_LEN_RESET");
+    }
   },
 };

@@ -33,6 +33,7 @@ export default {
     let locPosition;
     let cafeName = ref("");
     let showCafeGameList = ref(false);
+    store.dispatch("games/resetSmallLenGames")
     let showSearchList = function () {
       let searchList = document.querySelector(".search-list-title");
       let mapContainer = document.querySelector("#map");
@@ -129,7 +130,7 @@ export default {
 
       // 키워드 검색을 요청하는 함수입니다
       function searchPlaces() {
-        var keyword = "대전 보드게임 카페";
+        var keyword = "보드게임 카페";
         let center = map.getCenter();
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         ps.keywordSearch(keyword, placesSearchCB, {

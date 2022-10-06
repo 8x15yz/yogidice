@@ -144,6 +144,6 @@ export default {
 }
 .init-select-btn {
   position: fixed;
-  top: 95vh;
+  top: 80vh;
 }
 </style>
