@@ -121,7 +121,7 @@ public class HistoryService {
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         List<History> histories = historyRepository.findByUser(user);
         if (histories.isEmpty()) {
-            return;
+            throw new NotFoundException(HISTORY_LIST_NOT_FOUND);
         }
         for (History history : histories) {
             if (history.getRating() > 0) {
@@ -142,7 +142,7 @@ public class HistoryService {
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         List<History> histories = historyRepository.findAllByBoardGame(boardGame);
         if (histories.isEmpty()) {
-            throw new NotFoundException((HISTORY_LIST_NOT_FOUND));
+            return new ArrayList<>();
         }
         List<HistoryResponse> responses = new ArrayList<>();
         for (History history : histories) {
@@ -150,5 +150,4 @@ public class HistoryService {
         }
         return responses;
     }
-
 }
