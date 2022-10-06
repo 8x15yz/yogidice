@@ -5,7 +5,7 @@
   <div class="res-cover">
     <div class="text-headline-6">
       <div>
-        <div class="displayflex" style="margin-top: 20px;">
+        <div class="displayflex" style="margin-top: 20px">
           지금 나에게 맞는 게임
         </div>
         <div class="displayflex">
@@ -13,10 +13,7 @@
         </div>
       </div>
     </div>
-    <main-card-list 
-    id="res-list"
-    @resArray="resArray"
-    ></main-card-list>
+    <main-card-list id="res-list" @resArray="resArray"></main-card-list>
     <div v-if="arrlen == 0">없다</div>
   </div>
 </template>
@@ -35,8 +32,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    const arrlen = ref(1)
-    
+    const arrlen = ref(1);
+
     const router = useRouter();
 
     const moveToMain = function () {
@@ -47,18 +44,18 @@ export default {
     };
     const returnpick = function () {
       router.push({ name: "GamePickHome" });
-      store.dispatch("games/resetLenGames")
+      store.dispatch("games/resetLenGames");
     };
     function resArray(data) {
-      arrlen.value = data.value
-      console.log('dlrjfkd', arrlen.value)
+      arrlen.value = data.value;
+      console.log("dlrjfkd", arrlen.value);
     }
     return {
       moveToMain,
       moveToMypage,
       returnpick,
       resArray,
-      arrlen
+      arrlen,
     };
   },
 };

@@ -11,7 +11,7 @@
 
     <!-- 데이터 들어오면 -->
     <div>
-      <div v-for="game in userplaygames" :key="game.key">
+      <div v-for="game in userplaygames" :key="game.id">
         <div class="play-card-case">
           <img class="long-img" :src="game.thumbUrl" />
           <div class="game-info">
@@ -28,7 +28,14 @@
               >
               <i
                 class="far fa-edit play-my-icon"
-                @click="$emit('OpenReviewModal', [game.id, game.gameTitle])"
+                @click="
+                  $emit('OpenReviewModal', [
+                    game.gameTitle,
+                    game.rating,
+                    game.review,
+                    game.id,
+                  ])
+                "
               ></i>
             </div>
           </div>
@@ -109,7 +116,7 @@ export default {
 }
 .chip-rating {
   display: flex;
-  width: 80%;
+  width: 90%;
   height: 4vh;
 }
 .rating {

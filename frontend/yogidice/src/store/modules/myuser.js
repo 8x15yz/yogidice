@@ -69,7 +69,6 @@ export default {
       })
         .then((res) => {
           for (let book of res.data.responses) {
-            // console.log(book)
             let pmec = getters.pmec;
             const pmecmax = ["논리", "경제", "파티", "룰", "말", "전략"];
             for (let mecha of book.mechanismGroupResponses) {
@@ -118,7 +117,6 @@ export default {
       })
         .then((res) => {
           commit("SET_HISTORY", res.data.responses);
-          // console.log('dspd', res.data.responses)
           let pmec = getters.pmec;
           const pmecmax = ["논리", "경제", "파티", "룰", "말", "전략"];
           for (let hisgame of res.data.responses) {

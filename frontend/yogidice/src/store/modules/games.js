@@ -15,7 +15,8 @@ export default {
     presentType: "",
     selectedGames: [],
     penalty: ["가", "나", "다", "라", "마", "바"],
-    smallGamesLen: 0
+    smallGamesLen: 0,
+    morePageType: "",
   }),
   getters: {
     getAuthHeader: (state, getters, rootState, rootGetters) =>
@@ -35,6 +36,7 @@ export default {
     },
     SET_LONG_GAMES: (state, games) => (state.longGames = games),
     ADD_LONG_GAMES: (state, games) => state.longGames.push(games),
+    ADD_LONG_GAMES_LIST: (state, list) => state.longGames.push(...list),
     SET_TYPE: (state, type) => (state.presentType = type),
     RESET_SELECTED_GAMES: (state) => (state.selectedGames = []),
     RESET_GAMES: (state) => (state.mainGames = []),
@@ -49,7 +51,8 @@ export default {
       }
     },
     SMALL_GAMES_LEN: (state) => (state.smallGamesLen = state.smallGames.length),
-    SMALL_GAMES_LEN_RESET: (state) => (state.smallGamesLen = 0)
+    SMALL_GAMES_LEN_RESET: (state) => (state.smallGamesLen = 0),
+    SET_MORE_TYPE: (state, pType) => (state.morePageType = pType),
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -129,49 +132,69 @@ export default {
           });
       }
     },
-    changeLongGames({ dispatch,getters,commit }, payload) {
+    changeLongGames({ dispatch, getters, commit, state }, payload) {
       let url;
-      if (payload.type === "리뷰많은순") {
-        url = api.games.sortReview();
-      } else if (payload.type === "평점순") {
-        url = api.games.sortRating();
-      } else if (payload.type === "최신게임") {
-        url = api.games.sortRecent();
-      } else {
+      if (payload.type === "추천") {
         axios({
           url: api.games.mainRecommend(),
           method: "get",
           headers: getters.getAuthHeader,
-        })
-        .then((res) => {
-          commit("SET_LONG_GAMES", res.data.responses)
-          return
-        })
-        
-      }
-      axios({
-        url: url,
-        method: "get",
-        params: {
-          page: payload.page,
-          size: 30,
-        },
-      })
-        .then((res) => {
-          let tmp = [];
-          for (let r of res.data.responses) {
-            tmp.push(r.gameId);
-          }
-          let kind = "long";
-          let params = {
-            gameNums: tmp,
-            kind: kind,
-          };
-          dispatch("registGameDetails", params);
-        })
-        .catch((err) => {
-          console.log(err);
+        }).then((res) => {
+          commit("SET_LONG_GAMES", res.data.responses);
+          commit("SET_MORE_TYPE", payload.type);
+          return;
         });
+      } else if (payload.type === "추천불가") {
+        axios({
+          url: api.games.getCreate(),
+          method: "get",
+          headers: getters.getAuthHeader,
+          params: {
+            page: payload.page,
+            size: 30,
+          },
+        }).then((res) => {
+          if (state.longGames.length > 1) {
+            commit("ADD_LONG_GAMES_LIST", res.data.responses);
+          } else {
+            commit("SET_LONG_GAMES", res.data.responses);
+          }
+          commit("SET_MORE_TYPE", payload.type);
+          return;
+        });
+      } else {
+        if (payload.type === "리뷰많은순") {
+          url = api.games.sortReview();
+        } else if (payload.type === "평점순") {
+          url = api.games.sortRating();
+        } else if (payload.type === "최신게임") {
+          url = api.games.sortRecent();
+        }
+        axios({
+          url: url,
+          method: "get",
+          params: {
+            page: payload.page,
+            size: 30,
+          },
+        })
+          .then((res) => {
+            let tmp = [];
+            for (let r of res.data.responses) {
+              tmp.push(r.gameId);
+            }
+            let kind = "long";
+            let params = {
+              gameNums: tmp,
+              kind: kind,
+            };
+            dispatch("registGameDetails", params);
+            commit("SET_MORE_TYPE", payload.type);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
     registGameDetails({ commit }, params) {
       for (let i = 0; i < params.gameNums.length; i++) {
@@ -258,10 +281,21 @@ export default {
       })
         .then((res) => {
           commit("SET_MAIN_GAMES", res.data.responses);
-          commit("SET_TYPE","추천")
+          commit("SET_TYPE", "추천");
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          axios({
+            url: api.games.getCreate(),
+            method: "get",
+            headers: getters.getAuthHeader,
+            params: {
+              page: 1,
+              size: 10,
+            },
+          }).then((res) => {
+            commit("SET_MAIN_GAMES", res.data.responses);
+            commit("SET_TYPE", "추천불가");
+          });
         });
     },
     getCafeGames({ commit }, address) {
@@ -293,9 +327,8 @@ export default {
                 commit("SMALL_GAMES_LEN");
               })
               .catch((err) => {
-                console.log(err)
-              }
-              );
+                console.log(err);
+              });
           }
         })
         .catch((err) => console.log(err));
@@ -325,8 +358,8 @@ export default {
     resetLongGames({ commit }) {
       commit("RESET_LONG_GAMES");
     },
-    resetSmallLenGames({commit}) {
+    resetSmallLenGames({ commit }) {
       commit("SMALL_GAMES_LEN_RESET");
-    }
+    },
   },
 };

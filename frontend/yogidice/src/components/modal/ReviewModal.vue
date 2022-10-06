@@ -14,13 +14,13 @@
         <div class="review-modal-inner">
           <div>
             <div class="rating-comment">
-              플레이하신 {{ playgame }}에 대해 리뷰를 남겨주세요!
+              플레이 하신 "{{ gameTitle }}" 에 대해 리뷰를 남겨주세요!
             </div>
             <div class="stars-rating-wrap">
               <div class="stars-rating">
                 ★★★★★
                 <span>★★★★★</span>
-                <input type="range" v-model="stars" step="1" min="0" max="10" />
+                <input type="range" v-model="stars" step="1" min="1" max="10" />
               </div>
               <div class="stars-rating-point">{{ stars }}점</div>
             </div>
@@ -34,7 +34,6 @@
       </div>
       <div class="rmi-displayflex">
         <div class="review-modal-bottom">
-          <div class="im-not-play-this-game">게임을 플레이하지 않았습니다</div>
           <div class="review-modal-btn-wrap">
             <div class="review-submit" @click="submitReview">등록</div>
             <div class="review-revoke" @click="$emit('CloseReviewModal')">
@@ -63,18 +62,18 @@ import { useStore } from "vuex";
 export default {
   emits: ["CloseReviewModal"],
   props: {
-    reviewId: Array,
+    reviewedInfo: Array,
   },
   setup(props) {
     const { emit } = getCurrentInstance();
     const store = useStore();
-    const stars = ref(1);
-    const playgame = reactive(props.reviewId[1]);
-    const gamereviewtext = ref("");
+    const gameTitle = reactive(props.reviewedInfo[0]);
+    const stars = ref(props.reviewedInfo[1]);
+    const gamereviewtext = ref(props.reviewedInfo[2]);
     const reviewform = ref(true);
     const submitReview = function () {
-      if (gamereviewtext.value == "") {
-        window.alert("리뷰를 작성하고 제출해주세요");
+      if (gamereviewtext.value == "" || stars.value == 0) {
+        window.alert("리뷰를 작성하고 제출해주세요!");
       } else {
         reviewform.value = false;
 
@@ -83,7 +82,7 @@ export default {
             rating: stars.value,
             review: gamereviewtext.value,
           },
-          props.reviewId[0],
+          props.reviewedInfo[3],
         ]);
         setTimeout(() => {
           emit("CloseReviewModal");
@@ -93,7 +92,7 @@ export default {
     };
     return {
       stars,
-      playgame,
+      gameTitle,
       gamereviewtext,
       submitReview,
       reviewform,
@@ -102,7 +101,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .review-modal-title {
   margin: 10px;
   margin-left: 20px;
@@ -164,6 +163,7 @@ export default {
   width: 75vw;
   height: 70px;
   align-items: end;
+  padding-top: 30px;
 }
 .review-modal-inner {
   /* background-color: pink; */

@@ -1,4 +1,11 @@
 <template>
+  <!-- 병찬 -->
+  <div style="position: absolute; z-index: 3">
+    <button @click="testlogin">임시로그인</button>
+    <button @click="logOut">임시로그아웃</button>
+    <button @click="viewUserInfo">회원정보보기</button>
+  </div>
+  <!-- 병찬 -->
   <div class="mypage-container">
     <!-- 헤더있는곳 -->
     <div>
@@ -82,7 +89,7 @@
     <div class="my-review-bg" v-if="reviewmodalview">
       <review-modal
         @CloseReviewModal="CloseReviewModal"
-        :reviewId="reviewId"
+        :reviewedInfo="reviewedInfo"
       ></review-modal>
     </div>
     <!-- 리뷰받는 모달폼 -->
@@ -227,7 +234,7 @@
         <mypage-review
           v-if="reviewview"
           :reviewdatum="reviewdatum"
-          :reviewId="reviewId"
+          :reviewedInfo="reviewedInfo"
           @OpenReviewModal="OpenReviewModal"
         ></mypage-review>
       </div>
@@ -241,6 +248,9 @@
 
 <script>
 import { ref, computed } from "vue";
+// 병찬
+import axios from "axios";
+// 병찬
 
 import { useStore } from "vuex";
 
@@ -314,12 +324,43 @@ export default {
     const CloseReviewModal = function () {
       reviewmodalview.value = false;
     };
-    let reviewId = ref(0);
+    let reviewedInfo = ref(0);
     const OpenReviewModal = function (data) {
       reviewmodalview.value = true;
-      reviewId.value = data;
+      reviewedInfo.value = data;
     };
 
+    // 병찬
+    function testlogin() {
+      axios({
+        url: "https://j7b206.p.ssafy.io/api/users/login",
+        method: "post",
+        data: {
+          kakaoId: "test2",
+          nickName: "test2",
+        },
+      })
+        .then(function a(response) {
+          console.log(response.headers.authorization);
+          localStorage.setItem("token", response.headers.authorization);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    function logOut() {
+      localStorage.removeItem("token");
+    }
+    function viewUserInfo() {
+      for (let g of userplaygames.value) {
+        console.log(g.review);
+        if (g.review == null) {
+          console.log("rmfgjgw");
+        }
+      }
+    }
+
+    // 병찬
     return {
       myPageBtn,
       mainview,
@@ -335,9 +376,14 @@ export default {
       kakaoId,
       lengamecategory,
       toponemec,
-      reviewId,
+      reviewedInfo,
       userreview,
       infomodal,
+      // 병찬
+      testlogin,
+      logOut,
+      viewUserInfo,
+      // 병찬
     };
   },
 };
