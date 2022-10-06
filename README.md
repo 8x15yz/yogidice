@@ -134,6 +134,9 @@
 ![MainRecommend](/uploads/0388f83139eef9c7517c77e70aad3d9c/MainRecommend.gif)
 
 #### 👍비슷한 게임 추천
+|비슷한 게임|확장판 게임|
+|:---:|:---:|
+|![연관](/uploads/0a8b20d28fc5bf428e9b8edf932d2099/연관.gif)|![확장판](/uploads/41426ecbecff6f1766651a1f2fcfba44/확장판.gif)|
 
 #### 🕹필터링 추천
 
