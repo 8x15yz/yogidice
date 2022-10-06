@@ -40,8 +40,7 @@ export default {
     };
     let gameLists = computed(() => store.state.games.mainGames);
     let gameType = computed(() => store.state.games.presentType);
-    console.log()
-    emit("resArray", gameLists)
+    emit("resArray", gameLists);
 
     onMounted(() => {
       const moreBtn = document.querySelector(".card-more");

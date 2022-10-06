@@ -22,9 +22,9 @@
               <span class="play-my-rating-title">내가 준 별점</span>
               <div class="rating">★{{ game.rating }}</div>
             </div>
-            <div v-if="!game.rating" class="chip-rating">
+            <div v-else class="chip-rating">
               <span class="play-my-rating-title writed-yet"
-                >리뷰를 작성하세요</span
+                >리뷰를 작성해보세요</span
               >
               <i
                 class="far fa-edit play-my-icon"
@@ -55,7 +55,7 @@ export default {
     const showDetail = function (n) {
       router.push({
         name: "GameDetail",
-        query: { gameId: n.id, title: n.gameTitle },
+        query: { gameId: n.gameId, title: n.gameTitle },
       });
     };
 

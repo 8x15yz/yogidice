@@ -13,7 +13,7 @@ export default {
     likeMecha: [],
     likePMec: [0, 0, 0, 0, 0, 0],
     likePMecMax: "보드게임",
-    pmec:[0, 0, 0, 0, 0, 0],
+    pmec: [0, 0, 0, 0, 0, 0],
     rearrangemeca: [],
     userreview: 0,
   }),
@@ -61,25 +61,18 @@ export default {
         });
     },
     GetUserBookmarkmark({ getters, commit }) {
-      commit("USER_REVIEW_RESET")
+      commit("USER_REVIEW_RESET");
       axios({
         url: api.users.bookmark(),
         method: "get",
         headers: getters.authHeader,
       })
         .then((res) => {
-          for( let book of res.data.responses){
+          for (let book of res.data.responses) {
             // console.log(book)
             let pmec = getters.pmec;
-            const pmecmax = [
-              "논리",
-              "경제",
-              "파티",
-              "룰",
-              "말",
-              "전략",
-            ];
-            for(let mecha of book.mechanismGroupResponses) {
+            const pmecmax = ["논리", "경제", "파티", "룰", "말", "전략"];
+            for (let mecha of book.mechanismGroupResponses) {
               if (mecha.parentsMec == "추리카드퍼즐") {
                 commit("LIKE_P_MEC", 0);
                 pmec[0] += 1;
@@ -102,9 +95,11 @@ export default {
 
               if (Math.max(...pmec) == 0) {
                 commit("RESET_P_MAX");
-              }
-              else {
-                commit("LIKE_P_MEC_MAX", pmecmax[pmec.indexOf(Math.max(...pmec))]);
+              } else {
+                commit(
+                  "LIKE_P_MEC_MAX",
+                  pmecmax[pmec.indexOf(Math.max(...pmec))],
+                );
               }
             }
           }
@@ -125,14 +120,7 @@ export default {
           commit("SET_HISTORY", res.data.responses);
           // console.log('dspd', res.data.responses)
           let pmec = getters.pmec;
-          const pmecmax = [
-            "논리",
-            "경제",
-            "파티",
-            "룰",
-            "말",
-            "전략",
-          ];
+          const pmecmax = ["논리", "경제", "파티", "룰", "말", "전략"];
           for (let hisgame of res.data.responses) {
             if (hisgame.review != null) {
               commit("USER_REVIEW");
@@ -162,11 +150,9 @@ export default {
           }
           if (Math.max(...pmec) == 0) {
             commit("RESET_P_MAX");
-          }
-          else {
+          } else {
             commit("LIKE_P_MEC_MAX", pmecmax[pmec.indexOf(Math.max(...pmec))]);
           }
-          
         })
         .catch((err) => {
           console.log(err);
@@ -179,9 +165,7 @@ export default {
         headers: getters.authHeader,
         data: reviewdata[0],
       })
-        .then((res) => {
-          console.log(res);
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err);
         });
