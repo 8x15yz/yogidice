@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.specialization.yogidice.common.exception.NotFoundException.BGGDATA_LIST_NOT_FOUND;
 import static com.specialization.yogidice.common.exception.NotFoundException.BGGDATA_NOT_FOUND;
 
 @Service
@@ -39,7 +38,7 @@ public class BggDataService {
     public List<BggDataResponse> readBggDataList() {
         List<BggData> bggDataList = bggDataRepository.findAll();
         if (bggDataList.isEmpty()) {
-            throw new NotFoundException(BGGDATA_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<BggDataResponse> responses = new ArrayList<>();
         for (BggData bggData : bggDataList) {
