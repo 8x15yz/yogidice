@@ -1,5 +1,5 @@
-// const HOST = "http://localhost:8081/api";
-const HOST = "https://yogidice.site/api";
+const HOST = "http://localhost:8081/api";
+// const HOST = "https://yogidice.site/api";
 
 const user = "/users";
 const game = "/games";

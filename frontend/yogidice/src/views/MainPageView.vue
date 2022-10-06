@@ -41,7 +41,7 @@
       </div>
       <div class="right-two">
         <div class="right-top" @click="moveToGamePage">
-          <div class="left-title text-subtitle-1">아이템 창고</div>
+          <div class="left-title text-subtitle-1">인벤토리</div>
           <img src="../static/Slot_machine.png" alt="" />
         </div>
         <div class="right-bottom" @click="moveToCafes">
@@ -258,5 +258,20 @@ export default {
 .block-search-result {
   width: 100vw;
   height: 10vh;
+}
+.left-one:active {
+  background: gainsboro;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15),
+    inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.right-top:active {
+  background: #adb5bd;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15),
+    inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.right-bottom:active {
+  background: #adb5bd;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15),
+    inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 </style>

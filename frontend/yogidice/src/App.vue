@@ -26,4 +26,10 @@ export default {
   position: fixed;
   /* overflow: scroll; */
 }
+#main-card:active{
+  background: #adb5bd;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15),
+    inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  filter: brightness(0.5);
+}
 </style>

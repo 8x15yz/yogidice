@@ -29,6 +29,7 @@ export default {
     const store = useStore();
     const router = useRouter();
     let page = ref(1);
+    const userInfo = computed(()=>store.state.user.currentUser)
     const showDetail = function (n) {
       router.push({
         name: "GameDetail",
@@ -41,13 +42,21 @@ export default {
 
     onMounted(() => {
       const moreBtn = document.querySelector(".card-more");
+      
       moreBtn.addEventListener("click", () => {
         //gameType에 맞는 리스트 만들기
         store.dispatch("games/resetLongGames");
-        store.dispatch("games/changeLongGames", {
-          type: gameType.value,
-          page: page.value,
-        });
+        if (gameType.value === "추천" && userInfo.value.reviewed === "F" && userInfo.value.bookmarkResponses.length === 0) {
+          store.dispatch("games/changeLongGames", {
+            type: "추천불가",
+            page: page.value,
+          });
+        } else {
+          store.dispatch("games/changeLongGames", {
+            type: gameType.value,
+            page: page.value,
+          });
+        }
         router.push({ name: "MoreList", params: { type: gameType.value } });
       });
     });
