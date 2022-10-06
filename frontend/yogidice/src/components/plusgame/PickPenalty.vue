@@ -127,7 +127,7 @@ export default {
       let btn = document.querySelector("#starter");
       btn.addEventListener("click", function () {
         setInit();
-        play("../../static/Wheel_Spin_Sound.mp3");
+        play("@/static/Wheel_Spin_Sound.mp3");
         loop();
       });
     });
