@@ -27,7 +27,7 @@ import { useRouter } from "vue-router";
 export default {
   components: {
     QuestionList,
-    GreyBgHeadBar
+    GreyBgHeadBar,
   },
   setup() {
     const router = useRouter();

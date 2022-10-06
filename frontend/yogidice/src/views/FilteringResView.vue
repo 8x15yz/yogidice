@@ -5,7 +5,7 @@
   <div class="res-cover">
     <div class="text-headline-6">
       <div>
-        <div class="displayflex" style="margin-top: 20px;">
+        <div class="displayflex" style="margin-top: 20px">
           지금 나에게 맞는 게임
         </div>
         <div class="displayflex">
@@ -13,12 +13,14 @@
         </div>
       </div>
     </div>
-    <main-card-list 
-    id="res-list"
-    @resArray="resArray"
-    v-if="isshowRes"
+    <main-card-list
+      id="res-list"
+      @resArray="resArray"
+      v-if="isshowRes"
     ></main-card-list>
-    <div v-else class="fail-filtering text-headline-6">조건에 해당하는 결과가 없어요😨<br><br>다시 시도해주세요🧐</div>
+    <div v-else class="fail-filtering text-headline-6">
+      조건에 해당하는 결과가 없어요😨<br /><br />다시 시도해주세요🧐
+    </div>
   </div>
 </template>
 
@@ -36,8 +38,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    let haveRes = computed(()=>store.getters.getCountFilterRes)
-    let isshowRes = haveRes.value > 0 ? true:false
+    let haveRes = computed(() => store.getters.getCountFilterRes);
+    let isshowRes = haveRes.value > 0 ? true : false;
     const router = useRouter();
 
     const moveToMain = function () {
@@ -48,10 +50,9 @@ export default {
     };
     const returnpick = function () {
       router.push({ name: "GamePickHome" });
-      store.commit("games/RESET_FILTER_RES",{root:true})
+      store.commit("games/RESET_FILTER_RES", { root: true });
     };
-   
-    
+
     return {
       moveToMain,
       moveToMypage,

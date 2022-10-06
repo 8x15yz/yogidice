@@ -116,8 +116,8 @@ export default {
 
       timer_down = function () {
         let time =
-          Number(baseTime.value.substr(0, 2))*3600 +
-          Number(baseTime.value.substr(3, 2))*60 +
+          Number(baseTime.value.substr(0, 2)) * 3600 +
+          Number(baseTime.value.substr(3, 2)) * 60 +
           Number(baseTime.value.substr(6, 2)); //기준시간 작성
         let hour = ""; //시
         let min = ""; //분

@@ -132,7 +132,6 @@ export default {
               let playingGameId = computed(
                 () => store.state.gamedetail.playnowid,
               );
-              console.log(playingGameId.value);
               if (playingGameId.value != 0) {
                 store.dispatch("gamedetail/PlayGame", [
                   info.value.content,

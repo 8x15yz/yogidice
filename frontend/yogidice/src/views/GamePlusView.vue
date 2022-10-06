@@ -19,7 +19,7 @@
           <div class="review-modal-inner">
             <div>
               <div class="rating-comment">
-                플레이하신 {{ playnowname }}에 대해 리뷰를 남겨주세요!
+                플레이 하신 "{{ playnowname }}" 에 대해 리뷰를 남겨주세요!
               </div>
               <div class="star-rating-wrap">
                 <div class="star-rating">
@@ -29,7 +29,7 @@
                     type="range"
                     v-model="star"
                     step="1"
-                    min="0"
+                    min="1"
                     max="10"
                   />
                 </div>
@@ -45,8 +45,8 @@
         </div>
         <div class="rmi-displayflex">
           <div class="review-modal-bottom">
-            <div class="im-not-play-this-game">
-              게임을 플레이하지 않았습니다
+            <div class="im-not-play-this-game" @click="ExitGame">
+              리뷰를 남기지 않고 종료
             </div>
             <div class="review-modal-btn-wrap">
               <div class="review-submit" @click="submitReview">등록</div>
@@ -182,7 +182,14 @@
       </div>
     </div>
     <div class="alpha-box alpha-box-info" v-show="info">
-      <div class="play-header text-headline-6">{{ playnowname }} 설명서 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
+      <div class="play-header text-headline-6">
+        {{ playnowname }} 설명서
+        <span
+          @click="closeSubMenuBtn('sub')"
+          class="close-button-cafe material-icons-outlined"
+          >close</span
+        >
+      </div>
     </div>
     <div class="alpha-box alpha-box-youtub" v-show="youtub">
       <related-videos
@@ -191,17 +198,31 @@
       ></related-videos>
     </div>
     <div class="alpha-box alpha-box-memo" v-show="memo">
-      <div class="play-header text-headline-6"> 메모장 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
+      <div class="play-header text-headline-6">
+        메모장
+        <span
+          @click="closeSubMenuBtn('sub')"
+          class="close-button-cafe material-icons-outlined"
+          >close</span
+        >
+      </div>
       <br />
       <textarea
         name="playing-memo"
-        placeholder="메모할 내용을 입력하세요"
+        placeholder="메모할 내용을 입력하세요."
         id=""
         rows="100"
       ></textarea>
     </div>
     <div class="alpha-box alpha-box-file" v-show="file">
-      <div class="play-header text-headline-6">{{ playnowname }} 관련양식 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
+      <div class="play-header text-headline-6">
+        {{ playnowname }} 관련 양식
+        <span
+          @click="closeSubMenuBtn('sub')"
+          class="close-button-cafe material-icons-outlined"
+          >close</span
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -311,8 +332,8 @@ export default {
     };
     let playnowhistoryid = reactive(0);
     function submitReview() {
-      if (gamereviewtext.value == "") {
-        window.alert("리뷰를 작성하고 제출해주세요");
+      if (gamereviewtext.value == "" || star.value === 0) {
+        window.alert("리뷰를 작성하고 제출해주세요!");
       } else {
         reviewform.value = false;
         store.dispatch("myuser/SendReview", [
@@ -412,7 +433,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .star-rating-wrap {
   display: flex;
   justify-content: center;
@@ -617,5 +638,138 @@ textarea {
   height: 70vh;
   overflow: scroll;
   background-color: var(--color-bg-base);
+}
+.review-modal-title {
+  margin: 10px;
+  margin-left: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 5vw;
+  display: flex;
+  justify-content: space-between;
+}
+.rating-comment {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-size: 4vw;
+}
+.stars-rating-wrap {
+  display: flex;
+  justify-content: center;
+}
+.stars-rating-point {
+  margin: 10px;
+  font-size: 6vw;
+  color: rgb(0, 0, 0);
+}
+.stars-rating {
+  position: relative;
+  font-size: 8vw;
+  color: #ddd;
+  margin-bottom: 15px;
+}
+
+.stars-rating > input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.stars-rating > span {
+  width: calc(v-bind ("stars") * 10%);
+  /* width:  50%; */
+  position: absolute;
+  left: 0;
+  color: rgb(255, 239, 19);
+  overflow: hidden;
+  pointer-events: none;
+}
+.review-modal-form {
+  position: relative;
+  top: 100px;
+  width: 85vw;
+  height: 350px;
+  background-color: white;
+  border-radius: 10px;
+}
+.review-modal-bottom {
+  /* background-color: greenyellow; */
+  width: 75vw;
+  height: 70px;
+  align-items: end;
+}
+.review-modal-inner {
+  /* background-color: pink; */
+  height: 200px;
+  width: 75vw;
+  border-top: 1px solid rgb(121, 121, 121);
+}
+.im-not-play-this-game {
+  margin: 10px;
+  font-size: 3vw;
+  text-align: end;
+  color: rgb(145, 145, 145);
+  text-decoration: underline;
+  text-underline-position: under;
+}
+.rmi-displayflex {
+  display: flex;
+  justify-content: center;
+}
+.review-modal-inner-textarea {
+  height: 100px;
+  width: 74vw;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(216, 216, 216);
+}
+.review-modal-inner-textarea:focus {
+  outline: solid 2px rgb(199, 199, 199);
+}
+.review-modal-btn-wrap {
+  display: flex;
+  justify-content: end;
+  margin: 5px;
+}
+.review-submit {
+  margin: 5px;
+  width: 80px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #889eeb;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.review-revoke {
+  margin: 5px;
+  width: 80px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  outline: solid 1px #c3d0ff83;
+  color: #889eeb;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.modal-review-submitted {
+  position: relative;
+  top: 200px;
+  width: 85vw;
+  height: 20vh;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
