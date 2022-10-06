@@ -231,8 +231,10 @@ export default {
         
         let detailBtn = document.createElement('div')
         detailBtn.setAttribute("class","cafe-detail-btn")
-        let tmp1 = document.createElement('<span class="material-symbols-outlined">info</span>')
+        let tmp1 = document.createElement('span')
         // tmp1.innerText = "카페상세보기"
+        tmp1.setAttribute("class","material-symbols-outlined")
+        tmp1.innerText("info")
         tmp1.setAttribute("class","text-button")
         tmp1.setAttribute("class","cafe-detail-link")
         tmp1.addEventListener("click",function(){window.open(places.place_url)})
