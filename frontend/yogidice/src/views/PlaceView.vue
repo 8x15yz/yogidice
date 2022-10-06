@@ -337,7 +337,8 @@ export default {
     return {
       showSearchList,
       showCafeGameList,
-      clsoeCafeGameList
+      clsoeCafeGameList,
+      cafeName,
     }
   }
 }
