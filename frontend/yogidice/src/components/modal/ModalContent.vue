@@ -130,12 +130,13 @@ export default {
           if (info.value.content !== "") {
             firstButton.addEventListener("click", () => {
               let playingGameId = computed(
-                () => store.state.games.selectedGames,
+                () => store.state.gamedetail.playnowid,
               );
-              if (info.value.content != "게임미선택") {
+              console.log(playingGameId.value);
+              if (playingGameId.value != 0) {
                 store.dispatch("gamedetail/PlayGame", [
                   info.value.content,
-                  playingGameId.value.gameId,
+                  playingGameId.value,
                 ]);
               }
               store.dispatch("games/resetSelectedGames", { root: true });
