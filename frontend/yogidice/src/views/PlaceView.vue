@@ -425,13 +425,15 @@ hr {
   gap: 4vw;
   padding: 1vh 4vw;
   height: 10vh;
+  width:70vw;
 }
 .cafe-detail-btn {
   display: flex;
   justify-content: space-around;
   height: 4vh;
-  align-items: center;
+  align-self: center;
   gap: 2vw;
+  margin-right: 4vw;
 
 }
 .cafe-detail-link{
