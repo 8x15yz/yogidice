@@ -50,27 +50,31 @@ export default {
   width: 94vw;
   height: 90vh;
   z-index: 999;
-  background-color: var(--color-bg-modal);
+  background-color: white;
   position: absolute;
   top: 5vh;
   left: 3vw;
   border-radius: 4px;
+  padding-top: 4vh;
 }
 .search-box{
   width: 94vw;
   padding: 2vh 2vw;
 }
 .cafe-games-title{
-  color:white
+  color:black
 }
 .cafe-games-count{
-  color: white;
+  color: black;
   text-align: start;
 }
 .line-cafe-game{
   width:88vw; 
   background-color:white;
-  margin: 2vh 0;
+  margin: 2vh 3vw;
+}
+.close-button {
+  margin-right: 4vw;
 }
 
 </style>
