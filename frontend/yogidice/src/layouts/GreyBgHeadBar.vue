@@ -17,7 +17,7 @@
       </div>
     </div>
   </header>
-  <router-view :key="route.fullPath" id="wrap2"></router-view>
+  <router-view id="wrap2"></router-view>
 </template>
 
 <script>

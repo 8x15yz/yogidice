@@ -1,9 +1,9 @@
 <template>
-  <router-view :key="route.fullPath" id="wrap1"></router-view>
+  <router-view id="wrap1"></router-view>
 </template>
 
 <script>
-import { useRoute } from "vue-router"
+import { useRoute } from "vue-router";
 export default {
   setup() {
     const route = useRoute();
@@ -12,7 +12,8 @@ export default {
       route,
     };
   },
-};</script>
+};
+</script>
 
 <style>
 #wrap1 {
