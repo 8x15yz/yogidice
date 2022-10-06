@@ -8,7 +8,7 @@
   </div>
   <div id="wrap2-back">
     <div class="text-headline-6 main-message">
-      {{ nickName }}님에게 맞는 <br />
+      <span style="color: rgb(51, 162, 206);">{{ nickName }}</span>님에게 맞는 <br />
       보드게임을 추천해드려요
     </div>
     <!-- 추천 게임 타입 선택 -->
