@@ -67,6 +67,7 @@ export default {
 .cafe-games-count{
   color: black;
   text-align: start;
+  margin-left: 8vw;
 }
 .line-cafe-game{
   width:88vw; 
