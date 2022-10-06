@@ -107,6 +107,12 @@ export default {
           }vw)`;
           pageNum -= 1;
           changePagination();
+        } else {
+          slideContainer.style.transform = `translateX(${
+            (pageNum + 3) * -100 + 100
+          }vw)`;
+          pageNum = 4;
+          changePagination();
         }
       });
       nextBtn.addEventListener("click", function () {
@@ -116,8 +122,29 @@ export default {
           }vw)`;
           pageNum += 1;
           changePagination();
+        } else {
+          slideContainer.style.transform = `translateX(${
+            (pageNum - 3) * 100 - 100
+          }vw)`;
+          pageNum = 1;
+          changePagination();
         }
       });
+      setInterval(() => {
+        if (pageNum < 4) {
+          slideContainer.style.transform = `translateX(${
+            (pageNum - 1) * -100 - 100
+          }vw)`;
+          pageNum += 1;
+          changePagination();
+        } else {
+          slideContainer.style.transform = `translateX(${
+            (pageNum - 3) * 100 - 100
+          }vw)`;
+          pageNum = 1;
+          changePagination();
+        }
+      }, 3000);
     });
   },
 };
