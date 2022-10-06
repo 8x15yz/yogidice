@@ -74,7 +74,6 @@ export default {
           center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
         };
-
       // 지도를 생성합니다
       var map = new kakao.maps.Map(mapContainer, mapOption);
 
@@ -86,6 +85,9 @@ export default {
           locPosition = new kakao.maps.LatLng(newLat, newLon);
           displayMarker(locPosition, "현재위치");
           map.setCenter(locPosition);
+          console.log(locPosition,"센터지정")
+          // 키워드로 장소를 검색합니다
+          searchPlaces();
         });
       }
 
@@ -125,8 +127,7 @@ export default {
       // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-      // 키워드로 장소를 검색합니다
-      searchPlaces();
+
 
       // 키워드 검색을 요청하는 함수입니다
       function searchPlaces() {
@@ -136,7 +137,8 @@ export default {
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         ps.keywordSearch(keyword, placesSearchCB, {
           location: center,
-          sort: kakao.maps.services.SortBy.DISTANCE,
+          radius:2000,
+          sort: kakao.maps.services.SortBy.ACCURACY,
           size: 3,
         });
       }
@@ -355,6 +357,7 @@ export default {
           el.removeChild(el.lastChild);
         }
       }
+
     };
     return {
       showSearchList,
@@ -403,7 +406,7 @@ export default {
   overflow: hidden;
 }
 .tel {
-  width: 30vw;
+  width: 40vw;
   text-align: start;
 }
 #pagination {

@@ -13,13 +13,19 @@
         </div>
       </div>
     </div>
-    <main-card-list id="res-list" @resArray="resArray"></main-card-list>
-    <div v-if="arrlen == 0">없다</div>
+    <main-card-list
+      id="res-list"
+      @resArray="resArray"
+      v-if="isshowRes"
+    ></main-card-list>
+    <div v-else class="fail-filtering text-headline-6">
+      조건에 해당하는 결과가 없어요😨<br /><br />다시 시도해주세요🧐
+    </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
 import MainCardList from "@/components/card/MainCardList.vue";
 import GreyBgHeadBar from "@/layouts/GreyBgHeadBar.vue";
 import { useRouter } from "vue-router";
@@ -32,8 +38,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    const arrlen = ref(1);
-
+    let haveRes = computed(() => store.getters.getCountFilterRes);
+    let isshowRes = haveRes.value > 0 ? true : false;
     const router = useRouter();
 
     const moveToMain = function () {
@@ -44,18 +50,14 @@ export default {
     };
     const returnpick = function () {
       router.push({ name: "GamePickHome" });
-      store.dispatch("games/resetLenGames");
+      store.commit("games/RESET_FILTER_RES", { root: true });
     };
-    function resArray(data) {
-      arrlen.value = data.value;
-      console.log("dlrjfkd", arrlen.value);
-    }
+
     return {
       moveToMain,
       moveToMypage,
       returnpick,
-      resArray,
-      arrlen,
+      isshowRes,
     };
   },
 };
@@ -82,8 +84,6 @@ export default {
   height: 90vh;
   background-color: rgba(255, 255, 255, 0.7);
   padding: 5vh 5vw;
-  display: flex;
-  justify-content: center;
 }
 .res-cover #res-list {
   display: block;
@@ -98,5 +98,10 @@ export default {
 }
 .res-cover #res-list > div.card-more {
   visibility: hidden;
+}
+.fail-filtering {
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh;
 }
 </style>

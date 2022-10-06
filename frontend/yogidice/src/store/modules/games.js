@@ -17,11 +17,13 @@ export default {
     penalty: ["가", "나", "다", "라", "마", "바"],
     smallGamesLen: 0,
     morePageType: "",
+    filteringResult: [],
   }),
   getters: {
     getAuthHeader: (state, getters, rootState, rootGetters) =>
       rootGetters["user/authHeader"],
     getCountSmallGames: (state) => state.smallGames.length,
+    getCountFilterRes: (state) => state.filteringResult.length,
   },
   mutations: {
     SET_DETAIL: (state, details) => (state.detail = details),
@@ -53,6 +55,8 @@ export default {
     SMALL_GAMES_LEN: (state) => (state.smallGamesLen = state.smallGames.length),
     SMALL_GAMES_LEN_RESET: (state) => (state.smallGamesLen = 0),
     SET_MORE_TYPE: (state, pType) => (state.morePageType = pType),
+    SET_FILTER_RES: (state, res) => (state.filteringResult = res),
+    RESET_FILTER_RES: (state) => (state.filteringResult = []),
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -256,6 +260,7 @@ export default {
       })
         .then((res) => {
           commit("SET_MAIN_GAMES", res.data.responses);
+          commit("SET_FILTER_RES", res.data.responses);
         })
         .catch((err) => {
           console.log(err);
