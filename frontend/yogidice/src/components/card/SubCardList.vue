@@ -30,6 +30,7 @@ export default {
     const route = useRoute();
 
     const showDetail = function (n) {
+      store.dispatch("games/getDetails", n.id)
       router.push({
         name: "GameDetail",
         query: { gameId: n.id, title: n.titleKr },
