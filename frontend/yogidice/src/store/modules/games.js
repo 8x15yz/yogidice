@@ -279,7 +279,6 @@ export default {
                 };
                 commit("APPEND_SMALL_GAMES", details);
                 commit("SMALL_GAMES_LEN");
-                console.log(getters.getCountSmallGames)
               })
               .catch((err) => {
                 console.log(err)
