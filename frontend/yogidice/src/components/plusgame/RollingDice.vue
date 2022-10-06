@@ -121,16 +121,16 @@
   align-items: center;
 }
 #container-2 {
-  margin-top: 0px;
   margin-bottom: 0px;
   margin: 50px auto;
-  margin-top: 17vh;
+  margin-top: 9vh;
   width: 120px;
-  height: 200px;
+  height: 170px;
   perspective: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background-color: pink; */
 }
 #cube-1 {
   position: relative;
