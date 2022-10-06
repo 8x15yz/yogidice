@@ -31,7 +31,7 @@
                 @click="
                   $emit('OpenReviewModal', [
                     game.gameTitle,
-                    game.rating,
+                    1,
                     game.review,
                     game.id,
                   ])
@@ -50,7 +50,7 @@
 <script>
 import { reactive } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex"
+import { useStore } from "vuex";
 
 export default {
   props: {
@@ -67,7 +67,6 @@ export default {
         query: { gameId: n.gameId, title: n.gameTitle },
       });
       store.dispatch("games/getDetails", n.gameId);
-
     };
 
     return {
