@@ -31,6 +31,8 @@ export default {
   setup() {
     const store = useStore();
     let locPosition;
+    let newLat
+    let newLon
     let cafeName = ref("");
     let showCafeGameList = ref(false);
     store.dispatch("games/resetSmallLenGames")
@@ -67,27 +69,25 @@ export default {
       }
     });
     const initMap = function () {
-      if (navigator.geolocation) {
-        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-        navigator.geolocation.getCurrentPosition(function (position) {
-          let newLat = position.coords.latitude; // 위도
-          let newLon = position.coords.longitude; // 경도
-        });
-      }
-
       var markers = [];
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+          newLat = position.coords.latitude; // 위도
+          newLon = position.coords.longitude; // 경도
+          locPosition = new kakao.maps.LatLng(newLat, newLon);
+          })
+      }
 
       var mapContainer = document.getElementById("map"), // 지도를 표시할 div
         mapOption = {
           center: new kakao.maps.LatLng(newLat, newLon), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
         };
+      displayMarker(locPosition, "현재위치");
+      map.setCenter(locPosition);
 
       // 지도를 생성합니다
       var map = new kakao.maps.Map(mapContainer, mapOption);
-      locPosition = new kakao.maps.LatLng(newLat, newLon);
-      displayMarker(locPosition, "현재위치");
-      map.setCenter(locPosition);
 
 
 
@@ -138,7 +138,7 @@ export default {
         ps.keywordSearch(keyword, placesSearchCB, {
           location: center,
           sort: kakao.maps.services.SortBy.DISTANCE,
-          size: 1,
+          size: 3,
         });
       }
 
