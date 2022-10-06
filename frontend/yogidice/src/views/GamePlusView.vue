@@ -82,6 +82,7 @@
         height: 60vh;
         background-color: var(--color-bg-base);
         overflow: scroll;
+        z-index: 99;
       "
     >
       <game-clock v-if="clock"></game-clock>
