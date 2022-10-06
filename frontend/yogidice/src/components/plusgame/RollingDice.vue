@@ -230,7 +230,7 @@ export default {
       dicenum2.value = Math.floor(Math.random() * (6 - 1) + 1);
     }
     function clickDiceInfo() {
-      play("@/static/Roll_Dice_Sound.mp3");
+      play(require("@/static/Roll_Dice_Sound.mp3"));
       for (let i = 1; i < 14; i++) {
         setTimeout(() => clickDice(), 190 * i);
       }

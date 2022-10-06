@@ -13,14 +13,20 @@
         </div>
       </div>
     </div>
-    <main-card-list id="res-list"></main-card-list>
+    <main-card-list 
+    id="res-list"
+    @resArray="resArray"
+    ></main-card-list>
+    <div v-if="arrlen == 0">없다</div>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
 import MainCardList from "@/components/card/MainCardList.vue";
 import GreyBgHeadBar from "@/layouts/GreyBgHeadBar.vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -28,6 +34,9 @@ export default {
     GreyBgHeadBar,
   },
   setup() {
+    const store = useStore();
+    const arrlen = ref(1)
+    
     const router = useRouter();
 
     const moveToMain = function () {
@@ -38,11 +47,18 @@ export default {
     };
     const returnpick = function () {
       router.push({ name: "GamePickHome" });
+      store.dispatch("games/resetLenGames")
     };
+    function resArray(data) {
+      arrlen.value = data.value
+      console.log('dlrjfkd', arrlen.value)
+    }
     return {
       moveToMain,
       moveToMypage,
-      returnpick
+      returnpick,
+      resArray,
+      arrlen
     };
   },
 };
