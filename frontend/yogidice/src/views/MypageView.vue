@@ -301,7 +301,7 @@ export default {
 .info-my-modal-inner {
     margin: 20px;
     margin-top: 0px;
-    width: 73vw;
+    width: 70vw;
     height: 330px;
     /* background-color: pink; */
 }
