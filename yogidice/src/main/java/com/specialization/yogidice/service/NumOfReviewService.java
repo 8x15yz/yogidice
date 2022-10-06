@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.specialization.yogidice.common.exception.NotFoundException.BOARDGAME_NOT_FOUND;
-import static com.specialization.yogidice.common.exception.NotFoundException.NUMOFREVIEW_LIST_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -43,10 +42,9 @@ public class NumOfReviewService {
 
     @Transactional
     public List<NumOfReviewResponse> readTop10ListByNumOfReview() {
-//        List<NumOfReview> numOfReviews = numOfReviewRepository.findTop10ByOrderByNumberDesc();
         List<NumOfReview> numOfReviews = numOfReviewRepository.findTop100ByOrderByNumberDesc();
         if (numOfReviews.isEmpty()) {
-            throw new NotFoundException(NUMOFREVIEW_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<NumOfReviewResponse> responses = new ArrayList<>();
         for (NumOfReview numOfReview : numOfReviews) {
@@ -61,7 +59,7 @@ public class NumOfReviewService {
     public List<NumOfReviewResponse> readAllListByNumOfReview(Pageable pageable) {
         List<NumOfReview> numOfReviews = numOfReviewRepository.findAllByOrderByNumberDesc(pageable).getContent();
         if (numOfReviews.isEmpty()) {
-            throw new NotFoundException(NUMOFREVIEW_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<NumOfReviewResponse> responses = new ArrayList<>();
         for (NumOfReview numOfReview : numOfReviews) {

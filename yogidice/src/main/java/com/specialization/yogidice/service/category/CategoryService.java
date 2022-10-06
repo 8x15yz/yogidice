@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.specialization.yogidice.common.exception.NotFoundException.CATEGORY_LIST_NOT_FOUND;
 import static com.specialization.yogidice.common.exception.NotFoundException.CATEGORY_NOT_FOUND;
 
 @Service
@@ -37,7 +36,7 @@ public class CategoryService {
     public List<CategoryResponse> readCategoryList() {
         List<Category> categories = categoryRepository.findAll();
         if (categories.isEmpty()) {
-            throw new NotFoundException(CATEGORY_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<CategoryResponse> responses = new ArrayList<>();
         for (Category category : categories) {

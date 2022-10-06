@@ -121,7 +121,7 @@ public class HistoryService {
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         List<History> histories = historyRepository.findByUser(user);
         if (histories.isEmpty()) {
-            throw new NotFoundException((HISTORY_LIST_NOT_FOUND));
+            return;
         }
         for (History history : histories) {
             if (history.getRating() > 0) {
