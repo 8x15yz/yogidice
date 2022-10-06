@@ -83,6 +83,8 @@ export default {
           center: new kakao.maps.LatLng(newLat, newLon), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
         };
+            // 지도를 생성합니다
+      var map = new kakao.maps.Map(mapContainer, mapOption);
 
 
       const displayMarker = function (locPosition, message) {
@@ -116,8 +118,7 @@ export default {
       };
 
 
-      // 지도를 생성합니다
-      var map = new kakao.maps.Map(mapContainer, mapOption);
+
 
       displayMarker(locPosition, "현재위치");
       map.setCenter(locPosition);
