@@ -78,7 +78,8 @@ export default {
       let newLat = position.coords.latitude; // 위도
       let newLon = position.coords.longitude; // 경도  
       locPosition = new kakao.maps.LatLng(newLat, newLon) 
-      displayMarker(locPosition,"현재위치")
+      // displayMarker(locPosition,"현재위치")
+      displayMarker(locPosition)
       map.setCenter(locPosition);      
     });
     }

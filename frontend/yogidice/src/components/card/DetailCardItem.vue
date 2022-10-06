@@ -143,7 +143,7 @@ button {
 .detail-game-info {
   background-color: var(--color-bg-modal);
   width: 90vw;
-  height: 26vh;
+  height: 28vh;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
