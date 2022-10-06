@@ -14,7 +14,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import net.minidev.json.JSONObject;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.annotations.ApiIgnore;
@@ -22,7 +25,6 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +40,6 @@ public class UserController {
     private final BookmarkService bookmarkService;
     private final HistoryService historyService;
     private final RecommendService recommendService;
-    private final BoardGameService boardGameService;
 
 
     // 카카오 계정 정보 가져오기
@@ -253,7 +254,6 @@ public class UserController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userId", user.getId());
 
-        HttpEntity<String> httpRequest = new HttpEntity<>(jsonObject.toString(), httpHeaders);
         String boardGameList = restTemplate.getForObject(url, String.class);
 
 
@@ -268,7 +268,6 @@ public class UserController {
             //추천 받아서 아이디 리스트 받기 완료
             //유저 아이디 기반으로 삭제
             recommendService.updateRecommend(user.getId(), boardGameIds);
-            List<BoardGameSimpleResponse> boardGames =  boardGameService.detailRecommend(boardGameIds);
 
         }catch (JsonProcessingException e){
             return ResponseEntity.status(HttpStatus.OK).body(JsonResponse.of(400, "No data", ""));

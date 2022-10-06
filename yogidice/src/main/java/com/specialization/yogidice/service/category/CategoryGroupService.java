@@ -46,7 +46,7 @@ public class CategoryGroupService {
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         List<CategoryGroup> categoryGroups = categoryGroupRepository.findByBoardGame(boardGame);
         if (categoryGroups.isEmpty()) {
-            throw new NotFoundException(CATEGORY_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<CategoryGroupResponse> responses = new ArrayList<>();
         for (CategoryGroup categoryGroup : categoryGroups) {
@@ -61,7 +61,7 @@ public class CategoryGroupService {
                 .orElseThrow(() -> new NotFoundException(CATEGORY_NOT_FOUND));
         List<CategoryGroup> categoryGroups = categoryGroupRepository.findByCategory(category);
         if (categoryGroups.isEmpty()) {
-            throw new NotFoundException(CATEGORY_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<CategoryGroupResponse> responses = new ArrayList<>();
         for (CategoryGroup categoryGroup : categoryGroups) {

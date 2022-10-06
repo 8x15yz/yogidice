@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.specialization.yogidice.common.exception.NotFoundException.TYPE_LIST_NOT_FOUND;
 import static com.specialization.yogidice.common.exception.NotFoundException.TYPE_NOT_FOUND;
 
 @Service
@@ -37,7 +36,7 @@ public class TypeService {
     public List<TypeResponse> readTypeList() {
         List<Type> types = typeRepository.findAll();
         if (types.isEmpty()) {
-            throw new NotFoundException(TYPE_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<TypeResponse> responses = new ArrayList<>();
         for (Type type : types) {

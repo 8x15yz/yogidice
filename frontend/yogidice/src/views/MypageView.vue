@@ -274,6 +274,7 @@ export default {
 
     store.dispatch("myuser/GetUserInfo");
     store.dispatch("myuser/GetUserHistory");
+    store.dispatch("myuser/GetUserBookmarkmark");
 
     let nickName = computed(() => store.state.myuser.nickName);
     let kakaoId = computed(() => store.state.myuser.kakaoId);
@@ -345,11 +346,11 @@ export default {
 
 <style>
 .info-my-modal-inner {
-    margin: 20px;
-    margin-top: 0px;
-    width: 70vw;
-    height: 330px;
-    /* background-color: pink; */
+  margin: 20px;
+  margin-top: 0px;
+  width: 70vw;
+  height: 330px;
+  /* background-color: pink; */
 }
 .info-modal-bg {
   width: 80vw;

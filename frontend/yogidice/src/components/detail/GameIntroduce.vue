@@ -27,12 +27,14 @@
       </div>
     </div>
     <div class="subdetail-box">
-      <div class="subdetail-title text-headline-6" style="">게임 설명</div>
-      <div style="margin-bottom: 25px; margin-top: 15px">{{ contents }}</div>
+      <div class="subdetail-title text-headline-6" style=" margin-bottom: 15px;">게임 설명</div>
+      <div style="width:90vw; height: 70px; display:flex; justify-content: center; align-items: center;" v-if="!contents">데이터가 없어요 😥</div>
+      <div style="margin-bottom: 10px;">{{ contents }}</div>
       <img :src="contentsImgUrl" alt="" style="width: 90vw" />
     </div>
     <div class="subdetail-box">
       <div class="subdetail-title text-headline-6">관련 영상</div>
+      <div style="width:90vw; height: 70px; display:flex; justify-content: center; align-items: center;" v-if="!youtubeUrl">데이터가 없어요 😥</div>
       <iframe
         width="360"
         height="215"
@@ -41,9 +43,6 @@
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe>
-    </div>
-    <div class="subdetail-box">
-      <div class="subdetail-title text-headline-6">해당 게임 보유 매장</div>
     </div>
   </div>
   <modal-dialog v-show="showModal" :contents="contents"></modal-dialog>

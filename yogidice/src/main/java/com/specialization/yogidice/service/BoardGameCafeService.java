@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.specialization.yogidice.common.exception.NotFoundException.BOARDGAMECAFE_LIST_NOT_FOUND;
 import static com.specialization.yogidice.common.exception.NotFoundException.BOARDGAMECAFE_NOT_FOUND;
 
 @Service
@@ -38,7 +37,7 @@ public class BoardGameCafeService {
     public List<BoardGameCafeResponse> readBoardGameCafeList() {
         List<BoardGameCafe> cafes = boardGameCafeRepository.findAll();
         if (cafes.isEmpty()) {
-            throw new NotFoundException(BOARDGAMECAFE_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<BoardGameCafeResponse> responses = new ArrayList<>();
         for (BoardGameCafe cafe : cafes) {

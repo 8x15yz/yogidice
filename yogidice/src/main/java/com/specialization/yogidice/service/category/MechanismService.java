@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.specialization.yogidice.common.exception.NotFoundException.MECHANISM_LIST_NOT_FOUND;
 import static com.specialization.yogidice.common.exception.NotFoundException.MECHANISM_NOT_FOUND;
 
 @Service
@@ -39,7 +38,7 @@ public class MechanismService {
     public List<MechanismResponse> readMechanismList() {
         List<Mechanism> mechanisms = mechanismRepository.findAll();
         if (mechanisms.isEmpty()) {
-            throw new NotFoundException(MECHANISM_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<MechanismResponse> responses = new ArrayList<>();
         for (Mechanism mechanism : mechanisms) {
