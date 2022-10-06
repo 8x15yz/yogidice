@@ -1,22 +1,19 @@
 <template>
-  <div @click="closeYoutube" class="close-button"><span class="material-icons-outlined">close</span></div>
-  <div class="text-headline-6">{{playnowname}} 관련 영상</div>
-    <br>
-    <div
-      v-for="videoId in videoIds"
-      :key="videoId"
-    >
-      <iframe id="ytplayer" type="text/html" width="300" height="180"
+  <div class="play-header text-headline-6">{{ playnowname }} 관련 영상 <span @click="closeYoutube" class="close-button-cafe material-icons-outlined">close</span></div>
+  <br />
+  <div v-for="videoId in videoIds" :key="videoId">
+    <iframe
+      id="ytplayer"
+      type="text/html"
       :src="videoId"
-      frameborder="0"></iframe>
-      <br>
-    </div>
-
-  
+      frameborder="0"
+    ></iframe>
+    <br />
+  </div>
 </template>
 
 <script>
-import { toRefs,computed } from 'vue';
+import { toRefs, computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -24,33 +21,39 @@ export default {
     videoIds: Array,
   },
   emits: ["close-video"],
-  setup(props,{emit}){
-    const store = useStore()
-    let playnowname = computed(()=>{
-      if (store.state.gamedetail.playnowname==="게임미선택") {
-        return ""
+  setup(props, { emit }) {
+    const store = useStore();
+    let playnowname = computed(() => {
+      if (store.state.gamedetail.playnowname === "게임미선택") {
+        return "";
       } else {
-        return store.state.gamedetail.playnowname
+        return store.state.gamedetail.playnowname;
       }
-  })
-    let ids = toRefs(props).videoIds
+    });
+    let ids = toRefs(props).videoIds;
     const closeYoutube = function () {
-      emit("close-video")
-    }
+      emit("close-video");
+    };
 
     return {
       playnowname,
       ids,
-      closeYoutube
-    }
-  }
-
-}
+      closeYoutube,
+    };
+  },
+};
 </script>
 
 <style>
-.close-button {
-  text-align: end;
+
+#ytplayer {
+  width: 80vw;
+  height: 25vh;
+  margin-bottom: 2vh;;
+}
+.play-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 </style>

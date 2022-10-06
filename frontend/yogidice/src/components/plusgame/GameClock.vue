@@ -1,11 +1,13 @@
 <template>
   <div class="clock-box">
     <div class="timer-choice">
-      <div @click="toStopWatch" class="button-small-blue text-button">스톱워치</div>
+      <div @click="toStopWatch" class="button-small-blue text-button">
+        스톱워치
+      </div>
       <div @click="toTimer" class="button-small-blue text-button">타이머</div>
     </div>
     <div v-show="showStopWatch">
-      <stop-watch ></stop-watch>
+      <stop-watch></stop-watch>
     </div>
     <div v-show="showTimer">
       <game-timer></game-timer>
@@ -14,39 +16,39 @@
 </template>
 
 <script>
-import StopWatch from "@/components/plusgame/StopWatch.vue"
-import GameTimer from "@/components/plusgame/GameTimer.vue"
-import { ref } from "vue"
+import StopWatch from "@/components/plusgame/StopWatch.vue";
+import GameTimer from "@/components/plusgame/GameTimer.vue";
+import { ref } from "vue";
 export default {
   components: {
     StopWatch,
-    GameTimer
+    GameTimer,
   },
-  setup(){
-    let showStopWatch = ref(true)
-    let showTimer = ref(false)
-    
+  setup() {
+    let showStopWatch = ref(true);
+    let showTimer = ref(false);
+
     const toStopWatch = function () {
       if (showStopWatch.value === false) {
-      showStopWatch.value = true
-      console.log(showStopWatch.value)
-      showTimer.value = false
-    }}
+        showStopWatch.value = true;
+        showTimer.value = false;
+      }
+    };
     const toTimer = function () {
       if (showTimer.value === false) {
-      showStopWatch.value = false
-      showTimer.value = true
-    }}
+        showStopWatch.value = false;
+        showTimer.value = true;
+      }
+    };
 
     return {
       showStopWatch,
       showTimer,
       toTimer,
-      toStopWatch
-    }
-  }
-
-}
+      toStopWatch,
+    };
+  },
+};
 </script>
 
 <style>
@@ -57,7 +59,6 @@ export default {
   margin-top: 4vh;
 }
 .clock-box {
-  height: 90vh;;
+  height: 90vh;
 }
-
 </style>

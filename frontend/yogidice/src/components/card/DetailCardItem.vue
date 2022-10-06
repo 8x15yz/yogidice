@@ -1,94 +1,100 @@
 <template>
   <div class="detail-card-container" :style="backImgUrl">
     <div class="detail-game-info">
-      <span class="material-icons bookmark-icon" v-show="!isGameinBookMark" @click="registerBookMark">bookmark_border</span>
-      <span class="material-icons bookmark-icon bookmarked" v-show="isGameinBookMark" @click="registerBookMark">bookmark</span>
+      <span
+        class="material-icons bookmark-icon"
+        v-show="!isGameinBookMark"
+        @click="registerBookMark"
+        >bookmark_border</span
+      >
+      <span
+        class="material-icons bookmark-icon bookmarked"
+        v-show="isGameinBookMark"
+        @click="registerBookMark"
+        >bookmark</span
+      >
       <div class="chip-rating">
         <div class="detail-game-chip-container">
-          <div>{{`${gameInfo.minPlayers} ~ ${gameInfo.maxPlayers}인`}}</div>
-          <div>{{`${gameInfo.playingTime}분 소요`}}</div>
+          <div>{{ `${gameInfo.minPlayers} ~ ${gameInfo.maxPlayers}인` }}</div>
+          <div>{{ `${gameInfo.playingTime}분 소요` }}</div>
           <div>{{ level }}</div>
         </div>
         <div class="text-subtitle-1 rating">★{{ rate }}</div>
       </div>
-      <div class="detail-game-title text-headline-6">{{ gameInfo.titleKr }}</div>
-      <hr style="width:100%">
-      <button class="button-long-blue text-button" @click="gotoPlay">게임하러 가기</button>
+      <div class="detail-game-title text-headline-6">
+        {{ gameInfo.titleKr }}
+      </div>
+      <hr style="width: 100%" />
+      <button class="button-long-blue text-button" @click="gotoPlay">
+        게임하러 가기
+      </button>
     </div>
-    
   </div>
 </template>
 
 <script>
-import { ref, computed, onMounted } from '@vue/runtime-core'
-import { useStore } from 'vuex'
-import { useRoute } from "vue-router"
-import { useRouter } from 'vue-router'
+import { ref, computed, onMounted } from "@vue/runtime-core";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 export default {
-
   setup() {
-    const store = useStore()
-    const route = useRoute()
-    const router = useRouter()
-    let gameId = route.query.gameId
-    let gameTitle = route.query.title
+    const store = useStore();
+    const route = useRoute();
+    const router = useRouter();
+    let gameId = route.query.gameId;
+    let gameTitle = route.query.title;
 
-    let rate = ref(0)
-    let gameInfo = computed(()=>store.state.games.detail)
-    let backImgUrl = computed(()=>{
+    let rate = ref(0);
+    let gameInfo = computed(() => store.state.games.detail);
+    let backImgUrl = computed(() => {
       return {
-        "background-image": `url(${gameInfo.value.thumbUrl})`
-      }
-    })
-  
-    let myBookMarks = computed(()=>(store.state.user.myBookMark).map(mark=>mark.gameId))
-    let isGameinBookMark = computed(()=>myBookMarks.value.includes(gameInfo.value.id))
-  
+        "background-image": `url(${gameInfo.value.thumbUrl})`,
+      };
+    });
 
-    let showRegister = ref(false)
+    let myBookMarks = computed(() =>
+      store.state.user.myBookMark.map((mark) => mark.gameId),
+    );
+    let isGameinBookMark = computed(() =>
+      myBookMarks.value.includes(gameInfo.value.id),
+    );
+
+    let showRegister = ref(false);
     const registerBookMark = function () {
       if (isGameinBookMark.value === true) {
-        store.dispatch("user/deleteBookMark",gameInfo.value.id)
-        console.log("삭제",gameInfo.value.id,gameId)
-
+        store.dispatch("user/deleteBookMark", gameInfo.value.id);
       } else {
-        showRegister.value = true
+        showRegister.value = true;
         //북마크 등록 api
-        store.dispatch("user/registBookMark",gameInfo.value.id)
-        console.log("등록",gameInfo.value.id,gameId)
-        setTimeout(()=>showRegister.value=false,3000)        
-      }      
-    }
+        store.dispatch("user/registBookMark", gameInfo.value.id);
+        setTimeout(() => (showRegister.value = false), 3000);
+      }
+    };
     onMounted(() => {
-      rate.value = computed(()=>Number(gameInfo.value.ratingUser.toFixed(2)))
-    })
-
+      rate.value = computed(() => Number(gameInfo.value.ratingUser.toFixed(2)));
+    });
 
     function gotoPlay() {
-      router.push({name:"GamePlusView"})
-      store.dispatch("gamedetail/PlayGame", [gameTitle, gameId])
-      // console.log(gameId)
+      router.push({ name: "GamePlusView" });
+      store.dispatch("gamedetail/PlayGame", [gameTitle, gameId]);
     }
-    let difficulty = gameInfo.value.difficulty
-    let level = computed(()=>{
+    let difficulty = gameInfo.value.difficulty;
+    let level = computed(() => {
       if (difficulty <= 1) {
-        return "매우 쉬움"
-      } 
-      else if (difficulty <= 2) {
-        return "쉬움"
-      } 
-      else if (difficulty <= 3) {
-        return "보통"
-      } 
-      else if (difficulty <= 4) {
-        return "어려움"
-      } 
-      else {
-        return "매우 어려움"
-      } 
-    })
-    
+        return "매우 쉬움";
+      } else if (difficulty <= 2) {
+        return "쉬움";
+      } else if (difficulty <= 3) {
+        return "보통";
+      } else if (difficulty <= 4) {
+        return "어려움";
+      } else {
+        return "매우 어려움";
+      }
+    });
+
     return {
       gameInfo,
       backImgUrl,
@@ -97,16 +103,15 @@ export default {
       gotoPlay,
       showRegister,
       registerBookMark,
-      isGameinBookMark
-    }
-  }
-
-}
+      isGameinBookMark,
+    };
+  },
+};
 </script>
 
 <style scoped>
 button {
-  width:90vw;
+  width: 90vw;
   height: 26px;
   align-self: center;
 }
@@ -126,7 +131,7 @@ button {
 
 .detail-game-title {
   white-space: nowrap;
-  overflow:hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
 }
@@ -143,7 +148,7 @@ button {
 .detail-game-info {
   background-color: var(--color-bg-modal);
   width: 90vw;
-  height: 26vh;
+  height: 28vh;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -160,13 +165,13 @@ button {
   gap: 2vw;
   align-self: flex-start;
 
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
 }
 .detail-game-chip-container > div {
   border-radius: 40px;
-  padding: 4px 8px 4px 8px; 
+  padding: 4px 8px 4px 8px;
   font-size: 12px;
 }
 .detail-game-chip-container div:nth-child(1) {
@@ -183,12 +188,12 @@ hr {
 }
 .bookmark-icon {
   position: absolute;
-  top:-0.8vh;
+  top: -0.8vh;
   right: 8px;
   font-size: 8vw;
   color: black;
 }
 .bookmark-icon.bookmarked {
-  color: var(--color-bookmark)
+  color: var(--color-bookmark);
 }
 </style>

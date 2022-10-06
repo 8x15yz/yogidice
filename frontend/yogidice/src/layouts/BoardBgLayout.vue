@@ -5,18 +5,14 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-
 #wrap3 {
   width: 100vw;
   height: 100vh;
-  background:url("../static/pickbg1.jpg") no-repeat center;
+  background: url("../static/pickbg1.jpg") no-repeat center;
   background-size: cover;
 }
-
 </style>

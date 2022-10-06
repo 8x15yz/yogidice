@@ -79,8 +79,10 @@
     <div
       style="
         padding-top: 4vh;
-        height: 60vh;
+        height: 55vh;
         background-color: var(--color-bg-base);
+        overflow: scroll;
+        z-index: 99;
       "
     >
       <game-clock v-if="clock"></game-clock>
@@ -180,10 +182,7 @@
       </div>
     </div>
     <div class="alpha-box alpha-box-info" v-show="info">
-      <div @click="closeSubMenuBtn('sub')" class="close-button">
-        <span class="material-icons-outlined">close</span>
-      </div>
-      <div class="text-headline-6">{{ playnowname }} 설명서</div>
+      <div class="play-header text-headline-6">{{ playnowname }} 설명서 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
     </div>
     <div class="alpha-box alpha-box-youtub" v-show="youtub">
       <related-videos
@@ -192,23 +191,17 @@
       ></related-videos>
     </div>
     <div class="alpha-box alpha-box-memo" v-show="memo">
-      <div @click="closeSubMenuBtn('sub')" class="close-button">
-        <span class="material-icons-outlined">close</span>
-      </div>
-      <div>메모장</div>
+      <div class="play-header text-headline-6"> 메모장 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
       <br />
       <textarea
         name="playing-memo"
         placeholder="메모할 내용을 입력하세요"
         id=""
-        rows="10"
+        rows="100"
       ></textarea>
     </div>
     <div class="alpha-box alpha-box-file" v-show="file">
-      <div @click="closeSubMenuBtn('sub')" class="close-button">
-        <span class="material-icons-outlined">close</span>
-      </div>
-      <h3>관련 파일이 없습니다</h3>
+      <div class="play-header text-headline-6">{{ playnowname }} 관련양식 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
     </div>
   </div>
 </template>
@@ -221,12 +214,11 @@ import PickTagger from "@/components/plusgame/PickTagger.vue";
 import RollingDice from "@/components/plusgame/RollingDice.vue";
 import RelatedVideos from "@/components/plusgame/RelatedVideos.vue";
 import ModalDialog from "@/components/modal/ModalDialog.vue";
-// import gameReviewModal from '@/components/modal/gameReviewModal.vue';
 
 import axios from "axios";
 import { ref, computed, reactive } from "@vue/runtime-core";
 import { useStore } from "vuex";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
 export default {
   components: {
@@ -237,12 +229,11 @@ export default {
     RollingDice,
     RelatedVideos,
     ModalDialog,
-    // gameReviewModal
   },
   setup() {
     const store = useStore();
     let showModal = computed(() => store.state.modal.showModal);
-    const router = useRouter()
+    const router = useRouter();
     const submenu = ref(false);
     const dice = ref(false);
     const person = ref(false);
@@ -324,7 +315,6 @@ export default {
         window.alert("리뷰를 작성하고 제출해주세요");
       } else {
         reviewform.value = false;
-        // console.log(gamereviewtext.value, star.value, playgame.value, '들꽃')
         store.dispatch("myuser/SendReview", [
           {
             rating: star.value,
@@ -335,7 +325,7 @@ export default {
         setTimeout(() => {
           reviewform.value = true;
           reviewformouter.value = false;
-          router.push({name:"MainPage"})
+          router.push({ name: "MainPage" });
         }, 1500);
       }
     }
@@ -392,8 +382,6 @@ export default {
           () => store.state.gamedetail.playnowhistoryid,
         );
       }
-      // console.log(playgame)
-      // store.dispatch("myuser/SendReview")
     }
     const star = ref(1);
 

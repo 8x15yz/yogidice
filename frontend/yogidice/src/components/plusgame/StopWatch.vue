@@ -2,19 +2,19 @@
   <div class="stop-watch-component">
     <div class="stop-watch-group">
       <div class="stop-watch hour">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
       </div>
       <div class="stop-watch minute">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
       </div>
       <div class="stop-watch second">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
       </div>
       <div class="screen">
-          <p id="time">00:00:00</p>  
+        <p id="time">00:00:00</p>
       </div>
     </div>
     <div id="stop-watch-buttons">
@@ -26,86 +26,94 @@
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core';
+import { onMounted } from "@vue/runtime-core";
 export default {
-  setup(){ 
-    let timer
+  setup() {
+    let timer;
     // let timeDisplay = ref("00:00:00")
-    let startTimer
-  
-    onMounted(()=>{
-      let one_second = 1000
-      let one_minute = one_second * 60
-      let one_hour = one_minute * 60
-      let screen = document.getElementById('time');
+    let startTimer;
 
-      let animationTarget1 = document.querySelectorAll(".stop-watch .hand:first-child span")
-      let animationTarget2 = document.querySelectorAll(".stop-watch .hand:last-child span")
-      let startButton = document.querySelector("#start-button-stopwatch")
-      
-      startButton.addEventListener("click",function(e){
+    onMounted(() => {
+      let one_second = 1000;
+      let one_minute = one_second * 60;
+      let one_hour = one_minute * 60;
+      let screen = document.getElementById("time");
+
+      let animationTarget1 = document.querySelectorAll(
+        ".stop-watch .hand:first-child span",
+      );
+      let animationTarget2 = document.querySelectorAll(
+        ".stop-watch .hand:last-child span",
+      );
+      let startButton = document.querySelector("#start-button-stopwatch");
+
+      startButton.addEventListener("click", function (e) {
         if (!e.target.classList.contains("processing")) {
-          e.target.classList.add("processing")
+          e.target.classList.add("processing");
           for (let t of animationTarget1) {
-            t.style.animationName = "spin1"
+            t.style.animationName = "spin1";
           }
           for (let t2 of animationTarget2) {
-            t2.style.animationName = "spin2"
+            t2.style.animationName = "spin2";
           }
           // 만약, 리셋한게 아니라 잠시 일시정지라면?
-          let baseTime = screen.innerText
-          let startDate = new Date()
+          let baseTime = screen.innerText;
+          let startDate = new Date();
 
-          startTimer = setInterval(function(){timer(startDate,baseTime)},1000)
+          startTimer = setInterval(function () {
+            timer(startDate, baseTime);
+          }, 1000);
         }
-      })
-            
-      let stopButton = document.querySelector("#stop-button-stopwatch")
-      
-      stopButton.addEventListener("click",function(){
+      });
+
+      let stopButton = document.querySelector("#stop-button-stopwatch");
+
+      stopButton.addEventListener("click", function () {
         for (let t of animationTarget1) {
-          t.style.animationName = ""
+          t.style.animationName = "";
         }
         for (let t2 of animationTarget2) {
-          t2.style.animationName = ""
-        }        
-        startButton.classList.remove("processing")
-        clearInterval(startTimer)
-      })
+          t2.style.animationName = "";
+        }
+        startButton.classList.remove("processing");
+        clearInterval(startTimer);
+      });
 
-      let resetButton = document.querySelector("#reset-button-stopwatch")
-      resetButton.addEventListener("click",function(){
+      let resetButton = document.querySelector("#reset-button-stopwatch");
+      resetButton.addEventListener("click", function () {
         screen.innerText = "00:00:00";
-      })
+      });
 
-      timer = function (startDate,base) {      
-        let now = new Date()
-        let passed = now - startDate
+      timer = function (startDate, base) {
+        let now = new Date();
+        let passed = now - startDate;
         let parts = [];
-        let baseHour = Number(base.substr(0,2))
-        let baseMin = Number(base.substr(3,2))
-        let baseSec = Number(base.substr(6,2))
+        let baseHour = Number(base.substr(0, 2));
+        let baseMin = Number(base.substr(3, 2));
+        let baseSec = Number(base.substr(6, 2));
 
-        parts[0] = '' + (Math.floor( passed / one_hour ) + baseHour);
-        parts[1] = '' + (Math.floor( (passed % one_hour) / one_minute ) + baseMin);
-        parts[2] = '' + (Math.floor( ( (passed % one_hour) % one_minute ) / one_second ) + baseSec);
+        parts[0] = "" + (Math.floor(passed / one_hour) + baseHour);
+        parts[1] =
+          "" + (Math.floor((passed % one_hour) / one_minute) + baseMin);
+        parts[2] =
+          "" +
+          (Math.floor(((passed % one_hour) % one_minute) / one_second) +
+            baseSec);
 
-        parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
-        parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
-        parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
+        parts[0] = parts[0].length == 1 ? "0" + parts[0] : parts[0];
+        parts[1] = parts[1].length == 1 ? "0" + parts[1] : parts[1];
+        parts[2] = parts[2].length == 1 ? "0" + parts[2] : parts[2];
 
-        screen.innerText = parts.join(':');
-      }
-    })
-    return {
-
-    }
-  }
-}
+        screen.innerText = parts.join(":");
+      };
+    });
+    return {};
+  },
+};
 </script>
 
 <style scoped>
-.inputs{
+.inputs {
   display: flex;
   justify-content: center;
   gap: 2vw;
@@ -152,7 +160,7 @@ export default {
 }
 
 .stop-watch .hand span {
-  border: 10vw solid rgba(0, 255, 255, .4);
+  border: 10vw solid rgba(0, 255, 255, 0.4);
   border-bottom-color: transparent;
   border-left-color: transparent;
   border-radius: 50%;
@@ -176,7 +184,7 @@ export default {
 }
 
 .stop-watch.hour {
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, 0.3);
   height: 80vw;
   left: 0;
   width: 80vw;
@@ -198,7 +206,7 @@ export default {
 }
 
 .stop-watch.minute {
-  background: rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, 0.2);
   height: 70vw;
   left: 5vw;
   width: 70vw;
@@ -220,7 +228,7 @@ export default {
 }
 
 .stop-watch.second {
-  background: rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, 0.2);
   height: 60vw;
   left: 10vw;
   width: 60vw;
@@ -229,8 +237,8 @@ export default {
 
 .stop-watch.second .hand span {
   animation-duration: 1s;
-  border-top-color: rgba(255, 255, 255, .15);
-  border-right-color: rgba(255, 255, 255, .15);
+  border-top-color: rgba(255, 255, 255, 0.15);
+  border-right-color: rgba(255, 255, 255, 0.15);
   border-width: 30vw;
 }
 
@@ -254,7 +262,7 @@ export default {
 }
 
 .screen h2 {
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .screen p {
@@ -262,8 +270,8 @@ export default {
   font-size: 15vw;
   font-weight: 400;
   position: absolute;
-  color:white;
-  align-self: center
+  color: white;
+  align-self: center;
 }
 
 @keyframes spin1 {
@@ -302,10 +310,7 @@ export default {
   background-color: var(--color-bg-modal);
 }
 
-#start-button-stopwatch.processing{
-  background-color: black;  
-
+#start-button-stopwatch.processing {
+  background-color: black;
 }
-
-
 </style>

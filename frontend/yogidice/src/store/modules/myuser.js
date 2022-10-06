@@ -15,7 +15,6 @@ export default {
     likePMecMax: "보드게임",
     rearrangemeca: [],
     userreview: 0,
-    
   }),
   getters: {
     authHeader: (state) => ({
@@ -23,7 +22,7 @@ export default {
       "Content-type": "Application/JSON",
     }),
     likemec: (state) => state.bookmark,
-    token: (state) => state.token
+    token: (state) => state.token,
   },
   mutations: {
     SET_NICKNAME: (state, nickName) => (state.nickName = nickName),
@@ -42,7 +41,6 @@ export default {
   },
   actions: {
     GetUserInfo({ getters, commit }) {
-      console.log('??', getters.authHeader, getters.token)
       axios({
         url: api.users.get(),
         method: "get",
@@ -52,6 +50,37 @@ export default {
           commit("SET_NICKNAME", res.data.nickName);
           commit("SET_KAKAOID", res.data.kakaoId);
           commit("SET_BOOKMARK", res.data.bookmarkResponses);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    GetUserBookmarkmark({ getters, commit }) {
+      commit("USER_REVIEW_RESET")
+      axios({
+        url: api.users.bookmark(),
+        method: "get",
+        headers: getters.authHeader,
+      })
+        .then((res) => {
+          for( let book of res.data.responses){
+            console.log(book)
+            for(let mecha of book.mechanismGroupResponses) {
+              if (mecha.parentsMec == "추리카드퍼즐") {
+                commit("LIKE_P_MEC", 0);
+              } else if (mecha.parentsMec == "경제") {
+                commit("LIKE_P_MEC", 1);
+              } else if (mecha.parentsMec == "파티") {
+                commit("LIKE_P_MEC", 2);
+              } else if (mecha.parentsMec == "조건") {
+                commit("LIKE_P_MEC", 3);
+              } else if (mecha.parentsMec == "말") {
+                commit("LIKE_P_MEC", 4);
+              } else if (mecha.parentsMec == "전략") {
+                commit("LIKE_P_MEC", 5);
+              }
+            }
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -70,10 +99,10 @@ export default {
           // console.log('dspd', res.data.responses)
           let pmec = [0, 0, 0, 0, 0, 0];
           const pmecmax = [
-            "추리카드퍼즐",
+            "논리",
             "경제",
             "파티",
-            "조건",
+            "룰",
             "말",
             "전략",
           ];
@@ -124,18 +153,18 @@ export default {
           console.log(err);
         });
     },
-    userAndGame({commit, getters}, gameId) {
-        axios({
-            url: api.gameInfo.userandgame(gameId),
-            method: "get",
-            headers: getters.authHeader
-        })
+    userAndGame({ commit, getters }, gameId) {
+      axios({
+        url: api.gameInfo.userandgame(gameId),
+        method: "get",
+        headers: getters.authHeader,
+      })
         .then((res) => {
-            console.log(res.data)
-            commit('CHEMI', res.data.response)
+          commit("CHEMI", res.data.response);
         })
-        .catch((err) => {console.log(err)});
-    }
-
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };

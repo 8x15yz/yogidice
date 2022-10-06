@@ -58,6 +58,65 @@ export default {
       bodyBox.classList.add("text-subtitle-2");
       bodyBox.style.color = "var(--color-grey-5)";
 
+      let registInit = function () {
+        {
+          // 고른 게임들 확인
+          let isBookMarkWorking = computed(
+            () => store.state.user.isBookMarkWorking,
+          );
+          let selectGames = computed(() => store.state.games.selectedGames);
+          for (let i = 0; i < selectGames.value.length; i++) {
+            // 각 게임을 북마크에 등록
+            registBookMark(selectGames.value[i]);
+            if (isBookMarkWorking.value === false) {
+              break;
+            } else {
+              continue;
+            }
+          }
+          if (isBookMarkWorking.value === false) {
+            store.dispatch(
+              "modal/registModal",
+              {
+                info: {},
+                from: "",
+                header: "",
+                body: "등록에 실패하였습니다!",
+                footer1: "",
+                footer2: "",
+              },
+              { root: true },
+            );
+            store.dispatch("modal/openModal", null, { root: true });
+            store.commit("user/BOOKMARK_WORKING");
+            setTimeout(function () {
+              store.dispatch("modal/closeModal", null, { root: true });
+            }, 2000);
+          } else {
+            store.dispatch(
+              "modal/registModal",
+              {
+                info: {},
+                from: "",
+                header: "",
+                body: "성공적으로 등록되었습니다!",
+                footer1: "",
+                footer2: "",
+              },
+              { root: true },
+            );
+            store.commit("user/BOOKMARK_WORKING");
+
+            setTimeout(function () {
+              store.dispatch("modal/closeModal", null, { root: true })
+              router.push({
+                name: "MainPage",
+              });
+            }, 2000);
+          }
+        }
+      };
+
       watch(isShowModal, (newValue) => {
         if (newValue === true && info.value.from === "registNickName") {
           firstButton.addEventListener("click", registerToInit);
@@ -65,60 +124,7 @@ export default {
         }
         // 선호도 조사에서 넘어온 모달인 경우
         else if (newValue === true && info.value.from === "initChoice") {
-          firstButton.addEventListener("click", () => {
-            // 고른 게임들 확인
-            let isBookMarkWorking = computed(
-              () => store.state.isBookMarkWorking,
-            );
-            console.log(isBookMarkWorking.value)
-            let selectGames = computed(() => store.state.games.selectedGames);
-            for (let i = 0; i < selectGames.value.length; i++) {
-              // 각 게임을 북마크에 등록
-              registBookMark(selectGames[i]);
-              if (!isBookMarkWorking.value) {
-                break;
-              } else {
-                continue;
-              }
-            }
-            if (!isBookMarkWorking.value) {
-              store.dispatch(
-                "modal/registModal",
-                {
-                  info: {},
-                  from: "",
-                  header: "",
-                  body: "등록에 실패하였습니다!",
-                  footer1: "",
-                  footer2: "",
-                },
-                { root: true },
-              );
-              store.dispatch("modal/openModal", null, { root: true });
-              setTimeout(function () {
-                store.dispatch("modal/closeModal", null, { root: true });
-              }, 2000);
-            } else {
-              store.dispatch(
-                "modal/registModal",
-                {
-                  info: {},
-                  from: "",
-                  header: "",
-                  body: "성공적으로 등록되었습니다!",
-                  footer1: "",
-                  footer2: "",
-                },
-                { root: true },
-              );
-
-              setTimeout(function () {
-                router.push({
-                  name: "MainPage",
-                });
-              }, 2000);
-            }
-          });
+          firstButton.addEventListener("click", registInit);
           secondButton.addEventListener("click", closeModal);
         } else if (newValue === true && info.value.from === "playGame") {
           if (info.value.content !== "") {
@@ -168,7 +174,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
-  padding: 0px 16px 0px 16px;
+  padding: 12px 16px 0px 16px;
   /* Inside auto layout */
 }
 .modal-body {

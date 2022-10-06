@@ -15,10 +15,12 @@ export default {
     presentType: "",
     selectedGames: [],
     penalty: ["가", "나", "다", "라", "마", "바"],
+    smallGamesLen: 0
   }),
   getters: {
     getAuthHeader: (state, getters, rootState, rootGetters) =>
       rootGetters["user/authHeader"],
+    getCountSmallGames: (state) => state.smallGames.length,
   },
   mutations: {
     SET_DETAIL: (state, details) => (state.detail = details),
@@ -27,6 +29,7 @@ export default {
     SET_SUB_GAMES: (state, games) => state.subGames.push(games),
     SET_SMALL_GAMES: (state, games) => (state.smallGames = games),
     ADD_SMALL_GAMES: (state, games) => state.smallGames.push(...games),
+    APPEND_SMALL_GAMES: (state, games) => state.smallGames.push(games),
     SET_SEARCH_RESULT: (state, result) => {
       state.searchResult = result;
     },
@@ -38,14 +41,15 @@ export default {
     RESET_SUB_GAMES: (state) => (state.subGames = []),
     RESET_SMALL_GAMES: (state) => (state.smallGames = []),
     RESET_LONG_GAMES: (state) => (state.longGames = []),
-    ADD_SELECTED_GAMES: (state, gameId) => (state.selectedGames.push(gameId)),
+    ADD_SELECTED_GAMES: (state, gameId) => state.selectedGames.push(gameId),
     SET_SELECTED_GAMES: (state, gameId) => (state.selectedGames = [gameId]),
     REMOVE_SELECTED_GAMES: (state, gameId) => {
-      if (state.selectedGames.indexOf(gameId) !== -1 ) {
-        console.log("으엑")
+      if (state.selectedGames.indexOf(gameId) !== -1) {
         state.selectedGames.splice(state.selectedGames.indexOf(gameId), 1);
       }
     },
+    SMALL_GAMES_LEN: (state) => (state.smallGamesLen = state.smallGames.length),
+    SMALL_GAMES_LEN_RESET: (state) => (state.smallGamesLen = 0)
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -54,7 +58,6 @@ export default {
         method: "get",
       })
         .then((res) => {
-          console.log("성공", res.data);
           commit("SET_DETAIL", res.data);
         })
         .catch((err) => console.log(err));
@@ -74,7 +77,6 @@ export default {
         headers: getters.getAuthHeader,
       })
         .then((res) => {
-          console.log(res.data);
           let tmp = [];
           for (let r of res.data.responses) {
             tmp.push(r.gameId);
@@ -127,7 +129,7 @@ export default {
           });
       }
     },
-    changeLongGames({ dispatch }, payload) {
+    changeLongGames({ dispatch,getters,commit }, payload) {
       let url;
       if (payload.type === "리뷰많은순") {
         url = api.games.sortReview();
@@ -135,6 +137,17 @@ export default {
         url = api.games.sortRating();
       } else if (payload.type === "최신게임") {
         url = api.games.sortRecent();
+      } else {
+        axios({
+          url: api.games.mainRecommend(),
+          method: "get",
+          headers: getters.getAuthHeader,
+        })
+        .then((res) => {
+          commit("SET_LONG_GAMES", res.data.responses)
+          return
+        })
+        
       }
       axios({
         url: url,
@@ -245,24 +258,49 @@ export default {
       })
         .then((res) => {
           commit("SET_MAIN_GAMES", res.data.responses);
+          commit("SET_TYPE","추천")
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    getCafeGames({commit},address) {
+    getCafeGames({ commit }, address) {
+      commit("RESET_SMALL_GAMES");
       axios({
         url: api.cafes.getCafeGames(address),
         method: "get",
       })
-      .then((res) => {
-        commit('SET_SMALL_GAMES',res.data.responses)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-
+        .then((res) => {
+          let result = res.data.responses;
+          for (let i = 0; i < result.length; i++) {
+            axios({
+              url: api.games.detailEdit(result[i].gameId),
+              method: "get",
+            })
+              .then((res) => {
+                let data = res.data;
+                let details = {
+                  id: data.id,
+                  titleKr: data.titleKr,
+                  thumbUrl: data.thumbUrl,
+                  ratingUser: data.ratingUser,
+                  minPlayers: data.minPlayers,
+                  maxPlayers: data.maxPlayers,
+                  playingTime: data.playingTime,
+                  difficulty: data.difficulty,
+                };
+                commit("APPEND_SMALL_GAMES", details);
+                commit("SMALL_GAMES_LEN");
+              })
+              .catch((err) => {
+                console.log(err)
+              }
+              );
+          }
+        })
+        .catch((err) => console.log(err));
     },
+
     addSelectedGames({ commit }, gameId) {
       commit("ADD_SELECTED_GAMES", gameId);
     },
@@ -287,5 +325,8 @@ export default {
     resetLongGames({ commit }) {
       commit("RESET_LONG_GAMES");
     },
+    resetSmallLenGames({commit}) {
+      commit("SMALL_GAMES_LEN_RESET");
+    }
   },
 };

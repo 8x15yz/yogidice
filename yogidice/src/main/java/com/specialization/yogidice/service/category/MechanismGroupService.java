@@ -46,7 +46,7 @@ public class MechanismGroupService {
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         List<MechanismGroup> mechanismGroups = mechanismGroupRepository.findByBoardGame(boardGame);
         if (mechanismGroups.isEmpty()) {
-            throw new NotFoundException(MECHANISM_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<MechanismGroupResponse> responses = new ArrayList<>();
         for (MechanismGroup mechanismGroup : mechanismGroups) {
@@ -61,7 +61,7 @@ public class MechanismGroupService {
                 .orElseThrow(() -> new NotFoundException(MECHANISM_NOT_FOUND));
         List<MechanismGroup> mechanismGroups = mechanismGroupRepository.findByMechanism(mechanism);
         if (mechanismGroups.isEmpty()) {
-            throw new NotFoundException(MECHANISM_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<MechanismGroupResponse> responses = new ArrayList<>();
         for (MechanismGroup mechanismGroup : mechanismGroups) {

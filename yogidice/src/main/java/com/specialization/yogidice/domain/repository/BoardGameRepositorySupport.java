@@ -1,13 +1,11 @@
 package com.specialization.yogidice.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
-import com.specialization.yogidice.domain.entity.BoardGame;
-import com.specialization.yogidice.domain.entity.QBoardGame;
-import com.specialization.yogidice.domain.entity.QNumOfReview;
-import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import com.specialization.yogidice.common.util.DeduplicationUtils;
 import com.specialization.yogidice.common.util.QuestionConfig;
+import com.specialization.yogidice.domain.entity.BoardGame;
+import com.specialization.yogidice.domain.entity.QBoardGame;
+import com.specialization.yogidice.dto.request.BoardGamePickRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +19,6 @@ public class BoardGameRepositorySupport {
     private JPAQueryFactory jpaQueryFactory;
 
     QBoardGame boardGame = QBoardGame.boardGame;
-    QNumOfReview numOfReview = QNumOfReview.numOfReview;
 
     public List<BoardGame> findBoardGameByPick(BoardGamePickRequest request) {
         QuestionConfig questionConfig = new QuestionConfig(request);

@@ -1,12 +1,13 @@
 <template>
-<div>
+  <div>
     <grey-bg-head-bar></grey-bg-head-bar>
-</div>
+  </div>
   <div class="home-cover">
     <div class="pick-intro-title text-huge">당신의 겜성은?</div>
-    <br>
-    <div class="pick-intro-describe text-body-1"> 
-      요기다이스의 빅데이터를 기반으로 <br> 당신의 게임 성향(겜성)을 찾아드려요
+    <br />
+    <div class="pick-intro-describe text-body-1">
+      요기다이스의 빅데이터를 기반으로 <br />
+      당신의 게임 성향(겜성)을 찾아드려요
     </div>
     <div class="pick-intro-icons">
       <div class="pick-intro-icon">
@@ -23,33 +24,31 @@
     <div class="button-box">
       <div class="pick-start" @click="startPick">검사시작</div>
     </div>
-
   </div>
 </template>
 
 <script>
-import { useRouter } from "vue-router"
-import GreyBgHeadBar from '@/layouts/GreyBgHeadBar.vue';
+import { useRouter } from "vue-router";
+import GreyBgHeadBar from "@/layouts/GreyBgHeadBar.vue";
 export default {
   components: {
-    GreyBgHeadBar
+    GreyBgHeadBar,
   },
   setup() {
-    const router = useRouter()
+    const router = useRouter();
     const startPick = function () {
-      router.push({"name":"QuestionView"})
-    }
+      router.push({ name: "QuestionView" });
+    };
     const gomain = function () {
-      router.push({"name":"MainPage"})
-    }
+      router.push({ name: "MainPage" });
+    };
 
     return {
       startPick,
-      gomain
-    }
-  }
-
-}
+      gomain,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -61,11 +60,10 @@ export default {
   color: white;
   font-family: "Pretendard";
 }
-.pick-intro-title{
-  margin-bottom: 3rem;;
-
+.pick-intro-title {
+  margin-bottom: 3rem;
 }
-.pick-intro-describe{
+.pick-intro-describe {
   margin-bottom: 1.3rem;
 }
 .pick-intro-icons {
@@ -96,7 +94,5 @@ export default {
   width: 40vw;
   padding: 8px;
   text-align: center;
-
 }
-
 </style>

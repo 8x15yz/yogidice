@@ -1,6 +1,5 @@
 package com.specialization.yogidice.dto.response;
 
-import com.specialization.yogidice.domain.entity.BoardGameCafe;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
