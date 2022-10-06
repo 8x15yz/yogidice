@@ -246,7 +246,8 @@ export default {
         }
         let tmp2 = document.createElement('span')
         // tmp2.innerText = "보유게임현황"
-        tmp2.setAttribute("class","material-icons-outlined format_list_bulleted text-button cafe-own-game")
+        tmp2.innerText = "format_list_bulleted"
+        tmp2.setAttribute("class","material-icons-outlined text-button cafe-own-game")
         tmp2.addEventListener("click", openCafeGameList)
 
         detailBtn.append(tmp1,tmp2)
