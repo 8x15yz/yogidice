@@ -15,6 +15,7 @@ export default {
     presentType: "",
     selectedGames: [],
     penalty: ["가", "나", "다", "라", "마", "바"],
+    smallGamesLen: 0
   }),
   getters: {
     getAuthHeader: (state, getters, rootState, rootGetters) =>
@@ -47,6 +48,8 @@ export default {
         state.selectedGames.splice(state.selectedGames.indexOf(gameId), 1);
       }
     },
+    SMALL_GAMES_LEN: (state) => (state.smallGamesLen = state.smallGames.length),
+    SMALL_GAMES_LEN_RESET: (state) => (state.smallGamesLen = 0)
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -249,7 +252,7 @@ export default {
           console.log(err);
         });
     },
-    getCafeGames({ commit }, address) {
+    getCafeGames({ commit, getters }, address) {
       commit("RESET_SMALL_GAMES");
       axios({
         url: api.cafes.getCafeGames(address),
@@ -275,8 +278,13 @@ export default {
                   difficulty: data.difficulty,
                 };
                 commit("APPEND_SMALL_GAMES", details);
+                commit("SMALL_GAMES_LEN");
+                console.log(getters.getCountSmallGames)
               })
-              .catch((err) => console.log(err));
+              .catch((err) => {
+                console.log(err)
+              }
+              );
           }
         })
         .catch((err) => console.log(err));
@@ -306,5 +314,8 @@ export default {
     resetLongGames({ commit }) {
       commit("RESET_LONG_GAMES");
     },
+    resetSmallLenGames({commit}) {
+      commit("SMALL_GAMES_LEN_RESET");
+    }
   },
 };

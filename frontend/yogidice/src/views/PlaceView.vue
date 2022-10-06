@@ -33,6 +33,7 @@ export default {
     let locPosition;
     let cafeName = ref("");
     let showCafeGameList = ref(false);
+    store.dispatch("games/resetSmallLenGames")
     let showSearchList = function () {
       let searchList = document.querySelector(".search-list-title");
       let mapContainer = document.querySelector("#map");

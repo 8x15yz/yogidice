@@ -16,7 +16,7 @@
 <script>
 import SmallCardList from "@/components/card/SmallCardList.vue";
 import { useStore } from "vuex";
-import { computed } from "@vue/runtime-core";
+import { computed, ref } from "@vue/runtime-core";
 
 export default {
   components: {
@@ -27,9 +27,11 @@ export default {
   },
   setup(props, { emit }) {
     const store = useStore();
-    let count = computed(() => store.getters.getCountSmallGames);
+    const count = ref(0);
+    count.value = computed(() => store.state.games.smallGamesLen);
     const closeCafeGame = function () {
       emit("closeCafeModal");
+      store.dispatch("games/resetSmallLenGames")
     };
     return {
       closeCafeGame,
