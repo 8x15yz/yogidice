@@ -1,11 +1,9 @@
 <template>
   <div class="spinner-container">
-   <div class="spinner">
-    <div class="spinner-inside">
+    <div class="spinner">
+      <div class="spinner-inside"></div>
     </div>
-   </div>
   </div>
- 
 </template>
 
 <script>
@@ -23,29 +21,28 @@ export default {};
   gap: 2vw;
   width: 100%;
   height: 80vh;
-  justify-content : center;
+  justify-content: center;
   overflow: scroll;
 }
-.spinner{
-  position:absolute;
-  left:45%;
-    top:40%;
+.spinner {
+  position: absolute;
+  left: 45%;
+  top: 40%;
   color: white;
   width: 50px;
   height: 50px;
   text-align: center;
-  justify-content : center;
+  justify-content: center;
   font-size: 20px;
   border-radius: 50px;
   background: white;
- 
 }
-.spinner-inside{
-    margin-top:20%;
-    margin-left: 20%;
-    width: 30px;
-    height: 30px;
-    background-image: url("@/static/loading30.gif");
+.spinner-inside {
+  margin-top: 20%;
+  margin-left: 20%;
+  width: 30px;
+  height: 30px;
+  background-image: url("@/static/loading30.gif");
 }
 /* .spinner-container {
   display: inline-block;
@@ -58,5 +55,4 @@ export default {};
   background-repeat: no-repeat;
   position: relative;
 } */
-
 </style>

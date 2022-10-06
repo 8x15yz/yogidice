@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { onMounted,computed } from "@vue/runtime-core";
+import { onMounted, computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import ModalContent from "./ModalContent.vue";
 
@@ -31,8 +31,7 @@ export default {
   setup() {
     const store = useStore();
 
-    let contents = computed(() => store.state.modal.contents)
-
+    let contents = computed(() => store.state.modal.contents);
 
     onMounted(() => {
       const modalBack = document.querySelector(".modal-back");
@@ -44,8 +43,7 @@ export default {
     });
 
     return {
-      contents
-
+      contents,
     };
   },
 };

@@ -81,7 +81,7 @@
         padding-top: 4vh;
         height: 60vh;
         background-color: var(--color-bg-base);
-        overflow:scroll;
+        overflow: scroll;
       "
     >
       <game-clock v-if="clock"></game-clock>
@@ -222,12 +222,11 @@ import PickTagger from "@/components/plusgame/PickTagger.vue";
 import RollingDice from "@/components/plusgame/RollingDice.vue";
 import RelatedVideos from "@/components/plusgame/RelatedVideos.vue";
 import ModalDialog from "@/components/modal/ModalDialog.vue";
-// import gameReviewModal from '@/components/modal/gameReviewModal.vue';
 
 import axios from "axios";
 import { ref, computed, reactive } from "@vue/runtime-core";
 import { useStore } from "vuex";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
 export default {
   components: {
@@ -238,12 +237,11 @@ export default {
     RollingDice,
     RelatedVideos,
     ModalDialog,
-    // gameReviewModal
   },
   setup() {
     const store = useStore();
     let showModal = computed(() => store.state.modal.showModal);
-    const router = useRouter()
+    const router = useRouter();
     const submenu = ref(false);
     const dice = ref(false);
     const person = ref(false);
@@ -325,7 +323,6 @@ export default {
         window.alert("리뷰를 작성하고 제출해주세요");
       } else {
         reviewform.value = false;
-        // console.log(gamereviewtext.value, star.value, playgame.value, '들꽃')
         store.dispatch("myuser/SendReview", [
           {
             rating: star.value,
@@ -336,7 +333,7 @@ export default {
         setTimeout(() => {
           reviewform.value = true;
           reviewformouter.value = false;
-          router.push({name:"MainPage"})
+          router.push({ name: "MainPage" });
         }, 1500);
       }
     }
@@ -393,8 +390,6 @@ export default {
           () => store.state.gamedetail.playnowhistoryid,
         );
       }
-      // console.log(playgame)
-      // store.dispatch("myuser/SendReview")
     }
     const star = ref(1);
 

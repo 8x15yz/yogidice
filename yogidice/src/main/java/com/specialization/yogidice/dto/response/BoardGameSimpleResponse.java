@@ -1,15 +1,10 @@
 package com.specialization.yogidice.dto.response;
 
 import com.specialization.yogidice.domain.entity.BoardGame;
-import com.specialization.yogidice.dto.response.category.CategoryGroupResponse;
-import com.specialization.yogidice.dto.response.category.MechanismGroupResponse;
-import com.specialization.yogidice.dto.response.category.TypeGroupResponse;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -51,7 +46,6 @@ public class BoardGameSimpleResponse {
     private String contents;
 
     private String contentsImgUrl;
-
 
 
     public static BoardGameSimpleResponse response(

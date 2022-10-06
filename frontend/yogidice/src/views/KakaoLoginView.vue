@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="loading" v-show="isLoading">
-    <loading-spinner v-show="isLoading"></loading-spinner>
-  </div>
+      <loading-spinner v-show="isLoading"></loading-spinner>
+    </div>
   </div>
 </template>
 
 <script>
 import { useStore } from "vuex";
-import LoadingSpinner from '@/components/spinner/LoadingSpinner.vue';
-import { ref } from '@vue/runtime-core'
+import LoadingSpinner from "@/components/spinner/LoadingSpinner.vue";
+import { ref } from "@vue/runtime-core";
 
 export default {
   components: {
@@ -22,7 +22,7 @@ export default {
     let param = new URLSearchParams(query);
     let code = param.get("code");
     let isLoading = ref(false);
-    
+
     const getInfo = () => store.dispatch("user/getKakaoUserInfo", code);
     isLoading.value = true;
     setTimeout(getInfo, 2000);
@@ -36,10 +36,10 @@ export default {
 </script>
 
 <style>
- .loading {
+.loading {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: var(--color-bg-modal)
+  background-color: var(--color-bg-modal);
 }
 </style>

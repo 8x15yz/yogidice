@@ -17,8 +17,9 @@ export default {
     penalty: ["가", "나", "다", "라", "마", "바"],
   }),
   getters: {
-    getAuthHeader: (state, getters, rootState, rootGetters) => rootGetters["user/authHeader"],
-    getCountSmallGames: (state) => state.smallGames.length
+    getAuthHeader: (state, getters, rootState, rootGetters) =>
+      rootGetters["user/authHeader"],
+    getCountSmallGames: (state) => state.smallGames.length,
   },
   mutations: {
     SET_DETAIL: (state, details) => (state.detail = details),
@@ -39,11 +40,10 @@ export default {
     RESET_SUB_GAMES: (state) => (state.subGames = []),
     RESET_SMALL_GAMES: (state) => (state.smallGames = []),
     RESET_LONG_GAMES: (state) => (state.longGames = []),
-    ADD_SELECTED_GAMES: (state, gameId) => (state.selectedGames.push(gameId)),
+    ADD_SELECTED_GAMES: (state, gameId) => state.selectedGames.push(gameId),
     SET_SELECTED_GAMES: (state, gameId) => (state.selectedGames = [gameId]),
     REMOVE_SELECTED_GAMES: (state, gameId) => {
-      if (state.selectedGames.indexOf(gameId) !== -1 ) {
-        console.log("으엑")
+      if (state.selectedGames.indexOf(gameId) !== -1) {
         state.selectedGames.splice(state.selectedGames.indexOf(gameId), 1);
       }
     },
@@ -55,7 +55,6 @@ export default {
         method: "get",
       })
         .then((res) => {
-          console.log("성공", res.data);
           commit("SET_DETAIL", res.data);
         })
         .catch((err) => console.log(err));
@@ -75,7 +74,6 @@ export default {
         headers: getters.getAuthHeader,
       })
         .then((res) => {
-          console.log(res.data);
           let tmp = [];
           for (let r of res.data.responses) {
             tmp.push(r.gameId);
@@ -251,38 +249,38 @@ export default {
           console.log(err);
         });
     },
-    getCafeGames({commit},address) {
-      commit("RESET_SMALL_GAMES")
+    getCafeGames({ commit }, address) {
+      commit("RESET_SMALL_GAMES");
       axios({
         url: api.cafes.getCafeGames(address),
         method: "get",
       })
-      .then((res) => {
-        let result = res.data.responses
-        for (let i=0; i<result.length; i++){
-          axios({
-            url: api.games.detailEdit(result[i].gameId),
-            method: "get",
-          })
-          .then((res) => {
-            let data = res.data;
-            let details = {
-              id: data.id,
-              titleKr: data.titleKr,
-              thumbUrl: data.thumbUrl,
-              ratingUser: data.ratingUser,
-              minPlayers: data.minPlayers,
-              maxPlayers: data.maxPlayers,
-              playingTime: data.playingTime,
-              difficulty: data.difficulty,
-            };
-            commit("APPEND_SMALL_GAMES",details)
-          })
-          .catch((err)=>console.log(err))
+        .then((res) => {
+          let result = res.data.responses;
+          for (let i = 0; i < result.length; i++) {
+            axios({
+              url: api.games.detailEdit(result[i].gameId),
+              method: "get",
+            })
+              .then((res) => {
+                let data = res.data;
+                let details = {
+                  id: data.id,
+                  titleKr: data.titleKr,
+                  thumbUrl: data.thumbUrl,
+                  ratingUser: data.ratingUser,
+                  minPlayers: data.minPlayers,
+                  maxPlayers: data.maxPlayers,
+                  playingTime: data.playingTime,
+                  difficulty: data.difficulty,
+                };
+                commit("APPEND_SMALL_GAMES", details);
+              })
+              .catch((err) => console.log(err));
           }
         })
-        .catch((err)=>console.log(err))
-      },
+        .catch((err) => console.log(err));
+    },
 
     addSelectedGames({ commit }, gameId) {
       commit("ADD_SELECTED_GAMES", gameId);

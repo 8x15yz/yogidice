@@ -1,15 +1,15 @@
 <template>
   <div id="input-box">
     <div>
-      <input type="number" min="0" max="99" v-model="startHour">
+      <input type="number" min="0" max="99" v-model="startHour" />
       <span>시간 </span>
     </div>
     <div>
-      <input type="number" min="0" max="59" v-model="startMin">
+      <input type="number" min="0" max="59" v-model="startMin" />
       <span>분 </span>
     </div>
     <div>
-      <input type="number" min="0" max="59" v-model="startSec" >
+      <input type="number" min="0" max="59" v-model="startSec" />
       <span>초 </span>
     </div>
     <button id="set-time-button" type="submit">설정</button>
@@ -17,19 +17,19 @@
   <div class="timer-component">
     <div class="timer-group">
       <div class="timer hour">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
       </div>
       <div class="timer second">
-          <div class="hand"><span></span></div>
-          <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
+        <div class="hand"><span></span></div>
       </div>
       <div class="timer-screen">
-          <p id="timer-time" class="text-headline-6">{{baseTime}}</p>  
+        <p id="timer-time" class="text-headline-6">{{ baseTime }}</p>
       </div>
     </div>
   </div>
-  <br>
+  <br />
 
   <div id="timer-buttons">
     <button id="start-button" class="text-button">START</button>
@@ -39,133 +39,144 @@
 </template>
 
 <script>
-import { onMounted, ref } from '@vue/runtime-core';
+import { onMounted, ref } from "@vue/runtime-core";
 export default {
-  setup(){ 
-    let timer_down
-    let startHour = ref(0)
-    let startMin = ref(0)
-    let startSec = ref(0)
-    let baseTime = ref('00:00:00')
-    // let total = ref(0)
+  setup() {
+    let timer_down;
+    let startHour = ref(0);
+    let startMin = ref(0);
+    let startSec = ref(0);
+    let baseTime = ref("00:00:00");
     let isWriting = function () {
-      let box = document.querySelector(".bottom-box")
-      box.style.display = 'none'
-      console.log("음")
-    }
+      let box = document.querySelector(".bottom-box");
+      box.style.display = "none";
+    };
 
-  
-    onMounted(()=>{
+    onMounted(() => {
+      let timer_down_start;
+      let animationTarget1 = document.querySelectorAll(
+        ".timer .hand:first-child span",
+      );
+      let animationTarget2 = document.querySelectorAll(
+        ".timer .hand:last-child span",
+      );
+      let startButton = document.querySelector("#start-button");
+      let setTimeButton = document.querySelector("#set-time-button");
+      let totalCircle = document.querySelectorAll(".timer.hour .hand span");
 
-      let timer_down_start
-
-      let animationTarget1 = document.querySelectorAll(".timer .hand:first-child span")
-      let animationTarget2 = document.querySelectorAll(".timer .hand:last-child span")
-      let startButton = document.querySelector("#start-button")
-      let setTimeButton = document.querySelector("#set-time-button")
-      let totalCircle = document.querySelectorAll(".timer.hour .hand span")
-
-      
-      startButton.addEventListener("click",function(e){
-        if (!e.target.classList.contains("processing") && baseTime.value !== "00:00:00") {
-          e.target.classList.add("processing")
+      startButton.addEventListener("click", function (e) {
+        if (
+          !e.target.classList.contains("processing") &&
+          baseTime.value !== "00:00:00"
+        ) {
+          e.target.classList.add("processing");
 
           // 만약, 리셋한게 아니라 잠시 일시정지라면?
-          timer_down()
+          timer_down();
         }
-      })
-            
-      let stopButton = document.querySelector("#stop-button")
-      
-      stopButton.addEventListener("click",function(){
+      });
+      let stopButton = document.querySelector("#stop-button");
+
+      stopButton.addEventListener("click", function () {
         for (let t of animationTarget1) {
-          t.style.animationName = ""
+          t.style.animationName = "";
         }
         for (let t2 of animationTarget2) {
-          t2.style.animationName = ""
-        }        
-        startButton.classList.remove("processing")
-        clearInterval(timer_down_start)
-      })
+          t2.style.animationName = "";
+        }
+        startButton.classList.remove("processing");
+        clearInterval(timer_down_start);
+      });
 
-      let resetButton = document.querySelector("#reset-button")
-      resetButton.addEventListener("click",function(){
+      let resetButton = document.querySelector("#reset-button");
+      resetButton.addEventListener("click", function () {
         baseTime.value = "00:00:00";
-      })
+      });
 
-      setTimeButton.addEventListener("click",function(){
+      setTimeButton.addEventListener("click", function () {
         let displayNum = [];
 
-        displayNum[0] = ((''+startHour.value).length == 1) ? '0' + (''+startHour.value) : (''+startHour.value);
-        displayNum[1] = ((''+startMin.value).length == 1) ? '0' + (''+startMin.value) : (''+startMin.value);
-        displayNum[2] = ((''+startSec.value).length == 1) ? '0' + (''+startSec.value) : (''+startSec.value);
-        baseTime.value = displayNum.join(':');
+        displayNum[0] =
+          ("" + startHour.value).length == 1
+            ? "0" + ("" + startHour.value)
+            : "" + startHour.value;
+        displayNum[1] =
+          ("" + startMin.value).length == 1
+            ? "0" + ("" + startMin.value)
+            : "" + startMin.value;
+        displayNum[2] =
+          ("" + startSec.value).length == 1
+            ? "0" + ("" + startSec.value)
+            : "" + startSec.value;
+        baseTime.value = displayNum.join(":");
 
         // baseTime.value = `${startHour.value}:${startMin.value}:${startSec.value}`
         // total = computed(()=> startHour.value*3600+startMin.value*60+startSec.value)
-      })
+      });
 
       timer_down = function () {
-        let time = Number(baseTime.value.substr(0,2))+Number(baseTime.value.substr(3,2))+Number(baseTime.value.substr(6,2)); //기준시간 작성
+        let time =
+          Number(baseTime.value.substr(0, 2)) +
+          Number(baseTime.value.substr(3, 2)) +
+          Number(baseTime.value.substr(6, 2)); //기준시간 작성
         let hour = ""; //시
         let min = ""; //분
         let sec = ""; //초
         for (let c of totalCircle) {
-          c.style.animationDuration = `${time}s`
+          c.style.animationDuration = `${time}s`;
         }
         for (let t of animationTarget1) {
-          t.style.animationName = "spin1"
+          t.style.animationName = "spin1";
         }
         for (let t2 of animationTarget2) {
-          t2.style.animationName = "spin2"
+          t2.style.animationName = "spin2";
         }
 
         //setInterval(함수, 시간) : 주기적인 실행
-        timer_down_start = setInterval(function() {
-
+        timer_down_start = setInterval(function () {
           time--;
           //parseInt() : 정수를 반환
-          hour = ''+parseInt(time/3600)
-          min = ''+parseInt(time/60); //몫을 계산
-          sec = ''+(time%60); //나머지를 계산
-          let parts = []
+          hour = "" + parseInt(time / 3600);
+          min = "" + parseInt(time / 60); //몫을 계산
+          sec = "" + (time % 60); //나머지를 계산
+          let parts = [];
 
-          parts[0] = (hour.length == 1) ? '0' + hour : hour;
-          parts[1] = (min.length == 1) ? '0' + min : min;
-          parts[2] = (sec.length == 1) ? '0' + sec : sec;
+          parts[0] = hour.length == 1 ? "0" + hour : hour;
+          parts[1] = min.length == 1 ? "0" + min : min;
+          parts[2] = sec.length == 1 ? "0" + sec : sec;
 
-          baseTime.value = parts.join(':');
+          baseTime.value = parts.join(":");
 
           //타임아웃 시
           if (time === 0) {
             clearInterval(timer_down_start); //setInterval() 실행을 끝냄
             baseTime.value = "시간초과";
             for (let t of animationTarget1) {
-             t.style.animationName = ""
+              t.style.animationName = "";
             }
             for (let t2 of animationTarget2) {
-              t2.style.animationName = ""
+              t2.style.animationName = "";
             }
             if (navigator.vibrate) {
               navigator.vibrate(3000); // 진동을 울리게 한다. 1000ms = 1s 이다.
-            } 
+            }
           }
         }, 1000);
-      }
-    })
+      };
+    });
     return {
       startHour,
       startMin,
       startSec,
       baseTime,
-      isWriting
-    }
-  }
-}
+      isWriting,
+    };
+  },
+};
 </script>
 
 <style>
-.inputs{
+.inputs {
   display: flex;
   justify-content: center;
   gap: 2vw;
@@ -212,7 +223,7 @@ export default {
 }
 
 .timer .hand span {
-  border: 10vw solid rgba(0, 255, 255, .4);
+  border: 10vw solid rgba(0, 255, 255, 0.4);
   border-bottom-color: transparent;
   border-left-color: transparent;
   border-radius: 50%;
@@ -236,7 +247,7 @@ export default {
 }
 
 .timer.hour {
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, 0.3);
   height: 80vw;
   left: 0;
   width: 80vw;
@@ -257,9 +268,8 @@ export default {
   top: 4vw;
 }
 
-
 .timer.second {
-  background: rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, 0.2);
   height: 60vw;
   left: 10vw;
   width: 60vw;
@@ -268,8 +278,8 @@ export default {
 
 .timer.second .hand span {
   animation-duration: 1s;
-  border-top-color: rgba(255, 255, 255, .15);
-  border-right-color: rgba(255, 255, 255, .15);
+  border-top-color: rgba(255, 255, 255, 0.15);
+  border-right-color: rgba(255, 255, 255, 0.15);
   border-width: 30vw;
 }
 
@@ -278,7 +288,7 @@ export default {
   left: 1vw;
   width: 58vw;
   top: 1vw;
-} 
+}
 
 .timer-screen {
   border-radius: 50%;
@@ -293,7 +303,7 @@ export default {
 }
 
 .timer-screen h2 {
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .timer-screen p {
@@ -301,8 +311,8 @@ export default {
   font-size: 15vw;
   font-weight: 400;
   position: absolute;
-  color:white;
-  align-self: center
+  color: white;
+  align-self: center;
 }
 
 @keyframes spin1 {
@@ -342,8 +352,8 @@ export default {
   background-color: var(--color-bg-modal);
 }
 
-#start-button.processing{
-  background-color: black;  
+#start-button.processing {
+  background-color: black;
 }
 
 #input-box {
@@ -353,7 +363,4 @@ export default {
   margin-top: 4vh;
   margin-bottom: 2vh;
 }
-
-
-
 </style>

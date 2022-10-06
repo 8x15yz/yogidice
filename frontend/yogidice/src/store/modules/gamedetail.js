@@ -84,7 +84,6 @@ export default {
         method: "get",
       })
         .then((res) => {
-          // console.log(res.data)
           commit("GAME_MEC_DISC", res.data.description);
           commit("GAME_MEC_NAME", res.data.name);
         })
@@ -104,7 +103,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res.data.id);
           commit("PLAY_GAME_HIS_ID", res.data.id);
         })
         .catch((err) => {
@@ -120,7 +118,6 @@ export default {
         method: "get",
       })
         .then((res) => {
-          console.log("성공", res.data);
           commit("SET_DETAIL", res.data);
         })
         .catch((err) => console.log(err));

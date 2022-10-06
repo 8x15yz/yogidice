@@ -3,43 +3,43 @@
     <div
       v-for="lg in games"
       :key="lg.id"
-      id="more-card" 
+      id="more-card"
       @click="showDetail(lg)"
     >
       <div class="border_bottom">
-        <long-card-items
-        :lg="lg"></long-card-items>
+        <long-card-items :lg="lg"></long-card-items>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import LongCardItems from "@/components/card/LongCardItems.vue"
-import { useRouter } from "vue-router"
-import { useStore } from "vuex"
-import { computed } from "vue"
+import LongCardItems from "@/components/card/LongCardItems.vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { computed } from "vue";
 
 export default {
   components: {
-    LongCardItems
+    LongCardItems,
   },
   setup() {
-    const store = useStore()
-    const router = useRouter()
-    const showDetail = function(game) {
-      router.push({name:"GameDetail", query:{"gameId":game.id, "title":game.titleKr}})
-    }
+    const store = useStore();
+    const router = useRouter();
+    const showDetail = function (game) {
+      router.push({
+        name: "GameDetail",
+        query: { gameId: game.id, title: game.titleKr },
+      });
+    };
     // 나중엔 store에서 받아올듯?
-    let games = computed(()=>store.state.games.longGames)
+    let games = computed(() => store.state.games.longGames);
     return {
       games,
-      showDetail
-     }
-  }
-
-
-}
+      showDetail,
+    };
+  },
+};
 </script>
 
 <style>
@@ -69,5 +69,4 @@ export default {
   background-color: white;
   overflow: hidden;
 }
-
 </style>
