@@ -70,10 +70,10 @@ export default {
           // console.log('dspd', res.data.responses)
           let pmec = [0, 0, 0, 0, 0, 0];
           const pmecmax = [
-            "추리카드퍼즐",
+            "논리",
             "경제",
             "파티",
-            "조건",
+            "룰",
             "말",
             "전략",
           ];

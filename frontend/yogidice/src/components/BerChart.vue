@@ -63,10 +63,10 @@ export default {
     // const lenten = lengamecategoryten.map( x => x/Math.max(...lengamecategoryten)*10)
     const chartData = {
         labels: [
-          "추리카드퍼즐",
+          "논리",
           "경제",
           "파티",
-          "조건",
+          "룰",
           "말",
           "전략",
         ],

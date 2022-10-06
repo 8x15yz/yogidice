@@ -13,7 +13,35 @@
                 <div style="height: 150px;"></div>
                 <div class="info-modal-bg">
                     <div style="display: flex; justify-content: end;"><i @click="infomodal = false" class="far fa-times-circle" style=" margin: 10px; font-size: 30px;"></i></div>
-                    <div class="info-modal-inner"></div>
+                    <div class="info-my-modal-inner" style="width: 250px; overflow:auto; flex-wrap:wrap;" >
+                        <div style="margin-bottom: 20px;">요기다이스의 게임 성격 대분류는 총 6가지입니다.</div>
+                        <div>
+                            <div>
+                                <div style="font-size: 30px;">논리</div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">작은 단서를 통해 정답을 찾아가는 게임 : 카드나 퍼즐 스타일의 게임들이 해당되고, 추리를 통해서 플레이어들의 심리를 파악하기도 합니다</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 30px;">전략</div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">치밀한 전략을 세워 승리하는 게임 : 게임 전반적으로 나만의 게임 공략을 가지고 행동해야 합니다. 논리보다는 조금 더 깊은 전략이 필요합니다.</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 30px;">경제</div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">현실 경제 지식을 활용하는 게임 : 투자나 매매의 개념이 포함되어있는 게임입니다. 승점을 돈으로 사용할 수도 있습니다.</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 30px;">말</div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">보드에서 말을 움직이는 게임 : 주사위를 굴리고 말을 이동시키는 개념이 포함되어 있습니다. </div>
+                            </div>
+                            <div>
+                                <div style="font-size: 30px;">파티</div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">단체 게임에 적합 : 몸을 움직이고 그림을 그리는 등의 액션이 포함되어 있습니다. 대개 쉬운 난이도로 되어 있으며 누구든지 룰을 금방 익히고 게임을 진행할 수 있습니다.</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 30px;">룰</div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">특이한 규칙을 가진 게임 : 보드게임 고유의 룰이 있다면 이 매커니즘에 해당됩니다. </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -270,11 +298,11 @@ export default {
 </script>
 
 <style>
-.info-modal-inner {
+.info-my-modal-inner {
     margin: 20px;
     margin-top: 0px;
     width: 70vw;
-    height: 300px;
+    height: 330px;
     /* background-color: pink; */
 }
 .info-modal-bg {
