@@ -182,10 +182,7 @@
       </div>
     </div>
     <div class="alpha-box alpha-box-info" v-show="info">
-      <div @click="closeSubMenuBtn('sub')" class="close-button">
-        <span class="material-icons-outlined">close</span>
-      </div>
-      <div class="text-headline-6">{{ playnowname }} 설명서</div>
+      <div class="play-header text-headline-6">{{ playnowname }} 설명서 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
     </div>
     <div class="alpha-box alpha-box-youtub" v-show="youtub">
       <related-videos
@@ -194,23 +191,17 @@
       ></related-videos>
     </div>
     <div class="alpha-box alpha-box-memo" v-show="memo">
-      <div @click="closeSubMenuBtn('sub')" class="close-button">
-        <span class="material-icons-outlined">close</span>
-      </div>
-      <div>메모장</div>
+      <div class="play-header text-headline-6"> 메모장 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
       <br />
       <textarea
         name="playing-memo"
         placeholder="메모할 내용을 입력하세요"
         id=""
-        rows="10"
+        rows="100"
       ></textarea>
     </div>
     <div class="alpha-box alpha-box-file" v-show="file">
-      <div @click="closeSubMenuBtn('sub')" class="close-button">
-        <span class="material-icons-outlined">close</span>
-      </div>
-      <h3>관련 파일이 없습니다</h3>
+      <div class="play-header text-headline-6">{{ playnowname }} 관련양식 <span @click="closeSubMenuBtn('sub')" class="close-button-cafe material-icons-outlined">close</span></div>
     </div>
   </div>
 </template>
