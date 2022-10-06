@@ -252,7 +252,7 @@ export default {
           console.log(err);
         });
     },
-    getCafeGames({ commit, getters }, address) {
+    getCafeGames({ commit }, address) {
       commit("RESET_SMALL_GAMES");
       axios({
         url: api.cafes.getCafeGames(address),
