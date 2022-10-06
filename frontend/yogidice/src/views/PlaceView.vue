@@ -31,8 +31,6 @@ export default {
   setup() {
     const store = useStore();
     let locPosition;
-    let newLat
-    let newLon
     let cafeName = ref("");
     let showCafeGameList = ref(false);
     store.dispatch("games/resetSmallLenGames")
@@ -70,22 +68,26 @@ export default {
     });
     const initMap = function () {
       var markers = [];
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (position) {
-          newLat = position.coords.latitude; // 위도
-          newLon = position.coords.longitude; // 경도
-          locPosition = new kakao.maps.LatLng(newLat, newLon);
-          })
-      }
 
-      var mapContainer = document.getElementById("map") // 지도를 표시할 div
-      var mapOption = {
-          center: new kakao.maps.LatLng(newLat, newLon), // 지도의 중심좌표
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
         };
-            // 지도를 생성합니다
+
+      // 지도를 생성합니다
       var map = new kakao.maps.Map(mapContainer, mapOption);
 
+      if (navigator.geolocation) {
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+        navigator.geolocation.getCurrentPosition(function (position) {
+          let newLat = position.coords.latitude; // 위도
+          let newLon = position.coords.longitude; // 경도
+          locPosition = new kakao.maps.LatLng(newLat, newLon);
+          displayMarker(locPosition, "현재위치");
+          map.setCenter(locPosition);
+        });
+      }
 
       const displayMarker = function (locPosition, message) {
         // 마커 이미지 변경하기
@@ -117,13 +119,6 @@ export default {
         infowindow.open(map, marker);
       };
 
-
-
-
-      displayMarker(locPosition, "현재위치");
-      map.setCenter(locPosition);
-
-
       // 장소 검색 객체를 생성합니다
       var ps = new kakao.maps.services.Places();
 
@@ -137,6 +132,7 @@ export default {
       function searchPlaces() {
         var keyword = "보드게임 카페";
         let center = map.getCenter();
+        console.log(center,"검색기준위치")
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         ps.keywordSearch(keyword, placesSearchCB, {
           location: center,

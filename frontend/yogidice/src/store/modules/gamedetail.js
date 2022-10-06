@@ -122,5 +122,9 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+    setPlayGame({ commit }, GData) {
+      commit("PLAY_GAME_NAME", GData[0]);
+      commit("PLAY_GAME_ID", GData[1]);
+    },
   },
 };
