@@ -22,24 +22,36 @@ export default {
     let breaks;
     let endSpeed;
 
+    function play(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+      }
+    }
+
     onMounted(() => {
       const setInit = function () {
         // The message displayed
         chars = [
-          "노래부르기",
-          "거울보기",
-          "딱밤맞기",
-          "팔굽혀펴기",
-          "뿅망치맞기",
-          "음료사오기",
-          "간식사오기",
-          "게임가져오기",
+          "3행시",
+          "노래 부르기",
+          "다음 게임 가져오기",
+          "거울 보기",
+          "계산은 내가 한다!",
+          "딱밤 맞기",
+          "나홀로 존댓말",
+          "외래어 금지",
+          "인디언 밥",
+          "뿅망치 맞기",
+          "내일은 정리왕",
+          "음료 사오기",
+          "간식 사오기",
         ];
         text = chars[Math.floor(Math.random() * chars.length)];
         scale = 50; // Font size and overall scale
-        breaks = 0.0004; // Speed loss per frame
+        breaks = 0.0002; // Speed loss per frame
         endSpeed = 0.00001; // Speed at which the letter stops
-        let firstLetter = 300; // Number of frames untill the first letter stopps (60 frames per second)
+        let firstLetter = 750; // Number of frames untill the first letter stopps (60 frames per second)
         let delay = 100; // Number of frames between letters stopping
 
         let canvas = document.querySelector("canvas");
@@ -115,10 +127,15 @@ export default {
       let btn = document.querySelector("#starter");
       btn.addEventListener("click", function () {
         setInit();
+        play(
+          "http://soundbible.com/mp3/Game Show Wheel Spin-SoundBible.com-1305738466.mp3",
+        );
         loop();
       });
     });
-    return {};
+    return {
+      play,
+    };
   },
 };
 </script>
