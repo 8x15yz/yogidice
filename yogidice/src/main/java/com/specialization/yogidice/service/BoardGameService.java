@@ -275,7 +275,7 @@ public class BoardGameService {
             }
         }
         if (responses.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         return responses;
     }

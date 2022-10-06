@@ -8,7 +8,7 @@
           만나보세요!
         </div>
         <div class="text-headline-6 introduce-content">
-          요기다이스는 총 13만개의 <br />
+          요기다이스는 총 15천여개의 <br />
           게임 데이터를 활용하여 <br />
           사용자에게 게임을 추천합니다.
         </div>
