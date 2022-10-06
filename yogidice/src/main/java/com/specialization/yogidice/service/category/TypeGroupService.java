@@ -46,7 +46,7 @@ public class TypeGroupService {
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         List<TypeGroup> typeGroups = typeGroupRepository.findByBoardGame(boardGame);
         if (typeGroups.isEmpty()) {
-            throw new NotFoundException(TYPE_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<TypeGroupResponse> responses = new ArrayList<>();
         for (TypeGroup typeGroup : typeGroups) {
@@ -61,7 +61,7 @@ public class TypeGroupService {
                 .orElseThrow(() -> new NotFoundException(TYPE_NOT_FOUND));
         List<TypeGroup> typeGroups = typeGroupRepository.findByType(type);
         if (typeGroups.isEmpty()) {
-            throw new NotFoundException(TYPE_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<TypeGroupResponse> responses = new ArrayList<>();
         for (TypeGroup typeGroup : typeGroups) {

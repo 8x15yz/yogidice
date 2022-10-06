@@ -129,7 +129,7 @@ export default {
           });
       }
     },
-    changeLongGames({ dispatch }, payload) {
+    changeLongGames({ dispatch,getters,commit }, payload) {
       let url;
       if (payload.type === "리뷰많은순") {
         url = api.games.sortReview();
@@ -137,6 +137,17 @@ export default {
         url = api.games.sortRating();
       } else if (payload.type === "최신게임") {
         url = api.games.sortRecent();
+      } else {
+        axios({
+          url: api.games.mainRecommend(),
+          method: "get",
+          headers: getters.getAuthHeader,
+        })
+        .then((res) => {
+          commit("SET_LONG_GAMES", res.data.responses)
+          return
+        })
+        
       }
       axios({
         url: url,
@@ -247,6 +258,7 @@ export default {
       })
         .then((res) => {
           commit("SET_MAIN_GAMES", res.data.responses);
+          commit("SET_TYPE","추천")
         })
         .catch((err) => {
           console.log(err);

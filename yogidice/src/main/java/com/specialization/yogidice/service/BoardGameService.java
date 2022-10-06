@@ -82,7 +82,7 @@ public class BoardGameService {
     public List<BoardGameResponse> readBoardGameList(Pageable pageable) {
         List<BoardGame> boardGames = boardGameRepository.findAll(pageable).getContent();
         if (boardGames.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<BoardGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : boardGames) {
@@ -154,7 +154,7 @@ public class BoardGameService {
     public List<BoardGameResponse> readTop10ListByBoardGameLife() {
         List<BoardGame> boardGames = boardGameRepository.findTop10ByOrderById();
         if (boardGames.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<BoardGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : boardGames) {
@@ -177,7 +177,7 @@ public class BoardGameService {
     public List<RatingGameResponse> readTop10ListByRatingUser() {
         List<BoardGame> games = boardGameRepository.findTop10ByOrderByRatingUserDesc();
         if (games.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<RatingGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : games) {
@@ -190,7 +190,7 @@ public class BoardGameService {
     public List<RatingGameResponse> readAllListByRatingUser(Pageable pageable) {
         List<BoardGame> games = boardGameRepository.findAllByOrderByRatingUserDesc(pageable).getContent();
         if (games.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<RatingGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : games) {
@@ -203,7 +203,7 @@ public class BoardGameService {
     public List<RecentGameResponse> readTop10ListByPublishYear() {
         List<BoardGame> games = boardGameRepository.findTop10ByOrderByPublishYearDesc();
         if (games.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<RecentGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : games) {
@@ -216,7 +216,7 @@ public class BoardGameService {
     public List<RecentGameResponse> readAllListByPublishYear(Pageable pageable) {
         List<BoardGame> games = boardGameRepository.findAllByOrderByPublishYearDesc(pageable).getContent();
         if (games.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<RecentGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : games) {
@@ -283,7 +283,7 @@ public class BoardGameService {
     public List<BoardGameResponse> searchBoardGame(String title) {
         List<BoardGame> boardGames = boardGameRepository.findAllByTitleKrContains(title);
         if (boardGames.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         List<BoardGameResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : boardGames) {
@@ -316,7 +316,7 @@ public class BoardGameService {
             System.out.println(board.getTitleKr());
         }
         if (boardGames.isEmpty()) {
-            throw new NotFoundException(BOARDGAME_LIST_NOT_FOUND);
+            return new ArrayList<>();
         }
         ArrayList<BoardGameSimpleResponse> responses = new ArrayList<>();
         for (BoardGame boardGame : boardGamesSorted) {
