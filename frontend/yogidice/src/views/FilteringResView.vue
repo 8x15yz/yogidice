@@ -51,7 +51,6 @@ export default {
     };
     function resArray(data) {
       arrlen.value = data.value
-      console.log('dlrjfkd', arrlen.value)
     }
     return {
       moveToMain,
