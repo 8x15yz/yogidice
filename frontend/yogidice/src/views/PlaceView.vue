@@ -253,11 +253,10 @@ export default {
         detailBtn.append(tmp1,tmp2)
 
         el.innerHTML = itemStr;
-        console.log(el)
-        console.log(itemStr,"아놔")
         el.append(detailBtn)
 
         el.className = 'item';
+        return el
     }
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
