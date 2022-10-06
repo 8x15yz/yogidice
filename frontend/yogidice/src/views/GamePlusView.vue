@@ -79,7 +79,7 @@
     <div
       style="
         padding-top: 4vh;
-        height: 60vh;
+        height: 55vh;
         background-color: var(--color-bg-base);
         overflow: scroll;
         z-index: 99;

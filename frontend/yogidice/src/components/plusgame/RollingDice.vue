@@ -135,7 +135,7 @@
 #cube-1 {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.3s;
+  transition: transform 0.2s;
   width: 50%;
   height: 50%;
 }
