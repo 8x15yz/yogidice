@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <grey-bg-head-bar></grey-bg-head-bar>
+  </div>
   <div class="question-cover">
     <div class="question-page">
       <div class="progress-bar"></div>
@@ -18,11 +21,13 @@
 <script>
 import QuestionList from "@/components/QuestionList.vue";
 import { getCurrentInstance, onMounted } from "@vue/runtime-core";
+import GreyBgHeadBar from "@/layouts/GreyBgHeadBar.vue";
 import { useRouter } from "vue-router";
 
 export default {
   components: {
     QuestionList,
+    GreyBgHeadBar
   },
   setup() {
     const router = useRouter();
