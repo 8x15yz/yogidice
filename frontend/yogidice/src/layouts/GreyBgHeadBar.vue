@@ -9,7 +9,7 @@
           alt=""
         />
       </div>
-      <div id="head-title" class="text-headline-6">여기 Dice</div>
+      <div id="head-title" class="text-headline-6">요기 Dice</div>
       <div class="header-2">
         <span id="head-profile" @click="moveToMypage" class="material-icons"
           >person</span
