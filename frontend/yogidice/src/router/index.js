@@ -169,9 +169,10 @@ let isLogginedIn = computed(()=>!!store.state.user.token)
 
 router.beforeEach(function (to, from, next) {
   // to: 이동할 url에 해당하는 라우팅 객체
+  console.log(isLogginedIn)
   if (to.matched.some(function(routeInfo) {
     return routeInfo.meta.authRequired;
-  }) && isLogginedIn.value) {
+  }) && !isLogginedIn.value) {
     // 이동할 페이지에 인증 정보가 필요하면 경고 창을 띄우고 페이지 전환은 하지 않음
     alert('로그인이 필요한 서비스입니다!');
     next({name:"SignupView"})
