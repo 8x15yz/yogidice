@@ -29,6 +29,7 @@
 
 <script>
 import { useRouter } from "vue-router";
+import { getCurrentInstance } from "vue"
 import GreyBgHeadBar from "@/layouts/GreyBgHeadBar.vue";
 export default {
   components: {
@@ -36,8 +37,11 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const internalInstance = getCurrentInstance();
+    const emitter = internalInstance.appContext.config.globalProperties.emitter;
     const startPick = function () {
       router.push({ name: "QuestionView" });
+      emitter.emit("moveToFirst");
     };
     const gomain = function () {
       router.push({ name: "MainPage" });

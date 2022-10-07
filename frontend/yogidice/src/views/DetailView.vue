@@ -105,6 +105,9 @@ export default {
 
     onMounted(() => {
       detailMenus = document.querySelectorAll(".detail-menu-bar div");
+      detailMenus[0].classList.add("isactive")
+      detailMenus[1].classList.remove("isactive")
+      detailMenus[2].classList.remove("isactive")
       const detailPage = document.querySelector(".detail-page");
       const coverPage = document.querySelector("#wrap2");
       for (let detailMenu of detailMenus) {

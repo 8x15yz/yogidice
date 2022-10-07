@@ -35,6 +35,10 @@ export default {
     const emitter = internalInstance.appContext.config.globalProperties.emitter;
     onMounted(() => {
       const dice = document.querySelector(".dice-dice");
+      emitter.on("moveToFirst", function () {
+        dice.style.animationName = ""
+        dice.style.left = "8vw";
+      });
       emitter.on("moveToTwo", function () {
         dice.style.animationName = "moveToTwo";
       });
