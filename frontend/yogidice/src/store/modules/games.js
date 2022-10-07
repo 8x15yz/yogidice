@@ -18,6 +18,7 @@ export default {
     smallGamesLen: 0,
     morePageType: "",
     filteringResult: [],
+    filteringMessage:""
   }),
   getters: {
     getAuthHeader: (state, getters, rootState, rootGetters) =>
@@ -54,9 +55,11 @@ export default {
     },
     SMALL_GAMES_LEN: (state) => (state.smallGamesLen = state.smallGames.length),
     SMALL_GAMES_LEN_RESET: (state) => (state.smallGamesLen = 0),
-    SET_MORE_TYPE: (state, pType) => (state.morePageType = pType),
-    SET_FILTER_RES: (state, res) => (state.filteringResult = res),
-    RESET_FILTER_RES: (state) => (state.filteringResult = []),
+    SET_MORE_TYPE: (state,pType) => (state.morePageType = pType),
+    SET_FILTER_RES: (state,res) => state.filteringResult = res,
+    RESET_FILTER_RES: (state) => state.filteringResult = [],
+    SET_FILTER_MSG: (state,msg) => state.filteringMessage = msg
+
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -259,11 +262,18 @@ export default {
         data: answers,
       })
         .then((res) => {
-          commit("SET_MAIN_GAMES", res.data.responses);
-          commit("SET_FILTER_RES", res.data.responses);
-        })
-        .catch((err) => {
-          console.log(err);
+          if (res.data.responses.length !== 0 ) {
+            commit("SET_MAIN_GAMES", res.data.responses);
+            commit("SET_FILTER_RES", res.data.responses);
+            commit("SET_FILTER_MSG", "분석 결과입니다!")
+          }
+          else {
+            commit("SET_MAIN_GAMES", res.data.responses);
+            commit("SET_FILTER_MSG","조건에 해당하는 결과가 없어요😨")
+          }}
+          )
+
+        .catch(() => {
         });
     },
     getDetailRecommend({ commit }, gameId) {
