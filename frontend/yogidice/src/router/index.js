@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+
 import HomeView from "@/views/HomeView.vue";
 import SignupView from "@/views/SignupView.vue";
 import KakaoLoginView from "@/views/KakaoLoginView.vue";
@@ -20,6 +21,7 @@ import PickQuestionView from "@/views/PickQuestionView.vue";
 import FilteringResView from "@/views/FilteringResView.vue";
 import EnterPlusGameView from "@/views/EnterPlusGameView.vue";
 
+
 const routes = [
   {
     path: "/",
@@ -35,6 +37,7 @@ const routes = [
     path: "/MyPage",
     name: "MypageView",
     component: MypageView,
+    meta: {authRequired: true}
   },
   {
     path: "/signup",
@@ -55,6 +58,7 @@ const routes = [
         path: "choice",
         name: "InitChoice",
         component: InitChoice,
+        meta: {authRequired: true}
       },
       {
         path: "/kakaologin",
@@ -71,11 +75,13 @@ const routes = [
         path: "",
         name: "MainPage",
         component: MainPageView,
+        meta: {authRequired: true}
       },
       {
         path: ":type",
         name: "MoreList",
         component: MoreGameView,
+        meta: {authRequired: true}
       },
     ],
   },
@@ -87,6 +93,7 @@ const routes = [
         path: "/info",
         name: "GameDetail",
         component: DetailView,
+        meta: {authRequired: true}
       },
     ],
   },
@@ -98,6 +105,7 @@ const routes = [
         path: "",
         name: "PlaceView",
         component: PlaceView,
+        meta: {authRequired: true}
       },
     ],
   },
@@ -105,6 +113,7 @@ const routes = [
     path: "/plusgame",
     name: "GamePlusView",
     component: GamePlusView,
+    meta: {authRequired: true}
   },
   {
     path: "/plus",
@@ -114,6 +123,7 @@ const routes = [
         path: "",
         name: "ChoicePlusGame",
         component: EnterPlusGameView,
+        meta: {authRequired: true}
       },
     ],
   },
@@ -125,20 +135,24 @@ const routes = [
         path: "",
         name: "GamePickHome",
         component: PickView,
+        meta: {authRequired: true}
       },
       {
         path: "question",
         name: "QuestionView",
         component: PickQuestionView,
+        meta: {authRequired: true}
       },
       {
         path: "result",
         name: "PickResultView",
         component: FilteringResView,
+        meta: {authRequired: true}
       },
     ],
   },
 ];
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -146,3 +160,22 @@ const router = createRouter({
 });
 
 export default router;
+
+import store from "../store/index.js"
+import { computed } from "vue"
+
+
+let isLogginedIn = computed(()=>!!store.state.user.token)
+
+router.beforeEach(function (to, from, next) {
+  // to: 이동할 url에 해당하는 라우팅 객체
+  if (to.matched.some(function(routeInfo) {
+    return routeInfo.meta.authRequired;
+  }) && isLogginedIn.value) {
+    // 이동할 페이지에 인증 정보가 필요하면 경고 창을 띄우고 페이지 전환은 하지 않음
+    alert('로그인이 필요한 서비스입니다!');
+    next({name:"SignupView"})
+  } else {
+    next(); // 페이지 전환
+  }
+})

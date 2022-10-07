@@ -12,8 +12,7 @@ export default {
     myBookMark: [],
   }),
   getters: {
-    isLogginedIn: (state, _, rootState) =>
-      !!state.token || !!rootState.company.token,
+    isLogginedIn: (state) => !!state.token, 
     authHeader: (state) => ({
       Authorization: `Bearer ${state.token}`,
       "Content-type": "Application/JSON",
