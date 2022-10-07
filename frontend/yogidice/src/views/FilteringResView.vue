@@ -88,12 +88,14 @@ export default {
   padding: 5vh 5vw;
 }
 .res-cover #res-list {
-  display: block;
+  display: flex;
+  flex-direction: column;
   width: 90vw;
   height: 95vh;
-  /* flex-wrap: wrap; */
   gap: 2vh;
   overflow: scroll;
+  align-items: center;
+  margin-top: 2vh;
 }
 .res-cover #res-list > div {
   margin-bottom: 2vh;
