@@ -264,7 +264,6 @@ export default {
     const youtub = ref(false);
     const memo = ref(false);
     const file = ref(false);
-    const gamereviewtext = ref("");
 
     const reviewform = ref(true);
     const reviewformouter = ref(false);
@@ -404,7 +403,22 @@ export default {
         );
       }
     }
-    const star = ref(1);
+    subMenuBtn("dice");
+    let star;
+    let gamereviewtext;
+    if (store.state.gamedetail.playnowname != "게임미선택") {
+      playnowhistoryid = computed(
+        () => store.state.gamedetail.playnowhistoryid,
+      );
+      store.dispatch("gamedetail/getHistory", playnowhistoryid);
+      const rating = computed(() => store.state.gamedetail.userRating);
+      star = ref(rating);
+      const review = computed(() => store.state.gamedetail.userReview);
+      gamereviewtext = ref(review);
+    } else {
+      star = ref(1);
+      gamereviewtext = ref("");
+    }
 
     return {
       submenu,

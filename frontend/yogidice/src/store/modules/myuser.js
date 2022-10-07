@@ -158,7 +158,7 @@ export default {
     },
     SendReview({ getters }, reviewdata) {
       axios({
-        url: `https://yogidice.site/api/users/history/${reviewdata[1]}`,
+        url: api.users.historyControll(reviewdata[1]),
         method: "put",
         headers: getters.authHeader,
         data: reviewdata[0],
