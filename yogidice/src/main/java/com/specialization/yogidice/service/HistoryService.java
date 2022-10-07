@@ -1,6 +1,5 @@
 package com.specialization.yogidice.service;
 
-import com.specialization.yogidice.common.exception.DuplicateException;
 import com.specialization.yogidice.common.exception.NotFoundException;
 import com.specialization.yogidice.domain.entity.BoardGame;
 import com.specialization.yogidice.domain.entity.History;
@@ -44,7 +43,7 @@ public class HistoryService {
         BoardGame boardGame = boardGameRepository.findById(request.getGameId())
                 .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
         if (historyRepository.findByUserAndBoardGame(user, boardGame).isPresent()) {
-            throw new DuplicateException(String.format("%s 은/는 이미 History에 등록된 보드게임입니다.", boardGame.getTitleKr()));
+            return historyRepository.findByUserAndBoardGame(user, boardGame).get().getId();
         }
         History saveHistory = History.create(
                 user,
@@ -68,6 +67,15 @@ public class HistoryService {
                     .collect(Collectors.toList());
             responses.add(HistoryDetailResponse.response(history, mechanismGroupResponses));
         }
+        return responses;
+    }
+
+    @Transactional
+    public List<HistoryResponse> readHistoryDetail(Long historyId) {
+        History history = historyRepository.findById(historyId)
+                .orElseThrow(() -> new NotFoundException(HISTORY_NOT_FOUND));
+        List<HistoryResponse> responses = new ArrayList<>();
+        responses.add(HistoryResponse.response(history));
         return responses;
     }
 

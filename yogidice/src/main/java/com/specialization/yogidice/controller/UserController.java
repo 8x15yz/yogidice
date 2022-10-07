@@ -230,6 +230,20 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(HistoryDetailListResponse.of(200, "Success", historyService.readHistoryListOfUser(user.getId())));
     }
 
+    @GetMapping("/history/{historyId}")
+    @ApiOperation(value = "게임 기록 상세 조회", notes = "게임 기록을 상세 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> readHistoryDetail(
+            @PathVariable Long historyId
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryDetail(historyId)));
+    }
+
     @PutMapping("/history/{historyId}")
     @ApiOperation(value = "게임 기록 수정(평점 및 리뷰)", notes = "게임 기록(평점 및 리뷰)을 수정합니다.")
     @ApiResponses({
@@ -247,7 +261,6 @@ public class UserController {
         //장고로부터 추천 받기
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://172.18.0.1:8000/analyze/recommend/"+user.getId();
-//        String url = "http://localhost:8000/analyze/recommend/"+user.getId();  //로컬에서
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 

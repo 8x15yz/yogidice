@@ -16,6 +16,8 @@ export default {
     playnowid: "",
     playnowhistoryid: "",
     notting: 0,
+    userRating: 1,
+    userReview: "",
   }),
   getters: {
     authHeader: (state) => ({
@@ -40,6 +42,9 @@ export default {
     PLAY_GAME_NAME: (state, game) => (state.playnowname = game),
     PLAY_GAME_ID: (state, game) => (state.playnowid = game),
     PLAY_GAME_HIS_ID: (state, game) => (state.playnowhistoryid = game),
+
+    SET_USER_RATING: (state, rating) => (state.userRating = rating),
+    SET_USER_REVIEW: (state, review) => (state.userReview = review),
   },
   actions: {
     getLengames({ commit }, gameId) {
@@ -125,6 +130,17 @@ export default {
     setPlayGame({ commit }, GData) {
       commit("PLAY_GAME_NAME", GData[0]);
       commit("PLAY_GAME_ID", GData[1]);
+    },
+    getHistory({ commit }, historyId) {
+      axios({
+        url: api.users.historyControll(historyId),
+        method: "get",
+      })
+        .then((res) => {
+          commit("SET_USER_RATING", res.data.responses[0].rating);
+          commit("SET_USER_REVIEW", res.data.responses[0].review);
+        })
+        .catch((err) => console.log(err));
     },
   },
 };
