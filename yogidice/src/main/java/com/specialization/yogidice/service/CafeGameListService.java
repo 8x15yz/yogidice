@@ -91,11 +91,10 @@ public class CafeGameListService {
     @Transactional
     public List<CafeGameResponse> readCafeGameListOfBoardGameCafeByAddress(String address) {
         BoardGameCafe cafe = boardGameCafeRepository.findBoardGameCafeByAddressContaining(address)
-                .orElseThrow(() -> new NotFoundException(BOARDGAMECAFE_NOT_FOUND));
+                .orElse(null);
+        if (cafe == null) return new ArrayList<>();
         List<CafeGameList> cafeGameLists = cafeGameListRepository.findCafeGameListByBoardGameCafe(cafe);
-        if (cafeGameLists.isEmpty()) {
-            return new ArrayList<>();
-        }
+        if (cafeGameLists.isEmpty()) return new ArrayList<>();
         List<CafeGameResponse> responses = new ArrayList<>();
         for (CafeGameList cafeGameList : cafeGameLists) {
             responses.add(CafeGameResponse.response(cafeGameList));

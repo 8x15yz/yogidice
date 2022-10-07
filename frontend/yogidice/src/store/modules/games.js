@@ -16,7 +16,7 @@ export default {
     selectedGames: [],
     penalty: ["가", "나", "다", "라", "마", "바"],
     smallGamesLen: 0,
-    morePageType:"",
+    morePageType: "",
     filteringResult: [],
     filteringMessage:""
   }),
@@ -24,7 +24,7 @@ export default {
     getAuthHeader: (state, getters, rootState, rootGetters) =>
       rootGetters["user/authHeader"],
     getCountSmallGames: (state) => state.smallGames.length,
-    getCountFilterRes: (state) => state.filteringResult.length
+    getCountFilterRes: (state) => state.filteringResult.length,
   },
   mutations: {
     SET_DETAIL: (state, details) => (state.detail = details),
@@ -59,6 +59,7 @@ export default {
     SET_FILTER_RES: (state,res) => state.filteringResult = res,
     RESET_FILTER_RES: (state) => state.filteringResult = [],
     SET_FILTER_MSG: (state,msg) => state.filteringMessage = msg
+
   },
   actions: {
     getDetails({ commit }, gameId) {
@@ -138,21 +139,19 @@ export default {
           });
       }
     },
-    changeLongGames({ dispatch,getters,commit,state }, payload) {
+    changeLongGames({ dispatch, getters, commit, state }, payload) {
       let url;
       if (payload.type === "추천") {
         axios({
           url: api.games.mainRecommend(),
           method: "get",
           headers: getters.getAuthHeader,
-        })
-        .then((res) => {
-          commit("SET_LONG_GAMES", res.data.responses)
-          commit("SET_MORE_TYPE", payload.type)
-          return
-        })
-      }
-      else if (payload.type === "추천불가") {
+        }).then((res) => {
+          commit("SET_LONG_GAMES", res.data.responses);
+          commit("SET_MORE_TYPE", payload.type);
+          return;
+        });
+      } else if (payload.type === "추천불가") {
         axios({
           url: api.games.getCreate(),
           method: "get",
@@ -160,27 +159,24 @@ export default {
           params: {
             page: payload.page,
             size: 30,
-          }
-        })
-        .then((res) => {
+          },
+        }).then((res) => {
           if (state.longGames.length > 1) {
-            commit("ADD_LONG_GAMES_LIST", res.data.responses)
+            commit("ADD_LONG_GAMES_LIST", res.data.responses);
+          } else {
+            commit("SET_LONG_GAMES", res.data.responses);
           }
-          else {
-            commit("SET_LONG_GAMES", res.data.responses)
-          }
-          commit("SET_MORE_TYPE", payload.type)
-          return
-        })
-      }
-      else {
+          commit("SET_MORE_TYPE", payload.type);
+          return;
+        });
+      } else {
         if (payload.type === "리뷰많은순") {
           url = api.games.sortReview();
         } else if (payload.type === "평점순") {
           url = api.games.sortRating();
         } else if (payload.type === "최신게임") {
           url = api.games.sortRecent();
-        } 
+        }
         axios({
           url: url,
           method: "get",
@@ -200,7 +196,7 @@ export default {
               kind: kind,
             };
             dispatch("registGameDetails", params);
-            commit("SET_MORE_TYPE", payload.type)
+            commit("SET_MORE_TYPE", payload.type);
           })
           .catch((err) => {
             console.log(err);
@@ -300,7 +296,7 @@ export default {
       })
         .then((res) => {
           commit("SET_MAIN_GAMES", res.data.responses);
-          commit("SET_TYPE","추천")
+          commit("SET_TYPE", "추천");
         })
         .catch(() => {
           axios({
@@ -310,13 +306,11 @@ export default {
             params: {
               page: 1,
               size: 10,
-            }
-          })
-          .then((res) => {
-            console.log("안되서 탑텐ㅇ로 대체?")
+            },
+          }).then((res) => {
             commit("SET_MAIN_GAMES", res.data.responses);
-            commit("SET_TYPE","추천불가")
-          })
+            commit("SET_TYPE", "추천불가");
+          });
         });
     },
     getCafeGames({ commit }, address) {
@@ -348,9 +342,8 @@ export default {
                 commit("SMALL_GAMES_LEN");
               })
               .catch((err) => {
-                console.log(err)
-              }
-              );
+                console.log(err);
+              });
           }
         })
         .catch((err) => console.log(err));
@@ -380,8 +373,8 @@ export default {
     resetLongGames({ commit }) {
       commit("RESET_LONG_GAMES");
     },
-    resetSmallLenGames({commit}) {
+    resetSmallLenGames({ commit }) {
       commit("SMALL_GAMES_LEN_RESET");
-    }
+    },
   },
 };

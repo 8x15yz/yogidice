@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="data in datum" :key="data.key">
+    <div v-for="data in datum" :key="data.id">
       <div v-if="data.review" id="review-component-base">
         <div class="review-title-rating-wrapper">
           <div class="review-rating review-title" @click="showDetail(data)">
@@ -11,7 +11,14 @@
           <div
             v-if="isuser"
             class="icon-padding"
-            @click="$emit('OpenReviewModal', [data.id, data.gameTitle])"
+            @click="
+              $emit('OpenReviewModal', [
+                data.gameTitle,
+                data.rating,
+                data.review,
+                data.id,
+              ])
+            "
           >
             <i class="far fa-edit review-rating"></i>
           </div>

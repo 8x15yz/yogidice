@@ -82,7 +82,7 @@
     <div class="my-review-bg" v-if="reviewmodalview">
       <review-modal
         @CloseReviewModal="CloseReviewModal"
-        :reviewId="reviewId"
+        :reviewedInfo="reviewedInfo"
       ></review-modal>
     </div>
     <!-- 리뷰받는 모달폼 -->
@@ -227,7 +227,7 @@
         <mypage-review
           v-if="reviewview"
           :reviewdatum="reviewdatum"
-          :reviewId="reviewId"
+          :reviewedInfo="reviewedInfo"
           @OpenReviewModal="OpenReviewModal"
         ></mypage-review>
       </div>
@@ -313,10 +313,10 @@ export default {
     const CloseReviewModal = function () {
       reviewmodalview.value = false;
     };
-    let reviewId = ref(0);
+    let reviewedInfo = ref(0);
     const OpenReviewModal = function (data) {
       reviewmodalview.value = true;
-      reviewId.value = data;
+      reviewedInfo.value = data;
     };
 
     return {
@@ -334,10 +334,9 @@ export default {
       kakaoId,
       lengamecategory,
       toponemec,
-      reviewId,
+      reviewedInfo,
       userreview,
       infomodal,
-      
     };
   },
 };

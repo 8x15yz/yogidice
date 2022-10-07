@@ -5,7 +5,7 @@
   <div class="res-cover">
     <div class="text-headline-6">
       <div>
-        <div class="displayflex" style="margin-top: 20px;">
+        <div class="displayflex" style="margin-top: 20px">
           지금 나에게 맞는 게임
         </div>
         <div class="displayflex">
@@ -14,11 +14,11 @@
       </div>
     </div>
 
-    <div class="fail-filtering text-headline-5">{{resMsg}}</div>
-    <br>
-
-    <main-card-list 
-    id="res-list"
+    <div class="fail-filtering text-headline-6">
+      {{resMsg}}
+    </div>
+    <main-card-list
+      id="res-list"
     ></main-card-list>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
     const store = useStore();
     let haveRes = computed(()=>store.state.games.filteringResult)
     let resMsg = computed(()=>store.state.games.filteringMessage)
-    let isshowRes = (haveRes.value.length > 0) ? true:false
+
 
     const router = useRouter();
 
@@ -51,15 +51,14 @@ export default {
     };
     const returnpick = function () {
       router.push({ name: "GamePickHome" });
-      store.commit("games/RESET_FILTER_RES",{root:true})
+      store.commit("games/RESET_FILTER_RES", { root: true });
     };
-   
-    
+
     return {
       moveToMain,
       moveToMypage,
       returnpick,
-      isshowRes,
+      haveRes,
       resMsg
     };
   },

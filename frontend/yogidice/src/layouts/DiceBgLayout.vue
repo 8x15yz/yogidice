@@ -3,13 +3,15 @@
 </template>
 
 <script>
+
 export default {
   setup() {
 
     return {
     };
   },
-};</script>
+};
+</script>
 
 <style>
 #wrap1 {

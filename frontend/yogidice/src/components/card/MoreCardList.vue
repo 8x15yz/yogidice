@@ -28,7 +28,7 @@ export default {
     const store = useStore();
     const router = useRouter();
 
-    let pageType = computed(()=>store.state.games.morePageType)
+    let pageType = computed(() => store.state.games.morePageType);
 
     const showDetail = function (game) {
       router.push({
@@ -38,25 +38,25 @@ export default {
     };
     // 나중엔 store에서 받아올듯?
     let games = computed(() => store.state.games.longGames);
-    let page = 1
-    
-    onMounted(()=>{
+    let page = 1;
+
+    onMounted(() => {
       const lastCard = document.querySelector("#last-card-line");
       const io = new IntersectionObserver((entries) => {
         if (pageType.value !== "추천") {
-          console.log(pageType.value)
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            page++;
-            store.dispatch("games/changeLongGames", {
-              type: pageType.value,
-              page: page,
-            });
-          }
-        })}
-        }); // 관찰자 초기화
-        io.observe(lastCard); // 관찰할 대상 등록
-    })
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              page++;
+              store.dispatch("games/changeLongGames", {
+                type: pageType.value,
+                page: page,
+              });
+            }
+          });
+        }
+      }); // 관찰자 초기화
+      io.observe(lastCard); // 관찰할 대상 등록
+    });
     return {
       games,
       showDetail,
