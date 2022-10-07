@@ -31,7 +31,7 @@ export default {
     count.value = computed(() => store.state.games.smallGamesLen);
     const closeCafeGame = function () {
       emit("closeCafeModal");
-      store.dispatch("games/resetSmallLenGames")
+      store.dispatch("games/resetSmallLenGames");
     };
     return {
       closeCafeGame,

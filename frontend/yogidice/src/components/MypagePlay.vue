@@ -11,7 +11,7 @@
 
     <!-- 데이터 들어오면 -->
     <div>
-      <div v-for="game in userplaygames" :key="game.key">
+      <div v-for="game in userplaygames" :key="game.id">
         <div class="play-card-case">
           <img class="long-img" :src="game.thumbUrl" />
           <div class="game-info">
@@ -22,13 +22,20 @@
               <span class="play-my-rating-title">내가 준 별점</span>
               <div class="rating">★{{ game.rating }}</div>
             </div>
-            <div v-if="!game.rating" class="chip-rating">
+            <div v-else class="chip-rating">
               <span class="play-my-rating-title writed-yet"
-                >리뷰를 작성하세요</span
+                >리뷰를 작성해보세요</span
               >
               <i
                 class="far fa-edit play-my-icon"
-                @click="$emit('OpenReviewModal', [game.id, game.gameTitle])"
+                @click="
+                  $emit('OpenReviewModal', [
+                    game.gameTitle,
+                    1,
+                    game.review,
+                    game.id,
+                  ])
+                "
               ></i>
             </div>
           </div>
@@ -43,6 +50,7 @@
 <script>
 import { reactive } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default {
   props: {
@@ -51,12 +59,14 @@ export default {
   emits: ["OpenReviewModal"],
   setup(props) {
     const router = useRouter();
+    const store = useStore();
     const datum = reactive(props.userplaygames);
     const showDetail = function (n) {
       router.push({
         name: "GameDetail",
-        query: { gameId: n.id, title: n.gameTitle },
+        query: { gameId: n.gameId, title: n.gameTitle },
       });
+      store.dispatch("games/getDetails", n.gameId);
     };
 
     return {
@@ -109,7 +119,7 @@ export default {
 }
 .chip-rating {
   display: flex;
-  width: 80%;
+  width: 90%;
   height: 4vh;
 }
 .rating {

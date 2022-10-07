@@ -108,7 +108,7 @@ export default {
             store.commit("user/BOOKMARK_WORKING");
 
             setTimeout(function () {
-              store.dispatch("modal/closeModal", null, { root: true })
+              store.dispatch("modal/closeModal", null, { root: true });
               router.push({
                 name: "MainPage",
               });
@@ -130,14 +130,14 @@ export default {
           if (info.value.content !== "") {
             firstButton.addEventListener("click", () => {
               let playingGameId = computed(
-                () => store.state.games.selectedGames,
+                () => store.state.gamedetail.playnowid,
               );
-              store.commit("gamedetail/PLAY_GAME_NAME", info.value.content, {
-                root: true,
-              });
-              store.commit("gamedetail/PLAY_GAME_ID", playingGameId, {
-                root: true,
-              });
+              if (playingGameId.value != 0) {
+                store.dispatch("gamedetail/PlayGame", [
+                  info.value.content,
+                  playingGameId.value,
+                ]);
+              }
               store.dispatch("games/resetSelectedGames", { root: true });
               router.push({ name: "GamePlusView" });
               closeModal();

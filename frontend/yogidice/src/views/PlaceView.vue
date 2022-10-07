@@ -68,8 +68,14 @@ export default {
     });
     const initMap = function () {
       var markers = [];
-      let imsiLat
-      let imsiLon
+
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+        };
+      // 지도를 생성합니다
+      var map = new kakao.maps.Map(mapContainer, mapOption);
 
       if (navigator.geolocation) {
         // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -77,25 +83,14 @@ export default {
           let newLat = position.coords.latitude; // 위도
           let newLon = position.coords.longitude; // 경도
           locPosition = new kakao.maps.LatLng(newLat, newLon);
-          imsiLat = newLat
-          imsiLon = newLon
+          displayMarker(locPosition, "현재위치");
+          map.setCenter(locPosition);
+          console.log(locPosition,"센터지정")
+          // 키워드로 장소를 검색합니다
+          searchPlaces();
         });
       }
 
-      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-        mapOption = {
-          center: new kakao.maps.LatLng(imsiLat, imsiLon), // 지도의 중심좌표
-          level: 3, // 지도의 확대 레벨
-        };
-      
-      displayMarker(locPosition, "현재위치");
-      map.setCenter(locPosition);
-  
-
-      // 지도를 생성합니다
-      var map = new kakao.maps.Map(mapContainer, mapOption);
-
-  
       const displayMarker = function (locPosition, message) {
         // 마커 이미지 변경하기
         // const imageSrc = '이미지 주소'
@@ -132,17 +127,18 @@ export default {
       // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-      // 키워드로 장소를 검색합니다
-      searchPlaces();
+
 
       // 키워드 검색을 요청하는 함수입니다
       function searchPlaces() {
         var keyword = "보드게임 카페";
         let center = map.getCenter();
+        console.log(center,"검색기준위치")
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
         ps.keywordSearch(keyword, placesSearchCB, {
           location: center,
-          sort: kakao.maps.services.SortBy.DISTANCE,
+          radius:5000,
+          sort: kakao.maps.services.SortBy.ACCURACY,
           size: 3,
         });
       }
@@ -361,6 +357,7 @@ export default {
           el.removeChild(el.lastChild);
         }
       }
+
     };
     return {
       showSearchList,
@@ -409,7 +406,7 @@ export default {
   overflow: hidden;
 }
 .tel {
-  width: 30vw;
+  width: 40vw;
   text-align: start;
 }
 #pagination {

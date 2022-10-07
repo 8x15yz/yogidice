@@ -2,7 +2,10 @@
   <div class="review-box">
     <div class="rating-total">
       <div>
-        <div class="text-huge">{{ avg }}</div>
+        <div class="text-huge">
+          <span v-if="avg">{{ avg.toFixed(2) }}</span
+          ><span v-if="!avg">0</span>
+        </div>
         <div class="text-caption">{{ cnt }}명 참여</div>
       </div>
       <div class="count-rating">

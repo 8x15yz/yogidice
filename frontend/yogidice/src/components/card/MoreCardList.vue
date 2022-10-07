@@ -10,6 +10,7 @@
         <long-card-items :lg="lg"></long-card-items>
       </div>
     </div>
+    <hr id="last-card-line" />
   </div>
 </template>
 
@@ -17,7 +18,7 @@
 import LongCardItems from "@/components/card/LongCardItems.vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 
 export default {
   components: {
@@ -26,6 +27,9 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+
+    let pageType = computed(() => store.state.games.morePageType);
+
     const showDetail = function (game) {
       router.push({
         name: "GameDetail",
@@ -34,6 +38,25 @@ export default {
     };
     // 나중엔 store에서 받아올듯?
     let games = computed(() => store.state.games.longGames);
+    let page = 1;
+
+    onMounted(() => {
+      const lastCard = document.querySelector("#last-card-line");
+      const io = new IntersectionObserver((entries) => {
+        if (pageType.value !== "추천") {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              page++;
+              store.dispatch("games/changeLongGames", {
+                type: pageType.value,
+                page: page,
+              });
+            }
+          });
+        }
+      }); // 관찰자 초기화
+      io.observe(lastCard); // 관찰할 대상 등록
+    });
     return {
       games,
       showDetail,
@@ -57,7 +80,6 @@ export default {
   flex-wrap: nowrap;
   overflow: scroll;
   width: 100vw;
-  overflow: hidden;
   background-color: white;
 }
 
@@ -68,5 +90,10 @@ export default {
   /* border-bottom: 1px black solid; */
   background-color: white;
   overflow: hidden;
+}
+#last-card-line {
+  width: 90vw;
+  border-width: 0px;
+  margin-top: -2vh;
 }
 </style>

@@ -2,7 +2,7 @@
   <div>
     <div id="register-nickname">
       <label for="nickname-input" class="text-subtitle-2"
-        >사용할 닉네임을 입력하세요</label
+        >사용할 닉네임을 입력하세요.</label
       >
       <input id="nickname-input" v-model="userNickName" type="text" />
       <div>

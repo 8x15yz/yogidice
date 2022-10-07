@@ -51,6 +51,7 @@ export default {
       })
         .then(() => {
           dispatch("getBookMark");
+          dispatch("fetchCurrentUser")
         })
 
         .catch(() => {
@@ -65,13 +66,14 @@ export default {
       })
         .then(() => {
           dispatch("getBookMark");
+          dispatch("fetchCurrentUser")
         })
 
         .catch((err) => {
           console.log(err);
         });
     },
-    getBookMark({ getters, commit }) {
+    getBookMark({ getters, commit, dispatch }) {
       return axios({
         url: api.users.bookmark(),
         method: "get",
@@ -79,6 +81,8 @@ export default {
       })
         .then((res) => {
           commit("SET_BOOKMARK", res.data.responses);
+          dispatch("fetchCurrentUser")
+
         })
 
         .catch((err) => {

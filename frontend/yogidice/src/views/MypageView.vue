@@ -82,7 +82,7 @@
     <div class="my-review-bg" v-if="reviewmodalview">
       <review-modal
         @CloseReviewModal="CloseReviewModal"
-        :reviewId="reviewId"
+        :reviewedInfo="reviewedInfo"
       ></review-modal>
     </div>
     <!-- 리뷰받는 모달폼 -->
@@ -227,7 +227,7 @@
         <mypage-review
           v-if="reviewview"
           :reviewdatum="reviewdatum"
-          :reviewId="reviewId"
+          :reviewedInfo="reviewedInfo"
           @OpenReviewModal="OpenReviewModal"
         ></mypage-review>
       </div>
@@ -241,7 +241,6 @@
 
 <script>
 import { ref, computed } from "vue";
-
 import { useStore } from "vuex";
 
 import BerChart from "../components/BerChart.vue";
@@ -271,7 +270,6 @@ export default {
     const reviewmodalview = ref(false);
     const infomodal = ref(false);
     // const ParentMechanism = ['추카퍼', '경제', '파티', '조건', '말', '전략']
-
     store.dispatch("myuser/GetUserInfo");
     store.dispatch("myuser/GetUserHistory");
     store.dispatch("myuser/GetUserBookmarkmark");
@@ -315,10 +313,10 @@ export default {
     const CloseReviewModal = function () {
       reviewmodalview.value = false;
     };
-    let reviewId = ref(0);
+    let reviewedInfo = ref(0);
     const OpenReviewModal = function (data) {
       reviewmodalview.value = true;
-      reviewId.value = data;
+      reviewedInfo.value = data;
     };
 
     return {
@@ -336,7 +334,7 @@ export default {
       kakaoId,
       lengamecategory,
       toponemec,
-      reviewId,
+      reviewedInfo,
       userreview,
       infomodal,
     };

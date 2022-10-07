@@ -5,7 +5,7 @@
         <div class="choice-sentence text-headline-6">
           취향 분석 및 부가기능 이용을 위해
           <br />
-          플레이할 게임을 선택해주세요!
+          플레이 할 게임을 선택해주세요!
         </div>
         <search-bar></search-bar>
       </div>
@@ -15,13 +15,13 @@
       </div>
       <div class="buttons-area">
         <div class="disagree-button" @click="notChoicePlayGame">
-          아니요, 선택하지 않고 진행할래요
+          아니요, 선택하지 않고 진행할래요!
         </div>
         <button
           @click="choicePlayGame"
           class="button-long-dark init-select-btn text-button"
         >
-          게임을 선택해주세요♡
+          게임을 선택해주세요!
         </button>
       </div>
     </div>
@@ -60,22 +60,28 @@ export default {
       if (!e.target.className.includes("dark")) {
         contents.info.content = choiceGameTitle;
         contents.header = "";
-        contents.body = `${choiceGameTitle}를 플레이하시겠습니까?`;
+        contents.body = `${choiceGameTitle}를 플레이 하시겠습니까?`;
         contents.footer1 = "시작";
         contents.footer2 = "취소";
+        store.dispatch("gamedetail/setPlayGame", [
+          choiceGameTitle,
+          choiceGameID,
+        ]);
+        store.dispatch("modal/registModal", contents);
+        store.dispatch("modal/openModal");
+      } else {
+        notChoicePlayGame();
       }
-      store.dispatch("gamedetail/PlayGame", [choiceGameTitle, choiceGameID]);
-      store.dispatch("modal/registModal", contents);
-      store.dispatch("modal/openModal");
     };
     const notChoicePlayGame = function () {
       // 아무것도 선택하지 않으면 버튼이 검은색
       contents.info.content = "게임미선택";
-      contents.header = "게임을 선택하지 않았습니다!";
+      contents.header = "게임 선택 없이 진행하기";
       contents.body =
-        "게임을 선택하지 않을 경우, 게임별 제공되는 정보를 이용할 수 없고, 취향 분석의 정확도가 낮아질 수 있습니다. 게임 선택 없이 진행하시겠습니까?";
+        "게임을 선택하지 않을 경우, 게임별로 제공되는 정보를 이용할 수 없고, 취향 분석의 정확도가 낮아질 수 있습니다. 그래도 게임 선택 없이 진행하시겠습니까?";
       contents.footer1 = "계속";
       contents.footer2 = "취소";
+      store.dispatch("gamedetail/setPlayGame", [contents.info.content, 0]);
       store.dispatch("modal/registModal", contents);
       store.dispatch("modal/openModal");
     };

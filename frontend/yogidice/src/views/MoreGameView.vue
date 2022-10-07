@@ -1,30 +1,32 @@
 <template>
-  <div class="type-comment-bg top-ten-bg text-subtitle-2" v-show="isTopTen">
-    <div class="type-comment">
-      가장 평점이 <br />
-      높은 게임입니다🏅
+  <div class="back-page-wall">
+    <div class="type-comment-bg top-ten-bg text-subtitle-2" v-show="isTopTen">
+      <div class="type-comment">
+        가장 평점이 <br />
+        높은 게임입니다🏅
+      </div>
     </div>
-  </div>
-  <div class="type-comment-bg recent-bg text-subtitle-2" v-show="isRecent">
-    <div class="type-comment">
-      가장 최근에 <br />
-      출시된 게임입니다🏅
+    <div class="type-comment-bg recent-bg text-subtitle-2" v-show="isRecent">
+      <div class="type-comment">
+        가장 최근에 <br />
+        출시된 게임입니다🏅
+      </div>
     </div>
-  </div>
-  <div class="type-comment-bg review-bg text-subtitle-2" v-show="isReview">
-    <div class="type-comment">
-      가장 리뷰가 <br />
-      많은 게임입니다🏅
+    <div class="type-comment-bg review-bg text-subtitle-2" v-show="isReview">
+      <div class="type-comment">
+        가장 리뷰가 <br />
+        많은 게임입니다🏅
+      </div>
     </div>
-  </div>
-  <div class="type-comment-bg review-bg text-subtitle-2" v-show="isRecommend">
-    <div class="type-comment">
-      자신의 리뷰와 북마크를 통해 <br />
-      추천된 게임입니다🏅
+    <div class="type-comment-bg review-bg text-subtitle-2" v-show="isRecommend">
+      <div class="type-comment">
+        자신의 리뷰와 북마크를 통해 <br />
+        추천된 게임입니다🏅
+      </div>
     </div>
-  </div>
-  <div id="wrap-back-more">
-    <more-card-list> </more-card-list>
+    <div id="wrap-back-more">
+      <more-card-list> </more-card-list>
+    </div>
   </div>
 </template>
 
@@ -77,7 +79,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#wrap2.back-page-wall {
+  background-color: white 
+}
 .type-comment-bg {
   width: 100vw;
   height: 20vh;
@@ -98,9 +103,10 @@ export default {
 
 #wrap-back-more {
   width: 100vw;
-  height: 80vh;
+  height: 70vh;
   background-color: white;
   overflow: scroll;
+  margin-bottom: 2vh;
 }
 .type-comment {
   width: 100%;

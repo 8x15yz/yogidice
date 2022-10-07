@@ -143,11 +143,12 @@ export default {
   display: flex;
   width: 100%;
   height: 4vh;
+  justify-content: space-between;
 }
 .rating {
   text-align: start;
   align-self: center;
-  width: 24%;
+  width: 22%;
 }
 .game-chip-container {
   margin: 0px;

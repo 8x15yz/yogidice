@@ -1,5 +1,12 @@
 <template>
-  <div class="play-header text-headline-6">{{ playnowname }} 관련 영상 <span @click="closeYoutube" class="close-button-cafe material-icons-outlined">close</span></div>
+  <div class="play-header text-headline-6">
+    {{ playnowname }} 관련 영상
+    <span
+      @click="closeYoutube"
+      class="close-button-cafe material-icons-outlined"
+      >close</span
+    >
+  </div>
   <br />
   <div v-for="videoId in videoIds" :key="videoId">
     <iframe
@@ -45,15 +52,13 @@ export default {
 </script>
 
 <style>
-
 #ytplayer {
   width: 80vw;
   height: 25vh;
-  margin-bottom: 2vh;;
+  margin-bottom: 2vh;
 }
 .play-header {
   display: flex;
   justify-content: space-between;
 }
-
 </style>
