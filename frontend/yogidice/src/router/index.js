@@ -169,7 +169,6 @@ let isLogginedIn = computed(()=>!!store.state.user.token)
 
 router.beforeEach(function (to, from, next) {
   // to: 이동할 url에 해당하는 라우팅 객체
-  console.log(isLogginedIn)
   if (to.matched.some(function(routeInfo) {
     return routeInfo.meta.authRequired;
   }) && !isLogginedIn.value) {
