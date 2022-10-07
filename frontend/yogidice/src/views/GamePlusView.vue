@@ -413,7 +413,6 @@ export default {
     let reviewed = false;
     if (store.state.gamedetail.playnowname != "게임미선택") {
       const playnowid = computed(() => store.state.gamedetail.playnowhistoryid);
-      console.log(playnowid.value);
       store.dispatch("gamedetail/getHistory", playnowid.value);
       const rating = store.state.gamedetail.userRating;
       if (rating === 0) {
