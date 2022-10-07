@@ -176,7 +176,6 @@ router.beforeEach(function (to, from, next) {
     alert('로그인이 필요한 서비스입니다!');
     next({name:"SignupView"})
   } else {
-    console.log("routing success : '" + to.path + "'");
     next(); // 페이지 전환
   }
 })
