@@ -71,12 +71,19 @@ public class HistoryService {
     }
 
     @Transactional
-    public List<HistoryResponse> readHistoryDetail(Long historyId) {
-        History history = historyRepository.findById(historyId)
-                .orElseThrow(() -> new NotFoundException(HISTORY_NOT_FOUND));
-        List<HistoryResponse> responses = new ArrayList<>();
-        responses.add(HistoryResponse.response(history));
-        return responses;
+    public List<HistoryResponse> readHistoryDetail(Long userId, Long gameId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        BoardGame boardGame = boardGameRepository.findById(gameId)
+                .orElseThrow(() -> new NotFoundException(BOARDGAME_NOT_FOUND));
+        if (historyRepository.findByUserAndBoardGame(user, boardGame).isPresent()) {
+            History history = historyRepository.findByUserAndBoardGame(user, boardGame).get();
+            List<HistoryResponse> responses = new ArrayList<>();
+            responses.add(HistoryResponse.response(history));
+            return responses;
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     @Transactional
