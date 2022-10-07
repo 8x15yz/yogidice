@@ -45,7 +45,11 @@
         </div>
         <div class="rmi-displayflex">
           <div class="review-modal-bottom">
-            <div class="im-not-play-this-game" @click="ExitGame">
+            <div
+              class="im-not-play-this-game"
+              @click="ExitGame"
+              v-if="!reviewed"
+            >
               리뷰를 남기지 않고 종료
             </div>
             <div class="review-modal-btn-wrap">
@@ -406,15 +410,20 @@ export default {
     subMenuBtn("dice");
     let star;
     let gamereviewtext;
+    let reviewed = false;
     if (store.state.gamedetail.playnowname != "게임미선택") {
-      playnowhistoryid = computed(
-        () => store.state.gamedetail.playnowhistoryid,
-      );
-      store.dispatch("gamedetail/getHistory", playnowhistoryid);
-      const rating = computed(() => store.state.gamedetail.userRating);
-      star = ref(rating);
-      const review = computed(() => store.state.gamedetail.userReview);
-      gamereviewtext = ref(review);
+      const playnowid = computed(() => store.state.gamedetail.playnowid);
+      store.dispatch("gamedetail/getHistory", playnowid);
+      const rating = store.state.gamedetail.userRating;
+      if (rating === 0) {
+        star = ref(1);
+        gamereviewtext = ref("");
+      } else {
+        reviewed = true;
+        star = ref(rating);
+        const review = store.state.gamedetail.userReview;
+        gamereviewtext = ref(review);
+      }
     } else {
       star = ref(1);
       gamereviewtext = ref("");
@@ -442,6 +451,7 @@ export default {
       reviewformouter,
       gamereviewtext,
       videoIds,
+      reviewed,
     };
   },
 };
@@ -714,6 +724,7 @@ textarea {
   width: 75vw;
   height: 70px;
   align-items: end;
+  margin-top: 15px;
 }
 .review-modal-inner {
   /* background-color: pink; */
