@@ -13,11 +13,13 @@
         </div>
       </div>
     </div>
+
+    <div class="fail-filtering text-headline-5">{{resMsg}}</div>
+    <br>
+
     <main-card-list 
     id="res-list"
-    v-if="isshowRes"
     ></main-card-list>
-    <div v-else class="fail-filtering text-headline-6">조건에 해당하는 결과가 없어요😨<br><br>다시 시도해주세요🧐</div>
   </div>
 </template>
 
@@ -35,8 +37,10 @@ export default {
   },
   setup() {
     const store = useStore();
-    let haveRes = computed(()=>store.getters.getCountFilterRes)
-    let isshowRes = (haveRes.value > 0) ? true:false
+    let haveRes = computed(()=>store.state.games.filteringResult)
+    let resMsg = computed(()=>store.state.games.filteringMessage)
+    let isshowRes = (haveRes.value.length > 0) ? true:false
+
     const router = useRouter();
 
     const moveToMain = function () {
@@ -56,6 +60,7 @@ export default {
       moveToMypage,
       returnpick,
       isshowRes,
+      resMsg
     };
   },
 };
@@ -100,6 +105,6 @@ export default {
 .fail-filtering {
   display: flex;
   justify-content: center;
-  margin-top: 10vh;
+  margin-top: 5vh;
 }
 </style>

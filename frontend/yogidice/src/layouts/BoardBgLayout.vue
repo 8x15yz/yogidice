@@ -1,17 +1,15 @@
 <template>
   <div id="wrap3">
-    <router-view :key="route.fullPath"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { useRoute } from "vue-router"
 export default {
   setup() {
-    const route = useRoute();
 
     return {
-      route,
+    
     };
   },
 };
