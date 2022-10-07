@@ -1,4 +1,3 @@
-// const HOST = "http://localhost:8081/api";
 const HOST = "https://yogidice.site/api";
 
 const user = "/users";
@@ -19,8 +18,9 @@ export default {
     deleteBookMark: (gameId) => HOST + user + `/bookmark/${gameId}`,
     history: () => HOST + user + "/history",
     historyControll: (historyId) => HOST + user + "/history" + `/${historyId}`,
+    getHistory: (gameId) => HOST + user + "/history" + `/${gameId}`,
     review: () => HOST + user + "/review",
-    bookmarkurl: () => HOST + user + "/bookmark"
+    bookmarkurl: () => HOST + user + "/bookmark",
   },
 
   games: {
@@ -48,7 +48,7 @@ export default {
   cafes: {
     getCreate: () => HOST + cafe,
     detailEdit: (cafeId) => HOST + cafe + `/${cafeId}`,
-    getCafeGames: (address) => HOST + cafeGames + `/cafe/address/${address}` 
+    getCafeGames: (address) => HOST + cafeGames + `/cafe/address/${address}`,
   },
 
   cafeGames: {
@@ -60,6 +60,6 @@ export default {
 
   gameInfo: {
     mechanism: (mecId) => HOST + categories + `/mechanism/${mecId}`,
-    userandgame: (gameId) => HOST + game + `/chemi/${gameId}`
-  }
+    userandgame: (gameId) => HOST + game + `/chemi/${gameId}`,
+  },
 };

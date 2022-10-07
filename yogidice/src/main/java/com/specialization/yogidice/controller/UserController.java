@@ -230,7 +230,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(HistoryDetailListResponse.of(200, "Success", historyService.readHistoryListOfUser(user.getId())));
     }
 
-    @GetMapping("/history/{historyId}")
+    @GetMapping("/history/{gameId}")
     @ApiOperation(value = "게임 기록 상세 조회", notes = "게임 기록을 상세 조회합니다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -239,9 +239,10 @@ public class UserController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> readHistoryDetail(
-            @PathVariable Long historyId
+            @ApiIgnore @LoginUser User user,
+            @PathVariable Long gameId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryDetail(historyId)));
+        return ResponseEntity.status(HttpStatus.OK).body(HistoryListResponse.of(200, "Success", historyService.readHistoryDetail(user.getId(), gameId)));
     }
 
     @PutMapping("/history/{historyId}")

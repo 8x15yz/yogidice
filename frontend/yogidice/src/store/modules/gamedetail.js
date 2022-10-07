@@ -13,8 +13,8 @@ export default {
     mecDisc: "",
     mecName: "",
     playnowname: "",
-    playnowid: "",
-    playnowhistoryid: "",
+    playnowid: 0,
+    playnowhistoryid: 0,
     notting: 0,
     userRating: 1,
     userReview: "",
@@ -131,9 +131,9 @@ export default {
       commit("PLAY_GAME_NAME", GData[0]);
       commit("PLAY_GAME_ID", GData[1]);
     },
-    getHistory({ commit }, historyId) {
+    getHistory({ commit }, gameId) {
       axios({
-        url: api.users.historyControll(historyId),
+        url: api.users.getHistory(gameId),
         method: "get",
       })
         .then((res) => {
