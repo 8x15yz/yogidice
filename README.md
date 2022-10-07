@@ -34,7 +34,7 @@
 
 ### 🛠주요 기술
 - 🚀 **백엔드**
-    - KNN 알고리즘
+    - Cosine Similarity 알고리즘
     - Jaccard Similarity 알고리즘
     - BoardGameGeek API
     - selenium 활용 크롤링
