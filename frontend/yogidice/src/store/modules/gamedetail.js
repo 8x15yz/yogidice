@@ -131,10 +131,11 @@ export default {
       commit("PLAY_GAME_NAME", GData[0]);
       commit("PLAY_GAME_ID", GData[1]);
     },
-    getHistory({ commit }, gameId) {
+    getHistory({ getters, commit }, gameId) {
       axios({
         url: api.users.getHistory(gameId),
         method: "get",
+        headers: getters.authHeader,
       })
         .then((res) => {
           commit("SET_USER_RATING", res.data.responses[0].rating);
