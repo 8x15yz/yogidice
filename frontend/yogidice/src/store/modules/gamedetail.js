@@ -16,7 +16,7 @@ export default {
     playnowid: 0,
     playnowhistoryid: 0,
     notting: 0,
-    userRating: 0,
+    userRating: 1,
     userReview: "",
   }),
   getters: {
