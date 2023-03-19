@@ -13,7 +13,7 @@
 
 | 김현주 | 김동신 | 박정현 | 전병찬 |최원재|
 | :---: | :---: | :---: | :---: |  :---: |
-|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/1f6d51de3413176e44d5c641d6559cb3/김현주.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/836ebfa6bd537648164d6a7cac19e123/김똥신.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/c9a7d3e1295e94d5b76c1fd3ef272cd1/빡정현.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/5a444b6e1092dd7c275399ce12cae3f7/쩐병찬.jpg" width="120" height="120">|<img src="https://lab.ssafy.com/s07-bigdata-recom-sub2/S07P22B206/uploads/e62ac6a0fa0c592b8d9e6fcb824286f3/원재.jpg" width="120" height="120">|
+|<img src="./images/김현주.jpg" width="120" height="120">|<img src="./images/김동신.jpg" width="120" height="120">|<img src="./images/박정현.jpg" width="120" height="120">|<img src="./images/전병찬.jpg" width="120" height="120">|<img src="./images/최원재.jpg" width="120" height="120">|
 |팀장,<br/>프론트 구현,<br/>데이터분석서버설계|프론트 핵심 구현,<br/> UI 설계|DB 설계,<br/>데이터 크롤링,<br/>추천 알고리즘 설계|백엔드,<br/>DB 설계,<br/>REST API|백엔드,<br/>인프라,<br/>배포(CI/CD)|
 
 ### 🔔목표
@@ -91,7 +91,7 @@
 
 
 ### 🌫서비스 플로우
-![플로우차트](./uploads/7285235d121c7bf80c6d78e92b87aad1/플로우차트.png)
+![플로우차트](./images/플로우차트.png)
 ## 프로젝트 관리/운영 
 ### 디렉토리 구조
 |Spring Boot|Django|Vue|
@@ -106,7 +106,7 @@
 - **스프린트**
 <br/>
 ![지라](./images/지라.png)
-<br/>
+<br>
 <br/>
 
 - **번다운 차트**
